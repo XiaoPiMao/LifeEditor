@@ -160,6 +160,16 @@ INSERT INTO user_spec values ('curry' , '3333333' , 'Curry' , 'Stephen' , 'M' , 
 INSERT INTO user_spec values ('kevin' , '543f1321' , '陳' , '肥宅' , 'F' , '1992-08-09' , 'otaku@gmail.com' , '家' , '(02)2744-0876' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
 INSERT INTO user_spec values ('kai' , 'efnlla' , 'カシワ' , 'カイ' , 'M' , '1991-09-11' , 'justdoyouwant@gmail.com' , '北海道文京台' , null, 0 , 0 , null , SYSDATETIME() , 'false' , null);
 INSERT INTO user_spec values ('longbi' , '123f45' , '吴' , '小陆' , 'M' , '1999-09-09' , 'b0001@yahoo.com.tw' , '台北市' , '+8613711122233' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+insert into user_spec values ('akyo01','123456','Apple','Yang','F','1992-04-14','akyo01@gmail.com','台北市大安區復興南路120號','0988032290',0,0,NULL,getdate(),0,0)
+insert into user_spec values ('akyo02','123456','Banana','Yang','F','1992-04-14','akyo02@gmail.com','台北市大安區復興南路121號','0988032291',0,0,NULL,getdate(),0,0)
+insert into user_spec values ('akyo03','123456','Cat','Yang','F','1992-04-14','akyo03@gmail.com','台北市大安區復興南路122號','0988032292',0,0,NULL,getdate(),0,0)
+insert into user_spec values ('akyo04','123456','Dog','Yang','M','1992-04-14','akyo04@gmail.com','台北市大安區復興南路123號','0988032293',0,0,NULL,getdate(),0,0)
+insert into user_spec values ('akyo05','123456','Ezreal','Yang','M','1992-04-14','akyo05@gmail.com','台北市大安區復興南路124號','0988032294',0,0,NULL,getdate(),0,0)
+insert into user_spec values ('akyo06','123456','Fox','Yang','M','1992-04-14','akyo06@gmail.com','台北市大安區復興南路125號','0988032295',0,0,NULL,getdate(),0,0)
+insert into user_spec values ('akyo07','123456','Green','Yang','M','1992-04-14','akyo07@gmail.com','台北市大安區復興南路126號','0988032296',0,0,NULL,getdate(),0,0)
+insert into user_spec values ('akyo08','123456','Handsome','Yang','M','1992-04-14','akyo08@gmail.com','台北市大安區復興南路127號','0988032297',0,0,NULL,getdate(),0,0)
+insert into user_spec values ('akyo09','123456','Image','Yang','F','1992-04-14','akyo09@gmail.com','台北市大安區復興南路128號','0988032298',0,0,NULL,getdate(),0,0)
+insert into user_spec values ('akyo10','123456','Joker','Yang','M','1992-04-14','akyo10@gmail.com','台北市大安區復興南路129號','0988032299',0,0,NULL,getdate(),0,0)
 
 
 
