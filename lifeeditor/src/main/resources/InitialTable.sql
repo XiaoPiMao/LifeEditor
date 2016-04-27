@@ -31,7 +31,7 @@ DROP TABLE type_list;
 
  CREATE TABLE user_spec(
     userID int  identity PRIMARY KEY,
-	account varchar(30)  NOT NULL,
+	account varchar(30)  NOT NULL UNIQUE,
 	pswd varchar(30)  NOT NULL,
 	lastName nvarchar(30)  NOT NULL,
 	firstName nvarchar(30)  NOT NULL,
