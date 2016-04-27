@@ -2,8 +2,15 @@
 /.settings/
 /.classpath
 /.project
+<<<<<<< HEAD
+/life_editor/
+=======
+
 /LE01/
 /life_editor/
 /workspace_life_editor/
 /life_editor/
 /lifeeditor_workspace/
+
+>>>>>>> branch 'master' of https://github.com/eeit85groupone/testRemote.git
+/.gitignore
