@@ -71,7 +71,7 @@ CREATE TABLE message(
 );
 
 CREATE TABLE type_list(
-	typeID int IDENTITY PRIMARY KEY,
+	typeID int IDENTITY(0,1) PRIMARY KEY,
 	typeName nvarchar(50),
 	typePic varbinary(max)
 );
