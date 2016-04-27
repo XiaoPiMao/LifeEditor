@@ -160,6 +160,26 @@ INSERT INTO user_spec values ('curry' , '3333333' , 'Curry' , 'Stephen' , 'M' , 
 INSERT INTO user_spec values ('kevin' , '543f1321' , '陳' , '肥宅' , 'F' , '1992-08-09' , 'otaku@gmail.com' , '家' , '(02)2744-0876' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
 INSERT INTO user_spec values ('kai' , 'efnlla' , 'カシワ' , 'カイ' , 'M' , '1991-09-11' , 'justdoyouwant@gmail.com' , '北海道文京台' , null, 0 , 0 , null , SYSDATETIME() , 'false' , null);
 INSERT INTO user_spec values ('longbi' , '123f45' , '吴' , '小陆' , 'M' , '1999-09-09' , 'b0001@yahoo.com.tw' , '台北市' , '+8613711122233' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le02','222222','張','學友','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le03','333333','郭','負成','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le04','4444444','馬','英九','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le05','555555','陳','德華','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le06','6666666','林','大大','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le07','777777','吳','宗憲','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le08','888888','王','安安','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw')
 
 
 
