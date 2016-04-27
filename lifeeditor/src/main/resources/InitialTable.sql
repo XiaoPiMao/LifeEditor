@@ -160,6 +160,7 @@ INSERT INTO user_spec values ('curry' , '3333333' , 'Curry' , 'Stephen' , 'M' , 
 INSERT INTO user_spec values ('kevin' , '543f1321' , '陳' , '肥宅' , 'F' , '1992-08-09' , 'otaku@gmail.com' , '家' , '(02)2744-0876' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
 INSERT INTO user_spec values ('kai' , 'efnlla' , 'カシワ' , 'カイ' , 'M' , '1991-09-11' , 'justdoyouwant@gmail.com' , '北海道文京台' , null, 0 , 0 , null , SYSDATETIME() , 'false' , null);
 INSERT INTO user_spec values ('longbi' , '123f45' , '吴' , '小陆' , 'M' , '1999-09-09' , 'b0001@yahoo.com.tw' , '台北市' , '+8613711122233' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+
 insert into user_spec values ('akyo01','123456','Apple','Yang','F','1992-04-14','akyo01@gmail.com','台北市大安區復興南路120號','0988032290',0,0,NULL,getdate(),0,0)
 insert into user_spec values ('akyo02','123456','Banana','Yang','F','1992-04-14','akyo02@gmail.com','台北市大安區復興南路121號','0988032291',0,0,NULL,getdate(),0,0)
 insert into user_spec values ('akyo03','123456','Cat','Yang','F','1992-04-14','akyo03@gmail.com','台北市大安區復興南路122號','0988032292',0,0,NULL,getdate(),0,0)
@@ -194,6 +195,7 @@ values('happy','abcdefgh123','郝','快樂',0,'1985-8-9','happy@yahoo.com', '高
 
 
 
+
 insert into user_spec values 
 ('a89755','az334','james','lebron','M','1984-12-30','lbj87945@gmail.com','彰化縣芬園鄉大彰路五段51號','0956897855','3','10',null,'2016-4-25','true','0');
 insert into user_spec values 
@@ -212,6 +214,28 @@ insert into user_spec values
 ('cacvlen','dddada','志隆','權','M','1988-8-18','bbgd4878@gmail.com','台中市西屯區福聯街15巷18號','0978457894','99','20',null,'2016-1-15','true','0');
 insert into user_spec values 
 ('lelinch','awo546','勝鉉','崔','M','1987-11-4','bbtop9991@gmail.com','台中市西屯區西屯路三段168-10號','0975611003','7','18',null,'2016-3-7','true','0');
-insert into user_spec values 
 ('panlichen','wrfkauie','會僑','宋','F','1984-12-30','ajow1111@gmail.com','新北市板橋區龍興街99巷11號','0900333477','18','21',null,'2016-4-7','true','0');
+
+
+('panlichen','wrfkauie','會僑','宋','F','1984-12-30','ajow11@gmail.com','新北市板橋區龍興街99巷11號','0900333477','18','21',null,'2016-4-7','true','0');
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le02','222222','張','學友','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le03','333333','郭','負成','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le04','4444444','馬','英九','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le05','555555','陳','德華','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le06','6666666','林','大大','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le07','777777','吳','宗憲','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le08','888888','王','安安','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
+values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw')
 
