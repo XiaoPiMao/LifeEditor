@@ -213,5 +213,5 @@ insert into user_spec values
 insert into user_spec values 
 ('lelinch','awo546','勝鉉','崔','M','1987-11-4','bbtop9991@gmail.com','台中市西屯區西屯路三段168-10號','0975611003','7','18',null,'2016-3-7','true','0');
 insert into user_spec values 
-('panlichen','wrfkauie','會僑','宋','F','1984-12-30','ajow11@gmail.com','新北市板橋區龍興街99巷11號','0900333477','18','21',null,'2016-4-7','true','0');
+('panlichen','wrfkauie','會僑','宋','F','1984-12-30','ajow1111@gmail.com','新北市板橋區龍興街99巷11號','0900333477','18','21',null,'2016-4-7','true','0');
 
