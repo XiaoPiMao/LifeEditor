@@ -158,8 +158,11 @@ INSERT INTO user_spec values ('batman' , '54321' , '蝙' , '蝠俠' , 'F' , '192
 INSERT INTO user_spec values ('superman' , '123faefe5' , '超' , '人' , 'M' , '1966-06-06' , 'superman@gmail.com' , '電話亭' , '+886944255888' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
 INSERT INTO user_spec values ('curry' , '3333333' , 'Curry' , 'Stephen' , 'M' , '1988-3-14' , 'curry@gmail.com.tw' , '美國' , '347-555-5555' , 0 , 0 , null , '2015-6-12' , 'true' , null);
 INSERT INTO user_spec values ('kevin' , '543f1321' , '陳' , '肥宅' , 'F' , '1992-08-09' , 'otaku@gmail.com' , '家' , '(02)2744-0876' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
-INSERT INTO user_spec values ('kai' , 'efnlla' , 'カシワ' , 'カイ' , 'M' , '1991-09-11' , 'justdoyouwant@gmail.com' , '北海道文京台' , null, 0 , 0 , null , SYSDATETIME() , 'false' , null);
-INSERT INTO user_spec values ('longbi' , '123f45' , '吴' , '小陆' , 'M' , '1999-09-09' , 'b0001@yahoo.com.tw' , '台北市' , '+8613711122233' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+INSERT INTO user_spec values ('kai' , 'efnlla' , N'カシワ' , N'カイ' , 'M' , '1991-09-11' , 'justdoyouwant@gmail.com' , '北海道文京台' , null, 0 , 0 , null , SYSDATETIME() , 'false' , null);
+INSERT INTO user_spec values ('longbi' , '123f45' , N'吴' , N'小陆' , 'M' , '1999-09-09' , 'b0001@yahoo.com.tw' , '台北市' , '+8613711122233' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+INSERT INTO user_spec values ('hello' , '12345' , 'World' , 'Hello' , 'M' , '2008-07-09' , 'hello@yahoo.com.tw' ,null, null , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+INSERT INTO user_spec values ('null' , '54321' , 'null' , 'null' , 'F' , '1888-07-22' , 'null@null.com' , null , null , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+INSERT INTO user_spec values ('spider' , '123faefeafe5' , '蜘' , '蛛人' , 'M' , '1966-06-26' , 'spiderman@gmail.com' , null , null , 0 , 0 , null , '2008-04-09' , 'false' , 1);
 
 insert into user_spec values ('akyo01','123456','Yang','Apple','F','1992-04-14','akyo01@gmail.com','台北市大安區復興南路120號','0988032290',0,0,NULL,getdate(),0,0)
 insert into user_spec values ('akyo02','123456','Yang','Banana','F','1992-04-14','akyo02@gmail.com','台北市大安區復興南路121號','0988032291',0,0,NULL,getdate(),0,0)
@@ -267,6 +270,15 @@ insert into user_spec (account, pswd, lastName, firstName, gender, email, regTim
 insert into user_spec (account, pswd, lastName, firstName, gender, email, regTime) values( 'Jean Kirschstein', '8350407', '約翰', '基爾休坦', 'M', 'gor38702@laoeq.com', '2016-04-27 11:41:30');
 insert into user_spec (account, pswd, lastName, firstName, gender, email, regTime) values( 'Marco Bott', '8340616', '馬可', '波特', 'M', 'vtg69407@laoeq.com', '2016-04-27 11:41:30');
 
+
+INSERT INTO type_list values(N'自訂',null);
+INSERT INTO type_list values(N'理財',null);
+INSERT INTO type_list values(N'藝術',null);
+INSERT INTO type_list values(N'運動',null);
+INSERT INTO type_list values(N'教育',null);
+INSERT INTO type_list values(N'旅遊',null);
+INSERT INTO type_list values(N'娛樂',null);
+INSERT INTO type_list values(N'人生',null);
 
 
 
