@@ -236,3 +236,16 @@ insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
 values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw')
 insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
 values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw')
+
+
+
+  INSERT INTO user_spec values ('seed01' , '12345' , '羅'  , '百吉' ,'F', '1999-09-02' , 'handsome10@yahoo.com.tw' , '紐約市' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+  INSERT INTO user_spec values ('seed02' , '12345' , '劉' , '德華' , 'M' , '1999-09-03' , 'handsome15@yahoo.com.tw' , '紐約市' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'false' ,0);
+  INSERT INTO user_spec values ('seed07' , '12345' , '許' , '不了' , 'M' , '1999-01-09' , 'handsome16@yahoo.com.tw' , '溫哥華' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+  INSERT INTO user_spec values ('seed099','12345' , '林' , '林琳' , 'M' , '1999-08-09' , 'handsome99@yahoo.com.tw' , '垃圾場' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+  INSERT INTO user_spec values ('seed31' , '12345' , '廖' , '事如神' , 'M' , '1999-09-09' , 'handsome81@yahoo.com.tw' , '台中市' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'true' , 0);
+  INSERT INTO user_spec values ('seed39' , '12345' , '郭' , '如意' , 'M' , '1995-09-09' , 'handsome87@yahoo.com.tw' , '台中市' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+  INSERT INTO user_spec values ('seed50' , '12345' , '張' , '大眼睛' , 'M' , '1999-08-09' , 'handsome44@yahoo.com.tw' , '台中市' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
+  INSERT INTO user_spec values ('seed23' , '12345' , '歐陽' , '萎' , 'M' , '1995-09-01' , 'handsome44f@yahoo.com.tw' , '垃圾場' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'true' , null);
+  INSERT INTO user_spec values ('seed25' , '12345' , '蕭' , '鉛筆' , 'M' , '1999-09-03' , 'handsome44fs@yahoo.com.tw' , '垃圾場' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'false' , 0);
+  INSERT INTO user_spec values ('seed29' , '12345' , '任' , '性的人' , 'M' , '1999-09-06' , 'handsome8@yahoo.com.tw' , '威靈頓' , '0919555555' , 0 , 0 , null , SYSDATETIME() , 'false' , 0);
