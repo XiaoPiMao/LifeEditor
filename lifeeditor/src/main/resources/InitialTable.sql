@@ -1,17 +1,3 @@
-﻿CREATE DATABASE LE01 
-ON
-( NAME = LifeEditor,
-  FILENAME = 'D:\LifeEditorDB\LifeEditor.MDF',
-  SIZE = 10MB,
-  MAXSIZE = 100MB,
-  FILEGROWTH = 5)
-
-LOG ON 
-( NAME = LifeEditorLog,
-  FILENAME = 'D:\LifeEditorDB\LifeEditorLog.LDF',
-  SIZE = 5MB,
-  MAXSIZE = 20MB,
-  FILEGROWTH = 2);
 
 USE LE01;
 
@@ -222,26 +208,26 @@ insert into user_spec values
 
 
 
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le02','222222','張','學友','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le03','333333','郭','負成','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le04','4444444','馬','英九','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le05','555555','陳','德華','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le06','6666666','林','大大','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le07','777777','吳','宗憲','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le08','888888','王','安安','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw')
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le02','222222','張','學友','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le03','333333','郭','負成','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le04','4444444','馬','英九','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le05','555555','陳','德華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le06','6666666','林','大大','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le07','777777','吳','宗憲','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le08','888888','王','安安','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
 
 
 
