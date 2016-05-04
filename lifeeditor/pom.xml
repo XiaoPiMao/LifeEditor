@@ -5,7 +5,7 @@
 	<artifactId>lifeeditor</artifactId>
 	<packaging>war</packaging>
 	<version>1.0</version>
-	<name>lifeeditor Maven Webapp</name>
+	<name>lifeeditor</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
@@ -27,7 +27,7 @@
 		</dependency>
 	</dependencies>
 	<build>
-		<finalName>maven-lifeeditor-webapp</finalName>
+		<finalName>lifeeditor</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
