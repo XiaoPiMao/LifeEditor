@@ -303,5 +303,23 @@ INSERT INTO sec_list values(4,'學術研究',null);
 INSERT INTO sec_list values(4,'考試認證',null);
 INSERT INTO sec_list values(4,'其他',null);
 
+insert into sec_list(typeID,secName) values(4,'跑步')
+insert into sec_list(typeID,secName) values(4,'游泳')
+insert into sec_list(typeID,secName)values(4,'爬山')
+insert into sec_list(typeID,secName) values(4,'健身')
+insert into sec_list(typeID,secName) values(4,'腳踏車')
+insert into sec_list(typeID,secName) values(4,'棒球')
+insert into sec_list(typeID,secName) values(4,'壘球')
+insert into sec_list(typeID,secName) values(4,'籃球')
+insert into sec_list(typeID,secName) values(4,'撞球')
+insert into sec_list(typeID,secName) values(4,'排球')
+insert into sec_list(typeID,secName) values(4,'桌球')
+insert into sec_list(typeID,secName) values(4,'足球')
+insert into sec_list(typeID,secName) values(4,'網球')
+insert into sec_list(typeID,secName) values(4,'橄欖球')
+insert into sec_list(typeID,secName) values(4,'保齡球')
+insert into sec_list(typeID,secName) values(4,'羽毛球')
+insert into sec_list(typeID,secName) values(4,'高爾夫球')
+
 
 
