@@ -267,4 +267,16 @@ INSERT INTO type_list values(N'娛樂',null);
 INSERT INTO type_list values(N'人生',null);
 
 
+INSERT INTO sec_list values(4,'品德操守',null);
+INSERT INTO sec_list values(4,'知識傳授',null);
+INSERT INTO sec_list values(4,'學校課業',null);
+INSERT INTO sec_list values(4,'閱讀計畫',null);
+INSERT INTO sec_list values(4,'才藝技能',null);
+INSERT INTO sec_list values(4,'進修充實',null);
+INSERT INTO sec_list values(4,'語言學習',null);
+INSERT INTO sec_list values(4,'數位學習',null);
+INSERT INTO sec_list values(4,'學術研究',null);
+INSERT INTO sec_list values(4,'考試認證',null);
+INSERT INTO sec_list values(4,'其他',null);
+
 
