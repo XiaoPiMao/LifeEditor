@@ -1,17 +1,3 @@
-﻿CREATE DATABASE LE01 
-ON
-( NAME = LifeEditor,
-  FILENAME = 'D:\LifeEditorDB\LifeEditor.MDF',
-  SIZE = 10MB,
-  MAXSIZE = 100MB,
-  FILEGROWTH = 5)
-
-LOG ON 
-( NAME = LifeEditorLog,
-  FILENAME = 'D:\LifeEditorDB\LifeEditorLog.LDF',
-  SIZE = 5MB,
-  MAXSIZE = 20MB,
-  FILEGROWTH = 2);
 
 USE LE01;
 
@@ -31,7 +17,7 @@ DROP TABLE type_list;
 
  CREATE TABLE user_spec(
     userID int  identity PRIMARY KEY,
-	account varchar(30)  NOT NULL,
+	account varchar(30)  NOT NULL UNIQUE,
 	pswd varchar(30)  NOT NULL,
 	lastName nvarchar(30)  NOT NULL,
 	firstName nvarchar(30)  NOT NULL,
@@ -71,7 +57,7 @@ CREATE TABLE message(
 );
 
 CREATE TABLE type_list(
-	typeID int IDENTITY PRIMARY KEY,
+	typeID int IDENTITY(0,1) PRIMARY KEY,
 	typeName nvarchar(50),
 	typePic varbinary(max)
 );
@@ -222,6 +208,7 @@ insert into user_spec values
 
 
 
+<<<<<<< HEAD
 insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
 values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw')
 insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
@@ -242,6 +229,28 @@ insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
 values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw')
 insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
 values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw')
+=======
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le02','222222','張','學友','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le03','333333','郭','負成','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le04','4444444','馬','英九','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le05','555555','陳','德華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le06','6666666','林','大大','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le07','777777','吳','宗憲','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le08','888888','王','安安','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
+values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
+>>>>>>> branch 'master' of https://github.com/eeit85groupone/testRemote.git
 
 
 
@@ -279,6 +288,20 @@ INSERT INTO type_list values(N'教育',null);
 INSERT INTO type_list values(N'旅遊',null);
 INSERT INTO type_list values(N'娛樂',null);
 INSERT INTO type_list values(N'人生',null);
+
+
+
+INSERT INTO sec_list values(4,'品德操守',null);
+INSERT INTO sec_list values(4,'知識傳授',null);
+INSERT INTO sec_list values(4,'學校課業',null);
+INSERT INTO sec_list values(4,'閱讀計畫',null);
+INSERT INTO sec_list values(4,'才藝技能',null);
+INSERT INTO sec_list values(4,'進修充實',null);
+INSERT INTO sec_list values(4,'語言學習',null);
+INSERT INTO sec_list values(4,'數位學習',null);
+INSERT INTO sec_list values(4,'學術研究',null);
+INSERT INTO sec_list values(4,'考試認證',null);
+INSERT INTO sec_list values(4,'其他',null);
 
 
 
