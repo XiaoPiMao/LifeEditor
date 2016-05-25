@@ -1,4 +1,4 @@
-package java.com.lifeeditor.user_spec.model;
+package com.lifeeditor.user_spec.model;
 
 import java.sql.Blob;
 import java.sql.Timestamp;

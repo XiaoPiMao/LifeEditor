@@ -19,7 +19,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
         <property name="dataSource" ref="dataSource"/> 
         <property name="mappingResources"> 
             <list> 
-                <value>com/silver/user_spec/model/user_spec.hbm.xml</value>                  
+                <value>java/com/lifeeditor/user_spec/model/user_spec.hbm.xml</value>                  
             </list> 
         </property> 
         <property name="hibernateProperties"> 
@@ -37,7 +37,7 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
         <property name="sessionFactory" ref="sessionFactory"/> 
     </bean>    
          
-    <bean id="user_specDAO" class="com.silver.user_spec.model.user_specDAO">
+    <bean id="user_specDAO" class="java.com.lifeeditor.user_spec.model.user_specDAO">
         <property name="hibernateTemplate" ref="hibernateTemplate"/> 
     </bean>   
 
