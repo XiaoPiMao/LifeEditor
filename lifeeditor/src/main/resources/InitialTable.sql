@@ -208,7 +208,6 @@ insert into user_spec values
 
 
 
-<<<<<<< HEAD
 insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
 values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw')
 insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
@@ -229,7 +228,7 @@ insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
 values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw')
 insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
 values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw')
-=======
+
 insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
 values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
 insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
@@ -250,7 +249,7 @@ insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,reg
 values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
 insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
 values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
->>>>>>> branch 'master' of https://github.com/eeit85groupone/testRemote.git
+
 
 
 
@@ -320,6 +319,8 @@ insert into sec_list(typeID,secName) values(4,'橄欖球')
 insert into sec_list(typeID,secName) values(4,'保齡球')
 insert into sec_list(typeID,secName) values(4,'羽毛球')
 insert into sec_list(typeID,secName) values(4,'高爾夫球')
+
+
 
 
 
