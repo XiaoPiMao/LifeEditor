@@ -322,4 +322,32 @@ insert into sec_list(typeID,secName) values(4,'羽毛球')
 insert into sec_list(typeID,secName) values(4,'高爾夫球')
 
 
+INSERT INTO achievement values(N'環台馬拉松','用跑的繞跑台灣一圈，你真是體能達人!!!',null);
+INSERT INTO achievement values(N'完成專案','恭喜完成專案，取得結業證書!',null);
+INSERT INTO achievement values(N'網路紅人','您的人氣真不錯!',null);
+INSERT INTO achievement values(N'微軟盃駭客大賽','恭喜您，您已經是1%的頂尖駭客。',null);
+INSERT INTO achievement values(N'登山達人','您的登山技巧已足以獲得登山達人的稱號。',null);
+
+INSERT INTO sec_list values(1,'存錢',null);
+INSERT INTO sec_list values(2,'自畫像',null);
+INSERT INTO sec_list values(3,'跑步',null);
+INSERT INTO sec_list values(4,'考試',null);
+INSERT INTO sec_list values(5,'參觀博物觀',null);
+INSERT INTO sec_list values(3,'走路',null);
+INSERT INTO sec_list values(4,'競賽',null);
+
+
+INSERT INTO target values('買帝寶', 1, 2, 5, '為了給妻子、父母跟子女一個好的的生活環境，我拼了命的賺錢，目的就是想要買到這棟夢寐以求的豪宅。加油! 再努力一點，我的努力就要達成了',
+0,95,null,2,100, 3, 3, 2, '2006-01-01', '2025-12-31', null);
+
+INSERT INTO target values('用走路環島', 3, 2, 3, '活了一把年紀，連高雄都沒去過!我決定在走不動之前，用這雙腳，繞台灣一圈!!!',
+0,99,null,0, 1, 3, 1, 1, '2016-05-21', '2016-06-01', null);
+
+INSERT INTO target values('數學考90分', 4, 4, 3, '我的數學一直都還算不錯，媽媽說這次考90分以上，要帶我去吃老四川麻辣鍋。太好了，我得好好加油!!',
+0,2,null,1, 3, 3, 1, 1, '2016-05-23', '2016-05-30', null);
+
+INSERT INTO target values('參加微軟盃駭客大賽取得優勝', 4, 4, 5, '參加微軟盃駭客大賽，於活動角逐中順利取得高分者，即可取得本項成就，成為微軟官方認證的駭客!',
+null,null,4, 1, null, 1, null, 1, '2016-05-23', '2016-05-30', null);
+
+
 
