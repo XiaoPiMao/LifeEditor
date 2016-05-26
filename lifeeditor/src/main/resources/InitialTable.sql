@@ -16,7 +16,7 @@ DROP TABLE sec_list;
 DROP TABLE type_list;
 
  CREATE TABLE user_spec(
-    userID int  identity PRIMARY KEY,
+        userID int  identity PRIMARY KEY,
 	account varchar(30)  NOT NULL UNIQUE,
 	pswd varchar(30)  NOT NULL,
 	lastName nvarchar(30)  NOT NULL,
@@ -136,7 +136,7 @@ CREATE TABLE target_spec(
 	userID int FOREIGN KEY REFERENCES user_spec(userID),
 	targetID int FOREIGN KEY REFERENCES target(targetID),
 	trgNote nvarchar(max),
-	trgPic varbinary(max),
+	trgPicPath varchar(60),
 );
 
 INSERT INTO user_spec values ('b0001' , '12345' , '王' , '小明' , 'M' , '1999-09-09' , 'b0001@yahoo.com.tw' , '台北市' , '0919255444' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
@@ -207,29 +207,6 @@ insert into user_spec values
 ('panlichen','wrfkauie','會僑','宋','F','1984-12-30','ajow1111@gmail.com','新北市板橋區龍興街99巷11號','0900333477','18','21',null,'2016-4-7','true','0');
 
 
-
-<<<<<<< HEAD
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le02','222222','張','學友','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le03','333333','郭','負成','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le04','4444444','馬','英九','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le05','555555','陳','德華','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le06','6666666','林','大大','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le07','777777','吳','宗憲','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le08','888888','王','安安','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw')
-insert into user_spec(account,pswd,lastName,firstName,gender,birthday,email)
-values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw')
-=======
 insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
 values('le01','123456','劉','德華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
 insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
@@ -250,7 +227,7 @@ insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,reg
 values('le09','999999','業','華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
 insert into user_spec(account,pswd,lastName,firstName,gender,birthdate,email,regTime)
 values('le10','101010','劉','華華','S','1990-05-15','yu20111@yahoo.com.tw',GETDATE())
->>>>>>> branch 'master' of https://github.com/eeit85groupone/testRemote.git
+
 
 
 
@@ -291,6 +268,16 @@ INSERT INTO type_list values(N'人生',null);
 
 
 
+DECLARE @max int = (SELECT max(typeID) FROM type_list) ,@i int = 0;
+WHILE(@i <= @max)
+BEGIN
+	INSERT INTO sec_list VALUES(@i,N'其他',null);
+	SET @i += 1;
+END
+
+
+
+
 INSERT INTO sec_list values(4,'品德操守',null);
 INSERT INTO sec_list values(4,'知識傳授',null);
 INSERT INTO sec_list values(4,'學校課業',null);
@@ -301,25 +288,53 @@ INSERT INTO sec_list values(4,'語言學習',null);
 INSERT INTO sec_list values(4,'數位學習',null);
 INSERT INTO sec_list values(4,'學術研究',null);
 INSERT INTO sec_list values(4,'考試認證',null);
-INSERT INTO sec_list values(4,'其他',null);
 
-insert into sec_list(typeID,secName) values(4,'跑步')
-insert into sec_list(typeID,secName) values(4,'游泳')
-insert into sec_list(typeID,secName)values(4,'爬山')
-insert into sec_list(typeID,secName) values(4,'健身')
-insert into sec_list(typeID,secName) values(4,'腳踏車')
-insert into sec_list(typeID,secName) values(4,'棒球')
-insert into sec_list(typeID,secName) values(4,'壘球')
-insert into sec_list(typeID,secName) values(4,'籃球')
-insert into sec_list(typeID,secName) values(4,'撞球')
-insert into sec_list(typeID,secName) values(4,'排球')
-insert into sec_list(typeID,secName) values(4,'桌球')
-insert into sec_list(typeID,secName) values(4,'足球')
-insert into sec_list(typeID,secName) values(4,'網球')
-insert into sec_list(typeID,secName) values(4,'橄欖球')
-insert into sec_list(typeID,secName) values(4,'保齡球')
-insert into sec_list(typeID,secName) values(4,'羽毛球')
-insert into sec_list(typeID,secName) values(4,'高爾夫球')
+
+insert into sec_list(typeID,secName) values(3,'跑步')
+insert into sec_list(typeID,secName) values(3,'游泳')
+insert into sec_list(typeID,secName) values(3,'爬山')
+insert into sec_list(typeID,secName) values(3,'健身')
+insert into sec_list(typeID,secName) values(3,'腳踏車')
+insert into sec_list(typeID,secName) values(3,'棒球')
+insert into sec_list(typeID,secName) values(3,'壘球')
+insert into sec_list(typeID,secName) values(3,'籃球')
+insert into sec_list(typeID,secName) values(3,'撞球')
+insert into sec_list(typeID,secName) values(3,'排球')
+insert into sec_list(typeID,secName) values(3,'桌球')
+insert into sec_list(typeID,secName) values(3,'足球')
+insert into sec_list(typeID,secName) values(3,'網球')
+insert into sec_list(typeID,secName) values(3,'橄欖球')
+insert into sec_list(typeID,secName) values(3,'保齡球')
+insert into sec_list(typeID,secName) values(3,'羽毛球')
+insert into sec_list(typeID,secName) values(3,'高爾夫球')
+
+DECLARE @typeID int =  (SELECT typeID FROM type_list WHERE typeName = '旅遊');
+
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'日本');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'韓國');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'中國');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'港澳');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'美國');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'英國');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'法國');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'德國');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'義大利');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'土耳其');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'西班牙');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'泰國');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'新加坡');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'馬來西亞');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'峇里島');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'澳洲');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'紐西蘭');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'巴西');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'智利');
+INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'埃及');
+
+
+
+
+
 
 
 INSERT INTO achievement values(N'環台馬拉松','用跑的繞跑台灣一圈，你真是體能達人!!!',null);
@@ -337,17 +352,16 @@ INSERT INTO sec_list values(3,'走路',null);
 INSERT INTO sec_list values(4,'競賽',null);
 
 
-INSERT INTO target values('買帝寶', 1, 2, 5, '為了給妻子、父母跟子女一個好的的生活環境，我拼了命的賺錢，目的就是想要買到這棟夢寐以求的豪宅。加油! 再努力一點，我的努力就要達成了',
+INSERT INTO target values('買帝寶', 1, (select secID from sec_list where secName='存錢'), 5, '為了給妻子、父母跟子女一個好的的生活環境，我拼了命的賺錢，目的就是想要買到這棟夢寐以求的豪宅。加油! 再努力一點，我的努力就要達成了',
 0,95,null,2,100, 3, 3, 2, '2006-01-01', '2025-12-31', null);
 
-INSERT INTO target values('用走路環島', 3, 2, 3, '活了一把年紀，連高雄都沒去過!我決定在走不動之前，用這雙腳，繞台灣一圈!!!',
+INSERT INTO target values('用走路環島', 3, (select secID from sec_list where secName='走路'), 3, '活了一把年紀，連高雄都沒去過!我決定在走不動之前，用這雙腳，繞台灣一圈!!!',
 0,99,null,0, 1, 3, 1, 1, '2016-05-21', '2016-06-01', null);
 
-INSERT INTO target values('數學考90分', 4, 4, 3, '我的數學一直都還算不錯，媽媽說這次考90分以上，要帶我去吃老四川麻辣鍋。太好了，我得好好加油!!',
+INSERT INTO target values('數學考90分', 4, (select secID from sec_list where secName='考試'), 3, '我的數學一直都還算不錯，媽媽說這次考90分以上，要帶我去吃老四川麻辣鍋。太好了，我得好好加油!!',
 0,2,null,1, 3, 3, 1, 1, '2016-05-23', '2016-05-30', null);
 
-INSERT INTO target values('參加微軟盃駭客大賽取得優勝', 4, 4, 5, '參加微軟盃駭客大賽，於活動角逐中順利取得高分者，即可取得本項成就，成為微軟官方認證的駭客!',
+INSERT INTO target values('參加微軟盃駭客大賽取得優勝', 4, (select secID from sec_list where secName='競賽'), 5, '參加微軟盃駭客大賽，於活動角逐中順利取得高分者，即可取得本項成就，成為微軟官方認證的駭客!',
 null,null,4, 1, null, 1, null, 1, '2016-05-23', '2016-05-30', null);
-
 
 
