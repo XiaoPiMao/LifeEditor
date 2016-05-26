@@ -372,3 +372,17 @@ INSERT INTO target values('參加微軟盃駭客大賽取得優勝', 4, (select 
 null,null,4, 1, null, 1, null, 1, '2016-05-23', '2016-05-30', null);
 
 
+--level初始質為1 genkiBarTol初始質為0
+UPDATE user_spec SET hotMan = 0;
+UPDATE user_spec SET level = 1 WHERE level is null or level = 0;
+UPDATE user_spec SET genkiBarTol=0 WHERE genkiBarTol is null;
+GO
+--更正姓氏和名字反了
+DECLARE @firstname nvarchar(20),@lastname nvarchar(20),@i int=31;
+WHILE(@i <= 40 )
+BEGIN
+		SET @firstname = (SELECT firstname FROM user_spec WHERE userID = @i);
+		SET @lastname = (SELECT lastname FROM user_spec WHERE userID = @i);
+		UPDATE user_spec SET lastName  = @firstname, firstName = @lastname WHERE userID = @i;
+		SET @i += 1;
+END
