@@ -19,7 +19,8 @@ public class user_specService {
 
 	public user_specVO addUser(String account, String pswd, String lastName,String firstName,
 			String gender,java.sql.Date birthdate,String email,	String address,String phone, 
-			Blob picture) {
+			Blob picture)
+	{
 		
 		user_specVO user_specVO = new user_specVO();
 		
