@@ -365,9 +365,3 @@ INSERT INTO target values('參加微軟盃駭客大賽取得優勝', 4, (select 
 null,null,4, 1, null, 1, null, 1, '2016-05-23', '2016-05-30', null);
 
 
-
-
-
-
-
-
