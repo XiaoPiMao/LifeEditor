@@ -33,12 +33,9 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
-		<header class="main-header">
-			<jsp:include page="template/header.jsp"></jsp:include>
-		</header>
-		<aside class="main-sidebar">
-			<jsp:include page="template/aside.jsp"></jsp:include>
-		</aside>
+		
+		<jsp:include page="template/template.jsp" />
+		
 		<div class="content-wrapper">
 			<section class="content-header">
 				<h1>
