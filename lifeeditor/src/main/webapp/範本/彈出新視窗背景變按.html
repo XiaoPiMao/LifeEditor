@@ -1,0 +1,84 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+
+<style>
+     
+    *{
+        margin: 0;
+    }
+    .newPage *
+    {
+        margin-top:10px;
+    }
+    .newPageButt {
+        position : absolute;
+        width : 50px;
+        left: calc(50% - 25px);
+        bottom:20px;
+    }
+    .newPage {
+        position : fixed;
+        width : 500px;
+        height: 500px;
+        left : calc(50vw - 250px);    
+        top : calc(50vh - 250px);
+        z-index:101;
+        background-color:white;
+        border-radius : 20px;
+        text-align : center;
+        padding : 10px;
+    }
+    .overPage {
+        position : fixed;
+        width : 100vw;
+        height : 100vh;
+        left : 0px;
+        top : 0px;
+        background-color:gray;
+        opacity:0.6;
+    }
+
+
+   
+
+</style>
+
+<script>
+    onload = function () {
+        butt = document.querySelector("button");
+        butt.onclick = function () {
+            var newPage = document.createElement("div");
+            newPage.setAttribute("class", "newPage");
+            newPage.innerHTML = 
+                "<h1>Hello</h1>" +
+                "帳號：<input type='text' /><br />" +
+                "<button class='newPageButt'>關閉</button>";
+          
+            var overPage = document.createElement("div");
+            overPage.setAttribute("class", "overPage");
+            document.body.appendChild(newPage);
+            document.body.appendChild(overPage);
+        }
+    }
+    document.onclick = function(nsevent) {
+        var e = nsevent ? nsevent : event;
+        if (e.target.className == 'newPageButt') {
+            document.body.removeChild(document.body.lastChild);
+            document.body.removeChild(document.body.lastChild);
+        }
+
+    }
+
+</script>
+</head>
+
+<body>
+    <button>lightbox</button> <br />
+    <img height="500" src="Jellyfish.jpg">
+    
+
+</body>
+</html>
