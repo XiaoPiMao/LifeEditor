@@ -33,7 +33,7 @@ public class user_specService {
 		user_specVO.setAddress(address);
 		user_specVO.setPhone(phone);
 		user_specVO.setGenkiBarTol(0);
-		user_specVO.setLevel(0);
+		user_specVO.setLevel(1);
 		user_specVO.setPicture(picture);
 		user_specVO.setRegTime(new Timestamp(System.currentTimeMillis()));
 		user_specVO.setHotMan(0);
