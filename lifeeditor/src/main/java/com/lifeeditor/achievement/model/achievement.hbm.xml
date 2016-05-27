@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.lifeeditor.achievement.model.AchievementVO" table="achievement" >
+        
+        <id name="achID" column="achID">
+            <generator class="identity"/>
+        </id>
+        
+        <property name="achName" column="achName" />
+        <property name="achDesc" column="achDesc" />
+        <property name="rewardPic" column="rewardPic" />
+        
+    </class>
+</hibernate-mapping>
+
