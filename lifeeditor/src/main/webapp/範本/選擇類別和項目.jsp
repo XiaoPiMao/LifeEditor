@@ -50,14 +50,13 @@ function optSec() {
 
 }
 
-
-
 function addOpt(value,text) {
     var opt = document.createElement("option");
     opt.value = value;
     opt.innerText = text;
     selects[1].appendChild(opt);
 }
+
 </script>
 </head>
 <body>
