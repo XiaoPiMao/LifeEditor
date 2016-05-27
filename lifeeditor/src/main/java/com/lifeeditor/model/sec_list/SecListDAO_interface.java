@@ -1,4 +1,4 @@
-package com.lifeeditor.sec_list.model;
+package com.lifeeditor.model.sec_list;
 
 import java.util.List;
 

@@ -2,7 +2,7 @@ package com.lifeeditor.service;
 
 import java.util.List;
 
-import com.lifeeditor.sec_list.model.*;
+import com.lifeeditor.model.sec_list.*;
 
 public class SecListService {
 	private SecListDAO_interface dao = null;
