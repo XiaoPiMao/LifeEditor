@@ -1,4 +1,4 @@
-package com.lifeeditor.type_list.model;
+package com.lifeeditor.model.type_list;
 
 import java.sql.Blob;
 

@@ -2,7 +2,7 @@ package com.lifeeditor.service;
 
 import java.util.List;
 
-import com.lifeeditor.type_list.model.*;
+import com.lifeeditor.model.type_list.*;
 
 public class TypeListService {
 	private TypeListDAO_interface dao = null;
