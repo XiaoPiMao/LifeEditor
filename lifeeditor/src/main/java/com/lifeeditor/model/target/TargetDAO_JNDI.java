@@ -1,4 +1,4 @@
-package com.lifeeditor.target.model;
+package com.lifeeditor.model.target;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,7 +12,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.lifeeditor.achievement.model.AchievementHibernateDAO;
+import com.lifeeditor.model.achievement.AchievementHibernateDAO;
 import com.lifeeditor.utility.GlobalValues;
 
 

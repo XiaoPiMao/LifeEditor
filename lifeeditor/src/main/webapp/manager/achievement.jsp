@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <jsp:useBean id="targets"
-	class="com.lifeeditor.target.model.TargetDAO_JNDI" />
+	class="com.lifeeditor.model.target.TargetDAO_JNDI" />
 
 
 <!DOCTYPE html>
@@ -61,7 +61,7 @@
 									<input type="submit" value="查詢">
 								</form> <br /></td>
 							<td><jsp:useBean id="AchmtSvc" scope="page"
-									class="com.lifeeditor.achievement.model.AchievementService" />
+									class="com.lifeeditor.model.achievement.AchievementService" />
 
 								<form method="post" action="achievement.do">
 									<b>獎項名稱: </b> <select size="1" name="achievement"
