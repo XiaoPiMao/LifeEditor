@@ -1,8 +1,8 @@
-package com.lifeeditor.achievement.model;
+package com.lifeeditor.model.achievement;
 
 import java.util.List;
 
-import com.lifeeditor.achievement.model.AchievementVO;
+import com.lifeeditor.model.achievement.AchievementVO;
 
 public interface AchievementDAO_interface {
 

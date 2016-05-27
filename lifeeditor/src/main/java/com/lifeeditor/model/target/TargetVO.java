@@ -1,4 +1,4 @@
-package com.lifeeditor.target.model;
+package com.lifeeditor.model.target;
 
 import java.sql.Date;
 

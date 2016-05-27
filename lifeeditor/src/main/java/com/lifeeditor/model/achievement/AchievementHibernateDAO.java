@@ -1,4 +1,4 @@
-package com.lifeeditor.achievement.model;
+package com.lifeeditor.model.achievement;
 
 import java.sql.Blob;
 import java.util.*;

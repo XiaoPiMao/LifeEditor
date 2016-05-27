@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.lifeeditor.achievement.model.AchievementVO" table="achievement" >
+    <class name="com.lifeeditor.model.achievement.AchievementVO" table="achievement" >
         
         <id name="achID" column="achID">
             <generator class="identity"/>
