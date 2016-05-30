@@ -89,6 +89,7 @@ public class user_specService {
 	public List<user_specVO> getAllByHotMan() {
 		return dao.getAllByHotMan();
 	}
+
 	public void updateHotMan(Integer hotMan,Integer userID){
 		user_specVO user =dao.findByPrimaryKey(userID);
 		 user.setHotMan(hotMan);
