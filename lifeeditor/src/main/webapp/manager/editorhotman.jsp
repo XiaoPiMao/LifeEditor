@@ -9,13 +9,13 @@
 <title>編輯熱門人物</title>
 <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="js/jquery-1.12.4.min.js"></script>
-<script src="js/jquery.dataTables.min.js"></script>
+<script src="${ctx}/manager/js/jquery-1.12.4.min.js"></script>
+<script src="${ctx}/manager/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
 	$('.selHotMan').change(function(e) {
 // 			alert(1);
-		    $.post("EditorHotMan",{
+		    $.post("${ctx}/EditorHotMan",{
 				 hotMan: $(this).val(),
 				 id : this.id
 			 });
