@@ -61,10 +61,10 @@
 									<input type="submit" value="查詢">
 								</form> <br /></td>
 							<td><jsp:useBean id="AchmtSvc" scope="page"
-									class="com.lifeeditor.model.achievement.AchievementService" />
+									class="com.lifeeditor.service.AchievementService" />
 
 								<form method="post" action="achievement.do">
-									<b>獎項名稱: </b> <select size="1" name="achievement"
+									<b>獎項名稱: </b> <select id="select1" size="1" name="achievement"
 										class="trophy">
 										<option value=""></option>
 										<c:forEach var="AchievementVO" items="${AchmtSvc.all}">
@@ -108,9 +108,9 @@
 								type="text" id="to" name="to"></td>
 						</tr>
 						<tr>
-							<td><textarea id="textarea" rows="3" cols="50">內容描述...</textarea></td>
-							<td><textarea id="textarea" rows="3" cols="50">獎杯描述...</textarea></td>
-			
+							<td><textarea id="textarea1" rows="3" cols="50">內容描述...</textarea></td>
+							<td><textarea id="textarea2" rows="3" cols="50">獎杯描述...</textarea></td>
+
 						</tr>
 
 					</table>
@@ -162,10 +162,15 @@ th, td {
 	padding-right: 50px;
 }
 
-#textarea {
+#textarea1 {
 	padding: 1px;
 	height: 130%;
 }
+#textarea2 {
+	padding: 1px;
+	height: 130%;
+}
+
 </style>
 	<style>
 #content {
@@ -296,6 +301,47 @@ div#selects {
 	<%-- 			${target.intention } --%>
 
 	<%-- 	</c:forEach> 	 --%>
+
+
+<script>
+//     $(function () {
+        //設定txtName中的值
+//         var myName = $('#txtName');
+//         myName.val('guest'); //寫入
+
+
+//         $('#select1').change(function(){
+//  		   //練習
+//  		   //當使用者選取不同的select1項目時
+//  		   //讀出此項目的索引值(index),文字(text),值(value)
+//  		   //將這些資料顯示在span2的span中
+//  		   var sel = $('#select1>:selected');
+//           //var v = sel.val();  //var v = $(this).val();
+//           var t = sel.text();
+//  		   //要讀取的是被選擇到的option裡面的value,text
+//  		   $('#textarea2').text(t);	   
+//  	   });
+//     });
+$(function(){
+	
+	$('#select1').change(function(){
+	 
+		var sel = $('#select1>:selected');
+		var v = sel.val();
+		$.get("${ctx}/AchievementServlet",{"achID": v},function(desc){
+			$('#textarea2').text(desc);
+		} );
+	    
+		
+		
+	});
+		
+});
+    
+    
+    
+</script>
+
 
 
 
