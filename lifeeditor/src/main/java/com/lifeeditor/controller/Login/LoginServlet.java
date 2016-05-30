@@ -1,4 +1,4 @@
-package ch04_02;
+package com.lifeeditor.controller.Login;
 
 import java.io.*;
 import java.sql.*;
@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.lifeeditor.user_spec.model.user_specService;
-import com.lifeeditor.user_spec.model.user_specVO;
+import com.lifeeditor.model.user_spec.user_specVO;
+import com.lifeeditor.service.user_specService;
+
+
  
 @WebServlet("/ch04_02/Login.do")
 public class LoginServlet extends HttpServlet {
@@ -26,11 +28,11 @@ public class LoginServlet extends HttpServlet {
 		request.setAttribute("ErrorMsgKey", errorMsgMap);
 		String account =request.getParameter("account");
 		String pswd = request.getParameter("pswd");
+		System.out.println(account);
+		System.out.println(pswd);
 		// 讀取使用者所輸入，由瀏覽器送來的 EMAIL 欄位內的資料	
 			System.out.println("111");
-			// 2. 進行必要的資料轉換
-			// 3. 檢查使用者輸入資料
-			// 如果 userId 欄位為空白，放錯誤訊息"帳號欄必須輸入"到 errorMsgMap 之內
+			// 檢查使用者輸入資料，如果 userId 欄位為空白，放錯誤訊息"帳號欄必須輸入"到 errorMsgMap 之內
 			// 對應的識別字串為 "AccountEmptyError"
 			if (account == null || account.trim().length() == 0) {
 				System.out.println("AAA");

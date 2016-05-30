@@ -1,4 +1,4 @@
-package ch04_02;
+package com.lifeeditor.controller.Login;
 
 import java.io.*;
 import java.sql.*;
@@ -8,8 +8,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.lifeeditor.user_spec.model.user_specService;
-import com.lifeeditor.user_spec.model.user_specVO;
+import com.lifeeditor.model.user_spec.user_specVO;
+import com.lifeeditor.service.user_specService;
+
+
 
 @WebServlet("/ch04_02/Fb.do")
 public class FbServlet extends HttpServlet {

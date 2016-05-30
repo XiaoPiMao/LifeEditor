@@ -16,7 +16,7 @@
 		<!-- 
 <Form Action="<c:url value='login.do' />" method="POST">
  -->
-		<Form Action="<c:url value='/ch04_02/Login.do' />" method="POST">
+		<Form Action="Login.java" method="POST">
 			<Table width='330'>
 				<TR>
 					<TH colspan='2'>
