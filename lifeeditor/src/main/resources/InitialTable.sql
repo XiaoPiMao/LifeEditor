@@ -400,6 +400,7 @@ insert into user_spec values
 --level初始質為1 genkiBarTol初始質為0
 UPDATE user_spec SET level = 1 WHERE level is null or level = 0;
 UPDATE user_spec SET genkiBarTol=0 WHERE genkiBarTol is null;
+<<<<<<< HEAD
 
 
 
