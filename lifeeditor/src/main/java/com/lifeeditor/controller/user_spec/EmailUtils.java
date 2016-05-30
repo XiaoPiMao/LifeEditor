@@ -65,6 +65,4 @@ public class EmailUtils {
         return session;         
        
     }  
-
 }
-
