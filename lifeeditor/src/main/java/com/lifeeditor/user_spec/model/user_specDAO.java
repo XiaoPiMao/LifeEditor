@@ -44,7 +44,12 @@ public class user_specDAO implements user_specDAO_interface{
 		user_specVO user_specVO = (user_specVO) hibernateTemplate.get(user_specVO.class, user_specID);
 		return user_specVO;
 	}
-
+	@Override
+	public user_specVO findByAccount(String account) {
+		user_specVO user_specVO = (user_specVO) hibernateTemplate.get(user_specVO.class, account);
+		return user_specVO;
+	}
+	
 	@Override
 	public List<user_specVO> getAll() {
 		List<user_specVO> list = null;

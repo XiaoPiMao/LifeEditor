@@ -16,7 +16,7 @@
 		<!-- 
 <Form Action="<c:url value='login.do' />" method="POST">
  -->
-		<Form Action="<c:url value='/ch06_01/login.do' />" method="POST">
+		<Form Action="<c:url value='/ch04_02/Login.do' />" method="POST">
 			<Table width='330'>
 				<TR>
 					<TH colspan='2'>
@@ -26,7 +26,7 @@
 				</TR>
 				<TR>
 					<TD align="RIGHT">帳號：</TD>
-					<TD align="LEFT"><input type="text" name="userId" size="10"></TD>
+					<TD align="LEFT"><input type="text" name="account" size="10"></TD>
 					<TD width='120'><small><Font color='red' size="-1">${ErrorMsgKey.AccountEmptyError}</Font></small></TD>
 				</TR>
 				<TR>
@@ -41,25 +41,17 @@
 
 				<TR>
 					<TD colspan="2" align="center"><input type="submit" value="提交"> 
-					<div>或使用</div>
-					<div class="fb-login-button" data-max-rows="1" data-size="small" data-show-faces="false" data-auto-logout-link="true"></div>
+					<div>--------------or---------------</div>
+					<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+					<div id="status"></div>		
 					</TD>
 				</TR>
+				
 			</Table>
 		</Form>
 	</CENTER>
-	<div id="buttonFB" class="fb-login-button" scope="public_profile,email" data-max-rows="1" data-size="xlarge" data-show-faces="true" data-auto-logout-link="true" onlogin></div>
+<!-- 	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" ></fb:login-button> -->
 	<br>
-	
-	<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" >
-	</fb:login-button>
-
-	<div id="status"></div>
-	<br>
-    <div id="UserName"></div>
-     <div id="UserMail"></div>
-    
-	
 	</body>
 	 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
@@ -117,13 +109,11 @@
 		FB.api('/me','GET', {"fields":"email,last_name,first_name,id,gender,picture"},
 				  function(response){
 						      $('#UserName').text('登入者lastＮame ：'+response.last_name);
-						      $('#UserMail').text('登入者Ｍail：'+response.picture);
-	
+						      	
 							console.log('Successful login for: '+ response.name);
 							console.log(JSON.stringify(response));
-					       //alert(response.id);
-							document.getElementById('status').innerHTML = 'Thanks for logging in, '
-									+ response.name + '!';
+					   
+							document.getElementById('status').innerHTML = '歡迎您的登入'+response.first_name+ response.last_name + '!';
 							
 							var datas = JSON.stringify(response) ;
 							var info = JSON.parse(datas);
@@ -153,7 +143,7 @@
 	            success: function(data){
 	                //表單成功送出後會執行的地方
 	                alert('個資已被送出');
-	                 
+	                
 	            }
 	       });
 	} 	

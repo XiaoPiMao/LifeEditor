@@ -309,6 +309,23 @@ insert into sec_list(typeID,secName) values(3,'保齡球')
 insert into sec_list(typeID,secName) values(3,'羽毛球')
 insert into sec_list(typeID,secName) values(3,'高爾夫球')
 
+
+insert into sec_list(typeID,secName) values(6,'唱歌')
+insert into sec_list(typeID,secName) values(6,'演藝')
+insert into sec_list(typeID,secName) values(6,'購物')
+insert into sec_list(typeID,secName) values(6,'追劇')
+insert into sec_list(typeID,secName) values(6,'看電影')
+insert into sec_list(typeID,secName) values(6,'玩音樂')
+insert into sec_list(typeID,secName) values(6,'玩遊戲')
+insert into sec_list(typeID,secName) values(6,'看演唱會')
+insert into sec_list(typeID,secName) values(6,'博弈')
+insert into sec_list(typeID,secName) values(6,'品酒')
+insert into sec_list(typeID,secName) values(6,'參加派對')
+insert into sec_list(typeID,secName) values(6,'參加展演')
+
+
+
+
 DECLARE @typeID int =  (SELECT typeID FROM type_list WHERE typeName = '旅遊');
 
 INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'日本');

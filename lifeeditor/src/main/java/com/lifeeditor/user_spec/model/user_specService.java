@@ -71,12 +71,38 @@ public class user_specService {
 	public user_specVO getOneUser(Integer userID) {
 		return dao.findByPrimaryKey(userID);
 	}
-
+	public user_specVO getOneAccount(String account) {
+		return dao.findByAccount(account);
+	}
 	public List<user_specVO> getAll() {
 		return dao.getAll();
 	}
 	
 	public List<user_specVO> getAllByHotMan() {
 		return dao.getAllByHotMan();
+	}
+	
+	
+	
+	
+	   
+	
+
+	
+	public user_specVO checkIDPassword(String account, String pswd) {
+				
+		// 將 MemberDAO new為物件，放入變數dao內
+		user_specDAO dao = new user_specDAO();
+		// 透過變數dao，呼叫它的select()方法，要傳入參數 id。將傳回值放入變數
+        //user_specVO vo 內。
+		user_specVO vo = dao.findByAccount(account);
+	
+        // 如果vo不等於 null 而且參數 password等於vo內的password) {
+        if ( vo != null && pswd.equals(vo.getPswd())) {
+        	// 傳回 mb物件，同時結束本方法
+        	 return vo;
+        }
+        // 傳回null物件
+		return null;
 	}
 }
