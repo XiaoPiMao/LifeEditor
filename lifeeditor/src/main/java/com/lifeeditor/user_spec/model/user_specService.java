@@ -82,4 +82,10 @@ public class user_specService {
 	public List<user_specVO> getByGenkiBarTol() {
 		return dao.getByGenkiBarTol();
 	}
+	
+	public void updateHotMan(Integer userID,Integer hotMan) {
+		user_specVO user = dao.findByPrimaryKey(userID);
+		user.setHotMan(hotMan);
+		dao.update(user);
+	}
 }

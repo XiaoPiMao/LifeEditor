@@ -13,11 +13,25 @@
 <script src="js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	$('.selHotMan').change(function(e) {
+// 			alert(1);
+		    $.post("EditorHotMan",{
+				 hotMan: $(this).val(),
+				 id : this.id
+			 });
+		});
     $('#example').DataTable();
 });
 </script>
+<style>
+#Register {
+    margin: auto;
+}
+</style>
+
 </head>
 <body>
+<div align="center">
 <table id="example" class="display" cellspacing="0" width=auto>
         <thead>
             <tr>
@@ -29,15 +43,26 @@ $(document).ready(function(){
             </tr>
         </thead>
          <c:forEach var="user_specVO" varStatus="var" items="${userSvc.byGenkiBarTol}">
-         <c:if test="${var.count <= 10}">
+<%--          <c:if test="${var.count <= 10}"> --%>
 	         <tr align='center' valign='middle'>
 				<td>${user_specVO.account}</td>
 				<td>${user_specVO.lastName} ${user_specVO.firstName}</td>
 				<td></td>
 				<td>${user_specVO.genkiBarTol}</td>
-				<td><select size="1" ><option value="yes" selected="selected">是</option><option value="no">否</option>
-                </select></td>
-		 </c:if>
+				<td>
+				<select size="1" class="selHotMan" id="${user_specVO.userID}">
+				<c:choose>
+					<c:when test="${user_specVO.hotMan == '1'}">
+						<option value="1" selected="selected">是</option>
+						<option value="0">否</option>
+					</c:when>
+					<c:otherwise>
+						<option value="1" >是</option>
+						<option value="0" selected="selected">否</option>
+					</c:otherwise>
+				</c:choose>
+                </select></td> 
+<%-- 		 </c:if> --%>
 		 </c:forEach>
         <tfoot>
             <tr>
@@ -49,5 +74,25 @@ $(document).ready(function(){
             </tr>
         </tfoot>
     </table>
+    </div>
+    <script>
+// $(document).ready(function() {
+//     $('.selHotMan').change(function(e) {
+//     //e.preventDefault();
+// //     $.ajax({
+// //     	url: "EditorHotMan",
+// //     	type: "post",
+// // 	    data: {
+// // 			 hotMan: this.val()
+// // 		 }
+// //     });
+// 		alert(1);
+// 	    $.post("EditorHotMan",{
+// 			 hotMan: $(this).val(),
+// 			 id : this.id
+// 		 });
+// 	});
+// });
+</script>
 </body>
 </html>

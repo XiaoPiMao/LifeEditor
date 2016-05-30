@@ -36,29 +36,4 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/model-config.xml</param-value>
   </context-param>
-<!--   <servlet> -->
-<!-- 		<servlet-name>user_specServlet</servlet-name> -->
-<!-- 		<servlet-class>com.silver.user_spec.controller.user_specServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>user_specServlet</servlet-name> -->
-<!-- 		<url-pattern>/user_spec.do</url-pattern> -->
-<!-- 	</servlet-mapping> -->
-<!--   <servlet> -->
-<!--     <servlet-name>Test_DataSource</servlet-name> -->
-<!--     <servlet-class>Test_DataSource</servlet-class> -->
-<!--   </servlet> -->
-<!--   <servlet-mapping> -->
-<!--     <servlet-name>Test_DataSource</servlet-name> -->
-<!--     <url-pattern>/Test_DataSource</url-pattern> -->
-<!--   </servlet-mapping> -->
-<!--   <servlet> -->
-<!--     <servlet-name>Test_Servlet_Spring_HibernateTemplate</servlet-name> -->
-<!--     <servlet-class>Test_Servlet_Spring_HibernateTemplate</servlet-class> -->
-<!--   </servlet> -->
-<!--   <servlet-mapping> -->
-<!--     <servlet-name>Test_Servlet_Spring_HibernateTemplate</servlet-name> -->
-<!--     <url-pattern>/Test_Servlet_Spring_HibernateTemplate</url-pattern> -->
-<!--   </servlet-mapping> -->
 </web-app>
-
