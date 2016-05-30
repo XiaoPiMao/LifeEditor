@@ -36,14 +36,14 @@
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/model-config.xml</param-value>
   </context-param>
-<!--   <servlet> -->
-<!-- 		<servlet-name>user_specServlet</servlet-name> -->
-<!-- 		<servlet-class>com.silver.user_spec.controller.user_specServlet</servlet-class> -->
-<!-- 	</servlet> -->
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>user_specServlet</servlet-name> -->
-<!-- 		<url-pattern>/user_spec.do</url-pattern> -->
-<!-- 	</servlet-mapping> -->
+  <servlet>
+	<servlet-name>user_specServlet</servlet-name>
+	<servlet-class>com.lifeeditor.controller.user_spec.user_specServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+	<servlet-name>user_specServlet</servlet-name>
+	<url-pattern>/register/user_spec.do</url-pattern>
+  </servlet-mapping>
 <!--   <servlet> -->
 <!--     <servlet-name>Test_DataSource</servlet-name> -->
 <!--     <servlet-class>Test_DataSource</servlet-class> -->

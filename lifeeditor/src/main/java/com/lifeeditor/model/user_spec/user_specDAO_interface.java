@@ -1,4 +1,4 @@
-package com.lifeeditor.user_spec.model;
+package com.lifeeditor.model.user_spec;
 
 import java.util.List;
 
