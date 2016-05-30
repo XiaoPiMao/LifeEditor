@@ -9,16 +9,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
-
-
-
 @Transactional(readOnly = true)
 public class user_specDAO implements user_specDAO_interface{
 	
 	private static final String GET_ALL_USER = "from user_specVO order by userID";
 	private static final String GET_ALL_HOTMAN = "from user_specVO order by hotMan";
-	
+	private static final String GET_USER_BY_GENKIBAR = "from user_specVO order by genkiBarTol desc";
 	
 	private HibernateTemplate hibernateTemplate;    
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
@@ -58,6 +54,15 @@ public class user_specDAO implements user_specDAO_interface{
 		list = hibernateTemplate.find(GET_ALL_HOTMAN);
 		return list;
 	}
+	
+	@Override
+	public List<user_specVO> getByGenkiBarTol() {
+		List<user_specVO> list = null;
+		list = hibernateTemplate.find(GET_USER_BY_GENKIBAR);
+		return list;
+	}
+	
+	
 	public static void main(String[] args) {
 
 		
@@ -115,6 +120,27 @@ public class user_specDAO implements user_specDAO_interface{
 
 
 		//�� �d��-getAll (�h��emp2.hbm.xml�����]��lazy="false")(�u!)
+//		List<user_specVO> list = dao.getByGenkiBarTol();
+//		for (user_specVO aUser : list) {
+//			System.out.print(aUser.getUserID() + ",");
+//			System.out.print(aUser.getAccount() + ",");
+//			System.out.print(aUser.getPswd() + ",");
+//			System.out.print(aUser.getLastName() + ",");
+//			System.out.print(aUser.getFirstName() + ",");
+//			System.out.print(aUser.getGender() + ",");
+//			System.out.print(aUser.getBirthdate() + ",");
+//			System.out.print(aUser.getEmail() + ",");
+//			System.out.print(aUser.getAddress() + ",");
+//			System.out.print(aUser.getPhone() + ",");
+//			System.out.print(aUser.getGenkiBarTol() + ",");
+//			System.out.print(aUser.getLevel() + ",");
+//			System.out.print(aUser.getPicture() + ",");
+//			System.out.print(aUser.getRegTime() + ",");
+//			System.out.print(aUser.getHotMan() + ",");
+//			System.out.print(aUser.getSuspendType() + ",");
+//			System.out.println();
+//		}
+		
 		List<user_specVO> list = dao.getAll();
 		for (user_specVO aUser : list) {
 			System.out.print(aUser.getUserID() + ",");
@@ -137,4 +163,6 @@ public class user_specDAO implements user_specDAO_interface{
 		}
 
 }
+
+	
 }

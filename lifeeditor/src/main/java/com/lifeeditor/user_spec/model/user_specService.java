@@ -78,4 +78,8 @@ public class user_specService {
 	public List<user_specVO> getAllByHotMan() {
 		return dao.getAllByHotMan();
 	}
+	
+	public List<user_specVO> getByGenkiBarTol() {
+		return dao.getByGenkiBarTol();
+	}
 }

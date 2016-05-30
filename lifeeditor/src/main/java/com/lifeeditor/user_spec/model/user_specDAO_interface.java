@@ -8,5 +8,6 @@ public interface user_specDAO_interface {
     public user_specVO findByPrimaryKey(Integer user_specID);
     public List<user_specVO> getAll();
     public List<user_specVO> getAllByHotMan();
+    public List<user_specVO> getByGenkiBarTol();
 
 }
