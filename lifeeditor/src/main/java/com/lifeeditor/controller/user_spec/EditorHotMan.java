@@ -8,7 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.lifeeditor.user_spec.model.user_specService;
+import com.lifeeditor.service.user_specService;
+
 
 /**
  * Servlet implementation class EditorHotMan
@@ -32,7 +33,7 @@ public class EditorHotMan extends HttpServlet {
 		Integer userID = Integer.parseInt(request.getParameter("id"));
 		
 		user_specService userSvc = new user_specService();
-		userSvc.updateHotMan(userID, hotMan);
+		userSvc.updateHotMan(hotMan, userID);
 	}
 
 }
