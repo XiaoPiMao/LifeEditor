@@ -41,7 +41,6 @@ public class ContextListener implements ServletContextListener {
 			List<SecListVO> secs = secListSvc.getByTypeID( type.getTypeID() );
 			secMap.put(type.getTypeID(),jsonParser.parse(gson.toJson(secs)).getAsJsonArray());
 		}
-		System.out.println(gson.toJson(secMap));
 		context.setAttribute("secs", gson.toJson(secMap));
 		
 	}
