@@ -290,6 +290,15 @@ INSERT INTO sec_list values(4,'數位學習',null);
 INSERT INTO sec_list values(4,'學術研究',null);
 INSERT INTO sec_list values(4,'考試認證',null);
 
+insert into sec_list values(2,N'繪畫',NULL)
+insert into sec_list values(2,N'西洋樂器',NULL)
+insert into sec_list values(2,N'東洋樂器',NULL)
+insert into sec_list values(2,N'音樂',NULL)
+insert into sec_list values(2,N'文學',NULL)
+insert into sec_list values(2,N'影視',NULL)
+insert into sec_list values(2,N'雕塑',NULL)
+insert into sec_list values(2,N'建築',NULL)
+
 
 insert into sec_list(typeID,secName) values(3,'跑步')
 insert into sec_list(typeID,secName) values(3,'游泳')
@@ -408,3 +417,7 @@ insert into user_spec values
 --level初始質為1 genkiBarTol初始質為0
 UPDATE user_spec SET level = 1 WHERE level is null or level = 0;
 UPDATE user_spec SET genkiBarTol=0 WHERE genkiBarTol is null;
+
+
+--初始化 後台會員
+select account,pswd,picture  into manager  from user_spec  where account = 'parry'

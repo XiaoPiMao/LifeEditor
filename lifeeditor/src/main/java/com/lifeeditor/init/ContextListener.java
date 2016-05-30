@@ -10,10 +10,10 @@ import javax.servlet.annotation.WebListener;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
-import com.lifeeditor.sec_list.model.SecListVO;
+import com.lifeeditor.model.sec_list.SecListVO;
+import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.service.SecListService;
 import com.lifeeditor.service.TypeListService;
-import com.lifeeditor.type_list.model.TypeListVO;
 
 
 
@@ -41,6 +41,7 @@ public class ContextListener implements ServletContextListener {
 			List<SecListVO> secs = secListSvc.getByTypeID( type.getTypeID() );
 			secMap.put(type.getTypeID(),jsonParser.parse(gson.toJson(secs)).getAsJsonArray());
 		}
+		System.out.println(gson.toJson(secMap));
 		context.setAttribute("secs", gson.toJson(secMap));
 		
 	}
