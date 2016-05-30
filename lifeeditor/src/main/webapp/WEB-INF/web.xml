@@ -31,11 +31,13 @@
   </servlet-mapping>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+
   </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/model-config.xml</param-value>
   </context-param>
+
   <servlet>
     <servlet-name>user_specServlet</servlet-name>
     <servlet-class>com.lifeeditor.controller.user_spec.user_specServlet</servlet-class>
