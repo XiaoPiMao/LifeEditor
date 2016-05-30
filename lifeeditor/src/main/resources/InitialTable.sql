@@ -136,7 +136,7 @@ CREATE TABLE target_spec(
 	userID int FOREIGN KEY REFERENCES user_spec(userID),
 	targetID int FOREIGN KEY REFERENCES target(targetID),
 	trgNote nvarchar(max),
-	trgPicPath varchar(60),
+	trgPicPath varchar(250),
 );
 
 INSERT INTO user_spec values ('b0001' , '12345' , '王' , '小明' , 'M' , '1999-09-09' , 'b0001@yahoo.com.tw' , '台北市' , '0919255444' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
