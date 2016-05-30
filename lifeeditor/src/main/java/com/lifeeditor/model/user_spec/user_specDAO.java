@@ -9,13 +9,12 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 
-
-
 @Transactional(readOnly = true)
 public class user_specDAO implements user_specDAO_interface{
 	
 	private static final String GET_ALL_USER = "from user_specVO order by userID";
 	private static final String GET_ALL_HOTMAN = "from user_specVO order by hotMan";
+
 	
 	private HibernateTemplate hibernateTemplate;    
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 

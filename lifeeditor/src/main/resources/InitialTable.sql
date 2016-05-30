@@ -404,3 +404,4 @@ UPDATE user_spec SET genkiBarTol=0 WHERE genkiBarTol is null;
 
 --初始化 後台會員
 select account,pswd,picture  into manager  from user_spec  where account = 'parry'
+
