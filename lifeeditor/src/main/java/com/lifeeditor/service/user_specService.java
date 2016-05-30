@@ -90,6 +90,13 @@ public class user_specService {
 	public List<user_specVO> getAllByHotMan() {
 		return dao.getAllByHotMan();
 	}
+
+	public void updateHotMan(Integer hotMan,Integer userID){
+		user_specVO user =dao.findByPrimaryKey(userID);
+		 user.setHotMan(hotMan);
+		 dao.update(user);
+	}
+
 	public user_specVO checkIDPassword(String account, String pswd) {
 		System.out.println("111");
 		System.out.println(account);
@@ -109,4 +116,8 @@ public class user_specService {
         // 傳回null物件
 		return null;
 	}
+
+
+
+
 }

@@ -25,11 +25,78 @@
 <link rel="stylesheet" href="${ctx }/manager/dist/css/AdminLTE.min.css">
 <link rel="stylesheet"
 	href="${ctx }/manager/dist/css/skins/skin-blue.min.css">
+<link rel="stylesheet" href="${ctx}/css/style.css"> 
+	<link rel="stylesheet"
+		href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	  <![endif]-->
+	<style>
+h1 {
+	text-align: center;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	width: 50%;
+	color: blue;
+	text-shadow: 1px 1px orange;
+}
+
+th, td {
+	padding: 15px;
+}
+
+
+</style>
+
+	<style>
+#dropZone {
+	width: 240px;
+	height: 100px;
+	border: 1px solid gray;
+	float: left
+}
+
+.thumb {
+	height: 75px;
+	margin: 5px;
+}
+
+#elements {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#textarea1 {
+	padding: 1px;
+	height: 130%;
+}
+#textarea2 {
+	padding: 1px;
+	height: 130%;
+}
+
+</style>
+	<style>
+#content {
+	font-size: 14pt;
+}
+
+div#selects {
+	margin-top: 15vh;
+	text-align: center;
+}
+
+#selType, #selSec, option {
+	width: 150px;
+	font-size: 14pt;
+}
+</style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -61,10 +128,10 @@
 									<input type="submit" value="查詢">
 								</form> <br /></td>
 							<td><jsp:useBean id="AchmtSvc" scope="page"
-									class="com.lifeeditor.model.achievement.AchievementService" />
+									class="com.lifeeditor.service.AchievementService" />
 
 								<form method="post" action="achievement.do">
-									<b>獎項名稱: </b> <select size="1" name="achievement"
+									<b>獎項名稱: </b> <select id="select1" size="1" name="achievement"
 										class="trophy">
 										<option value=""></option>
 										<c:forEach var="AchievementVO" items="${AchmtSvc.all}">
@@ -108,9 +175,9 @@
 								type="text" id="to" name="to"></td>
 						</tr>
 						<tr>
-							<td><textarea id="textarea" rows="3" cols="50">內容描述...</textarea></td>
-							<td><textarea id="textarea" rows="3" cols="50">獎杯描述...</textarea></td>
-			
+							<td><textarea id="textarea1" rows="3" cols="50">內容描述...</textarea></td>
+							<td><textarea id="textarea2" rows="3" cols="50">獎杯描述...</textarea></td>
+
 						</tr>
 
 					</table>
@@ -124,70 +191,12 @@
 
 
 
-	<style>
-h1 {
-	text-align: center;
-}
-
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	width: 50%;
-	color: blue;
-	text-shadow: 1px 1px orange;
-}
-
-th, td {
-	padding: 15px;
-}
 
 
-</style>
-
-	<style type="text/css">
-#dropZone {
-	width: 240px;
-	height: 100px;
-	border: 1px solid gray;
-	float: left
-}
-
-.thumb {
-	height: 75px;
-	margin: 5px;
-}
-
-#elements {
-	padding-left: 50px;
-	padding-right: 50px;
-}
-
-#textarea {
-	padding: 1px;
-	height: 130%;
-}
-</style>
-	<style>
-#content {
-	font-size: 14pt;
-}
-
-div#selects {
-	margin-top: 15vh;
-	text-align: center;
-}
-
-#selType, #selSec, option {
-	width: 150px;
-	font-size: 14pt;
-}
-</style>
-
-	<link rel="stylesheet"
-		href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<link rel="stylesheet" href="/resources/demos/style.css">
+
+	
 	<script>
 		$(function() {
 			$("#from").datepicker({
@@ -281,12 +290,12 @@ div#selects {
 	</script>
 
 	<!-- jQuery 2.2.0 -->
-	<script src="${ctx }/manager/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+	<script src="${ctx }/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="${ctx }/manager/bootstrap/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${ctx }/manager/dist/js/app.min.js"></script>
-	<script src="js/jquery-ui.js"></script>
+	<script src="${ctx }/js/jquery-ui.js"></script>
 
 
 	<%-- 	<c:forEach var="target" varStatus="var" items="${targets.all}"> --%>
@@ -296,6 +305,47 @@ div#selects {
 	<%-- 			${target.intention } --%>
 
 	<%-- 	</c:forEach> 	 --%>
+
+
+<script>
+//     $(function () {
+        //設定txtName中的值
+//         var myName = $('#txtName');
+//         myName.val('guest'); //寫入
+
+
+//         $('#select1').change(function(){
+//  		   //練習
+//  		   //當使用者選取不同的select1項目時
+//  		   //讀出此項目的索引值(index),文字(text),值(value)
+//  		   //將這些資料顯示在span2的span中
+//  		   var sel = $('#select1>:selected');
+//           //var v = sel.val();  //var v = $(this).val();
+//           var t = sel.text();
+//  		   //要讀取的是被選擇到的option裡面的value,text
+//  		   $('#textarea2').text(t);	   
+//  	   });
+//     });
+$(function(){
+	
+	$('#select1').change(function(){
+	 
+		var sel = $('#select1>:selected');
+		var v = sel.val();
+		$.get("${ctx}/AchievementServlet",{"achID": v},function(desc){
+			$('#textarea2').text(desc);
+		} );
+	    
+		
+		
+	});
+		
+});
+    
+    
+    
+</script>
+
 
 
 

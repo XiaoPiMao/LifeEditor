@@ -136,7 +136,7 @@ CREATE TABLE target_spec(
 	userID int FOREIGN KEY REFERENCES user_spec(userID),
 	targetID int FOREIGN KEY REFERENCES target(targetID),
 	trgNote nvarchar(max),
-	trgPicPath varchar(60),
+	trgPicPath varchar(250),
 );
 
 INSERT INTO user_spec values ('b0001' , '12345' , '王' , '小明' , 'M' , '1999-09-09' , 'b0001@yahoo.com.tw' , '台北市' , '0919255444' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
@@ -419,5 +419,12 @@ UPDATE user_spec SET level = 1 WHERE level is null or level = 0;
 UPDATE user_spec SET genkiBarTol=0 WHERE genkiBarTol is null;
 
 
+
+
 --初始化 後台會員
+
+
 select account,pswd,picture  into manager  from user_spec  where account = 'parry'
+
+
+
