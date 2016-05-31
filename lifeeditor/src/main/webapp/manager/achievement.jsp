@@ -290,7 +290,6 @@ div#selects {
 			for (var i = 0, max = secs.length; i < max; i++) {
 				addOpt(secs[i].secID, secs[i].secName);
 			}
-
 		}
 
 		function addOpt(value, text) {
