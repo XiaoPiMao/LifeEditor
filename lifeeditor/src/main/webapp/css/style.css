@@ -439,12 +439,12 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Gallery Configuration */
 .photo-wrapper {
-	width:280px;
-	height:180px;
+  width:350px;
+  height:250px;
   display: block;
   position: relative;
   overflow: hidden;
-  background-color: #2f2f2f;
+/*   background-color: #2f2f2f; */
   -webkit-transition: background-color 0.4s;
   -moz-transition: background-color 0.4s;
   -o-transition: background-color 0.4s;
@@ -464,8 +464,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .project:hover .photo-wrapper {
-  background-color: #2f2f2f;
-	background-image:url(../img/zoom.png);
+    background-color: #2f2f2f;
+	background-image:url(/images/zoom.png);
 	background-repeat:no-repeat;
 	background-position:center;
 	top: 0;
@@ -488,5 +488,5 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .desc {
-	margin-top: 25px;
+	margin-top: 20px;
 }
