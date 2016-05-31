@@ -51,14 +51,20 @@ public class user_specDAO implements user_specDAO_interface{
 	}
 	@Override
 	public user_specVO findByAccount(String account) {
-		System.out.println("222");
-		System.out.println(account );	
-		user_specVO user_specVO = (user_specVO) hibernateTemplate.get(user_specVO.class, account);
-		System.out.println("333");
+		try {
+		System.out.println("findByAccount()");
+		user_specVO user_specVO = (user_specVO) hibernateTemplate.find("FROM user_specVO u WHERE u.account = ?", account).get(0);
+		System.out.println("2");
 		return user_specVO;
+		
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	@Override
 	public List<user_specVO> getAll() {
+		System.out.println(hibernateTemplate);
 		List<user_specVO> list = null;
 		list = hibernateTemplate.find(GET_ALL_USER);
 		return list;

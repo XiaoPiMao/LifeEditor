@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import org.hibernate.Hibernate;
@@ -50,7 +51,7 @@ public class user_specServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
+			
 			if ("insert".equals(action)) { 
 			
 			Map<String, String> errorMsgs = new HashMap<String, String>();			

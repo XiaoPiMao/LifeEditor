@@ -42,7 +42,7 @@
 				<TR>
 					<TD colspan="2" align="center"><input type="submit" value="提交"> 
 					<div>--------------or---------------</div>
-					<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true"></div>
+					<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
 					<div id="status"></div>		
 					</TD>
 				</TR>
@@ -73,7 +73,7 @@
 		}
 	}
 	function checkLoginState() {  //檢查登入狀態 
-		FB.getLoginStatus(function(response) {  
+		FB.getLoginStatus(function(response) {  //存取權杖
 			statusChangeCallback(response);
 		});
 	}
@@ -81,14 +81,11 @@
 	window.fbAsyncInit = function() {
 		FB.init({
 			appId : '236995580009135',
+			//appId : 1751012028468871,
 			cookie : true, // enable cookies to allow the server to access 
 			// the session
 			xfbml : true, // parse social plugins on this page
 			version : 'v2.2' 
-		});
-
-		FB.getLoginStatus(function(response) {  //存取權杖?
-			statusChangeCallback(response);
 		});
 
 	};
@@ -141,9 +138,11 @@
 	            type:"post",
 	            data: params,
 	            success: function(data){
-	                //表單成功送出後會執行的地方
-	                alert('個資已被送出');
-	                
+	                //表單成功送出後會執行的地方	               
+                    alert('個資已被送出');
+		      
+		         	 window.location.href =  "${ctx}/index.jsp";
+			
 	            }
 	       });
 	} 	

@@ -73,7 +73,6 @@ public class user_specService {
 		user_specVO.setSuspendType(suspendType);
 		
 		
-
 		dao.update(user_specVO);
 
 		return user_specVO;
@@ -98,19 +97,15 @@ public class user_specService {
 	}
 
 	public user_specVO checkIDPassword(String account, String pswd) {
-		System.out.println("111");
-		System.out.println(account);
-		System.out.println(pswd);
-		// 將 MemberDAO new為物件，放入變數dao內
-		user_specDAO dao = new user_specDAO();
-		// 透過變數dao，呼叫它的select()方法，要傳入參數 id。將傳回值放入變數
+		System.out.println("checkIDPassword()");
+		//user_specDAO dao = new user_specDAO();
+		// 透過變數dao，呼叫它的select()方法，要傳入參數 。將傳回值放入變數
         //user_specVO vo 內。
-		user_specVO vo = dao.findByAccount(account);
-		
-		System.out.println("Hello");
+		user_specVO vo = dao.findByAccount(account);	
         // 如果vo不等於 null 而且參數 password等於vo內的password) {
         if ( vo != null && pswd.equals(vo.getPswd())) {
-        	// 傳回 mb物件，同時結束本方法
+        	System.out.println("帳密吻合");
+        	// 傳回 vo物件，代表帳密吻合，同時結束本方法
         	 return vo;
         }
         // 傳回null物件

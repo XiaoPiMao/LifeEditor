@@ -42,6 +42,7 @@
 			<a href="#portfolio" class="smoothScroll">熱門人物</a>
 			<a href="#contact" class="smoothScroll">連絡我們</a>
 			<a href="register/register.jsp" class="smoothScroll">註冊登入</a>
+			<a href="login.jsp" class="smoothScroll">會員登入</a>
 			<a href="#"><i class="fa fa-facebook"></i></a>
 			<a href="#"><i class="fa fa-twitter"></i></a>
 			<a href="#"><i class="fa fa-dribbble"></i></a>
