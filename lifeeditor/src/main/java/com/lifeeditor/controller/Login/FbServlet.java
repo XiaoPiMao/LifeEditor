@@ -42,7 +42,7 @@ public class FbServlet extends HttpServlet {
 		user_specService mfio = new user_specService();
 		String useraccount = null;
 //		try {
-			
+			System.out.println("uuuuuuuu");
 			List<user_specVO> list = mfio.getAll();        //取出所有會員資料
 			for (user_specVO vo1 : list) {              
 				useraccount = vo1.getAccount();              //每一筆會員的帳號

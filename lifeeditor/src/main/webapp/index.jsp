@@ -33,7 +33,6 @@
   </head>
 
   <body data-spy="scroll" data-offset="0" data-target="#theMenu">
-		
 	<!-- Menu -->
 	<nav class="menu" id="theMenu">
 		<div class="menu-wrap">
@@ -43,8 +42,8 @@
 			<a href="#about" class="smoothScroll">關於</a>
 			<a href="#portfolio" class="smoothScroll">熱門人物</a>
 			<a href="#contact" class="smoothScroll">連絡我們</a>
-			<a href="register/register.jsp" class="smoothScroll">註冊登入</a>
-			<a href="login.jsp" class="smoothScroll">會員登入</a>
+			<a href="register/register.jsp" class="smoothScroll">註冊</a>
+			<a href="#modal" class="smoothScroll">會員登入</a>
 			<a href="#"><i class="fa fa-facebook"></i></a>
 			<a href="#"><i class="fa fa-twitter"></i></a>
 			<a href="#"><i class="fa fa-dribbble"></i></a>
@@ -78,6 +77,7 @@
 			<div class="social_login">
 				<div class="">					
 					<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();" ></div>
+<!-- 						<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" ></fb:login-button> -->
 						<span class="icon"><i class="fa fa-facebook"></i></span>
 						<span class="icon_title">使用Facebook帳號</span>
 						
@@ -92,7 +92,7 @@
 
 				<div class="action_btns">
 				<div class="one_half"><a href="#" id="login_form" class="btn" >登入</a></div>   <!-- 	 onclick="window.location.href=('login.jsp')"    onclick="document.getElementById('form-id').submit();" -->
-					<div class="one_half last"><a href="#" id="register_form" class="btn">註冊</a></div>
+					<div class="one_half last"><a href="register/register.jsp" id="register_form" class="btn">註冊</a></div>
 				</div>
 			</div>
 
@@ -100,11 +100,12 @@
 			<div class="user_login">
 				<form id="form-id" Action="Login.java" method="POST">
 					<label>帳號</label>
-					<input type="text" name="account" size="10">
+					<input type="text" name="account" size="10">					
 					<br />
 
 					<label>密碼</label>
 					<input type="password" name="pswd" size="10">
+					<small><Font id="ErrorMsg" color='red' size="-1"></Font></small>
 					<br />
 
 					<div class="checkbox">
@@ -114,7 +115,7 @@
 
 					<div class="action_btns">
 						<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> 上一頁</a></div>
-						<div class="one_half last"><a href="#" class="btn btn_red"  onclick="document.getElementById('form-id').submit();">登入</a></div>
+						<div class="one_half last"><a href="#" class="btn btn_red"  onclick="LoginAjax();">登入</a></div>
 					</div>
 				</form>
 
@@ -439,7 +440,7 @@
           jQuery(".fancybox").fancybox();
       });
 	   </script>
-<!---------------------------- login----start------------------------>
+<!----------------------------------------------- login----start---------------------------------------------------->
 <script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
 <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
@@ -456,12 +457,12 @@
 		});
 
 		// Calling Register Form
-		$("#register_form").click(function(){
-			$(".social_login").hide();
-			$(".user_register").show();
-			$(".header_title").text('Register');
-			return false;
-		});
+// 		$("#register_form").click(function(){
+// 			$(".social_login").hide();
+// 			$(".user_register").show();
+// 			$(".header_title").text('Register');
+// 			return false;
+// 		});
 
 		// Going back to Social Forms
 		$(".back_btn").click(function(){
@@ -477,12 +478,42 @@
 </script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
+	$(function() {
+		$("#form-id").submit(function(e)
+				{
+				    var postData = $(this).serializeArray(); 
+				    var formURL = $(this).attr("Action");
+			
+				    $.ajax(
+				    {
+				        url : 'ch04_02/Login.do',
+				        type: "POST",
+				        data : postData,
+				        success:function(data) 
+				        {   
+				        		if(data != "") {
+				        			var errMsg = JSON.parse(data);	
+					    			
+	 				             	       	
+					        	    document.getElementById("ErrorMsg").innerHTML =errMsg.LoginError;       
+				        		}else {
+				        			window.location.href = "home.jsp"
+				        		}
+				    			
+				        }
+				        
+				    });
+				    e.preventDefault(); //STOP default action
+// 				    e.unbind(); //unbind. to stop multiple form submit.
+				});
+	})
 	function statusChangeCallback(response) { //檢查登入狀態 為您的回呼所提供 response 的物件中含有數個欄位
 		console.log('statusChangeCallback');
 		console.log(response);
 
 		if (response.status === 'connected') {
 			// 這位用戶已登入 Facebook，也已經登入您的應用程式
+			
 			testAPI();
 		} else if (response.status === 'not_authorized') {
 			// 這位用戶已登入 Facebook，但尚未登入您的應用程式。
@@ -526,13 +557,18 @@
 		console.log('Welcome!  Fetching your information.... ');
 		FB.api('/me','GET', {"fields":"email,last_name,first_name,id,gender,picture"},
 				  function(response){					   
-			                console.log('Successful login for: '+ response.name);
-							document.getElementById('status').innerHTML = '歡迎您的登入'+response.first_name+ response.last_name + '!';
 							 ajaxPost(response.email,response.last_name,response.first_name,response.id,response.gender);														
 						});		
 }
+	function LoginAjax(){
+		
+		$("#form-id").submit();
+		
+	}
+	
 	function ajaxPost(email,last_name,first_name,id,gender)
 	{
+		
 	      //===AJAX POST===
 	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender };
 	         $.ajax({
@@ -543,12 +579,12 @@
 	                //表單成功送出後會執行的地方	               
                     alert('個資已被送出');
 		      
-		         	 window.location.href =  "${ctx}/index.jsp";
+		         	 window.location.href =  "${ctx}/home.jsp";
 			
 	            }
 	       });
 	} 		
 </script>
-// 	<!---------------------------- login----end----------------------->
+// 	<!------------------------------------------- login----end------------------------------------------------>
   </body>
 </html>

@@ -57,10 +57,7 @@ public class user_specDAO implements user_specDAO_interface{
 		if (list.size()>=1){
 			user_specVO user_specVO = list.get(0);
 			return user_specVO;
-		}
-		System.out.println("2");
-		
-		
+			}	
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
