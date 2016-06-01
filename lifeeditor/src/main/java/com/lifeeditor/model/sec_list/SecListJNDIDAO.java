@@ -9,10 +9,20 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.utility.GlobalValues;
 
 public class SecListJNDIDAO implements SecListDAO_interface{
+	
 	private static DataSource ds = null;
+	private HibernateTemplate hibernateTemplate;    
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
+        this.hibernateTemplate = hibernateTemplate;
+    }
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -66,4 +76,25 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 		}
 		return secs;
 	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void insert(SecListVO SecListVO) {
+		hibernateTemplate.saveOrUpdate(SecListVO);
+		
+	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void update(SecListVO SecListVO) {
+		hibernateTemplate.saveOrUpdate(SecListVO);
+		
+	}
+
+	@Override
+	public SecListVO findByPrimaryKey(Integer secID) {
+		SecListVO SecListVO = (SecListVO) hibernateTemplate.get(SecListVO.class, secID);
+		return SecListVO;
+	}
+
 }
