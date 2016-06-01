@@ -49,6 +49,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			+ "genkiBar=? , achID=? , priority=? , remindTimes=? , trgType=? , punishment=? , status=? , timeStart=? , "
 			+ "timeFinish=? , doneTime=? where target = ?";
 	
+	public  static final String SEARCH_LIKE = " select * from target where trgName like ?" ;
 
 
 	@Override
@@ -324,6 +325,77 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 		}
 		return list;
 		
+	}
+
+	@Override
+	public List<TargetVO> findByKeyword(String keyword) {
+		
+		List<TargetVO> list = new ArrayList<TargetVO>();
+		TargetVO TrgVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SEARCH_LIKE);
+			
+			pstmt.setString(1, "%" + keyword + "%");
+			
+			rs = pstmt.executeQuery();
+			
+		
+			while(rs.next()) {
+				TrgVO = new TargetVO();
+				TrgVO.setTargetID(rs.getInt("targetID"));
+				TrgVO.setTrgName(rs.getString("trgName"));
+				TrgVO.setTypeID(rs.getInt("typeID"));
+				TrgVO.setSectionID(rs.getInt("sectionID"));
+				TrgVO.setDifficulty(rs.getInt("difficulty"));
+				TrgVO.setIntention(rs.getString("intention"));
+				TrgVO.setPrivacy(rs.getInt("privacy"));
+				TrgVO.setGenkiBar(rs.getInt("genkiBar"));
+				TrgVO.setAchID(rs.getInt("achID"));
+				TrgVO.setPriority(rs.getInt("priority"));
+				TrgVO.setRemindTimes(rs.getInt("remindTimes"));
+				TrgVO.setTrgType(rs.getInt("trgType"));
+				TrgVO.setPunishment(rs.getInt("punishment"));
+				TrgVO.setStatus(rs.getInt("status"));
+				TrgVO.setTimeStart(rs.getDate("timeStart"));
+				TrgVO.setTimeFinish(rs.getDate("timeFinish"));
+				TrgVO.setDoneTime(rs.getDate("doneTime"));
+				list.add(TrgVO);
+				
+				
+			}	
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("發生錯誤" + e.getMessage());
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
 	
 }

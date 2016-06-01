@@ -33,7 +33,10 @@
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	  <![endif]-->
-	<style>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<style>
 h1 {
 	text-align: center;
 }
@@ -50,10 +53,6 @@ th, td {
 	padding: 15px;
 }
 
-
-</style>
-
-	<style>
 #dropZone {
 	width: 240px;
 	height: 100px;
@@ -95,6 +94,14 @@ div#selects {
 	width: 150px;
 	font-size: 14pt;
 }
+
+.ui-autocomplete-loading {
+    background: white url("http://www.guiza.net/fotos/wp-content/plugins/nextgen-gallery/admin/css/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+  
+#tags { width: 15em; }
+
+
 </style>
 
 </head>
@@ -123,15 +130,17 @@ div#selects {
 
 
 						<tr>
-							<td><form action="demo_form.asp">
-									挑戰名稱: <input type="text" name="Challenge" value="環台馬拉松">
-									<input type="submit" value="查詢">
-								</form> <br /></td>
+							<td> <div class="ui-widget">
+							<form action="demo_form.asp">
+									挑戰名稱: <input id="tags" type="text" name="Challenge" >
+								</form> <br />
+								</div>
+								</td>
 							<td><jsp:useBean id="AchmtSvc" scope="page"
 									class="com.lifeeditor.service.AchievementService" />
 
 								<form method="post" action="achievement.do">
-									<b>獎項名稱: </b> <select id="select1" size="1" name="achievement"
+									<b>獎項名稱: </b> <select id="achName" size="1" name="achievement"
 										class="trophy">
 										<option value=""></option>
 										<c:forEach var="AchievementVO" items="${AchmtSvc.all}">
@@ -141,21 +150,7 @@ div#selects {
 								</form> <br /></td>
 						</tr>
 						<tr>
-							<td>類別: <select id="selType" class="opt">
-									<option value=""></option>
-									<c:forEach var="type" items="${types }">
-										<c:if test="${type.typeName != '自訂' }">
-											<option value=${type.typeID }>${type.typeName }</option>
-										</c:if>
-									</c:forEach>
-							</select> &nbsp;&nbsp;&nbsp; 項目: <select id="selSec" class="opt"></select>
-								&nbsp;&nbsp;&nbsp;&nbsp; 難易度: <select id="select1">
-									<option value="a">簡單</option>
-									<option value="b">普通</option>
-									<option value="c">一般</option>
-									<option value="d">困難</option>
-									<option value="e">極嚴峻</option>
-							</select> &nbsp;&nbsp;&nbsp; <br /> <br /></td>
+							<td><textarea id="textarea1" rows="3" cols="50">內容描述...</textarea></td>
 							<td rowspan="2">獎杯圖示:<br />
 							<br />
 								<div id="dropZone" ondragover="dragoverHandler(event)"
@@ -169,13 +164,27 @@ div#selects {
 								accept="image/*" onchange="fileViewer()" /></td>
 						</tr>
 						<tr>
+							<td>類別: <select id="selType" class="opt">
+									<option value=""></option>
+									<c:forEach var="type" items="${types }">
+										<c:if test="${type.typeName != '自訂' }">
+											<option value=${type.typeID }>${type.typeName }</option>
+										</c:if>
+									</c:forEach>
+							</select> &nbsp;&nbsp;&nbsp; 項目: <select id="selSec" class="opt"></select>
+								&nbsp;&nbsp;&nbsp;&nbsp; 難易度: <select id="difficulty">
+									<option value="1">簡單</option>
+									<option value="2">普通</option>
+									<option value="3">一般</option>
+									<option value="4">困難</option>
+									<option value="5">極嚴峻</option>
+							</select> &nbsp;&nbsp;&nbsp; <br /> <br /></td>
+						</tr>
+						<tr>
 							<td>本挑戰項目<br />
 							<br /> <label for="from">起始於:</label> <input type="text"
 								id="from" name="from"> <label for="to">結束於:</label> <input
 								type="text" id="to" name="to"></td>
-						</tr>
-						<tr>
-							<td><textarea id="textarea1" rows="3" cols="50">內容描述...</textarea></td>
 							<td><textarea id="textarea2" rows="3" cols="50">獎杯描述...</textarea></td>
 
 						</tr>
@@ -269,16 +278,18 @@ div#selects {
 			selects[0].onchange = optSec;
 		}
 
+		var firstSec = true;		
 		function optSec() {
-
+			if(firstSec == true) {
+				$(selects[0]).find("option")[0].remove();
+				firstSec = false;
+			}
 			while (selects[1].childNodes.length > 0)
 				selects[1].removeChild(selects[1].lastChild);
-			var secs = allSecs[this.value];
+			var secs = allSecs[selects[0].value];
 			for (var i = 0, max = secs.length; i < max; i++) {
 				addOpt(secs[i].secID, secs[i].secName);
 			}
-			selects[1].value = selects[1].firstChild().value;
-
 		}
 
 		function addOpt(value, text) {
@@ -298,56 +309,78 @@ div#selects {
 	<script src="${ctx }/js/jquery-ui.js"></script>
 
 
-	<%-- 	<c:forEach var="target" varStatus="var" items="${targets.all}"> --%>
-
-	<%-- 	${target.targetID } --%>
-	<%-- 		${target.trgName } --%>
-	<%-- 			${target.intention } --%>
-
-	<%-- 	</c:forEach> 	 --%>
-
 
 <script>
-//     $(function () {
-        //設定txtName中的值
-//         var myName = $('#txtName');
-//         myName.val('guest'); //寫入
+	var firstChg = true;
 
-
-//         $('#select1').change(function(){
-//  		   //練習
-//  		   //當使用者選取不同的select1項目時
-//  		   //讀出此項目的索引值(index),文字(text),值(value)
-//  		   //將這些資料顯示在span2的span中
-//  		   var sel = $('#select1>:selected');
-//           //var v = sel.val();  //var v = $(this).val();
-//           var t = sel.text();
-//  		   //要讀取的是被選擇到的option裡面的value,text
-//  		   $('#textarea2').text(t);	   
-//  	   });
-//     });
 $(function(){
 	
-	$('#select1').change(function(){
-	 
-		var sel = $('#select1>:selected');
+	
+	$('#achName').change(function(){
+		if(firstChg == true) {
+			$(this).find("option")[0].remove();
+			firstChg = false;
+		}
+		var sel = $('#achName>:selected');
 		var v = sel.val();
 		$.get("${ctx}/AchievementServlet",{"achID": v},function(desc){
-			$('#textarea2').text(desc);
+			$('#textarea2').val(desc);
 		} );
-	    
-		
 		
 	});
-		
+	
+	function log( message ) {
+		var targets;
+	      $( "<div>" ).text( message ).prependTo( "#log" );
+	      $( "#log" ).scrollTop( 0 );
+	    }
+	 
+	    $( "#tags" ).autocomplete({
+	      source: function( request, response ) {
+	        $.ajax({
+	          url: "${ctx}/ChallengeServlet",
+	          dataType: "text",
+	          data: {"action":"autoComplete","keyword": $("#tags" ).val()},
+	          success: function( data ) {
+	        	    	  
+	        	  var res = new Array();
+	        	  targets = JSON.parse(data);
+	        	  console.log(data);
+					$.each(targets, function(index, target){
+					console.log(target.trgName);
+					res.push(target.trgName);		
+				});
+					response(res);	
+	          }
+	        });
+	      },
+	      minLength: 1,
+	      select: function( event, ui ) {
+	        $.each(targets, function(i,target) {
+	        	if(target.trgName == ui.item.label) {
+	        		$("#textarea1").val(target.intention);
+	        		$("#from").val(target.timeStart);
+	        		$("#to").val(target.timeFinish);
+	        		$("#difficulty").val(target.difficulty);  		
+	        		$("#selType").val(target.typeID);
+	        		optSec();
+ 	        		$("#selSec").val(target.sectionID);
+	        	}
+	        })
+	      },
+	      open: function() {
+	        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+	      },
+	      close: function() {
+	        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+	      }
+	    });
+	
+	   	    
+	
 });
     
-    
-    
 </script>
-
-
-
 
 
 </body>

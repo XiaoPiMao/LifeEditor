@@ -9,5 +9,6 @@ public interface TargetDAO_interface {
 	public void delete(Integer targetID);
 	public TargetVO findByPrimaryKey(Integer targetID);
 	public List<TargetVO> getAll();
+	public List<TargetVO> findByKeyword(String keyword);
 
 }
