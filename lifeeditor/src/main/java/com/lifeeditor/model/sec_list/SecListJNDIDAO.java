@@ -33,12 +33,12 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 	}
 	
 	
-	private static final String BY_TYPEID_STMT = "SELECT * FROM sec_list WHERE typeID = ?";
+	private static final String BY_TYPEID_STMT = "SELECT secID,secName FROM sec_list WHERE typeID = ?";
 
 	@Override
-	public List<SecListVO> findByTypeListID(Integer id) {
+	public List findByTypeListID(Integer id) {
 		Connection conn = null;
-		List<SecListVO> secs = new ArrayList<>();
+		List secs = new ArrayList<>();
 		SecListVO sec = null;
 		SecListVO tempSec = null;
 		try{
@@ -52,8 +52,7 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 				sec = new SecListVO();
 				sec.setSecID(rs.getInt("secID"));
 				sec.setSecName(rs.getString("secName"));
-				sec.setTypeID(rs.getInt("typeID"));
-				sec.setSecPic(rs.getBlob("secPic"));
+				
 				if(first) {
 					tempSec = sec;
 					first = false;
