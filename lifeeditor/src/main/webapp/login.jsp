@@ -27,12 +27,12 @@
 				<TR>
 					<TD align="RIGHT">帳號：</TD>
 					<TD align="LEFT"><input type="text" name="account" size="10"></TD>
-					<TD width='120'><small><Font color='red' size="-1">${ErrorMsgKey.AccountEmptyError}</Font></small></TD>
+					<TD width='120'><small><Font id="AccountMsg" color='red' size="-1">${ErrorMsgKey.AccountEmptyError}</Font></small></TD>
 				</TR>
 				<TR>
 					<TD align="RIGHT">密碼：</TD>
 					<TD align="LEFT"><input type="password" name="pswd" size="10"></TD>
-					<TD width='120'><small><Font color='red' size="-1">${ErrorMsgKey.PasswordEmptyError}</Font></small></TD>
+					<TD width='120'><small><Font id="PswdMsg" color='red' size="-1">${ErrorMsgKey.PasswordEmptyError}</Font></small></TD>
 				</TR>
 				<TR>
 					<TD align="CENTER" colspan='3'><Font color='red' size="-1">${ErrorMsgKey.LoginError}&nbsp;</Font></TD>
@@ -104,7 +104,7 @@
 
 	function testAPI() {
 		console.log('Welcome!  Fetching your information.... ');
-		FB.api('/me','GET', {"fields":"email,last_name,first_name,id,gender,picture"},
+		FB.api('/me','GET', {"fields":"email,last_name,first_name,id,gender,picture,name"},
 				  function(response){
 						      $('#UserName').text('登入者lastＮame ：'+response.last_name);
 						      	
