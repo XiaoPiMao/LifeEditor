@@ -1,5 +1,6 @@
 package com.lifeeditor.model.user_spec;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -43,12 +44,28 @@ public class user_specDAO implements user_specDAO_interface{
 
 	@Override
 	public user_specVO findByPrimaryKey(Integer user_specID) {
+		
 		user_specVO user_specVO = (user_specVO) hibernateTemplate.get(user_specVO.class, user_specID);
+
 		return user_specVO;
 	}
-
+	@Override
+	public user_specVO findByAccount(String account) {
+		try {
+		System.out.println("findByAccount()");
+		List<user_specVO>  list = hibernateTemplate.find("FROM user_specVO u WHERE u.account = ?", account);
+		if (list.size()>=1){
+			user_specVO user_specVO = list.get(0);
+			return user_specVO;
+			}	
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 	@Override
 	public List<user_specVO> getAll() {
+		System.out.println(hibernateTemplate);
 		List<user_specVO> list = null;
 		list = hibernateTemplate.find(GET_ALL_USER);
 		return list;
