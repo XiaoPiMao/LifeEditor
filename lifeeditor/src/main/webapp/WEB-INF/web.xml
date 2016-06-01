@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>Archetype Created Web Application</display-name>
-
-
-
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.htm</welcome-file>
@@ -34,13 +31,11 @@
   </servlet-mapping>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-
   </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/model-config.xml</param-value>
   </context-param>
-
   <servlet>
     <servlet-name>user_specServlet</servlet-name>
     <servlet-class>com.lifeeditor.controller.user_spec.user_specServlet</servlet-class>
@@ -50,4 +45,3 @@
     <url-pattern>/register/user_spec.do</url-pattern>
   </servlet-mapping>
 </web-app>
-

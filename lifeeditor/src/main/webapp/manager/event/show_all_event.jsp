@@ -2,13 +2,15 @@
     pageEncoding="UTF-8"%>
     <%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="oceanKuan.*"%>
+<%@ page import="com.lifeeditor.model.event.*"%>
+<%@ page import="com.lifeeditor.controller.event.*"%>
 <%
     eventService eventSvc = new eventService();
     List<eventVO> list = eventSvc.getAll();
     pageContext.setAttribute("list",list);
+    
 %>
-<jsp:useBean id="eventSec" scope="page" class="oceanKuan.eventService" />
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -38,7 +40,7 @@
 			<td>${eventVO.orgName}</td>
 			<td>${eventVO.orgAddr}</td>
 			<td>${eventVO.eventTime}</td>
-			<td><img src="data:image/jpg;${eventVO.eventPic}"/></td>
+			<td><option value="image/jpeg">${eventVO.eventPic}</option></td>
 			<td>${eventVO.eventDesc}</td>
 			</td><td>
 			  <FORM METHOD="post" ACTION="eventServlet.do">

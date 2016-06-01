@@ -1,15 +1,15 @@
-package oceanKuan;
+package com.lifeeditor.model.event;
 
 import java.util.*;
 import java.io.OutputStream;
 import java.sql.*;
 
-import oceanKuan.*;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
+
+import com.lifeeditor.controller.event.*;
 
 public  class eventDAO implements eventDAO_interface {
 
@@ -245,7 +245,7 @@ public  class eventDAO implements eventDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		PicTransfer pic=new PicTransfer();
+		
 		try {
 
 			con = ds.getConnection();

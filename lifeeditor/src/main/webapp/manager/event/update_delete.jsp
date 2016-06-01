@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-    <%@ page import="oceanKuan.*"%>
+  <%@ page import="com.lifeeditor.model.event.*"%>
 
 <%
 	eventVO eventVO = (eventVO) request.getAttribute("eventVO"); //EmpServlet.java (Concroller), 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
@@ -13,6 +13,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 
 <form ENCTYPE="multipart/form-data" method="POST"
 		action="eventServlet.do" role="form">

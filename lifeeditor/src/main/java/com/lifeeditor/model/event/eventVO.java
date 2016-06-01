@@ -1,4 +1,4 @@
-package oceanKuan;
+package com.lifeeditor.model.event;
 
 import java.io.OutputStream;
 import java.sql.Blob;

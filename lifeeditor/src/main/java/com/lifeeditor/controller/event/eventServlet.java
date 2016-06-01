@@ -1,16 +1,21 @@
-package oceanKuan;
+package com.lifeeditor.controller.event;
 
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.nio.file.Files;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.*;
 
+import javax.imageio.ImageIO;
 import javax.servlet.*;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.rowset.serial.SerialBlob;
+
+import com.lifeeditor.model.event.eventVO;
 
 
 
@@ -18,7 +23,7 @@ import javax.sql.rowset.serial.SerialBlob;
 
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 500)
-@WebServlet("/eventServlet.do")
+@WebServlet("/manager/event/eventServlet.do")
 public class eventServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -157,7 +162,7 @@ public class eventServlet extends HttpServlet {
 				eventVO = eventSvc.addevent(eventName, eventPic, orgName,
 						orgAddr, eventTime, eventDesc);
 				System.out.println(eventVO.getEventName());
-				String url = "/ok.jsp";
+				String url = "/manager/event/ok.jsp";
                  //INSERT的完成後要跳轉的頁面
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, res);
@@ -166,10 +171,11 @@ public class eventServlet extends HttpServlet {
 				//出現錯誤後要跳轉的頁面
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/error.jsp");
+						.getRequestDispatcher("/manager/event/error.jsp");
 				failureView.forward(req, res);
 			}
 		}
+		
 //****************************************************************************************		
 		//擇一UPDATE的方法
 		if ("getOne_For_Update".equals(action)) { 
@@ -187,7 +193,7 @@ public class eventServlet extends HttpServlet {
 				//給予一個屬性其一個屬性名稱
 				
 				req.setAttribute("eventVO", eventVO);        
-				String url = "/update_delete.jsp";
+				String url = "/manager/event/update_delete.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
@@ -195,10 +201,33 @@ public class eventServlet extends HttpServlet {
 				//發生錯誤後要顯示的錯誤內容及要跳轉的頁面
 				errorMsgs.add("顯示錯誤名稱:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/error.jsp");
+						.getRequestDispatcher("/manager/event/error.jsp");
 				failureView.forward(req, res);
 			}
 		}
+if ("列出修改".equals(action)) { 
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			
+			req.setAttribute("errorMsgs", errorMsgs);
+		try{
+			
+			eventVO eventVO= new eventVO();
+			
+			
+			
+			
+			
+			
+} catch (Exception e) {
+	errorMsgs.add(e.getMessage());
+	RequestDispatcher failureView = req
+			.getRequestDispatcher("/manager/event/error.jsp");
+	failureView.forward(req, res);
+}		}
+		
+		
+		
 		//************************************************************************************
 		//以下開始是修改
 		
@@ -274,7 +303,7 @@ public class eventServlet extends HttpServlet {
 				eventVO = eventSvc.updateevent(eventID,typeID, secID, eventName,  eventPic,
 						orgName, orgAddr, eventTime, eventDesc);
 				System.out.println(eventVO.getEventName());
-				String url = "/show_all_event.jsp";
+				String url = "/manager/event/show_all_event.jsp";
 
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllevent.jsp
 				successView.forward(req, res);
@@ -282,7 +311,7 @@ public class eventServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/oceanKuan/show_all_event.jsp");
+						.getRequestDispatcher("/manager/event/error.jsp");
 				failureView.forward(req, res);
 			}		}
 		if ("delete".equals(action)) { // �Ӧ�listAllEmp.jsp
@@ -298,7 +327,7 @@ public class eventServlet extends HttpServlet {
 				eventSvc.deleteevent(eventID);
 				
 				/***************************3.�R������,�ǳ����(Send the Success view)***********/								
-				String url = "/show_all_event.jsp";
+				String url = "/manager/event/show_all_event.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// �R�����\��,���^�e�X�R�����ӷ�����
 				successView.forward(req, res);
 				
@@ -306,12 +335,11 @@ public class eventServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("顯示錯誤資訊"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/error.jsp");
+						.getRequestDispatcher("/manager/event/error.jsp");
 				failureView.forward(req, res);
-			}
-	}
-	}
-
+			}}}
+		
+	
 	private byte[] readFully(InputStream in) {
 		// TODO Auto-generated method stub byte[] buffer = new byte[8192];
 		byte[] buffer = new byte[8192];
@@ -328,4 +356,6 @@ public class eventServlet extends HttpServlet {
 		}
 	    return output.toByteArray();
 		
-	}}
+	}
+
+}

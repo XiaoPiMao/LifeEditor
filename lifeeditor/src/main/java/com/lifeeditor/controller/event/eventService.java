@@ -1,10 +1,14 @@
-package oceanKuan;
+package com.lifeeditor.controller.event;
 
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
+
+import com.lifeeditor.model.event.eventDAO;
+import com.lifeeditor.model.event.eventDAO_interface;
+import com.lifeeditor.model.event.eventVO;
 
 public class eventService {
 	private eventDAO_interface dao;
@@ -64,8 +68,8 @@ public class eventService {
 		dao.delete(eventno);
 	}
 
-	public eventVO getOneevent(Integer eventno) {
-		return dao.findByPrimaryKey(eventno);
+	public eventVO getOneevent(Integer eventID) {
+		return dao.findByPrimaryKey(eventID);
 	}
 
 	public List<eventVO> getAll() {
