@@ -62,11 +62,9 @@
 				<div class="col-md-6 col-md-offset-3">
 					<h1>Life Editor</h1>
 					<div>
-					<a id="modal_trigger" href="#modal" class="btn">Login</a>		
+					<a id="modal_trigger" href="#modal" class="btn">註冊 /登入</a>		
 					<!----------------------------------------------------- 	Login start --------------------------------------------------->
-<div class="container">
-
-
+<!--     <div class="container"> -->
 	<div id="modal" class="popupContainer" style="display:none;">
 		<header class="popupHeader">
 			<span class="header_title">Login</span>
@@ -79,17 +77,9 @@
 				<div class="">					
 					<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();" ></div>
 						<span class="icon"><i class="fa fa-facebook"></i></span>
-						<span class="icon_title">使用Facebook帳號</span>
-						
-					</a>
-
-				
+						<span class="icon_title">使用Facebook帳號</span>		
+<!-- 					</a> -->
 				</div>
-
-				<div class="centeredText">
-					<span>or </span>
-				</div>
-
 				<div class="action_btns">
 				<div class="one_half"><a href="#" id="login_form" class="btn" >登入</a></div>   <!-- 	 onclick="window.location.href=('login.jsp')"    onclick="document.getElementById('form-id').submit();" -->
 					<div class="one_half last"><a href="#" id="register_form" class="btn">註冊</a></div>
@@ -102,22 +92,18 @@
 					<label>帳號</label>
 					<input type="text" name="account" size="10">
 					<br />
-
 					<label>密碼</label>
 					<input type="password" name="pswd" size="10">
 					<br />
-
 					<div class="checkbox">
 						<input id="remember" type="checkbox" />
 						<label for="remember">記住這個帳號</label>
 					</div>
-
 					<div class="action_btns">
 						<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> 上一頁</a></div>
 						<div class="one_half last"><a href="#" class="btn btn_red"  onclick="document.getElementById('form-id').submit();">登入</a></div>
 					</div>
 				</form>
-
 				<a href="#" class="forgot_password">忘記密碼</a>
 			</div>
 

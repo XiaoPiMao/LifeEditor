@@ -63,7 +63,7 @@ float: right;;
 	<!-- Menu -->
 	<nav class="menu" id="theMenu">
 		<div class="menu-wrap">
-			<h1 class="logo"><a href="index.html#home">Life Editor</a></h1>
+<!-- 			<h1 class="logo"><a href="index.html#home">Life Editor</a></h1> -->
 			<i class="fa fa-times menu-close"></i>
 			<a href="#home" class="smoothScroll">首頁</a>
 			<a href="#about" class="smoothScroll">關於</a>

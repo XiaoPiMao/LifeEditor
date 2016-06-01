@@ -1,4 +1,4 @@
-
+ 
 USE LE01;
 
 DROP TABLE friend;

@@ -126,20 +126,19 @@
     </section>
     <!-- /.sidebar -->
     </aside>
-<body class="hold-transition skin-blue sidebar-mini" style="background-color:black;">
+<body class="hold-transition skin-blue sidebar-mini">
 
 		<div class="content-wrapper">
 			<section class="content-header">
 				<h1>
-					編輯熱門人物 <small>life Editor</small>
+					分析報表 <small>life Editor</small>
 				</h1>
 
 			</section>
 
 			<section class="content">
 
-				<jsp:include page="editorhotman_test.jsp"></jsp:include>
-				
+				<jsp:include page="report.jsp"></jsp:include>
 
 			</section>
 		</div>
@@ -151,6 +150,5 @@
 	<script src="${ctx }/manager/bootstrap/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${ctx }/manager/dist/js/app.min.js"></script>
-	<script src="${ctx}/manager/js/jquery.dataTables.min.js"></script>
 </body>
 </html>
