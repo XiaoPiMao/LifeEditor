@@ -7,10 +7,20 @@ import java.util.List;
 import javax.naming.*;
 import javax.sql.DataSource;
 
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.utility.GlobalValues;
 
 public class TypeListJNDIDAO implements TypeListDAO_interface{
 	private static DataSource ds = null;
+	private HibernateTemplate hibernateTemplate;    
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
+        this.hibernateTemplate = hibernateTemplate;
+    }
+	
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -58,5 +68,25 @@ public class TypeListJNDIDAO implements TypeListDAO_interface{
 			}
 		}
 		return types;
+	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void insert(TypeListVO TypeListVO) {
+		hibernateTemplate.saveOrUpdate(TypeListVO);
+		
+	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void update(TypeListVO TypeListVO) {
+		hibernateTemplate.saveOrUpdate(TypeListVO);
+		
+	}
+
+	@Override
+	public TypeListVO findByPrimaryKey(Integer typeID) {
+		TypeListVO TypeListVO = (TypeListVO) hibernateTemplate.get(TypeListVO.class, typeID);
+		return TypeListVO;
 	}
 }

@@ -9,10 +9,20 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.orm.hibernate3.HibernateTemplate;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.utility.GlobalValues;
 
 public class SecListJNDIDAO implements SecListDAO_interface{
+	
 	private static DataSource ds = null;
+	private HibernateTemplate hibernateTemplate;    
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
+        this.hibernateTemplate = hibernateTemplate;
+    }
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -23,12 +33,12 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 	}
 	
 	
-	private static final String BY_TYPEID_STMT = "SELECT * FROM sec_list WHERE typeID = ?";
+	private static final String BY_TYPEID_STMT = "SELECT secID,secName FROM sec_list WHERE typeID = ?";
 
 	@Override
-	public List<SecListVO> findByTypeListID(Integer id) {
+	public List findByTypeListID(Integer id) {
 		Connection conn = null;
-		List<SecListVO> secs = new ArrayList<>();
+		List secs = new ArrayList<>();
 		SecListVO sec = null;
 		SecListVO tempSec = null;
 		try{
@@ -42,8 +52,7 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 				sec = new SecListVO();
 				sec.setSecID(rs.getInt("secID"));
 				sec.setSecName(rs.getString("secName"));
-				sec.setTypeID(rs.getInt("typeID"));
-				sec.setSecPic(rs.getBlob("secPic"));
+				
 				if(first) {
 					tempSec = sec;
 					first = false;
@@ -66,4 +75,25 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 		}
 		return secs;
 	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void insert(SecListVO SecListVO) {
+		hibernateTemplate.saveOrUpdate(SecListVO);
+		
+	}
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void update(SecListVO SecListVO) {
+		hibernateTemplate.saveOrUpdate(SecListVO);
+		
+	}
+
+	@Override
+	public SecListVO findByPrimaryKey(Integer secID) {
+		SecListVO SecListVO = (SecListVO) hibernateTemplate.get(SecListVO.class, secID);
+		return SecListVO;
+	}
+
 }
