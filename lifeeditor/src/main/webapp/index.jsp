@@ -59,8 +59,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3">
-					<h1>Life Editor</h1>
-					<div>
+					<div><h1>Life Editor</h1>		
 					<a id="modal_trigger" href="#modal" class="btn">註冊 /登入</a>		
 					<!----------------------------------------------------- 	Login start --------------------------------------------------->
 <!--     <div class="container"> -->
@@ -156,11 +155,11 @@
 					<h2>Archive your goals and expand your horizon</h2>
 					<div class="col-md-6">
 					<br>
-						<p>今年，你完成了哪些目標?下一個十年，你又會在哪裡?一個又一個的目標計畫、一本又一本的行事曆...如今都到哪去了?</p>
+						<p style="Font-family:Microsoft JhengHei;font-size: 20px;">今年，你完成了哪些目標?<br>下一個十年，你會在哪裡?<br>一個又一個的目標計畫...<br>一本又一本的行事曆...<br>如今都到哪裡去了?<br>完成了哪些目標呢?</p>
 					</div>
 					<div class="col-md-6">
 					<br>
-						<p>Life Editor是個協助使用者立訂目標，藉由追求目標來充實人生的平台。透過立訂的目標、行事曆與成就系統，使用者可以自由挑戰各式各樣新奇有趣的任務。同時還能利用社群的功能，分享目標、尋找同好、結識新朋走，甚至是跟好友們進行資訊及心得上的交流，最後一同來完成某項目標!</p>
+						<p style="Font-family:Microsoft JhengHei;font-size: 15px;">Life Editor是個協助使用者立訂目標，藉由追求目標來充實人生的平台。透過立訂的目標、行事曆與成就系統，使用者可以自由挑戰各式各樣新奇有趣的任務。同時還能利用社群的功能，分享目標、尋找同好、結識新朋走，甚至是跟好友們進行資訊及心得上的交流，最後一同來完成某項目標!</p>
 					</div>		
 				</div><! --/col-lg-8-->
 		
@@ -199,7 +198,7 @@
 	                            	<a class="fancybox" href="#inline5" title="最有價值球員 Stephen Curry"><img style="width:370px;height:250px;" class="img-responsive" src="images/portfolio/port02.jpg" alt="Stephen-Curry"></a>
 	                            </div>
 	                            <div id="inline5" style="width:400px;height:auto;display: none;">
-		                             <h3 style="text-align: center;Font-family:Microsoft YaHei;color:black;"><a class="fancybox" style="color:black;" href="#inline5-1">成功不是個意外</a></h3>
+		                             <h3 style="text-align: center;Font-family:Microsoft YaHei;color:black;"><a class="fancybox" style="color:black;" href="#inline5-1">成功不是個意外</a><h3>
 		                             <p style="Font-family:Microsoft JhengHei;font-size: 15px;">「成功不是個意外；成功其實是一個選擇。」我只是做出了養成好習慣的選擇。而我給你的問題是，你今天所有的習慣能成就你對明天所抱的夢想嗎？那是件你每天都必須要問自己的事，因為不論你今天照慣例做了什麼事情，將會決定你明天所在的位置。<br><br>確保你活在當下，每一天都用盡全力生活。我希望我激勵全世界的人做自己、不驕傲，並對生命中的每件好事心存感恩。我真的很榮幸能成為你們的年度最有價值球員。非常感謝你們。</p>
 	                            </div>
 	                            <div id="inline5-1" style="width:400px;height:auto;display: none;">
@@ -368,17 +367,17 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-6">
-					<p>CONTACT ME RIGHT NOW!</p>
+					<p>CONTACT US RIGHT NOW!</p>
 					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>
 					<p>
-						<small>5th Avenue, 987<br/>
-						38399, New York,<br/>
-						USA.</small>
+						<small>No. 390, Section 1, Fuxing S Rd,<br/>
+						 Da’an District, Taipei City,<br/>
+						TAIWAN</small>
 					</p>
 					<p>
-						<small>Tel. 9888-4394<br/>
-						Mail. Hello@coolfolks.com<br/>
-						Skype. NYCDesign
+						<small>Tel. +886 6631 6599<br/>
+						eeit85@gmail.com<br/>
+						First Group Design
 					</p>
 			
 				</div>
