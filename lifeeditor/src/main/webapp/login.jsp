@@ -43,6 +43,7 @@
 					<TD colspan="2" align="center"><input type="submit" value="提交"> 
 					<div>--------------or---------------</div>
 					<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
+					<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();"></div>
 					<div id="status"></div>		
 					</TD>
 				</TR>

@@ -53,9 +53,13 @@ public class user_specDAO implements user_specDAO_interface{
 	public user_specVO findByAccount(String account) {
 		try {
 		System.out.println("findByAccount()");
-		user_specVO user_specVO = (user_specVO) hibernateTemplate.find("FROM user_specVO u WHERE u.account = ?", account).get(0);
+		List<user_specVO>  list = hibernateTemplate.find("FROM user_specVO u WHERE u.account = ?", account);
+		if (list.size()>=1){
+			user_specVO user_specVO = list.get(0);
+			return user_specVO;
+		}
 		System.out.println("2");
-		return user_specVO;
+		
 		
 		}catch (Exception e) {
 			e.printStackTrace();

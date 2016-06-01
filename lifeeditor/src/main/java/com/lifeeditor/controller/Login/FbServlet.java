@@ -52,14 +52,7 @@ public class FbServlet extends HttpServlet {
 				System.out.println("新增帳號");
 				mfio.addUser(email, pswd, lastname, firstname, gender, null,
 						email, null, null, null);
-			}
-		
-			
-
-	
-			
-	
-			
+			}			
 			return;
 	}
 }
