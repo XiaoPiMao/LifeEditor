@@ -19,7 +19,9 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
         <property name="dataSource" ref="dataSource"/> 
         <property name="mappingResources"> 
             <list> 
-                <value>com/lifeeditor/model/user_spec/user_spec.hbm.xml</value>                  
+                <value>com/lifeeditor/model/user_spec/user_spec.hbm.xml</value>
+                <value>com/lifeeditor/model/type_list/type_list.hbm.xml</value>
+                <value>com/lifeeditor/model/sec_list/sec_list.hbm.xml</value>                  
             </list> 
         </property> 
         <property name="hibernateProperties"> 
@@ -39,7 +41,13 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
          
     <bean id="user_specDAO" class="com.lifeeditor.model.user_spec.user_specDAO">
         <property name="hibernateTemplate" ref="hibernateTemplate"/> 
-    </bean>   
+    </bean>
+    <bean id="TypeListJNDIDAO" class="com.lifeeditor.model.type_list.TypeListJNDIDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>
+    <bean id="SecListJNDIDAO" class="com.lifeeditor.model.sec_list.SecListJNDIDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>      
 
     <bean id="transactionManager"
         class="org.springframework.orm.hibernate3.HibernateTransactionManager">

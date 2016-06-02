@@ -52,4 +52,22 @@ public class SecListJDBCDAO implements SecListDAO_interface{
 		}
 	}
 
+	@Override
+	public void insert(SecListVO TypeListVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(SecListVO TypeListVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public SecListVO findByPrimaryKey(Integer secID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

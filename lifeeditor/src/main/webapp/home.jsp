@@ -219,41 +219,41 @@
 											<header>
 												<h3><a href="#">2016台大盃冠軍</a></h3>
 												<time class="published" datetime="2016-04-08">April 08, 2016</time>
-												<a href="#" class="author"><img src="images/lady.jpg" alt="Mr.Lady" /></a>
+												<a href="#" class="author"><img src="GetUserPicture?id=28" alt="Mr.Lady" /></a>
 											</header>
 											<a href="#" class="image"><img id="img" src='${Target_specVO.trgPicPath}'/></a>
 											</c:forEach>
 										</article>
 
-<!-- 									Mini Post -->
-<!-- 										<article class="mini-post"> -->
-<!-- 											<header> -->
-<!-- 												<h3><a href="#">蛋黃哥懶得展-高雄科工館</a></h3> -->
-<!-- 												<time class="published" datetime="2016-07-04">July 04, 2016</time> -->
-<!-- 												<a href="#" class="author"><img src="images/gudetama.jpg" alt="" /></a> -->
-<!-- 											</header> -->
-<!-- 											<a href="#" class="image"><img src="images/egg.jpg" alt="" /></a> -->
-<!-- 										</article> -->
+									<!-- Mini Post -->
+										<article class="mini-post">
+											<header>
+												<h3><a href="#">蛋黃哥懶得展-高雄科工館</a></h3>
+												<time class="published" datetime="2016-07-04">July 04, 2016</time>
+												<a href="#" class="author"><img src="images/gudetama.jpg" alt="" /></a>
+											</header>
+											<a href="#" class="image"><img src="images/egg.jpg" alt="" /></a>
+										</article>
 										
-<!-- 										Mini Post -->
-<!-- 										<article class="mini-post"> -->
-<!-- 											<header> -->
-<!-- 												<h3><a href="#">宥勝之旅</a></h3> -->
-<!-- 												<time class="published" datetime="2016-05-17">May 17, 2016</time> -->
-<!-- 												<a href="#" class="author"><img src="images/yo.jpg" alt="yo" /></a> -->
-<!-- 											</header> -->
-<!-- 											<a href="#" class="image"><img src="images/travel1.jpg" alt="" /></a> -->
-<!-- 										</article> -->
+										<!-- Mini Post -->
+										<article class="mini-post">
+											<header>
+												<h3><a href="#">宥勝之旅</a></h3>
+												<time class="published" datetime="2016-05-17">May 17, 2016</time>
+												<a href="#" class="author"><img src="images/yo.jpg" alt="yo" /></a>
+											</header>
+											<a href="#" class="image"><img src="images/travel1.jpg" alt="" /></a>
+										</article>
 
-<!-- 									Mini Post -->
-<!-- 										<article class="mini-post"> -->
-<!-- 											<header> -->
-<!-- 												<h3><a href="#">完成單車環島</a></h3> -->
-<!-- 												<time class="published" datetime="2014-04-06">April 6, 2014</time> -->
-<!-- 												<a href="#" class="author"><img src="images/1.jpg" alt="Jones Wang" /></a> -->
-<!-- 											</header> -->
-<!-- 											<a href="#" class="image"><img src="images/bike.jpg" alt="" /></a> -->
-<!-- 										</article> -->
+									<!-- Mini Post -->
+										<article class="mini-post">
+											<header>
+												<h3><a href="#">完成單車環島</a></h3>
+												<time class="published" datetime="2014-04-06">April 6, 2014</time>
+												<a href="#" class="author"><img src="images/1.jpg" alt="Jones Wang" /></a>
+											</header>
+											<a href="#" class="image"><img src="images/bike.jpg" alt="" /></a>
+										</article>
 								</div>
 							</section>
 

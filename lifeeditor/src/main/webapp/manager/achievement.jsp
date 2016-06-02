@@ -140,7 +140,7 @@ div#selects {
 									class="com.lifeeditor.service.AchievementService" />
 
 								<form method="post" action="achievement.do">
-									<b>獎項名稱: </b> <select id="select1" size="1" name="achievement"
+									<b>獎項名稱: </b> <select id="achName" size="1" name="achievement"
 										class="trophy">
 										<option value=""></option>
 										<c:forEach var="AchievementVO" items="${AchmtSvc.all}">
@@ -172,12 +172,12 @@ div#selects {
 										</c:if>
 									</c:forEach>
 							</select> &nbsp;&nbsp;&nbsp; 項目: <select id="selSec" class="opt"></select>
-								&nbsp;&nbsp;&nbsp;&nbsp; 難易度: <select id="select1">
-									<option value="a">簡單</option>
-									<option value="b">普通</option>
-									<option value="c">一般</option>
-									<option value="d">困難</option>
-									<option value="e">極嚴峻</option>
+								&nbsp;&nbsp;&nbsp;&nbsp; 難易度: <select id="difficulty">
+									<option value="1">簡單</option>
+									<option value="2">普通</option>
+									<option value="3">一般</option>
+									<option value="4">困難</option>
+									<option value="5">極嚴峻</option>
 							</select> &nbsp;&nbsp;&nbsp; <br /> <br /></td>
 						</tr>
 						<tr>
@@ -316,12 +316,12 @@ div#selects {
 $(function(){
 	
 	
-	$('#select1').change(function(){
+	$('#achName').change(function(){
 		if(firstChg == true) {
 			$(this).find("option")[0].remove();
 			firstChg = false;
 		}
-		var sel = $('#select1>:selected');
+		var sel = $('#achName>:selected');
 		var v = sel.val();
 		$.get("${ctx}/AchievementServlet",{"achID": v},function(desc){
 			$('#textarea2').val(desc);
@@ -340,7 +340,7 @@ $(function(){
 	        $.ajax({
 	          url: "${ctx}/ChallengeServlet",
 	          dataType: "text",
-	          data: {"keyword": $("#tags" ).val()},
+	          data: {"action":"autoComplete","keyword": $("#tags" ).val()},
 	          success: function( data ) {
 	        	    	  
 	        	  var res = new Array();
@@ -361,6 +361,7 @@ $(function(){
 	        		$("#textarea1").val(target.intention);
 	        		$("#from").val(target.timeStart);
 	        		$("#to").val(target.timeFinish);
+	        		$("#difficulty").val(target.difficulty);  		
 	        		$("#selType").val(target.typeID);
 	        		optSec();
  	        		$("#selSec").val(target.sectionID);

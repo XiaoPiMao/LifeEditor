@@ -1,4 +1,4 @@
-
+ 
 USE LE01;
 
 DROP TABLE friend;
@@ -330,6 +330,23 @@ INSERT INTO sec_list values(4,'考試認證',null);
 
 
 
+
+insert into sec_list(typeID,secName) values(6,'唱歌')
+insert into sec_list(typeID,secName) values(6,'演藝')
+insert into sec_list(typeID,secName) values(6,'購物')
+insert into sec_list(typeID,secName) values(6,'追劇')
+insert into sec_list(typeID,secName) values(6,'看電影')
+insert into sec_list(typeID,secName) values(6,'玩音樂')
+insert into sec_list(typeID,secName) values(6,'玩遊戲')
+insert into sec_list(typeID,secName) values(6,'看演唱會')
+insert into sec_list(typeID,secName) values(6,'博弈')
+insert into sec_list(typeID,secName) values(6,'品酒')
+insert into sec_list(typeID,secName) values(6,'參加派對')
+insert into sec_list(typeID,secName) values(6,'參加展演')
+
+
+
+
 DECLARE @typeID int =  (SELECT typeID FROM type_list WHERE typeName = '旅遊');
 
 INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'日本');
@@ -426,7 +443,10 @@ UPDATE user_spec SET genkiBarTol=0 WHERE genkiBarTol is null;
 
 
 --初始化 後台會員
+
+
  INSERT INTO  manager  select account,pswd,picture from user_spec  where account = 'parry';
+
 
 
 
