@@ -2,6 +2,7 @@ package com.lifeeditor.controller.user_spec;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.sql.Blob;
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ import javax.servlet.http.Part;
 
 import org.hibernate.Hibernate;
 
+import com.google.gson.Gson;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.user_specService;
 
@@ -74,8 +76,10 @@ public class user_specServlet extends HttpServlet {
 			     }
 				
 				String account = req.getParameter("account");
+				System.out.println(account);
 				String accountReg = "^[(a-zA-Z0-9_)]{1,10}$";
 				if (account == null || account.trim().length() == 0) {
+					
 					errorMsgs.put("errorAccountempty","帳號不可空白");
 				}else if(!account.trim().matches(accountReg) ){
 					errorMsgs.put("errorAccountempty","帳號為最多10個字的英文及數字");
@@ -158,12 +162,12 @@ public class user_specServlet extends HttpServlet {
 					
 					@SuppressWarnings("deprecation")
 					Blob picture = Hibernate.createBlob(in);
-					
+					System.out.println("111");	
 					//String picture = req.getParameter("picture").trim();
 	            
 				
 				
-				
+					
 				user_specVO user_specVO = new user_specVO();
 				user_specVO.setAccount(account);
 				user_specVO.setPswd(pswd);
@@ -177,11 +181,19 @@ public class user_specServlet extends HttpServlet {
 				user_specVO.setPicture(picture);
 				
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("user_specVO", user_specVO); 
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/register/register.jsp");
-					failureView.forward(req, resp);
+//					req.setAttribute("user_specVO", user_specVO); 
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/register/register.jsp");
+//					failureView.forward(req, resp);
+					resp.setCharacterEncoding("UTF-8");
+					
+					PrintWriter os = resp.getWriter();
+					Gson gson = new Gson();		
+					System.out.println(gson.toJson(errorMsgs));
+					os.write(gson.toJson(errorMsgs));
+					
 					return;
+					
 				}
 				
 				req.getSession().setAttribute("user_specVO", user_specVO);
@@ -193,14 +205,12 @@ public class user_specServlet extends HttpServlet {
 //				user_specVO = user_specService.addUser(account, pswd, lastName, firstName, gender, birthdate,email,address,phone,picture);
 				
 				
-				String url = "/register/send.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); 
-				successView.forward(req, resp);
+//				String url = "/register/send.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url); 
+//				successView.forward(req, resp);
 			} catch (Exception e) {
 				errorMsgs.put("errorAccountempty","此帳號已存在");
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/register/register.jsp");
-				failureView.forward(req, resp);
+				
 			}
 		}
 			if ("getOne_For_Update".equals(action)) { 
