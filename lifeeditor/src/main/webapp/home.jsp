@@ -42,19 +42,30 @@
 						</nav>
 						<nav class="main">
 							<ul>
+						    	<c:if test="${ ! empty LoginOK }">
+		         	   <a href="<c:url value='/logout_index.jsp' />"    > 登出 </a>
+			</c:if>
+							<c:if test="${! empty LoginOK }">
+               <img height='40px' width='30px'
+								src="images/3.jpg">
+			</c:if>
+							
+							
 								<li class="search">
 									<a class="fa-search" href="#search">Search</a>
 									<form id="search" method="get" action="#">
 										<input type="text" name="query" placeholder="Search" />
 									</form>
 								</li>
-								<li>註冊/登入</li>
+								
 								<li class="menu">
 									<a class="fa-bars" href="#menu">Menu</a>
 								</li>
 							</ul>
 						</nav>
 					</header>
+
+
 
 				<!-- Menu -->
 					<section id="menu">

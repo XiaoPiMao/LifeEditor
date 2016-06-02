@@ -2,7 +2,9 @@
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-
+<%
+  session.invalidate();
+%>
 
   <head>
     <meta charset="utf-8">
@@ -81,7 +83,7 @@
 				</div>
 				<div class="action_btns">
 				<div class="one_half"><a href="#" id="login_form" class="btn" >登入</a></div>   <!-- 	 onclick="window.location.href=('login.jsp')"    onclick="document.getElementById('form-id').submit();" -->
-					<div class="one_half last"><a href="#" id="register_form" class="btn">註冊</a></div>
+					<div class="one_half last"><a href="register/register.jsp" id="register_form" class="btn">註冊</a></div>
 				</div>
 			</div>
 
@@ -425,7 +427,7 @@
           jQuery(".fancybox").fancybox();
       });
 	   </script>
-<!------------------------------------------------------------------------------------ login----start------------------------------------------------------------------------------->
+<!----------------------------------------------- login----start---------------------------------------------------->
 <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet" href="css/style.css" />
@@ -441,12 +443,12 @@
 		});
 
 		// Calling Register Form
-		$("#register_form").click(function(){
-			$(".social_login").hide();
-			$(".user_register").show();
-			$(".header_title").text('Register');
-			return false;
-		});
+// 		$("#register_form").click(function(){
+// 			$(".social_login").hide();
+// 			$(".user_register").show();
+// 			$(".header_title").text('Register');
+// 			return false;
+// 		});
 
 		// Going back to Social Forms
 		$(".back_btn").click(function(){
@@ -495,14 +497,15 @@
 		console.log(response);
 
 		if (response.status === 'connected') {
-			// 這位用戶已登入 Facebook，也已經登入您的應用程式	
+			// 這位用戶已登入 Facebook，也已經登入您的應用程式
+			
 			testAPI();
 		} else if (response.status === 'not_authorized') {
 			// 這位用戶已登入 Facebook，但尚未登入您的應用程式。
-		//	document.getElementById('status').innerHTML = '可使用FB快速登入，請同意分享Email';
+			document.getElementById('status').innerHTML = '可使用FB快速登入，請同意分享Email';
 		} else {
 			//這位用戶沒有登入 Facebook，因此您無法得知用戶是否已登入您的應用程式。或者之前已呼叫 FB.logout()，因此無法連結至 Facebook。
-		//	document.getElementById('status').innerHTML = '可使用FB快速登入，請同意分享Email';
+			document.getElementById('status').innerHTML = '可使用FB快速登入，請同意分享Email';
 
 		}
 	}
@@ -552,7 +555,7 @@
 	{
 		
 	      //===AJAX POST===
-	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender, };
+	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender };
 	         $.ajax({
 	            url: 'ch04_02/Fb.do',
 	            type:"post",
