@@ -49,4 +49,22 @@ public class TypeListJDBCDAO implements TypeListDAO_interface{
 		}
 	}
 
+	@Override
+	public void insert(TypeListVO TypeListVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(TypeListVO TypeListVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public TypeListVO findByPrimaryKey(Integer typeID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

@@ -31,13 +31,11 @@
   </servlet-mapping>
   <listener>
     <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-
   </listener>
   <context-param>
     <param-name>contextConfigLocation</param-name>
     <param-value>/WEB-INF/model-config.xml</param-value>
   </context-param>
-
   <servlet>
     <servlet-name>user_specServlet</servlet-name>
     <servlet-class>com.lifeeditor.controller.user_spec.user_specServlet</servlet-class>
@@ -51,25 +49,50 @@
 	<servlet-name>LoginServlet</servlet-name>
 	<servlet-class>com.lifeeditor.controller.Login.LoginServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>type_listServlet</servlet-name>
+    <servlet-class>com.lifeeditor.controller.type_list.type_listServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
-	<servlet-name>LoginServlet</servlet-name>
-	<url-pattern>/Login.java</url-pattern>
+    <servlet-name>type_listServlet</servlet-name>
+    <url-pattern>/manager/type_list.do</url-pattern>
   </servlet-mapping>
-<!--   <servlet> -->
-<!--     <servlet-name>Test_DataSource</servlet-name> -->
-<!--     <servlet-class>Test_DataSource</servlet-class> -->
-<!--   </servlet> -->
-<!--   <servlet-mapping> -->
-<!--     <servlet-name>Test_DataSource</servlet-name> -->
-<!--     <url-pattern>/Test_DataSource</url-pattern> -->
-<!--   </servlet-mapping> -->
-<!--   <servlet> -->
-<!--     <servlet-name>Test_Servlet_Spring_HibernateTemplate</servlet-name> -->
-<!--     <servlet-class>Test_Servlet_Spring_HibernateTemplate</servlet-class> -->
-<!--   </servlet> -->
-<!--   <servlet-mapping> -->
-<!--     <servlet-name>Test_Servlet_Spring_HibernateTemplate</servlet-name> -->
-<!--     <url-pattern>/Test_Servlet_Spring_HibernateTemplate</url-pattern> -->
-<!--   </servlet-mapping> -->
-
+  <servlet>
+    <servlet-name>getTypePic</servlet-name>
+    <servlet-class>com.lifeeditor.controller.type_list.getTypePic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getTypePic</servlet-name>
+    <url-pattern>/manager/getTypePic.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>sec_listServlet</servlet-name>
+    <servlet-class>com.lifeeditor.controller.sec_list.sec_listServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>sec_listServlet</servlet-name>
+    <url-pattern>/manager/sec_list.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>getSecPic</servlet-name>
+    <servlet-class>com.lifeeditor.controller.sec_list.getSecPic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getSecPic</servlet-name>
+    <url-pattern>/manager/getSecPic.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>getSecName</servlet-name>
+    <servlet-class>com.lifeeditor.controller.sec_list.getSecName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getSecName</servlet-name>
+    <url-pattern>/manager/getSecName.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/Login.java</url-pattern>
+  </servlet-mapping>
 </web-app>
+
+	
