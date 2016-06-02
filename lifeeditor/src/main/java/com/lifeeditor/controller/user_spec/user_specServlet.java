@@ -324,7 +324,7 @@ public class user_specServlet extends HttpServlet {
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("user_specVO", user_specVO); 
 						RequestDispatcher failureView = req
-								.getRequestDispatcher("/updateUser.jsp#addUser");
+								.getRequestDispatcher("/updateUser.jsp");
 						failureView.forward(req, resp);
 						return;
 					}
