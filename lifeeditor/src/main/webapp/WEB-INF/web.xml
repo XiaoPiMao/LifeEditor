@@ -58,6 +58,14 @@
     <url-pattern>/manager/type_list.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>getPicture</servlet-name>
+    <servlet-class>com.lifeeditor.controller.user_spec.getPicture</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getPicture</servlet-name>
+    <url-pattern>/register/getPicture.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>getTypePic</servlet-name>
     <servlet-class>com.lifeeditor.controller.type_list.getTypePic</servlet-class>
   </servlet>
