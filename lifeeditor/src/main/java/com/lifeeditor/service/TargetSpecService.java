@@ -15,7 +15,7 @@ public class TargetSpecService {
 		return dao.getAll();
 	}
 	
-//	public List<Target_specVO> getAllByHotMan() {
-//		return dao.getAllByHotMan();
-//	}
+	public List<Target_specVO> getAllByHotMan() {
+		return dao.getAllByHotMan();
+	}
 }
