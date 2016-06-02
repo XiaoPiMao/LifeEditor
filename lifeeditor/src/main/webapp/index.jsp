@@ -81,7 +81,7 @@
 				</div>
 				<div class="action_btns">
 				<div class="one_half"><a href="#" id="login_form" class="btn" >登入</a></div>   <!-- 	 onclick="window.location.href=('login.jsp')"    onclick="document.getElementById('form-id').submit();" -->
-					<div class="one_half last"><a href="register/register.jsp" id="register_form" class="btn">註冊</a></div>
+					<div class="one_half last"><a href="#" id="register_form" class="btn">註冊</a></div>
 				</div>
 			</div>
 
@@ -441,12 +441,12 @@
 		});
 
 		// Calling Register Form
-// 		$("#register_form").click(function(){
-// 			$(".social_login").hide();
-// 			$(".user_register").show();
-// 			$(".header_title").text('Register');
-// 			return false;
-// 		});
+		$("#register_form").click(function(){
+			$(".social_login").hide();
+			$(".user_register").show();
+			$(".header_title").text('Register');
+			return false;
+		});
 
 		// Going back to Social Forms
 		$(".back_btn").click(function(){

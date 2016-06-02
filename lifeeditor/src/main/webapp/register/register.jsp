@@ -186,6 +186,18 @@ float: right;;
 		<br>
 		<br>
 		
+		<jsp:useBean id="userSvc" scope="page" class="com.lifeeditor.service.user_specService" />
+			<FORM METHOD="post" ACTION="user_spec.do" >
+		       <b>選擇員工編號:</b>
+		       <select size="1" name="userID">
+		         <c:forEach var="user_specVO" items="${userSvc.all}" > 
+		          <option value="${user_specVO.userID}">${user_specVO.userID}
+		         </c:forEach>   
+		       </select>
+		       <input type="submit" value="送出">
+		       <input type="hidden" name="action" value="getOne_For_Update">
+		    </FORM>
+		
 		</div>
 	</div>
 </div>
