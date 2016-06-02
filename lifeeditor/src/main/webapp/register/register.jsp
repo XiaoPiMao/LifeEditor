@@ -63,6 +63,7 @@ float: right;;
 	<!-- Menu -->
 	<nav class="menu" id="theMenu">
 		<div class="menu-wrap">
+
 			<h1 class="logo"><a href="../index.jsp#home">Life Editor</a></h1>
 			<i class="fa fa-times menu-close"></i>
 			<a href="#home" class="smoothScroll">首頁</a>

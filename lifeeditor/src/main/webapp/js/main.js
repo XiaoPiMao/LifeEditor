@@ -14,7 +14,7 @@
 	home from lifeeditor_test\WebContent\js
 */
 
-(function($) {
+(function($){
 
 	skel.breakpoints({
 		xlarge:	'(max-width: 1680px)',
