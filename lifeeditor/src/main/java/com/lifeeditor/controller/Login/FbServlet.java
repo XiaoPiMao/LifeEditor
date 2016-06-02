@@ -21,7 +21,7 @@ public class FbServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-
+		
 		String account =request.getParameter("account");
 		String password = request.getParameter("pswd");
 		// 讀取使用者所輸入，由瀏覽器送來的 EMAIL 欄位內的資料
@@ -30,13 +30,13 @@ public class FbServlet extends HttpServlet {
 		String firstname = request.getParameter("FIRSTNAME");
 		String pswd = request.getParameter("PSWD");
 		String gender = request.getParameter("GENDER");
+		
 		String contextPath = getServletContext().getContextPath();
 		if (gender.equals("male")) {
 			gender = "M";
-		} else {
+		} else {   
 			gender = "F";
 		}
-
 		// user_specVO 扮演封裝輸入資料的角色
 //		user_specVO vo = new user_specVO();
 		user_specService mfio = new user_specService();
@@ -53,6 +53,7 @@ public class FbServlet extends HttpServlet {
 				mfio.addUser(email, pswd, lastname, firstname, gender, null,
 						email, null, null, null);
 			}			
+			session.setAttribute("LoginOK", list); 
 			return;
 	}
 }

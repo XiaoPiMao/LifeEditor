@@ -56,6 +56,7 @@ public class LoginServlet extends HttpServlet {
 				if (vo != null) {
 					System.out.println("帳號密碼吻合");				
 					session.setAttribute("LoginOK", vo); 																// OK, 將mb物件放入Session範圍內，識別字串為"LoginOK"，表示此使用者已經登入
+					System.out.println(session.getAttribute("LoginOK") + "<br>");
 				} else {
 	
 					System.out.println("帳號密碼不吻合");														// NG, userid與密碼的組合錯誤，放錯誤訊息"該帳號不存在或密碼錯誤"到 errorMsgMap 之內,,, 對應的識別字串為 "LoginError"

@@ -133,7 +133,7 @@
 	function ajaxPost(email,last_name,first_name,id,gender)
 	{
 	      //===AJAX POST===
-	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender };
+	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender,};
 	         $.ajax({
 	            url: 'ch04_02/Fb.do',
 	            type:"post",
