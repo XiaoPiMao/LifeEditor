@@ -514,12 +514,13 @@
 
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId : '236995580009135',
+		    	appId : '236995580009135',
+// 			appId : '467832290092585',
 			//appId : 1751012028468871,
 			cookie : true, // enable cookies to allow the server to access 
 			// the session
 			xfbml : true, // parse social plugins on this page
-			version : 'v2.2' 
+			version : 'v2.6' 
 		});
 
 	};
@@ -537,31 +538,33 @@
 
 	function testAPI() {
 		console.log('Welcome!  Fetching your information.... ');
-		FB.api('/me','GET', {"fields":"email,last_name,first_name,id,gender,picture"},
-				  function(response){					   
-							 ajaxPost(response.email,response.last_name,response.first_name,response.id,response.gender);														
+		FB.api('/me','GET', {"fields":"email,last_name,first_name,id,gender,picture{url}"},
+				  function(response){					
+//                      			console.log(JSON.stringify(response));
+//  								console.log(response);
+			                console.log(response.picture);
+							 ajaxPost(response.email,response.last_name,response.first_name,response.id,response.gender,response.picture);														
 						});		
 }
-	function LoginAjax(){
-		
-		$("#form-id").submit();
-		
+	
+	function LoginAjax(){		
+		$("#form-id").submit();		
 	}
 	
-	function ajaxPost(email,last_name,first_name,id,gender)
+	function ajaxPost(email,last_name,first_name,id,gender,picture)
 	{
-		
+			alert(JSON.stringify(picture));
 	      //===AJAX POST===
-	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender, };
+	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender, "PIC":JSON.stringify(picture)};
 	         $.ajax({
 	            url: 'ch04_02/Fb.do',
 	            type:"post",
 	            data: params,
 	            success: function(data){
 	                //表單成功送出後會執行的地方	               
-                    alert('個資已被送出');
+//                    alert('個資已被送出');
 		      
-		         	 window.location.href =  "${ctx}/home.jsp";
+	         	 window.location.href =  "${ctx}/home.jsp";
 			
 	            }
 	       });

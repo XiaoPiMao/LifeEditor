@@ -25,7 +25,6 @@
 		</style>
 	</head>
 	<body>
-
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -42,13 +41,15 @@
 						</nav>
 						<nav class="main">
 							<ul>
-						    	<c:if test="${ ! empty LoginOK }">
-		         	   <a href="<c:url value='/logout_index.jsp' />"    > 登出 </a>
-			</c:if>
-							<c:if test="${! empty LoginOK }">
-               <img height='40px' width='30px'
-								src="images/3.jpg">
-			</c:if>
+							<c:choose>
+						    	<c:when test="${ ! empty FbPicture }">
+						    			<img src="${FbPicture}"></img>
+								</c:when>
+							<c:otherwise>
+								<img height='40px' width='30px' src="HomeGetPicture">
+							</c:otherwise> 
+					</c:choose>
+				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>    
 							
 							
 								<li class="search">
@@ -122,6 +123,7 @@
 						<!-- Post -->
 							<article class="post">
 								<header>
+							     	測試: ${LoginOK.pswd}_${LoginOK.gender}_${ LoginOK.email} _${LoginOK.picture }
 <!-- 								<div class="postMetaInline-feedSummary inlineEditor-headerContent"> -->
 <!-- 								<div class="inlineEditor-placeholder js-inlineEditorPrompt">Write here…</div> -->
 									<div class="title">
@@ -349,6 +351,36 @@
 			<script src="js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="js/main.js"></script>
+<!-- 			<script> -->		
+<script>
+        window.fbAsyncInit = function() {
+                FB.init({
+                	appId : '236995580009135',
+                status: true,
+                cookie: true,
+                xfbml: true,
+                version : 'v2.6' 
+            });
+        };
 
+
+        (function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id))
+						return;
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//connect.facebook.net/zh_TW/sdk.js";
+					fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+        function logout() {
+            FB.logout(function(response) {
+            });
+        }
+
+
+        </script>
+<!-- 			</script> -->
 	</body>
 </html>
