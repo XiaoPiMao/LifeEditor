@@ -41,9 +41,9 @@
 			<a href="#home" class="smoothScroll">首頁</a>
 			<a href="#about" class="smoothScroll">關於</a>
 			<a href="#portfolio" class="smoothScroll">熱門人物</a>
-			<a href="#contact" class="smoothScroll">連絡我們</a>
+			<a href="#contact" class="smoothScroll">聯絡我們</a>
 			<a href="register/register.jsp" class="smoothScroll">註冊</a>
-			<a href="#modal" class="smoothScroll">會員登入</a>
+			<a id="modal_trigger2" href="#modal" class="smoothScroll">登入</a>
 			<a href="#"><i class="fa fa-facebook"></i></a>
 			<a href="#"><i class="fa fa-twitter"></i></a>
 			<a href="#"><i class="fa fa-dribbble"></i></a>
@@ -447,7 +447,7 @@
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript">
 	$("#modal_trigger").leanModal({top : 200, overlay : 0.6, closeButton: ".modal_close" });
-
+	$("#modal_trigger2").leanModal({top : 200, overlay : 0.6, closeButton: ".modal_close" });  //給右邊界面
 	$(function(){
 		// Calling Login Form
 		$("#login_form").click(function(){
