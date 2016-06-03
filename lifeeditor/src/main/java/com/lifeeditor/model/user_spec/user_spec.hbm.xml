@@ -3,7 +3,7 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.lifeeditor.user_spec.model.user_specVO" table="user_spec" >
+    <class name="com.lifeeditor.model.user_spec.user_specVO" table="user_spec" >
         
         <id name="userID" column="userID">
             <generator class="identity"/>

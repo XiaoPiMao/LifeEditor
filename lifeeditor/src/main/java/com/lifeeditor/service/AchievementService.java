@@ -1,9 +1,10 @@
-package com.lifeeditor.model.achievement;
+package com.lifeeditor.service;
 
 import java.sql.Blob;
 import java.util.List;
 
-import com.lifeeditor.model.achievement.AchievementHibernateDAO;
+import com.lifeeditor.model.achievement.*;
+
 
 public class AchievementService {
 

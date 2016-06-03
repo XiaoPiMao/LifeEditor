@@ -8,6 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.lifeeditor.model.user_spec.user_specVO;
 
 @WebServlet("/com.lifeeditor.invite_list/addFriend")
 public class addFriend extends HttpServlet {
@@ -24,7 +27,9 @@ public class addFriend extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String me = "26";
+		HttpSession session = request.getSession();	
+		user_specVO sessionMe = (user_specVO) session.getAttribute("LoginOK");
+		Integer me = sessionMe.getUserID();
 		String myFri = request.getParameter("id");
 		try {
 			new addFriendDAO().insert(me,myFri);

@@ -25,11 +25,85 @@
 <link rel="stylesheet" href="${ctx }/manager/dist/css/AdminLTE.min.css">
 <link rel="stylesheet"
 	href="${ctx }/manager/dist/css/skins/skin-blue.min.css">
+<link rel="stylesheet" href="${ctx}/css/style.css"> 
+	<link rel="stylesheet"
+		href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 
 <!--[if lt IE 9]>
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	  <![endif]-->
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<style>
+h1 {
+	text-align: center;
+}
+
+table, th, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	width: 50%;
+	color: blue;
+	text-shadow: 1px 1px orange;
+}
+
+th, td {
+	padding: 15px;
+}
+
+#dropZone {
+	width: 240px;
+	height: 100px;
+	border: 1px solid gray;
+	float: left
+}
+
+.thumb {
+	height: 75px;
+	margin: 5px;
+}
+
+#elements {
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#textarea1 {
+	padding: 1px;
+	height: 130%;
+}
+#textarea2 {
+	padding: 1px;
+	height: 130%;
+}
+
+</style>
+	<style>
+#content {
+	font-size: 14pt;
+}
+
+div#selects {
+	margin-top: 15vh;
+	text-align: center;
+}
+
+#selType, #selSec, option {
+	width: 150px;
+	font-size: 14pt;
+}
+
+.ui-autocomplete-loading {
+    background: white url("http://www.guiza.net/fotos/wp-content/plugins/nextgen-gallery/admin/css/images/ui-anim_basic_16x16.gif") right center no-repeat;
+  }
+  
+#tags { width: 15em; }
+
+
+</style>
+
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -56,15 +130,17 @@
 
 
 						<tr>
-							<td><form action="demo_form.asp">
-									挑戰名稱: <input type="text" name="Challenge" value="環台馬拉松">
-									<input type="submit" value="查詢">
-								</form> <br /></td>
+							<td> <div class="ui-widget">
+							<form action="demo_form.asp">
+									挑戰名稱: <input id="tags" type="text" name="Challenge" >
+								</form> <br />
+								</div>
+								</td>
 							<td><jsp:useBean id="AchmtSvc" scope="page"
-									class="com.lifeeditor.model.achievement.AchievementService" />
+									class="com.lifeeditor.service.AchievementService" />
 
 								<form method="post" action="achievement.do">
-									<b>獎項名稱: </b> <select size="1" name="achievement"
+									<b>獎項名稱: </b> <select id="achName" size="1" name="achievement"
 										class="trophy">
 										<option value=""></option>
 										<c:forEach var="AchievementVO" items="${AchmtSvc.all}">
@@ -74,21 +150,7 @@
 								</form> <br /></td>
 						</tr>
 						<tr>
-							<td>類別: <select id="selType" class="opt">
-									<option value=""></option>
-									<c:forEach var="type" items="${types }">
-										<c:if test="${type.typeName != '自訂' }">
-											<option value=${type.typeID }>${type.typeName }</option>
-										</c:if>
-									</c:forEach>
-							</select> &nbsp;&nbsp;&nbsp; 項目: <select id="selSec" class="opt"></select>
-								&nbsp;&nbsp;&nbsp;&nbsp; 難易度: <select id="select1">
-									<option value="a">簡單</option>
-									<option value="b">普通</option>
-									<option value="c">一般</option>
-									<option value="d">困難</option>
-									<option value="e">極嚴峻</option>
-							</select> &nbsp;&nbsp;&nbsp; <br /> <br /></td>
+							<td><textarea id="textarea1" rows="3" cols="50">內容描述...</textarea></td>
 							<td rowspan="2">獎杯圖示:<br />
 							<br />
 								<div id="dropZone" ondragover="dragoverHandler(event)"
@@ -102,15 +164,29 @@
 								accept="image/*" onchange="fileViewer()" /></td>
 						</tr>
 						<tr>
+							<td>類別: <select id="selType" class="opt">
+									<option value=""></option>
+									<c:forEach var="type" items="${types }">
+										<c:if test="${type.typeName != '自訂' }">
+											<option value=${type.typeID }>${type.typeName }</option>
+										</c:if>
+									</c:forEach>
+							</select> &nbsp;&nbsp;&nbsp; 項目: <select id="selSec" class="opt"></select>
+								&nbsp;&nbsp;&nbsp;&nbsp; 難易度: <select id="difficulty">
+									<option value="1">簡單</option>
+									<option value="2">普通</option>
+									<option value="3">一般</option>
+									<option value="4">困難</option>
+									<option value="5">極嚴峻</option>
+							</select> &nbsp;&nbsp;&nbsp; <br /> <br /></td>
+						</tr>
+						<tr>
 							<td>本挑戰項目<br />
 							<br /> <label for="from">起始於:</label> <input type="text"
 								id="from" name="from"> <label for="to">結束於:</label> <input
 								type="text" id="to" name="to"></td>
-						</tr>
-						<tr>
-							<td><textarea id="textarea" rows="3" cols="50">內容描述...</textarea></td>
-							<td><textarea id="textarea" rows="3" cols="50">獎杯描述...</textarea></td>
-			
+							<td><textarea id="textarea2" rows="3" cols="50">獎杯描述...</textarea></td>
+
 						</tr>
 
 					</table>
@@ -124,70 +200,12 @@
 
 
 
-	<style>
-h1 {
-	text-align: center;
-}
-
-table, th, td {
-	border: 1px solid black;
-	border-collapse: collapse;
-	width: 50%;
-	color: blue;
-	text-shadow: 1px 1px orange;
-}
-
-th, td {
-	padding: 15px;
-}
 
 
-</style>
-
-	<style type="text/css">
-#dropZone {
-	width: 240px;
-	height: 100px;
-	border: 1px solid gray;
-	float: left
-}
-
-.thumb {
-	height: 75px;
-	margin: 5px;
-}
-
-#elements {
-	padding-left: 50px;
-	padding-right: 50px;
-}
-
-#textarea {
-	padding: 1px;
-	height: 130%;
-}
-</style>
-	<style>
-#content {
-	font-size: 14pt;
-}
-
-div#selects {
-	margin-top: 15vh;
-	text-align: center;
-}
-
-#selType, #selSec, option {
-	width: 150px;
-	font-size: 14pt;
-}
-</style>
-
-	<link rel="stylesheet"
-		href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 	<script src="//code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<link rel="stylesheet" href="/resources/demos/style.css">
+
+	
 	<script>
 		$(function() {
 			$("#from").datepicker({
@@ -260,16 +278,18 @@ div#selects {
 			selects[0].onchange = optSec;
 		}
 
+		var firstSec = true;		
 		function optSec() {
-
+			if(firstSec == true) {
+				$(selects[0]).find("option")[0].remove();
+				firstSec = false;
+			}
 			while (selects[1].childNodes.length > 0)
 				selects[1].removeChild(selects[1].lastChild);
-			var secs = allSecs[this.value];
+			var secs = allSecs[selects[0].value];
 			for (var i = 0, max = secs.length; i < max; i++) {
 				addOpt(secs[i].secID, secs[i].secName);
 			}
-			selects[1].value = selects[1].firstChild().value;
-
 		}
 
 		function addOpt(value, text) {
@@ -281,23 +301,86 @@ div#selects {
 	</script>
 
 	<!-- jQuery 2.2.0 -->
-	<script src="${ctx }/manager/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+	<script src="${ctx }/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 	<!-- Bootstrap 3.3.6 -->
 	<script src="${ctx }/manager/bootstrap/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${ctx }/manager/dist/js/app.min.js"></script>
-	<script src="js/jquery-ui.js"></script>
+	<script src="${ctx }/js/jquery-ui.js"></script>
 
 
-	<%-- 	<c:forEach var="target" varStatus="var" items="${targets.all}"> --%>
 
-	<%-- 	${target.targetID } --%>
-	<%-- 		${target.trgName } --%>
-	<%-- 			${target.intention } --%>
+<script>
+	var firstChg = true;
 
-	<%-- 	</c:forEach> 	 --%>
-
-
+$(function(){
+	
+	
+	$('#achName').change(function(){
+		if(firstChg == true) {
+			$(this).find("option")[0].remove();
+			firstChg = false;
+		}
+		var sel = $('#achName>:selected');
+		var v = sel.val();
+		$.get("${ctx}/AchievementServlet",{"achID": v},function(desc){
+			$('#textarea2').val(desc);
+		} );
+		
+	});
+	
+	function log( message ) {
+		var targets;
+	      $( "<div>" ).text( message ).prependTo( "#log" );
+	      $( "#log" ).scrollTop( 0 );
+	    }
+	 
+	    $( "#tags" ).autocomplete({
+	      source: function( request, response ) {
+	        $.ajax({
+	          url: "${ctx}/ChallengeServlet",
+	          dataType: "text",
+	          data: {"action":"autoComplete","keyword": $("#tags" ).val()},
+	          success: function( data ) {
+	        	    	  
+	        	  var res = new Array();
+	        	  targets = JSON.parse(data);
+	        	  console.log(data);
+					$.each(targets, function(index, target){
+					console.log(target.trgName);
+					res.push(target.trgName);		
+				});
+					response(res);	
+	          }
+	        });
+	      },
+	      minLength: 1,
+	      select: function( event, ui ) {
+	        $.each(targets, function(i,target) {
+	        	if(target.trgName == ui.item.label) {
+	        		$("#textarea1").val(target.intention);
+	        		$("#from").val(target.timeStart);
+	        		$("#to").val(target.timeFinish);
+	        		$("#difficulty").val(target.difficulty);  		
+	        		$("#selType").val(target.typeID);
+	        		optSec();
+ 	        		$("#selSec").val(target.sectionID);
+	        	}
+	        })
+	      },
+	      open: function() {
+	        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+	      },
+	      close: function() {
+	        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+	      }
+	    });
+	
+	   	    
+	
+});
+    
+</script>
 
 
 </body>

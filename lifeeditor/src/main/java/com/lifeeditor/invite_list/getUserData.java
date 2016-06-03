@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.google.gson.JsonArray;
+import com.lifeeditor.model.user_spec.user_specVO;
 
 /**
  * Servlet implementation class getUserJson
@@ -28,9 +29,14 @@ public class getUserData extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();
-		getAllDatafromDB ga = new getAllDatafromDB();
-		List<user_listVO> getalldata = ga.selectFriend();
-		session.setAttribute("userData",getalldata); //創建Session物件 把userData放入
+		getAllFriendFromDB gaf = new getAllFriendFromDB();
+		user_specVO user1 = (user_specVO) session.getAttribute("LoginOK"); //得到user
+		Integer userName = user1.getUserID();
+		List<myFriendVO> myAllFriend = gaf.selectFriend(userName);
+		session.setAttribute("userData",myAllFriend); //創建Session物件 把friend放入
+//		getAllDatafromDB ga = new getAllDatafromDB();
+//		List<user_listVO> getalldata = ga.selectFriend();
+//		session.setAttribute("userData",getalldata); //創建Session物件 把userData放入
 		System.out.println("Add session Object");
 		RequestDispatcher rd = request.getRequestDispatcher("/manager/_addfriend/addfriend.jsp");
 		rd.forward(request, response);
