@@ -41,6 +41,7 @@
                         "left": 50 + "%",
                         "margin-left": -(modal_width / 2) + "px",
                         "top": o.top + "px"
+                        
                     });
 
                     $(modal_id).fadeTo(200, 1);
