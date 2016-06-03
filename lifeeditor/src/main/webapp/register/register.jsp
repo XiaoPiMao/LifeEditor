@@ -42,7 +42,8 @@
 #div1{
 margin: auto;
 width:1000px;
-padding-top: 50px;  
+padding-top: 50px;
+
 
 }
 label{
@@ -69,7 +70,7 @@ float: right;;
 			<a href="#home" class="smoothScroll">首頁</a>
 			<a href="#about" class="smoothScroll">關於</a>
 			<a href="#portfolio" class="smoothScroll">熱門人物</a>
-			<a href="#contact" class="smoothScroll">連絡我們</a>
+			<a href="#contact" class="smoothScroll">聯絡我們</a>
 			<a href="#inline0" class="smoothScroll">註冊登入</a>
 			<a href="#"><i class="fa fa-facebook"></i></a>
 			<a href="#"><i class="fa fa-twitter"></i></a>
@@ -94,10 +95,8 @@ float: right;;
 	
 	<div id="div1" class="container-fluid">
 	<div class="row">
-		<div class="col-md-6">
-		<FORM METHOD="post" ACTION="user_spec.do" name="form1" enctype="multipart/form-data">
-
-
+	<FORM METHOD="post" ACTION="user_spec.do" name="form1" enctype="multipart/form-data">
+    <div class="col-md-6">
 	<div>
 		<label for="exampleInputaccount">帳號:</label>
 		<input type="TEXT" class="form-control" id="exampleInputaccount" name="account" value="${param.account}" size="45"  /><span>${errorMsgs.errorAccountempty}</span>
@@ -125,9 +124,12 @@ float: right;;
 		<span>&nbsp&nbsp&nbsp${errorMsgs.errorgender}</span>
 	</div>
 	<div class="form-group">
+	
 		<label for="exampleInputbirthdate">生日</label>
 		<input type="date" class="form-control" id="exampleInputbirthdate" name="birthdate" value="${param.birthdate}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.errorbirthdate}</span>
 	</div>
+	</div>
+	<div style="padding-left:100px" class="col-md-6">
 	<div class="form-group">
 		<label for="exampleInputemail">電子信箱</label>
 		<input type="TEXT" class="form-control" id="exampleInputemail" name="email" value="${param.email}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.erroremail}</span>
@@ -140,15 +142,25 @@ float: right;;
 		<label  for="exampleInputphone">電話號碼</label>
 		<input type="TEXT"  class="form-control" id="exampleInputphone" name="phone" value="${param.phone}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.errorphone}</span>
 	</div>
+	<div id="div" class="container-fluid">
+		<div class="row">
+	<div class="col-md-6">
 	<div class="form-group">
 		<label for="exampleInputpicture">上傳大頭貼</label>
 		<input type="file" id="exampleInputpicture" class="upl" name="picture" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.errorpicture}</span>
-	</div>
-	<div>
-		<input type="hidden" name="action" value="insert">
-		<input type="submit" style="margin-left: 650px;position:relative; bottom: 150px;width:150px;height:80px;font-size:20px;" class="btn btn-default" value="送出新增"><div style="font-size:12pt;color:red;width:150px; margin-left: 650px;position:relative; bottom: 250px;"><p>${errorMsgs.errorCaptcha}</p></div>
-	</div>
-	<div style="margin-left: 580px;position:relative; bottom: 480px;width:150px;height:80px;font-size:20px;">
+ 	</div>
+ 	</div>
+ 	<div class="col-md-6">
+ 	<div>
+ 	<label>預覽大頭貼</label><br>
+        <img class="preview" style="max-width: 150px; max-height: 100px;">
+        <div class="size"></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    
+	<div style="font-size:20px;">
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 		<div class="g-recaptcha" data-sitekey="6LfoPyETAAAAAG8hEQH-RAVNjAft9mX6uzK70CTD"></div>
 		<noscript>
@@ -173,20 +185,27 @@ float: right;;
 		  </div>
 		</noscript>
 		</div>
-</FORM>
-		</div>
-		<div style="padding-left:100px" class="col-md-6">		
-		
 		<div>
-		<label>預覽大頭貼</label><br>
-        <img class="preview" style="max-width: 450px; max-height: 400px;">
-        <div class="size"></div>
+			<input type="hidden" name="action" value="insert">
+			<input type="submit" style="width:150px;height:80px;font-size:20px;" class="btn btn-default" value="送出新增"><div style="font-size:12pt;color:red;width:150px;"><p>${errorMsgs.errorCaptcha}</p></div>
+	    </div>
+
 		</div>
-		<br>
-		<br>
-		<br>
+			
+		</FORM>
+		<jsp:useBean id="userSvc" scope="page" class="com.lifeeditor.service.user_specService" />
+			<FORM METHOD="post" ACTION="user_spec.do" >
+		       <b>選擇員工編號:</b>
+		       <select size="1" name="userID">
+		         <c:forEach var="user_specVO" items="${userSvc.all}" > 
+		          <option value="${user_specVO.userID}">${user_specVO.userID}
+		         </c:forEach>   
+		       </select>
+		       <input type="submit" value="送出">
+		       <input type="hidden" name="action" value="getOne_For_Update">
+		    </FORM>
 		
-		</div>
+		
 	</div>
 </div>
 	

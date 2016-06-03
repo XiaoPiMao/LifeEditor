@@ -1,5 +1,6 @@
 package com.lifeeditor.init;
 
+import java.sql.Blob;
 import java.util.*;
 
 import javax.servlet.ServletContextListener;
@@ -14,6 +15,7 @@ import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.service.SecListService;
 import com.lifeeditor.service.TypeListService;
+import com.lifeeditor.utility.MyGson;
 
 
 
@@ -32,16 +34,19 @@ public class ContextListener implements ServletContextListener {
 		List<TypeListVO> types = typeListService.getAll();
 		context.setAttribute("types", types);
 		
+		
+		
 		//項目轉成json
 		SecListService secListSvc = new SecListService();
 		Map<Integer,JsonArray> secMap = new LinkedHashMap<>();
 		JsonParser jsonParser = new JsonParser();
-		Gson gson = new Gson();
+		Gson gson = MyGson.myGsonBuilder.create();
 		for(TypeListVO type : types) {
 			List<SecListVO> secs = secListSvc.getByTypeID( type.getTypeID() );
 			secMap.put(type.getTypeID(),jsonParser.parse(gson.toJson(secs)).getAsJsonArray());
 		}
-		System.out.println(gson.toJson(secMap));
+		
+		context.setAttribute("jTypes", gson.toJson(types));
 		context.setAttribute("secs", gson.toJson(secMap));
 		
 	}

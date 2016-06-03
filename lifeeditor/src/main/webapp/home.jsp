@@ -25,7 +25,6 @@
 		</style>
 	</head>
 	<body>
-
 		<!-- Wrapper -->
 			<div id="wrapper">
 
@@ -42,19 +41,32 @@
 						</nav>
 						<nav class="main">
 							<ul>
+							<c:choose>
+						    	<c:when test="${ ! empty FbPicture }">
+						    			<img src="${FbPicture}"></img>
+								</c:when>
+							<c:otherwise>
+								<img height='40px' width='30px' src="HomeGetPicture">
+							</c:otherwise> 
+					</c:choose>
+				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>    
+							
+							
 								<li class="search">
 									<a class="fa-search" href="#search">Search</a>
 									<form id="search" method="get" action="#">
 										<input type="text" name="query" placeholder="Search" />
 									</form>
 								</li>
-								<li>註冊/登入</li>
+								
 								<li class="menu">
 									<a class="fa-bars" href="#menu">Menu</a>
 								</li>
 							</ul>
 						</nav>
 					</header>
+
+
 
 				<!-- Menu -->
 					<section id="menu">
@@ -111,6 +123,7 @@
 						<!-- Post -->
 							<article class="post">
 								<header>
+							     	測試: ${LoginOK.pswd}_${LoginOK.gender}_${ LoginOK.email} _${LoginOK.picture }
 <!-- 								<div class="postMetaInline-feedSummary inlineEditor-headerContent"> -->
 <!-- 								<div class="inlineEditor-placeholder js-inlineEditorPrompt">Write here…</div> -->
 									<div class="title">
@@ -215,45 +228,18 @@
                                    <h2>熱門人物</h2>
 									<!-- Mini Post -->
 										<article class="mini-post">
-										<c:forEach var="Target_specVO" items="${trgSvc.all}">
+										<c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
 											<header>
-												<h3><a href="#">2016台大盃冠軍</a></h3>
-												<time class="published" datetime="2016-04-08">April 08, 2016</time>
-												<a href="#" class="author"><img src="GetUserPicture?id=28" alt="Mr.Lady" /></a>
+											<a href="#" class="author"><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span><img src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
+												<h4><a href="#" style="font-size:12px">${Target_specVO.targetVO.trgName}</a></h4>
+												<h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
+												
+											    
 											</header>
 											<a href="#" class="image"><img id="img" src='${Target_specVO.trgPicPath}'/></a>
 											</c:forEach>
 										</article>
 
-									<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="#">蛋黃哥懶得展-高雄科工館</a></h3>
-												<time class="published" datetime="2016-07-04">July 04, 2016</time>
-												<a href="#" class="author"><img src="images/gudetama.jpg" alt="" /></a>
-											</header>
-											<a href="#" class="image"><img src="images/egg.jpg" alt="" /></a>
-										</article>
-										
-										<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="#">宥勝之旅</a></h3>
-												<time class="published" datetime="2016-05-17">May 17, 2016</time>
-												<a href="#" class="author"><img src="images/yo.jpg" alt="yo" /></a>
-											</header>
-											<a href="#" class="image"><img src="images/travel1.jpg" alt="" /></a>
-										</article>
-
-									<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="#">完成單車環島</a></h3>
-												<time class="published" datetime="2014-04-06">April 6, 2014</time>
-												<a href="#" class="author"><img src="images/1.jpg" alt="Jones Wang" /></a>
-											</header>
-											<a href="#" class="image"><img src="images/bike.jpg" alt="" /></a>
-										</article>
 								</div>
 							</section>
 
@@ -338,6 +324,36 @@
 			<script src="js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="js/main.js"></script>
+<!-- 			<script> -->		
+<script>
+        window.fbAsyncInit = function() {
+                FB.init({
+                	appId : '236995580009135',
+                status: true,
+                cookie: true,
+                xfbml: true,
+                version : 'v2.6' 
+            });
+        };
 
+
+        (function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id))
+						return;
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//connect.facebook.net/zh_TW/sdk.js";
+					fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+        function logout() {
+            FB.logout(function(response) {
+            });
+        }
+
+
+        </script>
+<!-- 			</script> -->
 	</body>
 </html>

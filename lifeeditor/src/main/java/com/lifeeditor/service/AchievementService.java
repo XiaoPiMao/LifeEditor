@@ -4,6 +4,7 @@ import java.sql.Blob;
 import java.util.List;
 
 import com.lifeeditor.model.achievement.*;
+import com.lifeeditor.model.target.TargetVO;
 
 
 public class AchievementService {
@@ -11,17 +12,16 @@ public class AchievementService {
 	private AchievementDAO_interface dao;
 	
 	public AchievementService() {
-		dao = new AchievementHibernateDAO();
+		dao = new AchievementDAO_JNDI();
 	}
 	
-	public AchievementVO addAchmt(String achName, String achDesc, Blob rewardPic){
+	public int addAchmt(String achName, String achDesc, Blob rewardPic){
 		
 		AchievementVO achVO = new AchievementVO();
 		achVO.setAchName(achName);
 		achVO.setAchDesc(achDesc);
 		achVO.setRewardPic(rewardPic);
-		dao.insert(achVO);	
-		return achVO;
+		return dao.insert(achVO);	
 	}
 	
 	public AchievementVO updateAchmt(Integer achID, String achName, String achDesc, Blob rewardPic){
@@ -39,7 +39,7 @@ public class AchievementService {
 		dao.delete(achID);
 	}
 
-	public AchievementVO getOneEmp(Integer achID) {
+	public AchievementVO getOneAchmt(Integer achID) {
 		return dao.findByPrimaryKey(achID);
 	}
 
@@ -47,6 +47,13 @@ public class AchievementService {
 		return dao.getAll();
 	}
 
-
+	public List<AchievementVO> findKey(String keyword) {
+		return dao.findByKeyword(keyword);
+	}
+	
+	public AchievementVO getPicture(Integer achID) {
+		return dao.findPicture(achID);
+	}
+	
 	
 }

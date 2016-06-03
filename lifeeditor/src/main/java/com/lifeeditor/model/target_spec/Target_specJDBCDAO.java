@@ -3,6 +3,10 @@ package com.lifeeditor.model.target_spec;
 import java.util.*;
 import java.sql.*;
 
+import com.lifeeditor.model.target.TargetVO;
+import com.lifeeditor.model.user_spec.user_specVO;
+import com.lifeeditor.service.TargetService;
+import com.lifeeditor.service.user_specService;
 import com.lifeeditor.utility.GlobalValues;
  
 public class Target_specJDBCDAO implements Target_specDAO_interface {
@@ -14,10 +18,12 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 	private static final String GET_ONE_STMT =
 		      "SELECT userID,targetID,trgNote,trgPicPath FROM target_spec where userID=?";
 	private static final String GET_ALLHOTMANS_STMT =
-		      "SELECT target_spec.trgNote, target_spec.trgPicPath " +
-                     "FROM target_spec INNER JOIN " +
+		      "SELECT target.doneTime,target.trgName, target_spec.userID, target_spec.trgNote, target_spec.trgPicPath, user_spec.lastName,user_spec.firstName " +
+                     "FROM target INNER JOIN " +
+                            "target_spec ON target.targetID = target_spec.targetID INNER JOIN " +
                             "user_spec ON target_spec.userID = user_spec.userID " +
 							"WHERE hotman=1 ";
+	
 	private static final String DELETE =
 		      "DELETE FROM target_spec where userID = ?";
 
@@ -30,10 +36,12 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 		try {
 			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
 			pstmt = con.prepareStatement(INSERT_STMT);
-
-			pstmt.setInt(1, target_specVO.getTargetID());
-			pstmt.setString(2, target_specVO.getTrgNote());
-			pstmt.setString(3, target_specVO.getTrgPicPath());
+			
+			pstmt.setInt(1,target_specVO.getUserVO().getUserID());
+			pstmt.setInt(2, target_specVO.getTargetVO().getTargetID());
+			pstmt.setString(3, target_specVO.getTrgNote());
+			pstmt.setString(4, target_specVO.getTrgPicPath());
+			
 			
 			pstmt.executeUpdate();
 		}catch (SQLException se) {
@@ -115,8 +123,10 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 
 			while (rs.next()) {
 				target_specVO = new Target_specVO();
-				target_specVO.setUserID(rs.getInt("userID"));
-				target_specVO.setUserID(rs.getInt("targetID"));
+				user_specService userSvc = new user_specService();
+				target_specVO.setUserVO(userSvc.getOneUser(rs.getInt("userID")));
+				TargetService trgSvc = new TargetService();
+				target_specVO.setTargetVO(trgSvc.getOneTrg(rs.getInt("targetID")));
 				target_specVO.setTrgNote(rs.getString("trgNote"));
 				target_specVO.setTrgPicPath(rs.getString("trgPicPath"));
 			}
@@ -166,8 +176,10 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 
 			while (rs.next()) {
 				target_specVO = new Target_specVO();
-				target_specVO.setUserID(rs.getInt("userID"));
-				target_specVO.setTargetID(rs.getInt("targetID"));
+				user_specService userSvc = new user_specService();
+				target_specVO.setUserVO(userSvc.getOneUser(rs.getInt("userID")));
+				TargetService trgSvc = new TargetService();
+				target_specVO.setTargetVO(trgSvc.getOneTrg(rs.getInt("targetID")));
 				target_specVO.setTrgNote(rs.getString("trgNote"));
 				target_specVO.setTrgPicPath(rs.getString("trgPicPath"));
 				list.add(target_specVO); // Store the row in the list
@@ -203,6 +215,9 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 	}
 	
 	
+	/* (non-Javadoc)
+	 * @see com.lifeeditor.model.target_spec.Target_specDAO_interface#getAllByHotMan()
+	 */
 	@Override
 	public List<Target_specVO> getAllByHotMan() {
 		List<Target_specVO> list = new ArrayList<Target_specVO>();
@@ -219,6 +234,15 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 
 			while (rs.next()) {
 				target_specVO = new Target_specVO();
+				user_specVO user = new user_specVO();
+				user.setUserID(rs.getInt("userID"));
+				user.setLastName(rs.getString("lastName"));
+				user.setFirstName(rs.getString("firstName"));
+				target_specVO.setUserVO(user);
+				TargetVO trg = new TargetVO();
+				trg.setTrgName(rs.getString("trgName"));
+				trg.setDoneTime(rs.getDate("doneTime"));
+				target_specVO.setTargetVO(trg);
 				target_specVO.setTrgNote(rs.getString("trgNote"));
 				target_specVO.setTrgPicPath(rs.getString("trgPicPath"));
 				list.add(target_specVO); // Store the row in the list
@@ -279,24 +303,24 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 //		System.out.print(empVO3.getComm() + ",");
 //		System.out.println(empVO3.getDeptno());
 //		System.out.println("---------------------");
-//
-		List<Target_specVO> list = dao.getAll();
-		for (Target_specVO aEmp : list) {
-			System.out.print(aEmp.getUserID() + ",");
-			System.out.print(aEmp.getTargetID() + ",");
-			System.out.print(aEmp.getTrgNote() + ",");
-			System.out.print(aEmp.getTrgPicPath() + ",");
-			System.out.println();
-			
-		}
-		
-		List<Target_specVO> list1 = dao.getAllByHotMan();
-		for (Target_specVO aEmp : list1) {
-			System.out.print(aEmp.getTrgNote() + ",");
-			System.out.print(aEmp.getTrgPicPath() + ",");
-			System.out.println();
-			
-		}
+////
+//		List<Target_specVO> list = dao.getAll();
+//		for (Target_specVO aEmp : list) {
+//			System.out.print(aEmp.getUserID() + ",");
+//			System.out.print(aEmp.getTargetVO() + ",");
+//			System.out.print(aEmp.getTrgNote() + ",");
+//			System.out.print(aEmp.getTrgPicPath() + ",");
+//			System.out.println();
+//			
+//		}
+//		
+//		List<Target_specVO> list1 = dao.getAllByHotMan();
+//		for (Target_specVO aEmp : list1) {
+//			System.out.print(aEmp.getTrgNote() + ",");
+//			System.out.print(aEmp.getTrgPicPath() + ",");
+//			System.out.println();
+//			
+//		}
 	}
 
 }
