@@ -9,9 +9,9 @@
 <body>
 
 <h1>參考公告維護系統</h1>
-<li><a href=' event/back.jsp'>新增公告</a> all event  </li> <br><br>
-  <li><a href=' event/show_all_event.jsp'>公告維護</a> all event  </li> <br><br>
-  <li>
+<li><a href=' event_event_insert.jsp'>新增活動公告</a> all event  </li> <br><br>
+ <li><a href=' event_show_all_event.jsp'>活動維護</a> all event  </li> <br><br>
+ <li><a href=' event_search_event.jsp'>單一活動搜尋</a> all event  </li> <br><br>
   
 </body>
 </html>

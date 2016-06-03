@@ -26,6 +26,7 @@ public  class eventDAO implements eventDAO_interface {
 
 	private static final String INSERT_STMT =
 		      "INSERT INTO event (typeID,secID,eventName,eventPic,orgName,orgAddr,eventTime,eventDesc) VALUES (?, ?, ?, ?, ?, ? , ?,?)";
+	private static final String GET_ID_STMT="SELECT @@IDENTITY as 'ID'";
 	private static final String GET_ALL_STMT =
 		      "SELECT eventID,typeID,secID,eventName,eventPic,orgAddr,orgName,eventTime,eventDesc FROM event order by eventID";
 	private static final String GET_ONE_STMT =
@@ -43,11 +44,12 @@ public  class eventDAO implements eventDAO_interface {
 //			      ,[eventTime]
 //			      ,[eventDesc]
 	@Override
-	public void insert(eventVO eventVO) {
-
+	public int insert(eventVO eventVO) {
+		ResultSet rs = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
-
+		PreparedStatement idpstmt=null;
+		
 		try {
 
 			con = ds.getConnection();
@@ -61,9 +63,15 @@ public  class eventDAO implements eventDAO_interface {
 			pstmt.setString(6, eventVO.getOrgName());
 			pstmt.setDate(7, eventVO.getEventTime());
 			pstmt.setString(8, eventVO.getEventDesc());
-
+			
 			pstmt.executeUpdate();
-
+			idpstmt = con.prepareStatement(GET_ID_STMT);
+			rs =idpstmt.executeQuery();
+			while (rs.next()) {
+				int id = rs.getInt("ID");
+				return id;
+			}
+		
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -85,6 +93,7 @@ public  class eventDAO implements eventDAO_interface {
 				}
 			}
 		}
+		return 0;
 
 	}
 

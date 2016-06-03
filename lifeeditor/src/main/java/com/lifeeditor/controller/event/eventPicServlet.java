@@ -2,6 +2,7 @@ package com.lifeeditor.controller.event;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
@@ -16,7 +17,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+
 import com.lifeeditor.model.event.eventVO;
+import com.lifeeditor.service.eventService;
 
 /**
  * Servlet implementation class eventPicServlet
@@ -43,8 +47,8 @@ public class eventPicServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		String action = req.getParameter("action");
-		if ("display_for_all".equals(action)) {
+
+	
 
 			List<String> errorMsgs = new LinkedList<String>();
 
@@ -52,16 +56,21 @@ public class eventPicServlet extends HttpServlet {
 			
 			
 			
-			try{
-				eventVO eventVO= new eventVO();
+			
+				Integer id = Integer.parseInt(req.getParameter("id"));
+	
 				eventService eventSvc = new eventService();
-				 
 				res.setContentType("image/jpeg");
-			     Blob pic=eventVO.getEventPic();
-			    int a =(int)pic.length();
-				 OutputStream os=convert(pic);
-				 os.write(pic.getBytes(0,  a), 0, a);
-				 
+				Blob pic = eventSvc.getOneevent(id).getEventPic();
+				
+				try{
+					int len = 0;
+					InputStream is = pic.getBinaryStream();
+					OutputStream os = res.getOutputStream();
+					byte[] bytes = new byte[1024];
+					while( (len = is.read(bytes)) != -1) {
+						os.write(bytes, 0, len);
+					}
 				 os.flush();
 				 os.close();
 		} catch (Exception e) {
@@ -71,37 +80,8 @@ public class eventPicServlet extends HttpServlet {
 					.getRequestDispatcher("/manager/event/error.jsp");
 			failureView.forward(req, res);
 		}}
-	}
+	
 		
-		private  OutputStream convert(Blob blob)  {
-		     BufferedImage image = null;
-		    OutputStream outputStream = null;
-		    
-		        try {
-					image = ImageIO.read(blob.getBinaryStream());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-		        try {
-					outputStream = blob.setBinaryStream(0);
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-		        try {
-					ImageIO.write(image, "JPG", outputStream);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				return outputStream;
-		}
 	
 
 }

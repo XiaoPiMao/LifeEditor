@@ -63,7 +63,8 @@ float: right;;
 	<!-- Menu -->
 	<nav class="menu" id="theMenu">
 		<div class="menu-wrap">
-			<h1 class="logo"><a href="index.html#home">Life Editor</a></h1>
+
+			<h1 class="logo"><a href="../index.jsp#home">Life Editor</a></h1>
 			<i class="fa fa-times menu-close"></i>
 			<a href="#home" class="smoothScroll">首頁</a>
 			<a href="#about" class="smoothScroll">關於</a>
@@ -184,20 +185,6 @@ float: right;;
 		<br>
 		<br>
 		<br>
-		<jsp:useBean id="userSvc" scope="page" class="com.lifeeditor.service.user_specService" />
-			<FORM METHOD="post" ACTION="user_spec.do" >
-		       <b>選擇員工編號:</b>
-		       <select size="1" name="userID">
-		         <c:forEach var="user_specVO" items="${userSvc.all}" > 
-		          <option value="${user_specVO.userID}">${user_specVO.userID}
-		         </c:forEach>   
-		       </select>
-		       <input type="submit" value="送出">
-		       <input type="hidden" name="action" value="getOne_For_Update">
-		    </FORM>
-		
-		
-		
 		
 		</div>
 	</div>

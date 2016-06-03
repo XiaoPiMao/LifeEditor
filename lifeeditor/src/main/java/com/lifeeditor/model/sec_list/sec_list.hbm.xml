@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.lifeeditor.model.sec_list.SecListVO" table="sec_list" >
+        
+        <id name="secID" column="secID">
+            <generator class="identity"/>
+        </id>
+        
+        <property name="typeID" column="typeID" />
+        <property name="secName" column="secName" />
+        <property name="secPic" column="secPic" />        
+               
+    </class>
+</hibernate-mapping>
+

@@ -131,14 +131,14 @@
 		<div class="content-wrapper">
 			<section class="content-header">
 				<h1>
-				參考公告 <small>life Editor</small>
+					編輯項目 <small>life Editor</small>
 				</h1>
 
 			</section>
 
 			<section class="content">
 
-				<%@ include file="event/show.jsp"%>
+				<jsp:include page="_backstage/addSec.jsp"></jsp:include>
 
 			</section>
 		</div>
@@ -150,5 +150,6 @@
 	<script src="${ctx }/manager/bootstrap/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${ctx }/manager/dist/js/app.min.js"></script>
+	<script src="${ctx }/js/fancybox/jquery.fancybox.js"></script> 
 </body>
 </html>

@@ -51,6 +51,7 @@
 	<tr>
 		<td>薪水:</td>
 		<td><input type="file" name="updatefile" size="45"	value="<%=eventVO.getEventPic()%>" /></td>
+		<img height='100' width='80' src='/lifeeditor/eventPicServlet?id=<%=eventVO.getEventID()%>'></td>
 	</tr>
 	<tr>
 		<td>獎金:</td>

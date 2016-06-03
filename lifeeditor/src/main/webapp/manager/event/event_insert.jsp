@@ -18,7 +18,7 @@
 
 <title>Insert title here</title>
 <body>
-			
+			<a href="event_maintain.jsp">返回活動維護頁面</a>
 <!-- ENCTYPE="multipart/form-data"  -->
 					<form  ENCTYPE="multipart/form-data"method="POST"action="eventServlet.do" role="form">
 				
