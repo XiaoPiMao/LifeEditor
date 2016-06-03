@@ -12,11 +12,11 @@ import javax.servlet.http.HttpSession;
 
 import com.lifeeditor.model.user_spec.user_specVO;
 
-@WebServlet("/com.lifeeditor.invite_list/addFriend")
-public class addFriend extends HttpServlet {
+@WebServlet("/com.lifeeditor.invite_list/addFriendServlet")
+public class addFriendServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
  
-    public addFriend() {
+    public addFriendServlet() {
         super();
         
     }

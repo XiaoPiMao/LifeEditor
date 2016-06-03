@@ -63,9 +63,9 @@ public class getDatafromSession extends HttpServlet {
 			}
 		}
 		if(reData != null){ //如果是空值就回傳空的
-		String DatafromJson = new DataToGson().changeDataToGson(reData);
-		PrintWriter pw = response.getWriter();
-		pw.write(DatafromJson);
+			String DatafromJson = new DataToGson().changeDataToGson(reData);
+			PrintWriter pw = response.getWriter();
+			pw.write(DatafromJson);
 		}
 	}
 
