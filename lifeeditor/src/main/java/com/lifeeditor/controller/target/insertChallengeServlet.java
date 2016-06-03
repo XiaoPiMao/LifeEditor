@@ -73,7 +73,7 @@ public class insertChallengeServlet extends HttpServlet{
 			
 		 if("insert".equals(action)){ // 來自achievement.jsp的新增請求
 			try {
-				
+			Integer achID = Integer.parseInt(req.getParameter("achID"));	
 			String achName = req.getParameter("achName");
 			String achDesc = req.getParameter("achDesc");
 			String trgName = req.getParameter("trgName");
@@ -89,13 +89,18 @@ public class insertChallengeServlet extends HttpServlet{
 			java.sql.Date timeFinish = new java.sql.Date(
 					sdf.parse(req.getParameter("timeFinish")).getTime());
 			
-			Part filePart = req.getPart("rewardPic");
-			InputStream in = filePart.getInputStream();
-			@SuppressWarnings("deprecation")
-			Blob rewardPic = Hibernate.createBlob(in);
-			
 			AchievementService achmtSrvc = new AchievementService();
-			Integer achID = achmtSrvc.addAchmt(achName, achDesc, rewardPic);
+			Part filePart = req.getPart("rewardPic");
+			if(filePart.getSize() == 0L) {
+				achID = achmtSrvc.addAchmt(achName, achDesc, achmtSrvc.getPicture(achID).getRewardPic());
+				
+			}else {
+				InputStream in = filePart.getInputStream();
+				@SuppressWarnings("deprecation")
+				Blob rewardPic = Hibernate.createBlob(in);
+				achID = achmtSrvc.addAchmt(achName, achDesc, rewardPic);
+			}
+			
 			TargetService trgSrvc= new TargetService();
 			trgSrvc.addTrg(trgName, typeID, sectionID, difficulty, intention,
 					null, null, achID, null, null, 1, null, 1, timeStart, timeFinish, null);		

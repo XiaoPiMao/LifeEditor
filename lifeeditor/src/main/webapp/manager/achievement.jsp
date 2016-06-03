@@ -106,7 +106,7 @@ div#selects {
 #tag1 { width: 15em; }
 #tag2 { width: 15em; }
 
-.pictureDisplay { height:100px }
+.pictureDisplay { height:95px }
 
 </style>
 </head>
@@ -455,6 +455,7 @@ $(function(){
 	    {
 	        var postData = new FormData(this);
 	        postData.append("action","insert");
+	        postData.append("achID",achID);
 	        var formURL = $(this).attr("action");
 //  	        alert(JSON.stringify(postData));
 	        
