@@ -41,9 +41,9 @@
 			<a href="#home" class="smoothScroll">首頁</a>
 			<a href="#about" class="smoothScroll">關於</a>
 			<a href="#portfolio" class="smoothScroll">熱門人物</a>
-			<a href="#contact" class="smoothScroll">連絡我們</a>
+			<a href="#contact" class="smoothScroll">聯絡我們</a>
 			<a href="register/register.jsp" class="smoothScroll">註冊</a>
-			<a href="#modal" class="smoothScroll">會員登入</a>
+			<a id="modal_trigger2" href="#modal" class="smoothScroll">登入</a>
 			<a href="#"><i class="fa fa-facebook"></i></a>
 			<a href="#"><i class="fa fa-twitter"></i></a>
 			<a href="#"><i class="fa fa-dribbble"></i></a>
@@ -425,13 +425,13 @@
           jQuery(".fancybox").fancybox();
       });
 	   </script>
-<!----------------------------------------------- login----start---------------------------------------------------->
+<!------------------------------------------------------------------------------------ login----start------------------------------------------------------------------------------->
 <script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
 <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 <link type="text/css" rel="stylesheet" href="css/style.css" />
 <script type="text/javascript">
 	$("#modal_trigger").leanModal({top : 200, overlay : 0.6, closeButton: ".modal_close" });
-
+	$("#modal_trigger2").leanModal({top : 200, overlay : 0.6, closeButton: ".modal_close" });  //給右邊界面
 	$(function(){
 		// Calling Login Form
 		$("#login_form").click(function(){
@@ -495,15 +495,14 @@
 		console.log(response);
 
 		if (response.status === 'connected') {
-			// 這位用戶已登入 Facebook，也已經登入您的應用程式
-			
+			// 這位用戶已登入 Facebook，也已經登入您的應用程式	
 			testAPI();
 		} else if (response.status === 'not_authorized') {
 			// 這位用戶已登入 Facebook，但尚未登入您的應用程式。
-			document.getElementById('status').innerHTML = '可使用FB快速登入，請同意分享Email';
+		//	document.getElementById('status').innerHTML = '可使用FB快速登入，請同意分享Email';
 		} else {
 			//這位用戶沒有登入 Facebook，因此您無法得知用戶是否已登入您的應用程式。或者之前已呼叫 FB.logout()，因此無法連結至 Facebook。
-			document.getElementById('status').innerHTML = '可使用FB快速登入，請同意分享Email';
+		//	document.getElementById('status').innerHTML = '可使用FB快速登入，請同意分享Email';
 
 		}
 	}
@@ -515,12 +514,13 @@
 
 	window.fbAsyncInit = function() {
 		FB.init({
-			appId : '236995580009135',
+		    	appId : '236995580009135',
+// 			appId : '467832290092585',
 			//appId : 1751012028468871,
 			cookie : true, // enable cookies to allow the server to access 
 			// the session
 			xfbml : true, // parse social plugins on this page
-			version : 'v2.2' 
+			version : 'v2.6' 
 		});
 
 	};
@@ -538,31 +538,33 @@
 
 	function testAPI() {
 		console.log('Welcome!  Fetching your information.... ');
-		FB.api('/me','GET', {"fields":"email,last_name,first_name,id,gender,picture"},
-				  function(response){					   
-							 ajaxPost(response.email,response.last_name,response.first_name,response.id,response.gender);														
+		FB.api('/me','GET', {"fields":"email,last_name,first_name,id,gender,picture{url}"},
+				  function(response){					
+//                      			console.log(JSON.stringify(response));
+//  								console.log(response);
+			                console.log(response.picture);
+							 ajaxPost(response.email,response.last_name,response.first_name,response.id,response.gender,response.picture);														
 						});		
 }
-	function LoginAjax(){
-		
-		$("#form-id").submit();
-		
+	
+	function LoginAjax(){		
+		$("#form-id").submit();		
 	}
 	
-	function ajaxPost(email,last_name,first_name,id,gender)
+	function ajaxPost(email,last_name,first_name,id,gender,picture)
 	{
-		
+			alert(JSON.stringify(picture));
 	      //===AJAX POST===
-	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender };
+	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender, "PIC":JSON.stringify(picture)};
 	         $.ajax({
 	            url: 'ch04_02/Fb.do',
 	            type:"post",
 	            data: params,
 	            success: function(data){
 	                //表單成功送出後會執行的地方	               
-                    alert('個資已被送出');
+//                    alert('個資已被送出');
 		      
-		         	 window.location.href =  "${ctx}/home.jsp";
+	         	 window.location.href =  "${ctx}/home.jsp";
 			
 	            }
 	       });
