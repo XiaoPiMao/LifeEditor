@@ -7,6 +7,7 @@ public class DoBase64 {
 	public final static Base64.Encoder encoder = Base64.getEncoder();
 	public final static Base64.Decoder decoder = Base64.getDecoder();
 	
+	
 	public static String encode(String txt) {
 		byte[] txtBytes = null;
 		try {
@@ -24,5 +25,9 @@ public class DoBase64 {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public static String encode(byte[] bytes) {
+		return encoder.encodeToString(bytes);
 	}
 }

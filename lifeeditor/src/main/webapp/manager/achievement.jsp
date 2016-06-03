@@ -510,7 +510,10 @@ $(function(){
 			$('#selType').change(function() {
 				judge();
 			});
-			$("input").blur(function() {
+// 			$("input").blur(function() {
+// 				judge();
+// 			});
+			$("input").change(function(){
 				judge();
 			});
 		});
