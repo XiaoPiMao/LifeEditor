@@ -20,7 +20,7 @@ DROP TABLE manager;
 
 
  CREATE TABLE user_spec(
-        userID int  identity PRIMARY KEY,
+    userID int  identity PRIMARY KEY,
 	account varchar(30)  NOT NULL UNIQUE,
 	pswd varchar(30)  NOT NULL,
 	lastName nvarchar(30)  NOT NULL,
@@ -148,8 +148,8 @@ CREATE TABLE manager(
 	pswd varchar(30),
 	picture varbinary(max)
 )
-create table gankibar_list(
-	gankibarID int identity primary key,
+create table genkiBar_list(
+	genkiBarID int identity primary key,
 	targetID int foreign key references target(targetID),
 	userID int foreign key references user_spec(userID)
 )
