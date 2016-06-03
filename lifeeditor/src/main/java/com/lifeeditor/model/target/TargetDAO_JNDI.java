@@ -13,6 +13,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 import com.lifeeditor.model.achievement.AchievementHibernateDAO;
+import com.lifeeditor.model.achievement.AchievementVO;
+import com.lifeeditor.service.AchievementService;
 import com.lifeeditor.utility.GlobalValues;
 
 
@@ -29,10 +31,11 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 		}
 	}
 	
+	
 	public  static final String INSERT_STMT = 
 			"INSERT INTO target (trgName,typeID,sectionID,difficulty,intention,privacy,"
 			+ "genkiBar,achID,priority,remindTimes,trgType,punishment,status,timeStart,timeFinish,doneTime) VALUES "
-			+ "( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,)";
+			+ "( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	
 	public  static final String GET_ALL_STMT = 
 			"SELECT targetID,trgName,typeID,sectionID,difficulty,intention,privacy,"
@@ -47,14 +50,14 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	public  static final String UPDATE = 
 			"UPDATE target set trgName=?, typeID=?, sectionID=? , difficulty=? , intention=? , privacy=? , "
 			+ "genkiBar=? , achID=? , priority=? , remindTimes=? , trgType=? , punishment=? , status=? , timeStart=? , "
-			+ "timeFinish=? , doneTime=? where target = ?";
+			+ "timeFinish=? , doneTime=? where targetID = ?";
 	
-	public  static final String SEARCH_LIKE = " select * from target where trgName like ?" ;
+	public  static final String SEARCH_LIKE = " select * from target where trgType =1 and trgName like ?" ;
 
 
 	@Override
 	public void insert(TargetVO TrgVO) {
-		
+		System.out.println("insert call");
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -62,24 +65,59 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
-			pstmt.setInt(1, TrgVO.getTargetID());
-			pstmt.setString(2, TrgVO.getTrgName());
-			pstmt.setInt(3, TrgVO.getTypeID());
-			pstmt.setInt(4, TrgVO.getSectionID());
-			pstmt.setInt(5, TrgVO.getDifficulty());
-			pstmt.setString(6, TrgVO.getIntention());
-			pstmt.setInt(7, TrgVO.getPrivacy());
-			pstmt.setInt(8, TrgVO.getGenkiBar());
-			pstmt.setInt(9, TrgVO.getAchID());
-			pstmt.setInt(10, TrgVO.getPriority());
-			pstmt.setInt(11, TrgVO.getRemindTimes());
-			pstmt.setInt(12, TrgVO.getTrgType());
-			pstmt.setInt(13, TrgVO.getPunishment());
-			pstmt.setInt(14, TrgVO.getStatus());
-			pstmt.setDate(15, TrgVO.getTimeStart());
-			pstmt.setDate(16, TrgVO.getTimeFinish());
-			pstmt.setDate(17, TrgVO.getDoneTime());
 			
+			pstmt.setString(1, TrgVO.getTrgName());
+			pstmt.setInt(2, TrgVO.getTypeID());
+			pstmt.setInt(3, TrgVO.getSectionID());
+			pstmt.setInt(4, TrgVO.getDifficulty());
+			pstmt.setString(5, TrgVO.getIntention());
+			if(TrgVO.getPrivacy() != null) 
+				pstmt.setInt(6, TrgVO.getPrivacy());
+			else
+				pstmt.setNull(6, java.sql.Types.INTEGER);
+			
+			if(TrgVO.getGenkiBar() != null) 
+				pstmt.setInt(7, TrgVO.getGenkiBar());
+			else
+				pstmt.setNull(7, java.sql.Types.INTEGER);
+			
+			AchievementVO achVO = TrgVO.getAchVO();
+			if(achVO.getAchID() != null) 
+				pstmt.setInt(8, achVO.getAchID());
+			else
+				pstmt.setNull(8, java.sql.Types.INTEGER);
+			
+			if(TrgVO.getPriority() != null) 
+				pstmt.setInt(9, TrgVO.getPriority());
+			else
+				pstmt.setNull(9, java.sql.Types.INTEGER);
+			
+			if(TrgVO.getRemindTimes() != null) 
+				pstmt.setInt(10, TrgVO.getRemindTimes());
+			else
+				pstmt.setNull(10, java.sql.Types.INTEGER);
+			
+			pstmt.setInt(11, TrgVO.getTrgType());
+			
+			if(TrgVO.getPunishment() != null) 
+				pstmt.setInt(12, TrgVO.getPunishment());
+			else
+				pstmt.setNull(12, java.sql.Types.INTEGER);
+			
+			if(TrgVO.getStatus() != null) 
+				pstmt.setInt(13, TrgVO.getStatus());
+			else
+				pstmt.setNull(13, java.sql.Types.INTEGER);
+
+			pstmt.setDate(14, TrgVO.getTimeStart());
+			pstmt.setDate(15, TrgVO.getTimeFinish());
+			
+			pstmt.setDate(16, TrgVO.getDoneTime());
+//			if(TrgVO.getDoneTime() != null) 
+//				pstmt.setDate(16, TrgVO.getDoneTime());
+//			else
+//				pstmt.setNull(16, java.sql.Types.DATE);
+	
 			pstmt.executeUpdate();
 			
 			
@@ -113,23 +151,69 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setInt(1, TrgVO.getTargetID());
-			pstmt.setString(2, TrgVO.getTrgName());
-			pstmt.setInt(3, TrgVO.getTypeID());
-			pstmt.setInt(4, TrgVO.getSectionID());
-			pstmt.setInt(5, TrgVO.getDifficulty());
-			pstmt.setString(6, TrgVO.getIntention());
-			pstmt.setInt(7, TrgVO.getPrivacy());
-			pstmt.setInt(8, TrgVO.getGenkiBar());
-			pstmt.setInt(9, TrgVO.getAchID());
-			pstmt.setInt(10, TrgVO.getPriority());
-			pstmt.setInt(11, TrgVO.getRemindTimes());
-			pstmt.setInt(12, TrgVO.getTrgType());
-			pstmt.setInt(13, TrgVO.getPunishment());
-			pstmt.setInt(14, TrgVO.getStatus());
-			pstmt.setDate(15, TrgVO.getTimeStart());
-			pstmt.setDate(16, TrgVO.getTimeFinish());
-			pstmt.setDate(17, TrgVO.getDoneTime());
+			pstmt.setString(1, TrgVO.getTrgName());
+			pstmt.setInt(2, TrgVO.getTypeID());
+			pstmt.setInt(3, TrgVO.getSectionID());
+			pstmt.setInt(4, TrgVO.getDifficulty());
+			pstmt.setString(5, TrgVO.getIntention());
+			
+			if(TrgVO.getPrivacy() != null) 
+				pstmt.setInt(6, TrgVO.getPrivacy());
+			else
+				pstmt.setNull(6, java.sql.Types.INTEGER);
+			
+			if(TrgVO.getGenkiBar() != null) 
+				pstmt.setInt(7, TrgVO.getGenkiBar());
+			else
+				pstmt.setNull(7, java.sql.Types.INTEGER);
+			
+			AchievementVO achVO = TrgVO.getAchVO();
+			if(achVO.getAchID() != null) 
+				pstmt.setInt(8, achVO.getAchID());
+			else
+				pstmt.setNull(8, java.sql.Types.INTEGER);
+			
+			if(TrgVO.getPriority() != null) 
+				pstmt.setInt(9, TrgVO.getPriority());
+			else
+				pstmt.setNull(9, java.sql.Types.INTEGER);
+			
+			if(TrgVO.getRemindTimes() != null) 
+				pstmt.setInt(10, TrgVO.getRemindTimes());
+			else
+				pstmt.setNull(10, java.sql.Types.INTEGER);
+			
+			pstmt.setInt(11, TrgVO.getTrgType());
+			
+			if(TrgVO.getPunishment() != null) 
+				pstmt.setInt(12, TrgVO.getPunishment());
+			else
+				pstmt.setNull(12, java.sql.Types.INTEGER);
+			
+			if(TrgVO.getStatus() != null) 
+				pstmt.setInt(13, TrgVO.getStatus());
+			else
+				pstmt.setNull(13, java.sql.Types.INTEGER);
+
+			pstmt.setDate(14, TrgVO.getTimeStart());
+			pstmt.setDate(15, TrgVO.getTimeFinish());
+			
+			pstmt.setDate(16, TrgVO.getDoneTime());
+			
+			
+//			pstmt.setInt(6, TrgVO.getPrivacy());
+//			pstmt.setInt(7, TrgVO.getGenkiBar());
+//			AchievementVO achVO = TrgVO.getAchVO();
+//			pstmt.setInt(8, achVO.getAchID());
+//			pstmt.setInt(9, TrgVO.getPriority());
+//			pstmt.setInt(10, TrgVO.getRemindTimes());
+//			pstmt.setInt(11, TrgVO.getTrgType());
+//			pstmt.setInt(12, TrgVO.getPunishment());
+//			pstmt.setInt(13, TrgVO.getStatus());
+//			pstmt.setDate(14, TrgVO.getTimeStart());
+//			pstmt.setDate(15, TrgVO.getTimeFinish());
+//			pstmt.setDate(16, TrgVO.getDoneTime());
+			pstmt.setInt(17, TrgVO.getTargetID());
 			
 			pstmt.executeUpdate();
 			
@@ -155,7 +239,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer pokedex) {
+	public void delete(Integer targetID) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -164,7 +248,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			
-			pstmt.setInt(1, pokedex);
+			pstmt.setInt(1, targetID);
 			
 			pstmt.executeUpdate();
 			
@@ -204,7 +288,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			pstmt.setInt(1, targetID);
 			
 			rs = pstmt.executeQuery();
-			
+			AchievementService achSvc = new AchievementService();
 		
 			if(rs.next()) {
 				
@@ -216,7 +300,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				TrgVO.setIntention(rs.getString("intention"));
 				TrgVO.setPrivacy(rs.getInt("privacy"));
 				TrgVO.setGenkiBar(rs.getInt("genkiBar"));
-				TrgVO.setAchID(rs.getInt("achID"));
+				TrgVO.setAchVO(achSvc.getOneAchmt(rs.getInt("achID")));
 				TrgVO.setPriority(rs.getInt("priority"));
 				TrgVO.setRemindTimes(rs.getInt("remindTimes"));
 				TrgVO.setTrgType(rs.getInt("trgType"));
@@ -272,7 +356,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-		
+			AchievementService achSvc = new AchievementService();
 		
 			while(rs.next()) {
 				TargetVO Trg = new TargetVO();
@@ -284,7 +368,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				Trg.setIntention(rs.getString("intention"));
 				Trg.setPrivacy(rs.getInt("privacy"));
 				Trg.setGenkiBar(rs.getInt("genkiBar"));
-				Trg.setAchID(rs.getInt("achID"));
+				Trg.setAchVO(achSvc.getOneAchmt(rs.getInt("achID")));
 				Trg.setPriority(rs.getInt("priority"));
 				Trg.setRemindTimes(rs.getInt("remindTimes"));
 				Trg.setTrgType(rs.getInt("trgType"));
@@ -344,7 +428,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			pstmt.setString(1, "%" + keyword + "%");
 			
 			rs = pstmt.executeQuery();
-			
+			AchievementService achSvc = new AchievementService();
 		
 			while(rs.next()) {
 				TrgVO = new TargetVO();
@@ -356,7 +440,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				TrgVO.setIntention(rs.getString("intention"));
 				TrgVO.setPrivacy(rs.getInt("privacy"));
 				TrgVO.setGenkiBar(rs.getInt("genkiBar"));
-				TrgVO.setAchID(rs.getInt("achID"));
+				TrgVO.setAchVO(achSvc.getOneAchmt(rs.getInt("achID")));
 				TrgVO.setPriority(rs.getInt("priority"));
 				TrgVO.setRemindTimes(rs.getInt("remindTimes"));
 				TrgVO.setTrgType(rs.getInt("trgType"));

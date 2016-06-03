@@ -31,6 +31,13 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
+  <style>
+  .errorspan{
+	font-size:10pt;
+	color:red;
+	
+  }
+  </style>
 
   <body data-spy="scroll" data-offset="0" data-target="#theMenu">
 	<!-- Menu -->
@@ -71,7 +78,7 @@
 		
 		<section class="popupBody">
 			<!-- Social Login -->
-			<div class="social_login">
+			<div class="social_login" style="margin:auto;">
 				<div class="">					
 					<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();" ></div>
 <!-- 						<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" ></fb:login-button> -->
@@ -86,7 +93,7 @@
 			</div>
 
 			<!-- Username & Password Login form -->
-			<div class="user_login">
+			<div class="user_login" style="margin:auto;">
 				<form id="form-id" Action="Login.java" method="POST">
 					<label>帳號</label>
 					<input type="text" name="account" size="10">					
@@ -108,30 +115,112 @@
 			</div>
 
 			<!-- Register Form -->
-			<div class="user_register">
-				<form>
-					<label>Full Name</label>
-					<input type="text" />
-					<br />
-
-					<label>Email Address</label>
-					<input type="email" />
-					<br />
-
-					<label>Password</label>
-					<input type="password" />
-					<br />
-
-					<div class="checkbox">
-						<input id="send_updates" type="checkbox" />
-						<label for="send_updates">Send me occasional email updates</label>
-					</div>
-
-					<div class="action_btns">
-						<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> Back</a></div>
-						<div class="one_half last"><a href="#" class="btn btn_red">Register</a></div>
-					</div>
-				</form>
+			<div id="user_register" class="user_register">
+				<div id="div1" class="container-fluid">
+	<div class="row">
+	<FORM METHOD="post" ACTION="register/user_spec.do" id="form1" enctype="multipart/form-data">
+    <div class="col-md-6">
+	<div>
+		<label for="exampleInputaccount">帳號:</label>
+		<input type="TEXT" class="form-control" id="exampleInputaccount" name="account" value="${param.account}" size="45"  /><span id="ErrorMsg2" class="errorspan"></span>
+	</div>
+	<div>
+		<label for="exampleInputpswd">密碼</label>
+		<input type="password" class="form-control" id="exampleInputpswd"  name="pswd" value="${param.pswd}" size="45" /><span id="ErrorMsg3" class="errorspan"></span>
+	</div>
+	<div>
+		<label for="exampleInputpswd1">再次輸入密碼</label>
+		<input type="password" class="form-control" id="exampleInputpswd1" name="pswd1" value="${param.pswd1}" size="45" /><span id="ErrorMsg4" class="errorspan"></span>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputlastName">姓氏</label>
+		<input type="TEXT" class="form-control" id="exampleInputlastName" name="lastName" value="${param.lastName}" size="22"><span id="ErrorMsg5" class="errorspan"></span>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputfirstName">姓名</label>
+		<input type="TEXT" class="form-control" id="exampleInputfirstName" name="firstName" value="${param.firstName}" size="22" /><span id="ErrorMsg6" class="errorspan"></span>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputgender">性別</label><br>
+		<input  id="exampleInputgender" type="radio" name="gender" value="M" size="22" />男
+		<input  id="exampleInputgender" type="radio" name="gender" value="F" size="22" />女
+		<span id="ErrorMsg7" class="errorspan"></span>
+	</div>
+	<div class="form-group">
+	
+		<label for="exampleInputbirthdate">生日</label>
+		<input type="date" class="form-control" id="exampleInputbirthdate" name="birthdate" value="${param.birthdate}" size="22"  /><span id="ErrorMsg8" class="errorspan"></span>
+	</div>
+	</div>
+	<div style="padding-left:50px" class="col-md-6">
+	<div class="form-group">
+		<label for="exampleInputemail">電子信箱</label>
+		<input type="TEXT" class="form-control" id="exampleInputemail" name="email" value="${param.email}" size="22"  /><span id="ErrorMsg9" class="errorspan"></span>
+	</div>
+	<div class="form-group">
+		<label for="exampleInputaddress">住址</label>
+		<input type="TEXT" class="form-control" id="exampleInputaddress" name="address" value="${param.address}" size="22"  /><span id="ErrorMsg10" class="errorspan"></span>
+	</div>
+	<div class="form-group">
+		<label  for="exampleInputphone">電話號碼</label>
+		<input type="TEXT"  class="form-control" id="exampleInputphone" name="phone" value="${param.phone}" size="22"  /><span id="ErrorMsg11" class="errorspan"></span>
+	</div>
+	<div id="div" class="container-fluid">
+		<div class="row">
+	<div class="col-md-6">
+	<div class="form-group">
+		<label for="exampleInputpicture">上傳大頭貼</label>
+		<input type="file" id="exampleInputpicture" class="upl" name="picture" size="22"  /><span id="ErrorMsg12" class="errorspan"></span>
+ 	</div>
+ 	</div>
+ 	<div class="col-md-6">
+ 	<div>
+ 	<label>預覽大頭貼</label><br>
+        <img class="preview" style="max-width: 150px; max-height: 100px;">
+        <div class="size"></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    
+	<div style="font-size:20px;padding-top:10px">
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+		<div class="g-recaptcha" data-sitekey="6LfoPyETAAAAAG8hEQH-RAVNjAft9mX6uzK70CTD"></div>
+		<noscript>
+		  <div >
+		    <div style="width: 302px; height: 422px; position: relative;">
+		      <div style="width: 302px; height: 422px; position: absolute;">
+		        <iframe src="https://www.google.com/recaptcha/api/fallback?key=6LfoPyETAAAAAG8hEQH-RAVNjAft9mX6uzK70CTD"
+		                frameborder="0" scrolling="no"
+		                style="width: 302px; height:422px; border-style: none;">
+		        </iframe>
+		      </div>
+		    </div>
+		    <div style="width: 300px; height: 60px; border-style: none;
+		                   bottom: 12px; left: 25px; margin: 0px; padding: 0px; right: 25px;
+		                   background: #f9f9f9; border: 1px solid #c1c1c1; border-radius: 3px;">
+		      <textarea id="g-recaptcha-response" name="g-recaptcha-response"
+		                   class="g-recaptcha-response"
+		                   style="width: 250px; height: 40px; border: 1px solid #c1c1c1;
+		                          margin: 10px 25px; padding: 0px; resize: none;" >
+		      </textarea>
+		    </div>
+		  </div>
+		</noscript>
+		</div>
+		<div style="font-size:12pt;color:red;"><p id="ErrorMsg1" class="errorspan"></p></div>
+		
+		<div class="action_btns" style="padding-top:10px" >
+						<input type="hidden" name="action" value="insert">
+						<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> 上一頁</a></div>
+						<div class="one_half last"><a href="#" class="btn btn_red"  onclick="RegisterAjax()">註冊</a></div>
+		    			
+		</div>
+		</div>
+			
+		</FORM>
+			</div>
+			</div>
 			</div>
 		</section>
 	</div>
@@ -551,7 +640,9 @@
 		$("#form-id").submit();		
 	}
 	
+
 	function ajaxPost(email,last_name,first_name,id,gender,picture)
+
 	{
 			alert(JSON.stringify(picture));
 	      //===AJAX POST===
@@ -570,6 +661,138 @@
 	       });
 	} 		
 </script>
+<script>
+$(function (){
+	 
+    function format_float(num, pos)
+    {
+        var size = Math.pow(10, pos);
+        return Math.round(num * size) / size;
+    }
+ 
+    function preview(input) {
+ 
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('.preview').attr('src', e.target.result);
+                var KB = format_float(e.total / 1024, 2);
+                $('.size').text("檔案大小：" + KB + " KB");
+            }
+ 
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+ 
+    $("body").on("change", ".upl", function (){
+        preview(this);
+    })
+    
+})
+</script>
+<script>
+
+$(function() {
+$("#form1").submit(function(e)
+		{
+		    var postData = new FormData(this ); 
+		    var formURL = $(this).attr("Action");
+	
+		    $.ajax(
+		    {
+		        url : formURL,
+		        type: "POST",
+		        processData: false,
+		        contentType: false,
+		        data : postData,
+		        
+		        success:function(data) 
+		        {   
+		        		if(data != "") {
+		        			var errMsg = JSON.parse(data);	
+			    			
+				            
+		        			if(errMsg.errorCaptcha != undefined){
+		        				document.getElementById("ErrorMsg1").innerHTML =errMsg.errorCaptcha;
+				        	}else{
+				        		$("#ErrorMsg1").empty();
+				        	}4
+			        	    if(errMsg.errorAccountempty != undefined){
+			        	    	document.getElementById("ErrorMsg2").innerHTML =errMsg.errorAccountempty;
+				        	}else{
+				        		$("#ErrorMsg2").empty();
+				        	}
+			        	    if(errMsg.errorpswd != undefined){
+			        	    	document.getElementById("ErrorMsg3").innerHTML =errMsg.errorpswd;
+				        	}else{
+				        		$("#ErrorMsg3").empty();
+				        	}
+			        	    if(errMsg.errorpswd1 != undefined){
+			        	    	document.getElementById("ErrorMsg4").innerHTML =errMsg.errorpswd1;
+				        	}else{
+				        		$("#ErrorMsg4").empty();
+				        	}
+			        	    if(errMsg.errorlastName != undefined){
+			        	    	document.getElementById("ErrorMsg5").innerHTML =errMsg.errorlastName;
+				        	}else{
+				        		$("#ErrorMsg5").empty();
+				        	}
+			        	    if(errMsg.errorfirstName != undefined){
+			        	    	document.getElementById("ErrorMsg6").innerHTML =errMsg.errorfirstName;
+				        	}else{
+				        		$("#ErrorMsg6").empty();
+				        	}
+			        	    if(errMsg.errorgender != undefined){
+			        	    	document.getElementById("ErrorMsg7").innerHTML =errMsg.errorgender;
+				        	}else{
+				        		$("#ErrorMsg7").empty();
+				        	}
+			        	    if(errMsg.errorbirthdate != undefined){
+			        	    	document.getElementById("ErrorMsg8").innerHTML =errMsg.errorbirthdate;
+				        	}else{
+				        		$("#ErrorMsg8").empty();
+				        	}
+			        	    if(errMsg.erroremail != undefined){
+			        	    	document.getElementById("ErrorMsg9").innerHTML =errMsg.erroremail;
+				        	}else{
+				        		$("#ErrorMsg9").empty();
+				        	}
+			        	    if(errMsg.erroraddress != undefined){
+			        	    	document.getElementById("ErrorMsg10").innerHTML =errMsg.erroraddress;
+				        	}else{
+				        		$("#ErrorMsg10").empty();
+				        	}
+			        	    if(errMsg.errorphone != undefined){
+			        	    	document.getElementById("ErrorMsg11").innerHTML =errMsg.errorphone;
+				        	}else{
+				        		$("#ErrorMsg11").empty();
+				        	}
+			        	    if(errMsg.errorpicture != undefined){
+			        	    	document.getElementById("ErrorMsg12").innerHTML =errMsg.errorpicture;
+				        	}else{
+				        		$("#ErrorMsg12").empty();
+				        	}
+		        		}else{
+		        			$(".user_register").empty();
+		        			document.getElementById("user_register").innerHTML ="<h1 style='color:black'>系統正在寄信給您</h1>";
+		        			
+		        		}
+		    			
+		        }
+		        
+		    });
+		    e.preventDefault(); //STOP default action
+//			    e.unbind(); //unbind. to stop multiple form submit.
+		});
+});
+function RegisterAjax(){
+	
+	$("#form1").submit();
+	
+}
+</script>
 // 	<!------------------------------------------- login----end------------------------------------------------>
   </body>
 </html>
+
