@@ -1,8 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
-	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" 
-	version="3.1">
-
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>Archetype Created Web Application</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <resource-ref>
+    <description>DB Connection</description>
+    <res-ref-name>jdbc/LE01</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  <servlet>
+    <servlet-name>dispatcher</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/dispatcher-servlet.xml,
+	                     /WEB-INF/model-config.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>dispatcher</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/model-config.xml</param-value>
+  </context-param>
+  <servlet>
+    <servlet-name>user_specServlet</servlet-name>
+    <servlet-class>com.lifeeditor.controller.user_spec.user_specServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>user_specServlet</servlet-name>
+    <url-pattern>/register/user_spec.do</url-pattern>
+  </servlet-mapping>
+
+   <servlet>
+	<servlet-name>LoginServlet</servlet-name>
+	<servlet-class>com.lifeeditor.controller.Login.LoginServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>type_listServlet</servlet-name>
+    <servlet-class>com.lifeeditor.controller.type_list.type_listServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>type_listServlet</servlet-name>
+    <url-pattern>/manager/type_list.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>getPicture</servlet-name>
+    <servlet-class>com.lifeeditor.controller.user_spec.getPicture</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getPicture</servlet-name>
+    <url-pattern>/register/getPicture.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>getTypePic</servlet-name>
+    <servlet-class>com.lifeeditor.controller.type_list.getTypePic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getTypePic</servlet-name>
+    <url-pattern>/manager/getTypePic.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>sec_listServlet</servlet-name>
+    <servlet-class>com.lifeeditor.controller.sec_list.sec_listServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>sec_listServlet</servlet-name>
+    <url-pattern>/manager/sec_list.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>getSecPic</servlet-name>
+    <servlet-class>com.lifeeditor.controller.sec_list.getSecPic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getSecPic</servlet-name>
+    <url-pattern>/manager/getSecPic.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>getSecName</servlet-name>
+    <servlet-class>com.lifeeditor.controller.sec_list.getSecName</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getSecName</servlet-name>
+    <url-pattern>/manager/getSecName.do</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/Login.java</url-pattern>
+  </servlet-mapping>
 </web-app>
+
+	
