@@ -13,7 +13,6 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.utility.GlobalValues;
 
 public class SecListJNDIDAO implements SecListDAO_interface{
@@ -33,12 +32,12 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 	}
 	
 	
-	private static final String BY_TYPEID_STMT = "SELECT secID,secName FROM sec_list WHERE typeID = ?";
+	private static final String BY_TYPEID_STMT = "SELECT secID,secName,secPic FROM sec_list WHERE typeID = ?";
 
 	@Override
-	public List findByTypeListID(Integer id) {
+	public List<SecListVO> findByTypeListID(Integer id) {
 		Connection conn = null;
-		List secs = new ArrayList<>();
+		List<SecListVO> secs = new ArrayList<>();
 		SecListVO sec = null;
 		SecListVO tempSec = null;
 		try{
@@ -52,7 +51,7 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 				sec = new SecListVO();
 				sec.setSecID(rs.getInt("secID"));
 				sec.setSecName(rs.getString("secName"));
-				
+				sec.setSecPic(rs.getBlob("secPic"));
 				if(first) {
 					tempSec = sec;
 					first = false;
