@@ -1,6 +1,8 @@
  
 USE LE01;
 
+drop table comments
+drop table gankibar_list;
 DROP TABLE friend;
 DROP TABLE invite_list;
 DROP TABLE message;
@@ -146,6 +148,19 @@ CREATE TABLE manager(
 	pswd varchar(30),
 	picture varbinary(max)
 )
+create table gankibar_list(
+	gankibarID int identity primary key,
+	targetID int foreign key references target(targetID),
+	userID int foreign key references user_spec(userID)
+)
+create table comments(
+	commentID int identity primary key,
+	targetID int foreign key references target(targetID),
+	userID int foreign key references user_spec(userID),
+	comment varchar(50)
+)
+
+
 
 INSERT INTO user_spec values ('b0001' , '12345' , '王' , '小明' , 'M' , '1999-09-09' , 'b0001@yahoo.com.tw' , '台北市' , '0919255444' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
 INSERT INTO user_spec values ('batman' , '54321' , '蝙' , '蝠俠' , 'F' , '1922-07-09' , 'batman@gmail.com' , '南極洲' , '0919247944' , 0 , 0 , null , SYSDATETIME() , 'false' , null);
