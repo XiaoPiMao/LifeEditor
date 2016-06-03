@@ -70,7 +70,7 @@ float: right;;
 			<a href="#home" class="smoothScroll">首頁</a>
 			<a href="#about" class="smoothScroll">關於</a>
 			<a href="#portfolio" class="smoothScroll">熱門人物</a>
-			<a href="#contact" class="smoothScroll">連絡我們</a>
+			<a href="#contact" class="smoothScroll">聯絡我們</a>
 			<a href="#inline0" class="smoothScroll">註冊登入</a>
 			<a href="#"><i class="fa fa-facebook"></i></a>
 			<a href="#"><i class="fa fa-twitter"></i></a>

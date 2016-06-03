@@ -2,22 +2,26 @@ package com.lifeeditor.model.achievement;
 
 import java.sql.Blob;
 import java.util.*;
+
 import org.hibernate.*;
 
 public class AchievementHibernateDAO implements AchievementDAO_interface{
 
 	private static final String DELETE_ACH = "delete from AchievementVO where achID = ?";
 	private static final String GET_ALL_STMT = "from AchievementVO order by achID";
-	public void insert(AchievementVO achVO){
-		Session session = com.lifeeditor.utility.HibernateUtil.getSessionFactory().getCurrentSession(); 
-		try {
-			session.beginTransaction();
-			session.saveOrUpdate(achVO);
-			session.getTransaction().commit();
-		} catch (RuntimeException ex) {
-			session.getTransaction().rollback();
-			throw ex;
-		}
+	
+	
+	public int insert(AchievementVO achVO){
+//		Session session = com.lifeeditor.utility.HibernateUtil.getSessionFactory().getCurrentSession(); 
+//		try {
+//			session.beginTransaction();
+//			session.saveOrUpdate(achVO);
+//			session.getTransaction().commit();
+//		} catch (RuntimeException ex) {
+//			session.getTransaction().rollback();
+//			throw ex;
+//		}
+		return 0;
 		
 	}
 	
@@ -90,6 +94,20 @@ public class AchievementHibernateDAO implements AchievementDAO_interface{
 		}
 		return list;
 	}
+
+
+	@Override
+	public List<AchievementVO> findByKeyword(String keyword2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public AchievementVO findPicture(Integer achID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 	
 	
@@ -135,6 +153,9 @@ public class AchievementHibernateDAO implements AchievementDAO_interface{
 		
 		
 	}
+
+
+	
 
 
 

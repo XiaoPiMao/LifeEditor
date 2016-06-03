@@ -2,6 +2,8 @@ package com.lifeeditor.model.target;
 
 import java.sql.Date;
 
+import com.lifeeditor.model.achievement.AchievementVO;
+
 public class TargetVO implements java.io.Serializable {
 	
 	private Integer targetID;
@@ -12,7 +14,7 @@ public class TargetVO implements java.io.Serializable {
 	private String intention;
 	private Integer privacy;
 	private Integer genkiBar;
-	private Integer achID;
+	private AchievementVO achVO;
 	private Integer priority ;
 	private Integer remindTimes;
 	private Integer trgType;
@@ -71,11 +73,11 @@ public class TargetVO implements java.io.Serializable {
 	public void setGenkiBar(Integer genkiBar) {
 		this.genkiBar = genkiBar;
 	}
-	public Integer getAchID() {
-		return achID;
+	public AchievementVO getAchVO() {
+		return achVO;
 	}
-	public void setAchID(Integer achID) {
-		this.achID = achID;
+	public void setAchVO(AchievementVO achVO) {
+		this.achVO = achVO;
 	}
 	public Integer getPriority() {
 		return priority;

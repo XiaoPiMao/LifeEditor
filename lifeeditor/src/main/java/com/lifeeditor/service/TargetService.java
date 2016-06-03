@@ -17,8 +17,9 @@ public class TargetService {
 	
 	public TargetVO addTrg(String trgName,Integer typeID,Integer sectionID,Integer difficulty,
 			String intention,Integer privacy,Integer genkiBar,Integer achID,Integer priority,
-			Integer remindTimes,Integer trgType,Integer punishment,Integer status,Date timeStart,Date timeFinish,Date doneTime){
-	
+			Integer remindTimes,Integer trgType,Integer punishment,Integer status,Date timeStart,Date timeFinish,Date doneTime
+			){
+		
 		TargetVO TrgVO = new TargetVO();
 		TrgVO.setTrgName(trgName);
 		TrgVO.setTypeID(typeID);
@@ -27,7 +28,8 @@ public class TargetService {
 		TrgVO.setIntention(intention);
 		TrgVO.setPrivacy(privacy);
 		TrgVO.setGenkiBar(genkiBar);
-		TrgVO.setAchID(achID);
+		AchievementService achSvc = new AchievementService();
+		TrgVO.setAchVO(achSvc.getOneAchmt(achID));
 		TrgVO.setPriority(priority);
 		TrgVO.setRemindTimes(remindTimes);
 		TrgVO.setTrgType(trgType);
@@ -54,7 +56,8 @@ public class TargetService {
 		TrgVO.setIntention(intention);
 		TrgVO.setPrivacy(privacy);
 		TrgVO.setGenkiBar(genkiBar);
-		TrgVO.setAchID(achID);
+		AchievementService achSvc = new AchievementService();
+		TrgVO.setAchVO(achSvc.getOneAchmt(achID));
 		TrgVO.setPriority(priority);
 		TrgVO.setRemindTimes(remindTimes);
 		TrgVO.setTrgType(trgType);

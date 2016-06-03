@@ -371,18 +371,15 @@ INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'智利');
 INSERT INTO sec_list(typeID,secName) VALUES (@typeID,N'埃及');
 
 
-
-
-
-
-
 INSERT INTO achievement values(N'環台馬拉松','用跑的繞跑台灣一圈，你真是體能達人!!!',null);
 INSERT INTO achievement values(N'完成專案','恭喜完成專案，取得結業證書!',null);
 INSERT INTO achievement values(N'網路紅人','您的人氣真不錯!',null);
 INSERT INTO achievement values(N'微軟盃駭客大賽','恭喜您，您已經是1%的頂尖駭客。',null);
 INSERT INTO achievement values(N'登山達人','您的登山技巧已足以獲得登山達人的稱號。',null);
 INSERT INTO achievement values(N'英雄-鋼鐵人','拯救地球能源危機的英雄!',null);
-INSERT INTO achievement values(N'舞王','恭喜您們終於拿到冠軍!',null);
+INSERT INTO achievement values(N'舞王','恭喜您們奪得冠軍!',null);
+INSERT INTO achievement values(N'旅遊達人','恭喜您再次完成一個旅行!',null);
+INSERT INTO achievement values(N'繪畫才人','謝謝您的畫作讓這世界變得更美好!',null);
 
 INSERT INTO sec_list values(1,'存錢',null);
 INSERT INTO sec_list values(2,'自畫像',null);
@@ -392,7 +389,7 @@ INSERT INTO sec_list values(5,'參觀博物觀',null);
 INSERT INTO sec_list values(3,'走路',null);
 INSERT INTO sec_list values(4,'競賽',null);
 
-
+--TABLE: target 資料--
 INSERT INTO target values('買帝寶', 1, (select secID from sec_list where secName='存錢'), 5, '為了給妻子、父母跟子女一個好的的生活環境，我拼了命的賺錢，目的就是想要買到這棟夢寐以求的豪宅。加油! 再努力一點，我的努力就要達成了',
 0,95,null,2,100, 3, 3, 2, '2006-01-01', '2025-12-31', null);
 
@@ -404,6 +401,27 @@ INSERT INTO target values('數學考90分', 4, (select secID from sec_list where
 
 INSERT INTO target values('參加微軟盃駭客大賽取得優勝', 4, (select secID from sec_list where secName='競賽'), 5, '參加微軟盃駭客大賽，於活動角逐中順利取得高分者，即可取得本項成就，成為微軟官方認證的駭客!',
 null,null,4, 1, null, 1, null, 1, '2016-05-23', '2016-05-30', null);
+
+INSERT INTO target values('Mr.Lady台大盃冠軍', 3, (select secID from sec_list where secName='跳舞'),3, 'Mr.Lady永遠的初衷就是要成為地表上最妖嬌的舞團！',0,99,7,1,10, 1, 1, 1, '2009-08-11', '2016-04-11', null);
+INSERT INTO target values('帶阿嬤去日本旅行', 5, (select secID from sec_list where secName='日本'),3, '激發夢想、持續旅行、積極分享，前進中。',0,199,9,1,5, 1, 1, 1, '2016-05-17', '2016-05-22', null);
+INSERT INTO target values('到台灣開漫畫展', 2, (select secID from sec_list where secName='繪畫'),6, '勇敢做自己，不要放棄，用畫畫征服世界!',0,479,10,1,50, 1, 1, 1, '2016-06-04', '2016-08-28', null);
+INSERT INTO target values('特斯拉稱霸全球', 0, (select secID from sec_list where secName='企業家'), 9, '地球面臨的最大問題是可持續能源，也就是如何用可持續的方式，生產和消費能源。如果不能在21世紀解決這個問題，我們將災難臨頭。這個問題，促使我成立了特斯拉。',0,999,6,1,100, 3, 3, 2, '2006-01-01', '2020-12-31', null);
+
+
+--TABLE: target_spec 資料--
+INSERT INTO target_spec VALUES
+('71','7','再看ㄧ次影片雷迪的心情還是跟所有人ㄧ樣激動～也相當感謝大家ㄧ直以來對於Mr.Lady的支持（深深ㄧ鞠躬）！雖然拿到台大盃冠軍是非常大的肯定，也是雷迪成軍多年來相當重要的里程碑，但這絕對不是終點，我們還是會繼續努力帶給大家更棒的作品！這次的作品無論在音樂、舞蹈、道具、架構⋯等各方面雷迪都下足了功夫，尤其最後ㄧ段十字街頭音樂的改編更讓我們費盡心思～這裡要特別感謝DJ KUEI 魁和RED 芮德為雷迪重新錄製了ㄧ個版本，給我們相當大的方向和啟發，最後才讓Mr.Lady創作出最終段瘋狂炸裂的雷迪版十字街頭！非常感謝他們的大力贊助，也希望大家對於這些同樣在藝術領域不斷堅持的創作者，能夠不吝嗇給予掌聲和支持，讓我們更有前進的動力哦！','http://www.unews.nccu.edu.tw/wp-content/uploads/2016/04/6540b4fedd4ee65875db4d49da217669.jpg');
+
+INSERT INTO target_spec VALUES 
+('72','8','我阿嬤將近要九十歲了，今天，是她很重要的一個日子...阿嬤不識字，因為她沒有上過學，可是她會用日文做筆記，寫些電話號碼什麼的，她總是在送弟弟上學之後偷偷趴在教室的床邊，看一點片假名，學一些漢字。這個如電影情節般的畫面，造就了阿嬤筆記本裡那些歪歪斜斜與不甚標準的日文字母...所以阿嬤對日本充滿了特殊情感，所以她這輩子，一直都很想去一趟日本。但經過了這麼多年，阿嬤的身體狀況已經不是用「一年不如一年」來形容了，而是一季不如一季，甚至是一月不如一月...所以當我在新加坡帶著妻女搭上遊輪的那一刻，我當下就立刻決定，就是它了！我要帶阿嬤搭遊輪去日本！而今天，就是遊輪就要啟航的日子。雖然到最後，我決定只讓阿嬤走下遊輪一天，也只能拜訪離台灣最近的沖繩，但我想，這也已經非常足夠了，在一個無法再走遠路的年紀，以及在一個無法離家太久的身體狀況下。希望阿嬤這趟能平平安安，開開心心，雖然她現在跟小孩一樣，有固定要吃、固定要睡的作息，而且擁有不肯坐輪椅的堅持。但我還是會一直陪在妳身旁的，陪妳慢慢走，陪妳慢慢吃，因為妳以前就是這樣陪著我，我一直沒有忘記，所以現在就換我牽著妳，帶妳想去的地方吧！','http://static.pop.tw.weibo.sina.com.tw/images/user_upload/2c77ccb76388e78637b5c1e37a25297d.jpeg');
+
+INSERT INTO target_spec
+VALUES ('73','9','即使很多人都說十萬人裡只有一人有機會成為漫畫家！可以藉由畫漫畫賺錢的漫畫家！但那又怎麼樣呢？蛋黃哥經過好幾番的評選後，心情起起伏伏到最後我都快放棄了！想想就算沒有得獎，也不過就是繼續懶洋洋過日子，繼續畫自己想畫的。但沒想到，最後得了第二名！三麗鷗公司後來幫蛋黃哥製作的動畫，讓他的人氣直直攀升！更讓我訝異的是，台灣人特別愛他，這是我最感動的地方，因為我很喜歡台灣！這次蛋黃哥受邀來到台灣策展，我也親自到場與粉絲們見面，希望在短短與粉絲見面的時間裡，可以用蛋黃哥的精神鼓勵每一位喜歡畫畫、想成為漫畫家的台灣朋友們！在你快要放棄時，不要放棄，蛋黃哥懶的爭論但又努力活著的精神與你們同在！','https://imgs.utiki.com.tw/Data/UTIKI_UDN/Images/UTK2411/D0FR5341.JPG');
+
+INSERT INTO target_spec
+VALUES ('74','5','2013年，為了證明電動車的潛力，我創立特斯拉公司。以往很多人都認為，電動車速度太慢、跑不遠、外型又醜，跟高爾夫球車沒兩樣。為了改變人們的印象，我們開發出了特斯拉Roadster，一款速度快、跑得遠、造型拉風的電動跑車。<br>所以，想要開公司，你必須實實在在地做出產品原型。因為，再怎麼精彩的紙上作業、PowerPoint報告，都比不上拿出實際產品有說服力。Roadster面世後，又有人說，「就算做得出昂貴的限量跑車，你們有本事做真正的量產汽車嗎？」沒問題，我們就推出四門房車Model S，證明給大家看。這就是我一路走來的創業歷程。我想說的是，你們都是二十一世紀的魔法師，想像力是沒有極限的，別讓任何事情阻止你，盡情地變魔法吧。','http://blogs-images.forbes.com/briansolomon/files/2014/06/tesla-elon-musk.jpg');
+
+
 
 
 
