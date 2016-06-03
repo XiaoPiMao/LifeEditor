@@ -73,7 +73,9 @@ public class insertChallengeServlet extends HttpServlet{
 			
 		 if("insert".equals(action)){ // 來自achievement.jsp的新增請求
 			try {
-			Integer achID = Integer.parseInt(req.getParameter("achID"));	
+			Integer achID = 0;
+			if(!req.getParameter("achID") .equals("undefined") )
+					 achID= Integer.parseInt(req.getParameter("achID"));	
 			String achName = req.getParameter("achName");
 			String achDesc = req.getParameter("achDesc");
 			String trgName = req.getParameter("trgName");

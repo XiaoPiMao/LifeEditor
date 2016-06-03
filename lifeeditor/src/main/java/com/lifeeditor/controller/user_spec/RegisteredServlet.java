@@ -43,8 +43,10 @@ public class RegisteredServlet extends HttpServlet {
 		
 		user_specService user_specService = new user_specService();
      	user_specVO = user_specService.addUser(account, pswd, lastName, firstName, gender, birthdate,email,address,phone,picture);
-
-     	String url = "/success.jsp";
+     	
+     	req.getSession().setAttribute("LoginOK", user_specVO);
+     	
+     	String url = "/home.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); 
 		successView.forward(req, resp);
 	}
