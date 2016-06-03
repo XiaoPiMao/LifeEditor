@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -10,12 +11,17 @@
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <!--   <link rel="stylesheet" href="/resources/demos/style.css"> -->
   <style>
+  	
+  	
   .draggable { width: 150px; height: 150px; padding: 5px; float: left; margin: 0 10px 10px 0; font-size: .9em; }
   .ui-widget-header p, .ui-widget-content p { margin: 0; }
   #snaptarget { height: 140px; }
   </style>
   <script>
+//   var jTypes = JSON.parse('${jTypes}');
+  
   $(function() {
+// 	document.body.innerHTML = "<img src='data:image/jpg;base64," + jTypes[5].typePic + "'/>"
     $( "#draggable1" ).draggable({ snap: true });
     $( "#draggable2" ).draggable({ snap: ".ui-widget-header" });
     $( "#draggable3" ).draggable({ snap: ".ui-widget-header" });
