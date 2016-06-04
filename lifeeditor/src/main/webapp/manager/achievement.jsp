@@ -231,29 +231,29 @@ div#selects {
 	</script>
 	<!-- *************圖片拖拉 ************** -->
 	<script>
-// 		function dragoverHandler(e) {
-// 			e.preventDefault();
-// 		}
+		function dragoverHandler(e) {
+			e.preventDefault();
+		}
 
-// 		function dropHandler(e) {
-// 			e.preventDefault(); //停止預設動作(預設為任一個標籤都不能被拖)
-// 			e.stopPropagation(); //取消氣泡
-// 			var theFiles = e.dataTransfer.files;
+		function dropHandler(e) {
+			e.preventDefault(); //停止預設動作(預設為任一個標籤都不能被拖)
+			e.stopPropagation(); //取消氣泡
+			var theFiles = e.dataTransfer.files;
 
-// 			for (var i = 0; i < theFiles.length; i++) {
-// 				var reader = new FileReader();
-// 				reader.readAsDataURL(theFiles[i]);
-// 				reader.onload = function(e) {
-// 					var fileContent = e.target.result;
-// 					var eleImg = document.createElement("img");
-// 					eleImg.setAttribute("src", fileContent);
-// 					eleImg.setAttribute("class", "thumb");
-// 					var show = document.getElementById("dropZone");
-// 					show.appendChild(eleImg);
+			for (var i = 0; i < theFiles.length; i++) {
+				var reader = new FileReader();
+				reader.readAsDataURL(theFiles[i]);
+				reader.onload = function(e) {
+					var fileContent = e.target.result;
+					var eleImg = document.createElement("img");
+					eleImg.setAttribute("src", fileContent);
+					eleImg.setAttribute("class", "thumb");
+					var show = document.getElementById("dropZone");
+					show.appendChild(eleImg);
 
-// 				}
-// 			}
-// 		}
+				}
+			}
+		}
 	</script>
 	<!-- *************圖片檔案選取 ************** -->
 	<script>
@@ -386,9 +386,11 @@ $(function(){
 	        		$("#difficulty").val(target.difficulty);  
 	        		$("#tag2").val(target.achVO.achName);
 	        		$("#textarea2").val(target.achVO.achDesc);
-	        		$("#selType").val(target.typeID);
+// 	        		$("#selType").val(target.typeID);
+	        		$("#selType").val(target.typeVO.typeID);
 	        		optSec();
- 	        		$("#selSec").val(target.sectionID);
+//  	        	$("#selSec").val(target.sectionID);
+ 	        		$("#selSec").val(target.sectionVO.sectionID);
  	        		var eleImg = document.createElement("img");
 					eleImg.setAttribute("src", "${ctx}/ChallengeServlet?action=showPic&achID=" + achID);  
 					eleImg.setAttribute("class", "pictureDisplay"); 

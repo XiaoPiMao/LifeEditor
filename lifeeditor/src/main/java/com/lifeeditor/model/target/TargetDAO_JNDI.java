@@ -355,7 +355,6 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	public List<TargetVO> getAll() {
 		
 		List<TargetVO> list = new ArrayList<TargetVO>();
-		TargetVO TrgVO = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -426,7 +425,6 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	@Override
 	public List<TargetVO> getAllofficial() {
 		List<TargetVO> list = new ArrayList<TargetVO>();
-		TargetVO TrgVO = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -515,8 +513,8 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			
 			while(rs.next()) {
 				TrgVO = new TargetVO();
-				TypeListVO typeListVO = new TypeListVO();
-				SecListVO secListVO = new SecListVO();
+//				TypeListVO typeListVO = new TypeListVO();
+//				SecListVO secListVO = new SecListVO();
 				
 				TrgVO.setTargetID(rs.getInt("targetID"));
 				TrgVO.setTrgName(rs.getString("trgName"));
