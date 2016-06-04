@@ -420,7 +420,6 @@ null,null,4, 1, null, 1, null, 1, '2016-05-23', '2016-05-30', null);
 INSERT INTO target values('Mr.Lady台大盃冠軍', 3, (select secID from sec_list where secName='跳舞'),3, 'Mr.Lady永遠的初衷就是要成為地表上最妖嬌的舞團！',0,99,7,1,10, 1, 1, 1, '2009-08-11', '2016-04-11', null);
 INSERT INTO target values('帶阿嬤去日本旅行', 5, (select secID from sec_list where secName='日本'),3, '激發夢想、持續旅行、積極分享，前進中。',0,199,9,1,5, 1, 1, 1, '2016-05-17', '2016-05-22', null);
 INSERT INTO target values('到台灣開漫畫展', 2, (select secID from sec_list where secName='繪畫'),6, '勇敢做自己，不要放棄，用畫畫征服世界!',0,479,10,1,50, 1, 1, 1, '2016-06-04', '2016-08-28', null);
-INSERT INTO target values('特斯拉稱霸全球', 0, (select secID from sec_list where secName='企業家'), 9, '地球面臨的最大問題是可持續能源，也就是如何用可持續的方式，生產和消費能源。如果不能在21世紀解決這個問題，我們將災難臨頭。這個問題，促使我成立了特斯拉。',0,999,6,1,100, 3, 3, 2, '2006-01-01', '2020-12-31', null);
 
 
 --TABLE: target_spec 資料--
