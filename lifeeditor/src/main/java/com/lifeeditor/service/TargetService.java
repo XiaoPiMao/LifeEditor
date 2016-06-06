@@ -9,6 +9,8 @@ import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.target.*;
 import com.lifeeditor.model.type_list.TypeListVO;
 
+
+
 public class TargetService {
 
 	private TargetDAO_interface dao;
@@ -92,6 +94,12 @@ public class TargetService {
 
 	public TargetVO getOneTrg(Integer targetID) {
 		return dao.findByPrimaryKey(targetID);
+	}
+	
+	public void updateTargetStatus(Integer status,Integer targetID){
+		TargetVO target =dao.findByPrimaryKey(targetID);
+		target.setStatus(status);
+		 dao.update(target);
 	}
 
 	public List<TargetVO> getAll() {

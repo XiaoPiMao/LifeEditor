@@ -3,6 +3,8 @@ package com.lifeeditor.model.target_spec;
 import java.util.*;
 import java.sql.*;
 
+import org.springframework.orm.hibernate3.HibernateTemplate;
+
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.TargetService;
@@ -27,6 +29,14 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 	private static final String DELETE =
 		      "DELETE FROM target_spec where userID = ?";
 
+	private static final String GET_ALL_TargetID = "from Target_spec  order by Target_spec.";
+	private HibernateTemplate hibernateTemplate;    
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
+        this.hibernateTemplate = hibernateTemplate;
+    }
+	
+	
+	
 	@Override
 	public void insert(Target_specVO target_specVO) {
 
@@ -322,5 +332,20 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 //			
 //		}
 	}
+
+	
+	
+@Override
+public Target_specVO findByTargetID(Integer TargetID) {
+	
+	Target_specVO Target_specVO =  new Target_specVO();
+	Target_specVO =	(Target_specVO) hibernateTemplate.get(Target_specVO.class, TargetID);
+
+	return Target_specVO;
+	// TODO Auto-generated method stub
+}
+
+
+
 
 }
