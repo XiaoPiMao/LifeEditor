@@ -433,11 +433,11 @@ INSERT INTO target values('用走路環島', 3, (select secID from sec_list wher
 INSERT INTO target values('數學考90分', 4, (select secID from sec_list where secName='考試'), 3, '我的數學一直都還算不錯，媽媽說這次考90分以上，要帶我去吃老四川麻辣鍋。太好了，我得好好加油!!',
 0,2,null,1, 3, 3, 1, 1, '2016-05-23', '2016-05-30', null);
 
-INSERT INTO target values('Mr.Lady台大盃冠軍', 3, (select secID from sec_list where secName='跳舞'),3, 'Mr.Lady永遠的初衷就是要成為地表上最妖嬌的舞團！',0,99,7,1,10, 1, 1, 1, '2009-08-11', '2016-04-11', null);
-INSERT INTO target values('日本旅遊通', 5, (select secID from sec_list where secName='日本'),3, '旅行、分享、抽大獎! 由LE旅行社發起贊助，邀各位朋友們分享自己到日本旅行的大小事。',0,199,8,1,5, 1, 1, 1, '2016-05-17', '2016-05-22', null);
-INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,479,9,1,3, 1, 1, 1, '2016-06-04', '2016-08-28', null);
+INSERT INTO target values('Mr.Lady台大盃冠軍', 3, (select secID from sec_list where secName='跳舞'),3, 'Mr.Lady永遠的初衷就是要成為地表上最妖嬌的舞團！',0,0,7,1,10, 1, 1, 1, '2009-08-11', '2016-04-11', null);
+INSERT INTO target values('日本旅遊通', 5, (select secID from sec_list where secName='日本'),3, '旅行、分享、抽大獎! 由LE旅行社發起贊助，邀各位朋友們分享自己到日本旅行的大小事。',0,0,8,1,5, 1, 1, 1, '2016-05-17', '2016-05-22', null);
+INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,0,9,1,3, 1, 1, 1, '2016-06-04', '2016-08-28', null);
 INSERT INTO target values('環台馬拉松', 3, 18,3, '用雙腿完成繞台灣一圈的創舉，挑戰938公里的路程。',0,0,1,1,1, 1, 1, 1, '2016-06-04', '2016-09-28', null);
-INSERT INTO target values('合作完成期末專案', 4, 44,3, '使出渾身解數，有效的利用在資策會一切所學的技術，如期完成期末專案!',0,0,3,1,1, 1, 1, 1, '2016-05-24', '2017-06-22', null);
+INSERT INTO target values('合作完成期末專案', 4, 44,3, '使出渾身解數，有效的利用在資策會一切所學的技術，如期完成期末專案!',0,0,2,1,1, 1, 1, 1, '2016-05-24', '2017-06-22', null);
 INSERT INTO target values('順利完成三次集氣', 7, 8,2, '挑戰在註冊後一年內期限，完成三項任務的集氣功能。',0,0,3,1,1, 1, 1, 1, '2016-06-22', '2017-06-22', null);
 INSERT INTO target values('微軟盃駭客挑戰賽', 4, 72,5, '參加由Microsoft所舉辦的微軟盃線上駭客挑戰賽。於活動表現優異者，即可獲得特殊獎品及殊榮。',0,0,4,1,1, 1, 1, 1, '2016-07-01', '2016-07-31', null);
 INSERT INTO target values('爬五座山', 3, 20,4, '登山有益身心健康!為配合勞動部職業安全衛生署專案計畫，於105年12/31日前，順利攀登五座山者，即可獲本站及政府頒發之獎項與贈品，歡迎踴躍參加。',0,0,5,1,1, 1, 1, 1, '2016-01-01', '2016-12-31', null);	

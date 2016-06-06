@@ -56,7 +56,7 @@ h1, b {
 <!-- 					<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> -->
 				</tr>
 			</thead>
-			<c:forEach var="TargetVO" varStatus="var" items="${TrgSvc.all}">
+			<c:forEach var="TargetVO" varStatus="var" items="${TrgSvc.allofficial}">
 			<tr align='center' valign='middle'>
 			
 

@@ -6,6 +6,7 @@ import com.lifeeditor.model.user_spec.user_specVO;
 public class Target_ListVO implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 	private user_specVO userVO;
 	private TargetVO trgVO;
 	

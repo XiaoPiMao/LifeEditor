@@ -388,9 +388,9 @@ $(function(){
 	        		$("#textarea2").val(target.achVO.achDesc);
 // 	        		$("#selType").val(target.typeID);
 	        		$("#selType").val(target.typeVO.typeID);
-	        		optSec();
 //  	        	$("#selSec").val(target.sectionID);
- 	        		$("#selSec").val(target.sectionVO.sectionID);
+					optSec();
+ 	        		$("#selSec").val(target.sectionVO.secID);
  	        		var eleImg = document.createElement("img");
 					eleImg.setAttribute("src", "${ctx}/ChallengeServlet?action=showPic&achID=" + achID);  
 					eleImg.setAttribute("class", "pictureDisplay"); 
