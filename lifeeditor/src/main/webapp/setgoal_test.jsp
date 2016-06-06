@@ -136,13 +136,13 @@ $(document).ready(function(){
 <div style="text-align:center;margin: 10px 10px 50px 10px;"><h1>步驟一 : 請將你想要完成的目標類型拖曳到下方的類別圓圈裡</h1></div>
 
 <div class="type_list" style="text-align:center;margin: 10px 10px 50px 100px;">
-<div><img id="type1" class="type" src="images/type1.jpg" alt="理財"></div>
-<div><img id="type2" class="type" src="images/type2.jpg" alt="藝術"></div>
-<div><img id="type3" class="type" src="images/type3.jpg" alt="運動"></div>
-<div><img id="type4" class="type" src="images/type4.jpg" alt="教育"></div>
-<div><img id="type5" class="type" src="images/type5.jpg" alt="旅遊"></div>
-<div><img id="type6" class="type" src="images/type6.jpg" alt="娛樂"></div>
-<div><img id="type0" style="width: 120px;height: 120px;padding: 5px;float: left;margin: 0 10px 10px 10px; "  src="images/type0.jpg" alt="自訂"></div></div> 
+<div><img id="type1" class="type" src="images/type1.png" alt="理財"></div>
+<div><img id="type2" class="type" src="images/type2.png" alt="藝術"></div>
+<div><img id="type3" class="type" src="images/type3.png" alt="運動"></div>
+<div><img id="type4" class="type" src="images/type4.png" alt="教育"></div>
+<div><img id="type5" class="type" src="images/type5.png" alt="旅遊"></div>
+<div><img id="type6" class="type" src="images/type6.png" alt="娛樂"></div>
+<div><img id="type0" style="width: 120px;height: 120px;padding: 5px;float: left;margin: 0 10px 10px 10px; "  src="images/type0.png" alt="自訂"></div></div> 
 
 <div id="set">
 <!-- <div class="circle">類型</div> -->
