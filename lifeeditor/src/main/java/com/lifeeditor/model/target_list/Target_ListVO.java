@@ -7,10 +7,16 @@ public class Target_ListVO implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	private Integer targetListID;
 	private user_specVO userVO;
 	private TargetVO trgVO;
 	
-	
+	public Integer getTargetListID() {
+		return targetListID;
+	}
+	public void setTargetListID(Integer targetListID) {
+		this.targetListID = targetListID;
+	}
 	public user_specVO getUserVO() {
 		return userVO;
 	}

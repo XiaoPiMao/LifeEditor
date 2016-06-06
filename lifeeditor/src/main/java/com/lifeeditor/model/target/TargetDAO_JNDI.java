@@ -12,6 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.orm.hibernate3.HibernateTemplate;
+
 import com.lifeeditor.model.achievement.AchievementHibernateDAO;
 import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.sec_list.SecListVO;
@@ -23,6 +25,10 @@ import com.lifeeditor.utility.GlobalValues;
 
 
 public class TargetDAO_JNDI implements TargetDAO_interface {
+	private HibernateTemplate hibernateTemplate;    
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
+        this.hibernateTemplate = hibernateTemplate;
+    }
 
 	private static DataSource ds = null;
 	static {
