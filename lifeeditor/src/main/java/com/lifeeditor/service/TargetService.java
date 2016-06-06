@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.util.List;
 
 import com.lifeeditor.model.achievement.AchievementVO;
+import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.target.*;
+import com.lifeeditor.model.type_list.TypeListVO;
 
 public class TargetService {
 
@@ -22,8 +24,15 @@ public class TargetService {
 		
 		TargetVO TrgVO = new TargetVO();
 		TrgVO.setTrgName(trgName);
-		TrgVO.setTypeID(typeID);
-		TrgVO.setSectionID(sectionID);
+		
+		TypeListVO typeListVO= new TypeListVO();
+		typeListVO.setTypeID(typeID);
+		TrgVO.setTypeVO(typeListVO);
+		
+		SecListVO secListVO= new SecListVO();
+		secListVO.setSecID(sectionID);
+		TrgVO.setSectionVO(secListVO);
+			
 		TrgVO.setDifficulty(difficulty);
 		TrgVO.setIntention(intention);
 		TrgVO.setPrivacy(privacy);
@@ -50,8 +59,15 @@ public class TargetService {
 		TargetVO TrgVO = new TargetVO();
 		TrgVO.setTargetID(targetID);
 		TrgVO.setTrgName(trgName);
-		TrgVO.setTypeID(typeID);
-		TrgVO.setSectionID(sectionID);
+
+		TypeListVO typeListVO= new TypeListVO();
+		typeListVO.setTypeID(typeID);
+		TrgVO.setTypeVO(typeListVO);
+		
+		SecListVO secListVO= new SecListVO();
+		secListVO.setSecID(sectionID);
+		TrgVO.setSectionVO(secListVO);
+		
 		TrgVO.setDifficulty(difficulty);
 		TrgVO.setIntention(intention);
 		TrgVO.setPrivacy(privacy);
@@ -82,6 +98,10 @@ public class TargetService {
 		return dao.getAll();
 	}
 
+	public List<TargetVO> getAllofficial() {
+		return dao.getAllofficial();
+	}
+	
 	public List<TargetVO> findKey(String keyword) {
 		return dao.findByKeyword(keyword);
 	}

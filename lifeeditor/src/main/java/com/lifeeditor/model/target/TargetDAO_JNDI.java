@@ -14,7 +14,11 @@ import javax.sql.DataSource;
 
 import com.lifeeditor.model.achievement.AchievementHibernateDAO;
 import com.lifeeditor.model.achievement.AchievementVO;
+import com.lifeeditor.model.sec_list.SecListVO;
+import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.service.AchievementService;
+import com.lifeeditor.service.SecListService;
+import com.lifeeditor.service.TypeListService;
 import com.lifeeditor.utility.GlobalValues;
 
 
@@ -54,6 +58,8 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 	public  static final String SEARCH_LIKE = " select * from target where trgType =1 and trgName like ?" ;
 
+	public  static final String SHOW_OFFICIAL = "select * from target where trgType =1";
+	
 
 	@Override
 	public void insert(TargetVO TrgVO) {
@@ -67,8 +73,8 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			
 			
 			pstmt.setString(1, TrgVO.getTrgName());
-			pstmt.setInt(2, TrgVO.getTypeID());
-			pstmt.setInt(3, TrgVO.getSectionID());
+			pstmt.setInt(2, TrgVO.getTypeVO().getTypeID());
+			pstmt.setInt(3, TrgVO.getSectionVO().getSecID());
 			pstmt.setInt(4, TrgVO.getDifficulty());
 			pstmt.setString(5, TrgVO.getIntention());
 			if(TrgVO.getPrivacy() != null) 
@@ -152,8 +158,8 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			pstmt = con.prepareStatement(UPDATE);
 			
 			pstmt.setString(1, TrgVO.getTrgName());
-			pstmt.setInt(2, TrgVO.getTypeID());
-			pstmt.setInt(3, TrgVO.getSectionID());
+			pstmt.setInt(2, TrgVO.getTypeVO().getTypeID());
+			pstmt.setInt(3, TrgVO.getSectionVO().getSecID());
 			pstmt.setInt(4, TrgVO.getDifficulty());
 			pstmt.setString(5, TrgVO.getIntention());
 			
@@ -291,11 +297,15 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			AchievementService achSvc = new AchievementService();
 		
 			if(rs.next()) {
+				TypeListVO typeListVO= new TypeListVO();
+				SecListVO secListVO= new SecListVO();
 				
 				TrgVO.setTargetID(rs.getInt("targetID"));
 				TrgVO.setTrgName(rs.getString("trgName"));
-				TrgVO.setTypeID(rs.getInt("typeID"));
-				TrgVO.setSectionID(rs.getInt("sectionID"));
+				typeListVO.setTypeID(rs.getInt("typeID"));
+				TrgVO.setTypeVO(typeListVO);
+				secListVO.setSecID(rs.getInt("sectionID"));
+				TrgVO.setSectionVO(secListVO);
 				TrgVO.setDifficulty(rs.getInt("difficulty"));
 				TrgVO.setIntention(rs.getString("intention"));
 				TrgVO.setPrivacy(rs.getInt("privacy"));
@@ -345,7 +355,6 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	public List<TargetVO> getAll() {
 		
 		List<TargetVO> list = new ArrayList<TargetVO>();
-		TargetVO TrgVO = null;
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -359,11 +368,12 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			AchievementService achSvc = new AchievementService();
 		
 			while(rs.next()) {
+				
 				TargetVO Trg = new TargetVO();
 				Trg.setTargetID(rs.getInt("targetID"));
-				Trg.setTrgName(rs.getString("trgName"));
-				Trg.setTypeID(rs.getInt("typeID"));
-				Trg.setSectionID(rs.getInt("sectionID"));
+				Trg.setTrgName(rs.getString("trgName"));	
+				Trg.setTypeVO(new TypeListService().getOneUser(rs.getInt("typeID")));
+				Trg.setSectionVO(new SecListService().getOneUser(rs.getInt("sectionID")));  
 				Trg.setDifficulty(rs.getInt("difficulty"));
 				Trg.setIntention(rs.getString("intention"));
 				Trg.setPrivacy(rs.getInt("privacy"));
@@ -411,6 +421,77 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 		
 	}
 
+	
+	@Override
+	public List<TargetVO> getAllofficial() {
+		List<TargetVO> list = new ArrayList<TargetVO>();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SHOW_OFFICIAL);
+			rs = pstmt.executeQuery();
+			AchievementService achSvc = new AchievementService();
+		
+			while(rs.next()) {
+				
+				TargetVO Trg = new TargetVO();
+				Trg.setTargetID(rs.getInt("targetID"));
+				Trg.setTrgName(rs.getString("trgName"));	
+				Trg.setTypeVO(new TypeListService().getOneUser(rs.getInt("typeID")));
+				Trg.setSectionVO(new SecListService().getOneUser(rs.getInt("sectionID")));  
+				Trg.setDifficulty(rs.getInt("difficulty"));
+				Trg.setIntention(rs.getString("intention"));
+				Trg.setPrivacy(rs.getInt("privacy"));
+				Trg.setGenkiBar(rs.getInt("genkiBar"));
+				Trg.setAchVO(achSvc.getOneAchmt(rs.getInt("achID")));
+				Trg.setPriority(rs.getInt("priority"));
+				Trg.setRemindTimes(rs.getInt("remindTimes"));
+				Trg.setTrgType(rs.getInt("trgType"));
+				Trg.setPunishment(rs.getInt("punishment"));
+				Trg.setStatus(rs.getInt("status"));
+				Trg.setTimeStart(rs.getDate("timeStart"));
+				Trg.setTimeFinish(rs.getDate("timeFinish"));
+				Trg.setDoneTime(rs.getDate("doneTime"));
+				list.add(Trg);
+				
+				
+			}	
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("發生錯誤" + e.getMessage());
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
 	@Override
 	public List<TargetVO> findByKeyword(String keyword) {
 		
@@ -429,13 +510,22 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			
 			rs = pstmt.executeQuery();
 			AchievementService achSvc = new AchievementService();
-		
+			
 			while(rs.next()) {
 				TrgVO = new TargetVO();
+//				TypeListVO typeListVO = new TypeListVO();
+//				SecListVO secListVO = new SecListVO();
+				
 				TrgVO.setTargetID(rs.getInt("targetID"));
 				TrgVO.setTrgName(rs.getString("trgName"));
-				TrgVO.setTypeID(rs.getInt("typeID"));
-				TrgVO.setSectionID(rs.getInt("sectionID"));
+//				typeListVO.setTypeID(rs.getInt("typeID"));
+//				TrgVO.setTypeVO(typeListVO);
+//				secListVO.setSecID(rs.getInt("secID"));
+//				TrgVO.setSectionVO(secListVO);
+				
+				TrgVO.setTypeVO(new TypeListService().getOneUser(rs.getInt("typeID")));
+				TrgVO.setSectionVO(new SecListService().getOneUser(rs.getInt("sectionID")));  
+				
 				TrgVO.setDifficulty(rs.getInt("difficulty"));
 				TrgVO.setIntention(rs.getString("intention"));
 				TrgVO.setPrivacy(rs.getInt("privacy"));
@@ -481,5 +571,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 		}
 		return list;
 	}
+
+
 	
 }

@@ -61,7 +61,9 @@ public class ChallengeTableWithPicture {
 
 	          pstmt = con.prepareStatement(INSERT_STMT);
 	          // 讀取target表格的初始資料，準備新增到target表格內                                            
-	          BufferedReader br = new BufferedReader(new FileReader("src/main/webapp/images/testPic/challenge.dat"));         
+	          BufferedReader br = new BufferedReader(new FileReader("src/main/webapp/images/testPic/challenge.dat"));
+//	          BufferedReader br = new BufferedReader(new FileReader("WebContent/images/testPic/achievement.dat"));	          
+
 	          while ( (line = br.readLine() ) != null){
 	        	  // 去除 UTF8_BOM
 	        	  if (line.startsWith(UTF8_BOM )){
@@ -73,13 +75,13 @@ public class ChallengeTableWithPicture {
 	        	  pstmt.setString(3, token[2]);
 	        	  pstmt.setString(4, token[3]);
 	        	  pstmt.setString(5, token[4]);
-	        	  pstmt.setString(6, null);
-	        	  pstmt.setString(7, null);
+	        	  pstmt.setString(6, token[5]);
+	        	  pstmt.setString(7, token[6]);
 	        	  pstmt.setString(8, token[7]);
-	        	  pstmt.setString(9, null);
-	        	  pstmt.setString(10, null);
+	        	  pstmt.setString(9, token[8]);
+	        	  pstmt.setString(10, token[9]);
 	        	  pstmt.setString(11, token[10]);
-	        	  pstmt.setString(12, null);
+	        	  pstmt.setString(12, token[11]);
 	        	  pstmt.setString(13, token[12]);
 	        	  pstmt.setString(14, token[13]);
 	        	  pstmt.setString(15, token[14]);
