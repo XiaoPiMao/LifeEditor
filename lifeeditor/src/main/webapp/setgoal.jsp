@@ -43,38 +43,8 @@ float:left;
 margin: 45px 10px 45px 60px;
 
 }
-
-
-/* .circle { */
-/*       width: 130px; */
-/*       height: 130px; */
-/*       border-radius: 65px ; */
-/*       border:5px solid #C0C0C0; */
-/*       margin:35px 20px 35px 10px; */
-/*       display: inline-block; */
-/*       text-align: center #C0C0C0; */
-/*       font-size:20px; */
-/*       color:#C0C0C0; */
-/*       text-align:center; */
-/*       line-height:130px; */
-/*     } */
 </style>
 
-<script>
-//     $(document).ready(function(){
-//     	$(".type").draggable({helper:"clone"});
-    	
-//     	$(".circle").droppable(
-//     	{
-//     		accept:".type",
-//     		drop:function(ev,ui){
-//     			var droppedItem = $(ui.draggable).clone();
-//     			$(this).append(droppedItem).src(".type");
-//     	     }
-//     	});
-//     });
-</script>
-<!-- ---------------------------------- -->
 <script>
 $(document).ready(function(){
 	$(".type").draggable({helper:"clone",revert:"invalid"});
@@ -145,10 +115,6 @@ $(document).ready(function(){
 <div><img id="type0" style="width: 120px;height: 120px;padding: 5px;float: left;margin: 0 10px 10px 10px; "  src="images/type0.png" alt="自訂"></div></div> 
 
 <div id="set">
-<!-- <div class="circle">類型</div> -->
-<!-- <div class="circle">項目</div> -->
-<!-- <div class="circle">內文</div> -->
-<!-- <div class="circle">確認</div> -->
 <div><img id="1" class="goal" src="images/goal.png" ></div>
 <div><img id="2" class="goal" src="images/sec.png" ></div>
 <div><img id="3" class="goal" src="images/detail.png" ></div>
