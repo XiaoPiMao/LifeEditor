@@ -28,7 +28,7 @@
 #set {
 	width: 880px;
 	height: 220px;
-	border: 2px solid black;
+	border: 2px solid #ff6666;
 	float: left;
 	margin: 30px 10px 50px 150px;
 	text-align: center;
@@ -42,29 +42,51 @@
 	margin: 45px 10px 45px 60px;
 }
 
-.sec_list {
+.sec_list  {
 	display: none;
 	position: absolute;
 	z-index: 2;
 	left: 55px;
 	top: 180px;
+	width: 500px; 
+	height: 380px;
+}
+
+.secPic{
+width:75px;
+height:65px;
+margin: 10px 5px 10px 35px;
+float: left;
+text-align: center;
+
+}
+
+.form{
+    display: none;
+	position: absolute;
+	z-index: 2;
+	left: 55px;
+	top: 180px;
+	width: 500px; 
+	height: 380px;
 }
 </style>
 
 <script>
-	var types = JSON.parse('${jTypes}');
-	console.log('${jTypes}');
 
+	var types = JSON.parse('${jTypes}');
+	var secs = JSON.parse('${secs}');
+// 	console.log('${jTypes}');
+	console.log('${secs}');
+	console.log(secs[1][0].secName);
 	$(document).ready(
 			function() {
 				var frag = $(new DocumentFragment());
 				$.each(types, function(i, type) {
-					console.log(type.typeID);
-					console.log(type.typeName);
 					var div = $("<div></div>");
 					//<img id="type1" class="type" src="type.typePic" alt="typeName">
 					if (type.typeName != "自訂") {
-						var img = $("<img>").addClass("type").attr("src",
+						var img = $("<img>").attr("id",type.typeID).addClass("type").attr("src",
 								"data:image/png;base64," + type.typePic).attr(
 								"alt", type.typeName);
 					} else {
@@ -81,8 +103,9 @@
 					div.append(img);
 					frag.append(div);
 				})
-				$(".type_list").append(frag);
-
+				$(".type_list").append(frag);			
+				
+				
 				$(".type").draggable({
 					helper : "clone",
 					revert : "invalid"
@@ -90,11 +113,39 @@
 
 				$(".goal").droppable({
 					accept : ".type",
-					drop : function(ev, ui) {
-						$("#1").attr("src", ui.draggable.attr("src"));
-						$("#sport").fadeIn("slow");
+					drop : function(ev, ui) { 
+						$(this).attr("src", ui.draggable.attr("src"));
+						//alert(ui.draggable.attr("id"));
+						
+						$.each(secs[ui.draggable.attr("id")],function(i,sec){
+							var d = $("#secs");
+							var s = $("<img>").attr("id",sec.secID)
+							                  .attr("src","data:image/png;base64," + sec.secPic)
+							                  .attr("alt", sec.secName)
+							                  .addClass("secPic");
+							
+							$(s).draggable({
+								helper : "clone",
+								revert : "invalid"
+							});
+							
+							d.append(s);
+							(s).click(function(){
+							        $("#circle2>img").attr("src",$(this).attr("src"))
+							        				 .css( {
+							        					 "border" : "5px solid black",
+							        					 "border-radius":"60px",
+							        				 });
+							        $('#secs').empty().hide();
+							    });
+						     });
+						        $("#secs").fadeIn("slow");
 					}
 				});
+				
+				
+				
+				
 			});
 </script>
 
@@ -177,28 +228,33 @@
 				<!-- 				</div> -->
 			</div>
 
-			<div id="set">
-				<div style="position: relative">
-					<img id="1" class="goal" src="images/goal.png">
-					<div id="sport" class="sec_list">
-						<img style="width: 500px; height: 380px;"
-							src="images/sport_list.png">
-					</div>
-				</div>
-				<div>
-					<img id="2" class="goal" src="images/sec.png">
-				</div>
-				<div>
-					<img id="3" class="goal" src="images/detail.png">
-				</div>
-				<div>
-					<img id="4" class="goal" src="images/confirm.png">
-				</div>
-			</div>
-
-
-		</article>
+<div id="set">
+     <div id="circle1" style="position: relative">
+          <img class="goal" src="images/sec_list/goal.png">
+               <div id="secs" class="sec_list"  style="border-width:3px;border-style:ridge;border-color:#66ffff;padding:4px;">
+               </div>
+	 </div>
+	 
+	 <div id="circle2" >
+	     <img  class="goal" src="images/sec_list/sec.png">
+	     <div class="form" style="border-width:3px;border-style:ridge;border-color:#66ffff;padding:4px;">
+	     </div>
+	 </div>
+	 
+	<div id="circle3" style="position:relative" >
+		 <img  class="goal"  src="images/sec_list/detail.png">
 	</div>
+	
+	<div id="circle4">
+		 <img  class="goal" src="images/sec_list/confirm.png">
+	</div>
+</div>
+
+
+
+
+</article>
+</div>
 
 
 </body>

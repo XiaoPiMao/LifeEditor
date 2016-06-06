@@ -6,7 +6,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-<title>Life Editor</title>
+<title>User Blog</title>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" href="css/main.css" />
@@ -111,102 +111,35 @@ body {
 				</ul>
 			</nav>
 		</header>
-      <!-- 使用者的小天地 -->
-      <nav class="navbar navbar-default navbar-fixed-top" role="banner">
-  <div class="container">
-    <div class="navbar-header">
-      <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a href="/" class="navbar-brand">Bootply</a>
-    </div>
-    <nav class="collapse navbar-collapse" role="navigation">
-      <ul class="nav navbar-nav">
-        <li>
-          <a href="#sec">Get Started</a>
-        </li>
-        <li>
-          <a href="#sec">Edit</a>
-        </li>
-        <li>
-          <a href="#sec">Visualize</a>
-        </li>
-        <li>
-          <a href="#sec">Prototype</a>
-        </li>
-      </ul>
-    </nav>
+      <!-- 使用者的小天地 start -->
+<div id="tabs">
+  <ul>
+    < <li><a href="#tabs-1">目標3</a></li>
+    <li><a href="#tabs-2">目標2</a></li>
+    <li><a href="#tabs-3">目標1</a></li>
+  </ul>
+<div id="tabs-1">
+    <h2>目標3名稱</h2>
+<!--     <p>目標心得</p> -->
+    <img src="images/port03.jpg" >
   </div>
-</nav>
-
-<div id="masthead">  
-  <div class="container">
-      <div class="row">
-        <div class="col-md-7">
-          <h1>Bootstrap Sidebar
-            <p class="lead">With Affix and Scrollspy</p>
-          </h1>
-        </div>
-        <div class="col-md-5">
-            <div class="well well-lg"> 
-              <div class="row">
-                <div class="col-sm-6">
-        	      	<img src="//placehold.it/180x100" class="img-responsive">
-                </div>
-                <div class="col-sm-6">
-	              	Some text here
-                </div>
-              </div>
-            </div>
-        </div>
-      </div> 
-  </div><!--/container-->
-</div><!--/masthead-->
-
-<!--main-->
-<div class="container">
-<div class="col-md-3 scrollspy">
-  <ul id="nav" class="nav hidden-xs hidden-sm" data-spy="affix">
-    <li>
-      <a href="#web-design">Web Design</a>
-    </li>
-    <li>
-      <a href="#web-development">Web Development</a>
-      <ul class="nav">
-        <li>
-          <a href="#ruby">
-            <span class="fa fa-angle-double-right"></span>Ruby
-          </a>
-        </li>
-        <li>
-          <a href="#python">
-            <span class="fa fa-angle-double-right"></span>Python
-          </a>
-        </li>
-
-      </ul><!--end of sub navigation-->
-    </li>    
-
-  </ul><!-- end of main navigation -->
-</div>
-<div class="col-md-9">
-  <section id="web-design">
-  </section>
-  <section id="web-development">
-    <section id="ruby">
-    </section>
-    <section id="python">
-    </section>
-
-  </section>
+  <div id="tabs-2">
+    <h2>目標2名稱</h2>
+<!--     <p>目標心得</p> --> 
+     <img src="images/port02.jpg" >
+  </div>
+  <div id="tabs-3">
+    <h2>目標1名稱</h2>
+<!--     <p>目標心得</p> --> 
+     <img src="images/port01.jpg" >
+  </div>
 </div>
 
+<!-- 使用者的小天地 end -->
 
-
-</div>
+ 
+</body>
+</html>
 
 
 
