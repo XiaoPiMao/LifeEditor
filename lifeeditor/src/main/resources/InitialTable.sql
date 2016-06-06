@@ -130,9 +130,9 @@ CREATE TABLE misbehave(
 );
 
 CREATE TABLE target_list(
+	targetListID int primary key IDENTITY,
 	userID int FOREIGN KEY REFERENCES user_spec(userID),
-	targetID int FOREIGN KEY REFERENCES target(targetID),
-	PRIMARY KEY (userID,targetID)
+	targetID int FOREIGN KEY REFERENCES target(targetID)
 );
 
 CREATE TABLE target_spec(
