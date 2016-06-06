@@ -12,12 +12,17 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import org.springframework.orm.hibernate3.HibernateTemplate;
+
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.service.AchievementService;
 
 
 public class AchievementDAO_JNDI implements AchievementDAO_interface{
-	
+	private HibernateTemplate hibernateTemplate;    
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
+        this.hibernateTemplate = hibernateTemplate;
+    }
 
 	
 	private static DataSource ds = null;

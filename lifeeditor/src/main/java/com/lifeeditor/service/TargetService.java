@@ -1,12 +1,12 @@
 package com.lifeeditor.service;
 
-import java.sql.Blob;
 import java.sql.Date;
 import java.util.List;
 
-import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.sec_list.SecListVO;
-import com.lifeeditor.model.target.*;
+import com.lifeeditor.model.target.TargetDAO_JNDI;
+import com.lifeeditor.model.target.TargetDAO_interface;
+import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.type_list.TypeListVO;
 
 public class TargetService {
@@ -106,5 +106,16 @@ public class TargetService {
 		return dao.findByKeyword(keyword);
 	}
 
+	
+	public void copyTrg(Integer targetID,Integer userID){
+		
+		TargetVO TrgVO = dao.findByPrimaryKey(targetID);
+		TrgVO.setTrgType(2);
+		targetID= dao.insert(TrgVO);
+		new Target_List_Service().addTrgList(userID, targetID);
+        
+		return;
+	}
+	
 	
 }

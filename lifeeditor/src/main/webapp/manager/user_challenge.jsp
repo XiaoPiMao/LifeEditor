@@ -24,6 +24,7 @@ $(document).ready(function(){
     $('#example').DataTable();
 });
 </script>
+
 <style>
 
 h1, b {
@@ -51,7 +52,7 @@ h1, b {
 					<th width="40px">難度</th>
 					<th width="60px">參加人數</th>
 					<th width="50px">達成率</th>
-					<th width="40px">我要參加</th>
+					<th width="40px">選取</th>
 					<th width="100px">截止日期</th>
 <!-- 					<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> -->
 				</tr>
@@ -75,7 +76,7 @@ h1, b {
 				<td>0人</td>
 				<td>0%</td>
 				<td>
-				<input type="checkbox" class="apply" id="${TargetVO.targetID}" value="1" checked>
+				<input type="checkbox" class="apply" id="xx" value="${TargetVO.targetID}">
 <%-- 				<c:choose> --%>
 <%-- 					<c:when test="${user_specVO.hotMan == '1'}"> --%>
 <!-- 						<option value="1" selected="selected">是</option> -->
@@ -95,7 +96,53 @@ h1, b {
 
         </tfoot>
     </table>
+    <button type="button" id="buttonToggle" >送出參加</button>
+<!--      onclick="console.log('Hello world!')"  -->
     </div>
-
 </body>
+<script>
+$(function(){
+			$(':checkbox').click(function () {
+// 	        $('#buttonToggle').click(function () {
+	            $(':checkbox').each(function(){
+	            	if($(this).prop('checked')){
+	            	    console.log($(this).val()); 
+	            	}
+	            })      
+	        });
+	        
+// 	    //*******************
+
+
+	var s1 = {
+			'color' : 'black',
+			'background-color' : 'white',
+			'padding' : '10px',
+			'text-align' : 'center',
+			'border' : '1px solid red'
+		};
+		var s2 = {
+			'color' : '#336600',
+			'background-color' : '#d9ffb3',
+			'padding' : '10px',
+			'text-align' : 'center',
+			'border' : '1px solid green'
+		};
+
+		$('tr').css(s1).mouseover(over).mouseout(out);
+
+		function over() {
+
+			$(this).css(s2);
+
+		}
+		;
+		function out() {
+
+			$(this).css(s1);
+		}
+		;
+
+	});
+</script>
 </html>
