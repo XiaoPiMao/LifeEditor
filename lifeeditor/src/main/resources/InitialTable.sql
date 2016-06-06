@@ -307,7 +307,6 @@ INSERT INTO type_list values(N'運動',null);
 INSERT INTO type_list values(N'教育',null);
 INSERT INTO type_list values(N'旅遊',null);
 INSERT INTO type_list values(N'娛樂',null);
-INSERT INTO type_list values(N'人生',null);
 
 
 
