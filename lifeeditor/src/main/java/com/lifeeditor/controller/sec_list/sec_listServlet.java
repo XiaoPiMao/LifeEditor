@@ -19,11 +19,13 @@ import org.hibernate.Hibernate;
 
 import com.lifeeditor.controller.user_spec.EmailUtils;
 import com.lifeeditor.controller.user_spec.VerifyUtils;
+import com.lifeeditor.init.ContextListener;
 import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.SecListService;
 import com.lifeeditor.service.TypeListService;
+import com.lifeeditor.utility.MyGson;
 
 
 @WebServlet("/sec_listServlet")
@@ -92,7 +94,7 @@ public class sec_listServlet extends HttpServlet {
 				
 				SecListService SecListService = new SecListService();
 				SecListVO = SecListService.addSec(typeID,secName,picture);
-				
+				ContextListener.context.setAttribute("secs", MyGson.gson.toJson(ContextListener.getSecMap()));//項目
 				
 				String url = "/manager/editorType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
@@ -161,7 +163,7 @@ public class sec_listServlet extends HttpServlet {
 				}else{
 					SecListVO = SecListService.updateSec(secID,typeID,secName,pictureUpdate);
 				}
-				
+				ContextListener.context.setAttribute("secs", MyGson.gson.toJson(ContextListener.getSecMap()));//項目
 				
 				
 				String url = "/manager/editorType.jsp";
