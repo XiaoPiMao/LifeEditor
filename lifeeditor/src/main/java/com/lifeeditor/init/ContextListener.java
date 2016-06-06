@@ -40,7 +40,7 @@ public class ContextListener implements ServletContextListener {
 		SecListService secListSvc = new SecListService();
 		Map<Integer,JsonArray> secMap = new LinkedHashMap<>();
 		JsonParser jsonParser = new JsonParser();
-		Gson gson = MyGson.myGsonBuilder.create();
+		Gson gson = MyGson.myGson;
 		for(TypeListVO type : types) {
 			List<SecListVO> secs = secListSvc.getByTypeID( type.getTypeID() );
 			secMap.put(type.getTypeID(),jsonParser.parse(gson.toJson(secs)).getAsJsonArray());
