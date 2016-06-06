@@ -7,6 +7,9 @@ import com.lifeeditor.model.user_spec.user_specVO;
 
 public interface Target_ListDAO_interface {
 	
+	public void insert (Target_ListVO trg_listVO);
+	public void delete(Target_ListVO trg_listVO);
+	public void delete(Integer targetID);
 	public List<Target_ListVO> findByUserID(Integer userID);
 	public Target_ListVO findByTargetID(Integer targetID);
 	public List<Target_ListVO> getAllByUser();

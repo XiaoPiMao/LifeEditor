@@ -41,6 +41,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 		}
 	}
 	
+	public static final String GET_IDENTITY = "select @@IDENTITY AS 'result'";
 	
 	public  static final String INSERT_STMT = 
 			"INSERT INTO target (trgName,typeID,sectionID,difficulty,intention,privacy,"
@@ -68,10 +69,11 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 
 	@Override
-	public void insert(TargetVO TrgVO) {
-		System.out.println("insert call");
+	public int insert(TargetVO TrgVO) {
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		int result = 0;
 		
 		try {
 			con = ds.getConnection();
@@ -132,6 +134,12 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 			pstmt.executeUpdate();
 			
+			pstmt = con.prepareStatement(GET_IDENTITY);
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt(1);
+			}
+			
 			
 		} catch (SQLException e) {
 			throw new RuntimeException("發生錯誤" + e.getMessage());
@@ -150,7 +158,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				}
 			}
 		}
-		
+		return result;
 	}
 
 	@Override

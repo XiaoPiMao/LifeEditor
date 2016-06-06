@@ -23,6 +23,26 @@ $(document).ready(function(){
 		});
     $('#example').DataTable();
 });
+
+$(function(){
+	
+	 $('#Toggle').change(function(){	 
+		 var b = $(this).prop('checked');
+		 $(':checkbox').prop('checked',b);
+	 });
+
+	        $('#buttonToggle').click(function () {
+	            $(':checkbox[id!="Toggle"]').each(function(){
+	            	if($(this).prop('checked')){
+	            	    console.log($(this).val()); 
+	            	}
+	            })
+	            
+	        });
+	
+});
+
+
 </script>
 <style>
 
@@ -51,7 +71,7 @@ h1, b {
 					<th width="40px">難度</th>
 					<th width="60px">參加人數</th>
 					<th width="50px">達成率</th>
-					<th width="40px">我要參加</th>
+					<th width="80px">我要參加</th>
 					<th width="100px">截止日期</th>
 <!-- 					<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> -->
 				</tr>
@@ -75,7 +95,7 @@ h1, b {
 				<td>0人</td>
 				<td>0%</td>
 				<td>
-				<input type="checkbox" class="apply" id="${TargetVO.targetID}" value="1" checked>
+				<input type="checkbox" class="apply" id="${TargetVO.targetID}" value="1">
 <%-- 				<c:choose> --%>
 <%-- 					<c:when test="${user_specVO.hotMan == '1'}"> --%>
 <!-- 						<option value="1" selected="selected">是</option> -->
@@ -95,6 +115,7 @@ h1, b {
 
         </tfoot>
     </table>
+    <button type="button" onclick="console.log('Hello world!')">送出結果</button>
     </div>
 
 </body>

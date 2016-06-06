@@ -12,7 +12,7 @@
         <many-to-one name="userVO" class="com.lifeeditor.model.user_spec.user_specVO" lazy="false">
             <column name="userID" />
         </many-to-one>
-        <many-to-one name="trgVO" class="com.lifeeditor.model.target.TargetVO" lazy="false">
+        <many-to-one name="trgVO" class="com.lifeeditor.model.target.TargetVO" lazy="false" cascade="delete">
             <column name="targetID" />
         </many-to-one>
         
