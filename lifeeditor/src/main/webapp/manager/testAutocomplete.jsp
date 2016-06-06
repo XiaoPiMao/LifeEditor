@@ -1,115 +1,138 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <jsp:useBean id="userSvc" class="com.lifeeditor.service.user_specService" /> --%>
-<jsp:useBean id="TrgSvc" class="com.lifeeditor.service.TargetService" />		
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>編輯熱門人物</title>
-<link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="${ctx}/manager/js/jquery-1.12.4.min.js"></script>
-<script src="${ctx}/manager/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function(){
-	$('.selHotMan').change(function(e) {
-// 			alert(1);
-		    $.post("${ctx}/EditorHotMan",{
-				 hotMan: $(this).val(),
-				 id : this.id
-			 });
-		});
-    $('#example').DataTable();
-});
-</script>
-<style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Insert title here</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
 
-h1, b {
-	text-align: center
-}
-
-#Register {
-    margin: auto;
-}
-</style>
 
 </head>
 <body>
-<h1>挑戰任務</h1>
 
-<div align="center">
-<table id="example" class="display" cellspacing="0" width=auto>
-			<thead>
-				<tr>
-					<th width="130px">挑戰名稱</th>
-					<th width="50px">類別</th>
-					<th width="50px">項目</th>
-					<th width="600px">內容敘述</th>
-					<th width="40px">難度</th>
-					<th width="40px">參加人數</th>
-					<th>達成率</th>
-					<th width="40px">我要參加</th>
-					<th width="100px">截止日期</th>
-					<th>詳細資訊</th>
-<!-- 					<th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th> -->
-				</tr>
-			</thead>
-			<c:forEach var="TargetVO" varStatus="var" items="${TrgSvc.all}">
-			<tr align='center' valign='middle'>
-			
+	<div class="container">
+		<div class="row">
+		    <div class="col-md-3">
+		       <div class="list-group">
+  <a href="jQueryFirst.html" class="list-group-item">jQueryFirst</a>
+  <a href="WritingStyle.html" class="list-group-item">jQueryWritingStyle</a>
+  <a href="jQuerySelectors.html" class="list-group-item">jQuerySelectors</a>
+  <a href="jQueryDOM.html" class="list-group-item">jQueryDOM</a>
+  <a href="jQueryCSS.html" class="list-group-item">jQueryCSS</a>
+  <a href="jQueryEach.html" class="list-group-item">jQueryEach</a>
+  <a href="jQueryEvent.html" class="list-group-item">jQueryEvent</a>
+  <a href="jQueryEffects.html" class="list-group-item">jQueryEffects</a>
+  <a href="jQueryAjax.html" class="list-group-item">jQueryAjax</a>
+  <a href="jQueryUI.html" class="list-group-item">jQueryUI</a>
+  
+</div>
+		    </div>
+		    <div class="col-md-9">
+		    <div class="jumbotron">
+			<div class="page-header">
+				<h3>jQuery DOM</h3>
+			</div>
+			<!-- 每頁不同的內容從這裡開始 -->
+ <a href="jQuerySelectors.html">Selectors</a> | <a href="jQueryFirst.html">First</a> | <a href="http://tw.yahoo.com">YAHOO</a> | <a href="http://www.google.com.tw">Google</a>
+    <hr />
+    <input type="text" id="txtName" /><input type="button" value="Click" id="buttonClick" disabled /><span id="span1"></span>
+    <br />
+    <select id="select1">
+        <option value="a">Item1</option>
+        <option value="b">Item2</option>
+        <option value="c" selected>Item3</option>
+        <option value="d">Item4</option>
+    </select>
+    <span id="span2"></span>
+    <hr />
+    <input type="button" value="check" id="buttonToggle" /><br />
+    <input type="checkbox" id="Toggle" />Toggle All<br />
+    <input type="checkbox" value="a1" />A1
+    <input type="checkbox" value="a2" />A2
+    <input type="checkbox" value="a3" />A3
+    <input type="checkbox" value="a4" />A4
+    <input type="checkbox" value="a5" />A5
+    <input type="checkbox" value="a6" />A6
+    <hr />
+    <h1 id="myH">write less, do more</h1>
 
-				<td>${TargetVO.trgName}</td>
-				<td>${TargetVO.typeVO.typeName}</td>
-				<td>${TargetVO.sectionVO.secName}</td>
-				<td>${TargetVO.intention}</td>
-				<td>
-<%-- 				${TargetVO.difficulty} --%>
-				<c:if test="${TargetVO.difficulty == '1'}" >輕鬆</c:if>
-				<c:if test="${TargetVO.difficulty == '2'}" >簡單</c:if>
-				<c:if test="${TargetVO.difficulty == '3'}" >普通</c:if>
-				<c:if test="${TargetVO.difficulty == '4'}" >困難</c:if>
-				<c:if test="${TargetVO.difficulty == '5'}" >嚴酷</c:if>
-				</td>
-				<td>0人</td>
-				<td>0%</td>
-				<td>
-				<input type="checkbox" class="apply" id="${TargetVO.targetID}" value="1">
-<%-- 				<c:choose> --%>
-<%-- 					<c:when test="${user_specVO.hotMan == '1'}"> --%>
-<!-- 						<option value="1" selected="selected">是</option> -->
-<!-- 						<option value="0">否</option> -->
-<%-- 					</c:when> --%>
-<%-- 					<c:otherwise> --%>
-<!-- 						<option value="1" >是</option> -->
-<!-- 						<option value="0" selected="selected">否</option> -->
-<%-- 					</c:otherwise> --%>
-<%-- 				</c:choose> --%>
-			
-				
-				</td>
-				<td>${TargetVO.timeFinish}</td>
-				<td>
-				<select size="1" class="selHotMan" id="${user_specVO.userID}">
-				<c:choose>
-					<c:when test="${user_specVO.hotMan == '1'}">
-						<option value="1" selected="selected">是</option>
-						<option value="0">否</option>
-					</c:when>
-					<c:otherwise>
-						<option value="1" >是</option>
-						<option value="0" selected="selected">否</option>
-					</c:otherwise>
-				</c:choose>
-                </select></td> 
 
-		 </c:forEach>
-        <tfoot>
 
-        </tfoot>
-    </table>
-    </div>
+
+		<!-- Site footer -->
+		<footer class="footer">
+			<p>&copy; IIIEDU</p>
+		</footer>
+
+	</div>
+	<!-- /container -->
+
+
+	<script src="js/jquery-1.12.3.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
+	<script>
+    $(function () {
+        var myName = $('#txtName');
+        myName.val('guest'); //寫入
+
+        $('#buttonClick').click(function () {
+
+           var txt = myName.val(); //讀取
+
+          $('#span1').text("<h2>Hello " + txt + "</h2>");  //寫入
+
+           console.log($('#span1').html()); //讀取
+            
+        });
+
+
+        $('#select1').change(function(){
+
+ 		   var sel = $('#select1>:selected');
+
+          var v = sel.val();  //var v = $(this).val();
+          var t = sel.text();
+          var i = sel.index();
+ 		   
+ 		   $('#span2').text(i + "," + v + "," + t);
+
+ 	   });
+
+
+
+
+ $('#Toggle').change(function(){	 
+	 //this vs $(this)	 
+	 var b = $(this).prop('checked');
+	 $(':checkbox').prop('checked',b);
+ });
+
+        $('#buttonToggle').click(function () {
+            //切換所有checkbox的勾選狀態
+            
+            //切換各自checkbox的勾選狀態
+//             $(':checkbox').each(function(){
+//             	var b = !$(this).prop('checked');
+//             	$(this).prop('checked',b);
+//             });
+            
+            //用console.log顯示有被勾選checkbox的value
+            $(':checkbox[id!="Toggle"]').each(function(){
+            	if($(this).prop('checked')){
+            	    console.log($(this).val()); 
+            	}
+            })
+            
+        });
+
+        
+
+
+    });
+</script>
+
 
 </body>
+
 </html>
