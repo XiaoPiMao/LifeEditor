@@ -11,26 +11,85 @@
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.js"></script>
 <style>
-.types { width: 120px; height: 120px; padding: 5px; float: left; margin: 0 10px 10px 0; font-size: .9em; }
+.set_goal {
+margin: auto;
+width:1200px;
+text-align: center;
+}
+
+.type { 
+width: 120px; 
+height: 120px; 
+padding: 5px; 
+float: left; 
+margin: 0 10px 10px 10px; 
+}
+
 #set{
-width:600px;
-height:200px;
+width:880px;
+height:220px;
 border:2px solid black;
 float:left;
+margin: 30px 10px 50px 150px;
+text-align: center;
 }
-.goal{margin: auto;}
+
+
+.goal{
+width:130px;
+height:130px;
+display:inline-block;
+float:left;
+margin: 45px 10px 45px 60px;
+
+}
+
+
+/* .circle { */
+/*       width: 130px; */
+/*       height: 130px; */
+/*       border-radius: 65px ; */
+/*       border:5px solid #C0C0C0; */
+/*       margin:35px 20px 35px 10px; */
+/*       display: inline-block; */
+/*       text-align: center #C0C0C0; */
+/*       font-size:20px; */
+/*       color:#C0C0C0; */
+/*       text-align:center; */
+/*       line-height:130px; */
+/*     } */
 </style>
+
 <script>
-    $(document).ready(function(){
+//     $(document).ready(function(){
+//     	$(".type").draggable({helper:"clone"});
     	
-    	$("#type dt").draggable({helper:"clone"});
-    	$("#set").droppable({drop:function(event,ui){
-    		
-    		$("#sets").append($("#art").text(ui.draggable.text()));
-    	}});
-    });
-    
+//     	$(".circle").droppable(
+//     	{
+//     		accept:".type",
+//     		drop:function(ev,ui){
+//     			var droppedItem = $(ui.draggable).clone();
+//     			$(this).append(droppedItem).src(".type");
+//     	     }
+//     	});
+//     });
 </script>
+<!-- ---------------------------------- -->
+<script>
+$(document).ready(function(){
+	$(".type").draggable({helper:"clone",revert:"invalid"});
+	
+	$(".goal").droppable({
+		accept:".type",
+		drop:function(ev,ui){
+			$("#1").attr("src",ui.draggable.attr("src"));
+	     }
+	});
+});
+</script>
+
+<!-- 細項:jQuery帶出圖 http://jsfiddle.net/8VY52/249/ -->
+
 </head>
 <body>
 <div id="wrapper">
@@ -72,45 +131,34 @@ float:left;
 						</nav>
 					</header>
 <!-- Main -->
-<article class="goal">	
-<div style="text-align:center;margin: 10px 10px 50px 10px;"><h1>步驟一 : 請將你想要完成的目標類型拖曳到下方的類別圓圈裡</h1></div>
-<div id="type">
-<dt>art<img class="types" src="images/goal_art.jpg" ></dt>
-<img id="art" class="types" src="images/goal_art.jpg" >
-<!--     <ul class="types"> -->
-<!--        <li>art<img class="types" src="images/goal_art.jpg" ></li> -->
-<!--        <li><img  src="images/goal_education.jpg" ></li> -->
-<!--        <li><img  src="images/goal_finance.jpg" ></img></li> -->
-<!--        <li><img  src="images/goal_travel.jpg" ></img></li> -->
-<!--        <li><img  src="images/goal_happy.jpg" ></li> -->
-<!--        <li><img  src="images/goal_custom.jpg" ></li> -->
-    </ul>
+<article class="set_goal">	
 
-</div>
-<!-- <div class="type"> -->
-<!-- <img  src="images/goal_art.jpg" ></img> -->
-<!-- <img  src="images/goal_education.jpg" ></img> -->
-<!-- <img  src="images/goal_finance.jpg" ></img> -->
-<!-- <img  src="images/goal_sport.jpg" ></img> -->
-<!-- <img  src="images/goal_travel.jpg" ></img> -->
-<!-- <img  src="images/goal_happy.jpg" ></img> -->
-<!-- <img  src="images/goal_custom.jpg" ></div> -->
+<div style="text-align:center;margin: 10px 10px 50px 10px;"><h1>步驟一 : 請將你想要完成的目標類型拖曳到下方的類別圓圈裡</h1></div>
+
+<div class="type_list" style="text-align:center;margin: 10px 10px 50px 100px;">
+<div><img id="type1" class="type" src="images/type1.jpg" alt="理財"></div>
+<div><img id="type2" class="type" src="images/type2.jpg" alt="藝術"></div>
+<div><img id="type3" class="type" src="images/type3.jpg" alt="運動"></div>
+<div><img id="type4" class="type" src="images/type4.jpg" alt="教育"></div>
+<div><img id="type5" class="type" src="images/type5.jpg" alt="旅遊"></div>
+<div><img id="type6" class="type" src="images/type6.jpg" alt="娛樂"></div>
+<div><img id="type0" style="width: 120px;height: 120px;padding: 5px;float: left;margin: 0 10px 10px 10px; "  src="images/type0.jpg" alt="自訂"></div></div> 
 
 <div id="set">
-   <h2>設定目標</h2>
-   <dl id="sets"></dl>
+<!-- <div class="circle">類型</div> -->
+<!-- <div class="circle">項目</div> -->
+<!-- <div class="circle">內文</div> -->
+<!-- <div class="circle">確認</div> -->
+<div><img id="1" class="goal" src="images/goal.jpg" ></div>
+<div><img id="2" class="goal" src="images/sec.jpg" ></div>
+<div><img id="3" class="goal" src="images/detail.jpg" ></div>
+<div><img id="4" class="goal" src="images/confirm.jpg" ></div>
 </div>
+
 </article>
+</div>
 
 
-
-
-
-
-
-
-
-
- 	</div>
 </body>
+
 </html>
