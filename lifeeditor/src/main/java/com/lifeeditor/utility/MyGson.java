@@ -7,8 +7,9 @@ import java.sql.SQLException;
 import com.google.gson.*;
 
 public class MyGson {
-	public static GsonBuilder myGsonBuilder = new GsonBuilder()
-	.registerTypeHierarchyAdapter(Blob.class, new BlobToBase64TypeAdapter());
+	public static Gson gson = new GsonBuilder()
+	.registerTypeHierarchyAdapter(Blob.class, new BlobToBase64TypeAdapter())
+	.setDateFormat("yyyy-MM-dd").create();
 			
 			
 	private static class BlobToBase64TypeAdapter implements JsonSerializer<Blob>,JsonDeserializer<Blob>{

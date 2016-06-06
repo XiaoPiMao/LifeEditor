@@ -21,36 +21,36 @@ import com.lifeeditor.utility.MyGson;
 
 @WebListener
 public class ContextListener implements ServletContextListener {
-	ServletContext context;
+	public static ServletContext context;
+	public static List<TypeListVO> types;
 	public void contextInitialized(ServletContextEvent e) {
 		System.out.println("系統初始化");
 		context = e.getServletContext();
 		
 		//contextPath
 		context.setAttribute("ctx", context.getContextPath());
-		TypeListService typeListService = new TypeListService();
-		
-		//類別
-		List<TypeListVO> types = typeListService.getAll();
-		context.setAttribute("types", types);
 		
 		
-		
-		//項目轉成json
-		SecListService secListSvc = new SecListService();
-		Map<Integer,JsonArray> secMap = new LinkedHashMap<>();
-		JsonParser jsonParser = new JsonParser();
-		Gson gson = MyGson.myGsonBuilder.create();
-		for(TypeListVO type : types) {
-			List<SecListVO> secs = secListSvc.getByTypeID( type.getTypeID() );
-			secMap.put(type.getTypeID(),jsonParser.parse(gson.toJson(secs)).getAsJsonArray());
-		}
-		
-		context.setAttribute("jTypes", gson.toJson(types));
-		context.setAttribute("secs", gson.toJson(secMap));
+		types = new TypeListService().getAll();
+		context.setAttribute("types", types);//類別
+		context.setAttribute("jTypes", MyGson.gson.toJson(types));//類別Json
+		context.setAttribute("secs", MyGson.gson.toJson(getSecMap()));//項目
 		
 	}
 	public void contextDestroyed(ServletContextEvent e) {
 		context.log("系統正常關閉");
+	}
+	
+	//項目轉成json
+	public static Map<Integer,JsonArray> getSecMap() {
+		SecListService secListSvc = new SecListService();
+		Map<Integer,JsonArray> secMap = new LinkedHashMap<>();
+		JsonParser jsonParser = new JsonParser();
+		Gson gson = MyGson.gson;
+		for(TypeListVO type : types) {
+			List<SecListVO> secs = secListSvc.getByTypeID( type.getTypeID() );
+			secMap.put(type.getTypeID(),jsonParser.parse(gson.toJson(secs)).getAsJsonArray());
+		}
+		return secMap;
 	}
 }

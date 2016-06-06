@@ -68,7 +68,7 @@ public class AchievementTableWithPicture {
 	          pstmt = con.prepareStatement(sql);
 	          // 讀取pokemon表格的初始資料，準備新增到pokemon表格內                                            
 	          BufferedReader br = new BufferedReader(new FileReader("src/main/webapp/images/testPic/achievement.dat")); 
-	          
+//	          BufferedReader br = new BufferedReader(new FileReader("WebContent/images/testPic/achievement.dat"));	          
 	          
 	          while ( (line = br.readLine() ) != null){
 	        	  // 去除 UTF8_BOM
@@ -83,6 +83,7 @@ public class AchievementTableWithPicture {
 
 	        	  // 讀取圖片檔
 	        	  File aFile = new File("src/main/webapp/images/testPic/" + token[2].trim());
+//	        	  File aFile = new File("WebContent/images/testPic/" + token[2].trim());
 	        	  long size = aFile.length();
 	        	  InputStream is = new FileInputStream(aFile);
 	        	  // 設定Image欄位

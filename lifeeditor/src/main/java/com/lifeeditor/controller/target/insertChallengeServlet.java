@@ -105,7 +105,7 @@ public class insertChallengeServlet extends HttpServlet{
 			
 			TargetService trgSrvc= new TargetService();
 			trgSrvc.addTrg(trgName, typeID, sectionID, difficulty, intention,
-					null, null, achID, null, null, 1, null, 1, timeStart, timeFinish, null);		
+					0, 0, achID, 1, 1, 1, 1, 1, timeStart, timeFinish, null);		
 		
 			}catch(Exception e){
 				e.printStackTrace();

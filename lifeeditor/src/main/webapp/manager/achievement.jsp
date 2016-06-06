@@ -176,11 +176,11 @@ div#selects {
 								</select> &nbsp;&nbsp;&nbsp; 項目: <select id="selSec" name="sectionID"
 									form="myForm" class="opt"></select> &nbsp;&nbsp;&nbsp;&nbsp;
 									難易度: <select id="difficulty" name="difficulty" form="myForm">
-										<option value="1">簡單</option>
-										<option value="2">普通</option>
-										<option value="3">一般</option>
+										<option value="1">輕鬆</option>
+										<option value="2">簡單</option>
+										<option value="3">普通</option>
 										<option value="4">困難</option>
-										<option value="5">極嚴峻</option>
+										<option value="5">嚴酷</option>
 								</select> &nbsp;&nbsp;&nbsp; <br /> <br /></td>
 							</tr>
 							<tr>
@@ -231,29 +231,29 @@ div#selects {
 	</script>
 	<!-- *************圖片拖拉 ************** -->
 	<script>
-// 		function dragoverHandler(e) {
-// 			e.preventDefault();
-// 		}
+		function dragoverHandler(e) {
+			e.preventDefault();
+		}
 
-// 		function dropHandler(e) {
-// 			e.preventDefault(); //停止預設動作(預設為任一個標籤都不能被拖)
-// 			e.stopPropagation(); //取消氣泡
-// 			var theFiles = e.dataTransfer.files;
+		function dropHandler(e) {
+			e.preventDefault(); //停止預設動作(預設為任一個標籤都不能被拖)
+			e.stopPropagation(); //取消氣泡
+			var theFiles = e.dataTransfer.files;
 
-// 			for (var i = 0; i < theFiles.length; i++) {
-// 				var reader = new FileReader();
-// 				reader.readAsDataURL(theFiles[i]);
-// 				reader.onload = function(e) {
-// 					var fileContent = e.target.result;
-// 					var eleImg = document.createElement("img");
-// 					eleImg.setAttribute("src", fileContent);
-// 					eleImg.setAttribute("class", "thumb");
-// 					var show = document.getElementById("dropZone");
-// 					show.appendChild(eleImg);
+			for (var i = 0; i < theFiles.length; i++) {
+				var reader = new FileReader();
+				reader.readAsDataURL(theFiles[i]);
+				reader.onload = function(e) {
+					var fileContent = e.target.result;
+					var eleImg = document.createElement("img");
+					eleImg.setAttribute("src", fileContent);
+					eleImg.setAttribute("class", "thumb");
+					var show = document.getElementById("dropZone");
+					show.appendChild(eleImg);
 
-// 				}
-// 			}
-// 		}
+				}
+			}
+		}
 	</script>
 	<!-- *************圖片檔案選取 ************** -->
 	<script>
@@ -386,9 +386,11 @@ $(function(){
 	        		$("#difficulty").val(target.difficulty);  
 	        		$("#tag2").val(target.achVO.achName);
 	        		$("#textarea2").val(target.achVO.achDesc);
-	        		$("#selType").val(target.typeID);
-	        		optSec();
- 	        		$("#selSec").val(target.sectionID);
+// 	        		$("#selType").val(target.typeID);
+	        		$("#selType").val(target.typeVO.typeID);
+//  	        	$("#selSec").val(target.sectionID);
+					optSec();
+ 	        		$("#selSec").val(target.sectionVO.secID);
  	        		var eleImg = document.createElement("img");
 					eleImg.setAttribute("src", "${ctx}/ChallengeServlet?action=showPic&achID=" + achID);  
 					eleImg.setAttribute("class", "pictureDisplay"); 
