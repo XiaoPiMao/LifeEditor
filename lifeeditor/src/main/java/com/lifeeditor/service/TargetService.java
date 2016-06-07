@@ -17,6 +17,10 @@ public class TargetService {
 		dao = new TargetDAO_JNDI();
 	}
 	
+	public int addTrg(TargetVO trg) {
+		return dao.insert(trg);
+	}
+	
 	public TargetVO addTrg(String trgName,Integer typeID,Integer sectionID,Integer difficulty,
 			String intention,Integer privacy,Integer genkiBar,Integer achID,Integer priority,
 			Integer remindTimes,Integer trgType,Integer punishment,Integer status,Date timeStart,Date timeFinish,Date doneTime

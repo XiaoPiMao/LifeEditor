@@ -94,7 +94,7 @@ public class sec_listServlet extends HttpServlet {
 				
 				SecListService SecListService = new SecListService();
 				SecListVO = SecListService.addSec(typeID,secName,picture);
-				ContextListener.context.setAttribute("secs", MyGson.gson.toJson(ContextListener.getSecMap()));//項目
+				ContextListener.context.setAttribute("secs", MyGson.GSON.toJson(ContextListener.getSecMap()));//項目
 				
 				String url = "/manager/editorType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
@@ -163,7 +163,7 @@ public class sec_listServlet extends HttpServlet {
 				}else{
 					SecListVO = SecListService.updateSec(secID,typeID,secName,pictureUpdate);
 				}
-				ContextListener.context.setAttribute("secs", MyGson.gson.toJson(ContextListener.getSecMap()));//項目
+				ContextListener.context.setAttribute("secs", MyGson.GSON.toJson(ContextListener.getSecMap()));//項目
 				
 				
 				String url = "/manager/editorType.jsp";

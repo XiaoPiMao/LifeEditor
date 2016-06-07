@@ -94,8 +94,8 @@ public class type_listServlet extends HttpServlet {
 				
 				ContextListener.types = new TypeListService().getAll();
 				ContextListener.context.setAttribute("types", ContextListener.types);//類別
-				ContextListener.context.setAttribute("jTypes", MyGson.gson.toJson(ContextListener.types));//類別Json
-				ContextListener.context.setAttribute("secs", MyGson.gson.toJson(ContextListener.getSecMap()));//項目
+				ContextListener.context.setAttribute("jTypes", MyGson.GSON.toJson(ContextListener.types));//類別Json
+				ContextListener.context.setAttribute("secs", MyGson.GSON.toJson(ContextListener.getSecMap()));//項目
 				
 				
 				
@@ -166,7 +166,7 @@ public class type_listServlet extends HttpServlet {
 				
 				ContextListener.types = new TypeListService().getAll();
 				ContextListener.context.setAttribute("types", ContextListener.types);//類別
-				ContextListener.context.setAttribute("jTypes", MyGson.gson.toJson(ContextListener.types));//類別Json
+				ContextListener.context.setAttribute("jTypes", MyGson.GSON.toJson(ContextListener.types));//類別Json
 				
 				String url = "/manager/editorType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
