@@ -143,13 +143,14 @@ $(function(){
 			  $(this).find("td").toggleClass( "highlight" );	  
 			  $('#applylist').fadeToggle(500,function() {
 				  	if(this.style.display != 'none'){
+				  		
 				  		$.post("userAddTargetServlet",{"targetID":id, "action":"insert"},function(data){
-				  			alert("ajax");
+				  			alert("已新增至清單");
 				  		});
 				  					
 				  	}
 				  	else{
-				  		
+				  		console.log("已取消選取");
 				  	
 				  		}
 				  	
