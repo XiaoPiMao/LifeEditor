@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 @WebServlet("/backstageLogin/loginService")
@@ -55,11 +56,11 @@ public class loginService extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			request.setAttribute("photo", photo64);
-			request.setAttribute("backVO", backVO);
+			HttpSession session = request.getSession();
+			session.setAttribute("backPhoto", photo64);
+			session.setAttribute("backVO", backVO);
 
-			RequestDispatcher rd = request.getRequestDispatcher("../manager/_backstage/blank1.jsp");
-			rd.forward(request, response);
+			response.sendRedirect(request.getServletContext().getContextPath() + "/manager/blank1.jsp");
 			return;
 
 			

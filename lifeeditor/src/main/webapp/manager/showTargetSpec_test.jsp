@@ -20,7 +20,7 @@ $(document).ready(function(){
 					 targetID : this.id
 				 });
 		});
-    $('#example').DataTable();
+  
 });
 </script>
 <style>
@@ -33,11 +33,13 @@ $(document).ready(function(){
 <body>
 <div align="center">
 <table id="example" class="display" cellspacing="0" width=auto>
+   <img src="${setOK.trgPicPath}"    width="500">
+
         <thead>
             <tr>
                 <th>使用者帳號</th>
                 <th>目標名稱</th>
-                <th>圖片</th>
+                
                 <th>心得內容</th>
                 <th>審核狀態</th>
             </tr>
@@ -46,12 +48,15 @@ $(document).ready(function(){
         
 <%--          <c:forEach var="Target_specVO"  items="${setOK}"> --%>
 <%--   <c:forEach var="TargetVO" varStatus="var" items="${targetSvc.all}"> --%>
+			
 	         <tr align='center' valign='middle'>
 				<td>${setOK.userVO.account}</td>
-				<td>${setOK.targetVO.trgName} </td>
-				<td>
-				 		
-				</td>
+				<td  width="300" height="300">${setOK.targetVO.trgName} </td>
+				
+<%-- 				 		<c:forEach items="${responseScope.setOK}" var="Target_specVO">  --%>
+<%--     			     			   <c:out value ="${setOK.trgPicPath}"/> --%>
+<%-- 						</c:forEach> --%>
+				
 				<td>${setOK.trgNote}	</td>
 				
 				
@@ -80,18 +85,14 @@ $(document).ready(function(){
 
 <%-- 		 </c:forEach> --%>
 		 
+		 
+		 
         <tfoot>
-            <tr>
-               <th>使用者</th>
-                <th>目標</th>
-                <th></th>
-                <th>心得內容</th>
-                <th>審核狀態</th>
-            </tr>
+          
         </tfoot>
         
     </table>
-    <input type ="button" onclick="window.location.href = '${ctx}/manager/CheckTarget_test.jsp'" value="回上頁"></input>
+    <input type ="button" onclick="window.location.href = '${ctx}/manager/CheckTarget.jsp'" value="回上頁"></input>
     </div>
     <script>
 </script>

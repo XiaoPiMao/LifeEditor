@@ -25,8 +25,33 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
         this.hibernateTemplate = hibernateTemplate;
     }
 	
+
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void insert(Target_ListVO trg_listVO) {
+		hibernateTemplate.saveOrUpdate(trg_listVO);	
+	}
+    
+	
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void delete(Target_ListVO trg_listVO) {
+		hibernateTemplate.delete(trg_listVO);
+	}
+
+
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void delete(Integer targetID) {
+		TargetVO trgVO= (TargetVO) hibernateTemplate.get(TargetVO.class, targetID);
+		hibernateTemplate.delete(trgVO);
+	}
+
+	
+	
+	
+	@Override
 	public List<Target_ListVO> findByUserID(Integer userID) {
 
 		try {
@@ -142,6 +167,11 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 //		}	
 //		
 	}
+
+
+
+
+
 	
 	
 }

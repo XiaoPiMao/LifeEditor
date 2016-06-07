@@ -32,9 +32,9 @@ $(document).ready(function(){
 <table id="example" class="display" cellspacing="0" width=auto>
         <thead>
             <tr>
-  		          <th>目標ID</th>
+  		          
                 <th>目標名稱</th>
-                
+                <th>目標ID</th>
                 <th>完成獎勵</th>   
                 <th>審核狀態</th>
                 <th>審核GO</th>

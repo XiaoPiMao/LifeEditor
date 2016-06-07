@@ -33,6 +33,7 @@ import com.lifeeditor.service.TargetService;
 @MultipartConfig()
 @WebServlet("/ChallengeServlet")
 public class insertChallengeServlet extends HttpServlet{
+	private static final long serialVersionUID = 1L;
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -75,7 +76,7 @@ public class insertChallengeServlet extends HttpServlet{
 			try {
 			Integer achID = 0;
 			if(!req.getParameter("achID") .equals("undefined") )
-					 achID= Integer.parseInt(req.getParameter("achID"));	
+			achID= Integer.parseInt(req.getParameter("achID"));	
 			String achName = req.getParameter("achName");
 			String achDesc = req.getParameter("achDesc");
 			String trgName = req.getParameter("trgName");

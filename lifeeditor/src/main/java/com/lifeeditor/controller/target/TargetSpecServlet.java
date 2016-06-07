@@ -46,6 +46,7 @@ public class TargetSpecServlet extends HttpServlet {
 		TargetSpecService trgSpeSvc = new TargetSpecService();
 		
 		Target_specVO vo = trgSpeSvc.getOneTrgSpec(targetID);
+		System.out.println( "vo img path------------------------------------------ :" + vo.getTrgPicPath());
 		request.setAttribute("setOK",vo);
 		RequestDispatcher successMsg =request.getRequestDispatcher("/manager/showTargetSpec.jsp");
 		successMsg.forward(request,response);
