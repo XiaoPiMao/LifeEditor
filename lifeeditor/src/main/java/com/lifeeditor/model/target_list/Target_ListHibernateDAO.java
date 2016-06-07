@@ -29,8 +29,7 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void insert(Target_ListVO trg_listVO) {
-		hibernateTemplate.saveOrUpdate(trg_listVO);
-		
+		hibernateTemplate.saveOrUpdate(trg_listVO);	
 	}
     
 	
@@ -39,7 +38,6 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void delete(Target_ListVO trg_listVO) {
 		hibernateTemplate.delete(trg_listVO);
-	
 	}
 
 
