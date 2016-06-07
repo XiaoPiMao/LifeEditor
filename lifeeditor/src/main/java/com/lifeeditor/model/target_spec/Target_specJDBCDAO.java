@@ -3,9 +3,12 @@ package com.lifeeditor.model.target_spec;
 import java.util.*;
 import java.sql.*;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.lifeeditor.model.target.TargetVO;
+import com.lifeeditor.model.type_list.TypeListDAO_interface;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.TargetService;
 import com.lifeeditor.service.user_specService;
@@ -29,7 +32,8 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 	private static final String DELETE =
 		      "DELETE FROM target_spec where userID = ?";
 
-	private static final String GET_ALL_TargetID = "from Target_spec  order by Target_spec.";
+	private static final String GET_ALL_TargetID = "from Target_spec  order by Target_specID";
+	
 	private HibernateTemplate hibernateTemplate;    
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
         this.hibernateTemplate = hibernateTemplate;
@@ -288,8 +292,14 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 	}
 //
 	public static void main(String[] args) {
-
-		Target_specJDBCDAO dao = new Target_specJDBCDAO();
+		ApplicationContext context = new ClassPathXmlApplicationContext("model-config1-DriverManagerDataSource.xml");
+		Target_specJDBCDAO dao = (Target_specJDBCDAO )context.getBean("Target_specJDBCDAO");
+//		Target_specJDBCDAO dao= new Target_specJDBCDAO();
+		 Target_specVO zz=dao.findByTargetID(25); 
+		 System.out.println("zzzzzzzzzzzzzz=============="+zz);
+		
+		
+//		Target_specJDBCDAO dao = new Target_specJDBCDAO();
 //
 //		// INSERT
 //		Target_specVO target_specVO1 = new Target_specVO();
@@ -316,7 +326,7 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 ////
 //		List<Target_specVO> list = dao.getAll();
 //		for (Target_specVO aEmp : list) {
-//			System.out.print(aEmp.getUserID() + ",");
+//			
 //			System.out.print(aEmp.getTargetVO() + ",");
 //			System.out.print(aEmp.getTrgNote() + ",");
 //			System.out.print(aEmp.getTrgPicPath() + ",");
@@ -331,19 +341,21 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 //			System.out.println();
 //			
 //		}
+//		 System.out.println(dao.findByTargetID(25).getTrgSpecID());
+//		 System.out.println(dao.findByTargetID(25));
 	}
 
 	
-	
+	  
 @Override
 public Target_specVO findByTargetID(Integer TargetID) {
 	
-	Target_specVO Target_specVO =  new Target_specVO();
-	Target_specVO =	(Target_specVO) hibernateTemplate.get(Target_specVO.class, TargetID);
+	Target_specVO vo =  new Target_specVO();
+	vo =	(Target_specVO) hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ?", TargetID).get(0);
+	return vo;
 
-	return Target_specVO;
-	// TODO Auto-generated method stub
 }
+
 
 
 

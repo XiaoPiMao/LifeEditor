@@ -7,7 +7,7 @@ import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.type_list.TypeListVO;
 
 public class TargetVO implements java.io.Serializable {
-	
+	 
 	private static final long serialVersionUID = 1L;
 	private Integer targetID;
 	private String trgName;
