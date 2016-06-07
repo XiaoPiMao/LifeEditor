@@ -8,20 +8,51 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>挑戰任務</title>
+
 <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 <script src="${ctx}/manager/js/jquery-1.12.4.min.js"></script>
 <script src="${ctx}/manager/js/jquery.dataTables.min.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+	$( "#dialog" ).dialog({
+	      autoOpen: false,
+	      resizable: false,
+	      modal: true,
+	      show: {
+	        effect: "fade",
+	        duration: 400
+	      },
+	      buttons: {
+	          "確定送出": function() {
+	            $( this ).dialog( "close" );
+	            console.log("Sure");  
+
+					
+// 	 			  $(this).find("td").toggleClass( "highlight" );	  
+// 	 			  $(this).find("#apply").prop('value', '已報名')
+// 	 			  $(this).find("#apply").css('color','red');
+	            
+	            
+	          },
+	          Cancel: function() {
+	            $( this ).dialog( "close" );
+	            console.log("Cancel");
+	          }
+	        },
+	    }); 
+	    
 	$('.selHotMan').change(function(e) {
-// 			alert(1);
 		    $.post("${ctx}/EditorHotMan",{
 				 hotMan: $(this).val(),
 				 id : this.id
 			 });
 		});
     $('#example').DataTable();
+ 
+    
 });
 </script>
 
@@ -81,7 +112,8 @@ color: blue;
 			
 				<td>${TargetVO.trgName}</td>
 				<td>
-				<button id="apply">我要參加</button>		
+				<input type='button' value='我要參加' id='apply'>
+<!-- 				<button id="apply">我要參加</button>		 -->
 				</td>
 				<td>${TargetVO.typeVO.typeName}</td>
 				<td>${TargetVO.sectionVO.secName}</td>
@@ -104,12 +136,18 @@ color: blue;
     </table>
 </div>
 
-
 <div id="applylist" style="display:none">
-<p>${TargetVO.trgName}加入目標清單</p>
+<p>${TargetVO.trgName}已接受新的挑戰!</p>
 </div>
+
+<div id="dialog" title="是否確認送出?">
+  <p>一旦確認承接後，便無法在此頁面取消這項挑戰! 您是否確定要接受這項挑戰嗎?</p>
+</div>
+
 </body>
 <script>
+
+
 $(function(){        
 // 	    //*******************滑鼠指到時，改變樣式。*****************
 
@@ -136,32 +174,42 @@ $(function(){
 			$(this).css(s1);
 		};
 		
-// 	    //*******************滑鼠點擊時，勾選該列。*****************		
-		$( "tr" ).click(function() {	
-			  var id = this.id;
-			  var flip = 0;		
-			  $(this).find("td").toggleClass( "highlight" );	  
-			  $('#applylist').fadeToggle(500,function() {
-				  	if(this.style.display != 'none'){
-				  		
-				  		$.post("userAddTargetServlet",{"targetID":id, "action":"insert"},function(data){
-				  			alert("已新增至清單");
-				  		});
-				  					
-				  	}
-				  	else{
-				  		console.log("已取消選取");
-				  	
-				  		}
-				  	
-				  }
-			  );
-
-			});
+	    //*******************滑鼠點擊時，勾選該列。*****************		
+		$( "tr" ).one( "click",function() {	
 			
+		  $( "#dialog" ).dialog( "open" );
+			   
+// 			  var id = this.id;	
+					  $(this).find("td").toggleClass( "highlight" );	  
+		 			  $(this).find("#apply").prop('value', '已報名');
+		 			  $(this).find("#apply").css('color','red');
+
+// 			  
+// 			  $('#applylist').fadeToggle(500,function() {
+				  
+// 				  if(this.style.display != 'none'){  	
+		  		
+				  		
+// // 				  		$.post("userAddTargetServlet",{"targetID":id, "action":"insert"},function(data){
+// // 				  			alert("已新增至清單");
+// // 				  		});
+				  					
+// 				  	}
+// 				  	else{
+// 				  		console.log("已取消選取");
+				  	
+// 				  		}
+				  	
+// 				  }
+// 			  );
+//
+			});
 
 					
 	});
+	
+
+
 	
 </script>
 </html>
