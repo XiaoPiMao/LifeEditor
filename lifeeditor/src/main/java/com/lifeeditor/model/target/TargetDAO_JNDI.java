@@ -14,14 +14,12 @@ import javax.sql.DataSource;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import com.lifeeditor.model.achievement.AchievementHibernateDAO;
 import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.service.AchievementService;
 import com.lifeeditor.service.SecListService;
 import com.lifeeditor.service.TypeListService;
-import com.lifeeditor.utility.GlobalValues;
 
 
 public class TargetDAO_JNDI implements TargetDAO_interface {

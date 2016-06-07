@@ -2,10 +2,14 @@ package com.lifeeditor.service;
 
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.target_list.Target_ListDAO_interface;
 import com.lifeeditor.model.target_list.Target_ListHibernateDAO;
 import com.lifeeditor.model.target_list.Target_ListVO;
+import com.lifeeditor.model.type_list.TypeListDAO_interface;
 import com.lifeeditor.model.user_spec.user_specVO;
 
 
@@ -14,7 +18,8 @@ public class Target_List_Service {
 	private Target_ListDAO_interface dao;
 	
 	public Target_List_Service(){
-		dao = new Target_ListHibernateDAO();
+		ApplicationContext context = new ClassPathXmlApplicationContext("model-config2-JndiObjectFactoryBean.xml");
+		dao =(Target_ListDAO_interface) context.getBean("Target_ListHibernateDAO");
 	}
 	
 	

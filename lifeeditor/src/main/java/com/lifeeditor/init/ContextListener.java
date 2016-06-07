@@ -33,8 +33,8 @@ public class ContextListener implements ServletContextListener {
 		
 		types = new TypeListService().getAll();
 		context.setAttribute("types", types);//類別
-		context.setAttribute("jTypes", MyGson.gson.toJson(types));//類別Json
-		context.setAttribute("secs", MyGson.gson.toJson(getSecMap()));//項目
+		context.setAttribute("jTypes", MyGson.GSON.toJson(types));//類別Json
+		context.setAttribute("secs", MyGson.GSON.toJson(getSecMap()));//項目
 		
 	}
 	public void contextDestroyed(ServletContextEvent e) {
@@ -46,7 +46,7 @@ public class ContextListener implements ServletContextListener {
 		SecListService secListSvc = new SecListService();
 		Map<Integer,JsonArray> secMap = new LinkedHashMap<>();
 		JsonParser jsonParser = new JsonParser();
-		Gson gson = MyGson.gson;
+		Gson gson = MyGson.GSON;
 		for(TypeListVO type : types) {
 			List<SecListVO> secs = secListSvc.getByTypeID( type.getTypeID() );
 			secMap.put(type.getTypeID(),jsonParser.parse(gson.toJson(secs)).getAsJsonArray());
