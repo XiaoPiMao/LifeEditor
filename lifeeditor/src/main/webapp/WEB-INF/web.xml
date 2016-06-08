@@ -44,10 +44,9 @@
     <servlet-name>user_specServlet</servlet-name>
     <url-pattern>/register/user_spec.do</url-pattern>
   </servlet-mapping>
-
-   <servlet>
-	<servlet-name>LoginServlet</servlet-name>
-	<servlet-class>com.lifeeditor.controller.Login.LoginServlet</servlet-class>
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.lifeeditor.controller.Login.LoginServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>type_listServlet</servlet-name>
@@ -97,10 +96,24 @@
     <servlet-name>getSecName</servlet-name>
     <url-pattern>/manager/getSecName.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>genkiBar_list</servlet-name>
+    <servlet-class>com.lifeeditor.controller.genkiBar_list.genkiBar_listServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>genkiBar_list</servlet-name>
+    <url-pattern>/genkitest/genkiBar_list.do</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>comments</servlet-name>
+    <servlet-class>com.lifeeditor.controller.comments.commentsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>comments</servlet-name>
+    <url-pattern>/genkitest/comments.do</url-pattern>
+  </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/Login.java</url-pattern>
   </servlet-mapping>
 </web-app>
-
-	

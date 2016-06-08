@@ -2,7 +2,7 @@
 USE LE01;
 
 drop table comments
-drop table gankibar_list;
+drop table gankiBar_list;
 DROP TABLE friend;
 DROP TABLE invite_list;
 DROP TABLE message;
