@@ -3,7 +3,12 @@ package com.lifeeditor.model.target_spec;
 import java.util.*;
 import java.sql.*;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.orm.hibernate3.HibernateTemplate;
+
 import com.lifeeditor.model.target.TargetVO;
+import com.lifeeditor.model.type_list.TypeListDAO_interface;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.TargetService;
 import com.lifeeditor.service.user_specService;
@@ -25,6 +30,7 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 							"WHERE hotman=1 ";
 	private static final String DELETE =
 		      "DELETE FROM target_spec where userID = ?";
+
 //***************************************************************************************************************
 	//有關心得的sql字串
 private static final String GET_ID_STMT="SELECT @@IDENTITY as 'trgSpec'";
@@ -41,6 +47,17 @@ private static final String GET_TARGET_TYPE_STMT =
 	
 //子皓有修改這個insert方法，將傳回值改成int，這個傳回的int的屬性為id
 //取得這個id可以抓到當下新增進去的值	
+
+
+	private static final String GET_ALL_TargetID = "from Target_spec  order by Target_specID";
+	
+	private HibernateTemplate hibernateTemplate;    
+    public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
+        this.hibernateTemplate = hibernateTemplate;
+    }
+	
+	
+	
 	@Override
 	public int insert_simple(Target_specVO target_specVO) {
 
@@ -64,10 +81,10 @@ private static final String GET_TARGET_TYPE_STMT =
 			pstmt.setInt(2, target_specVO.getTargetVO().getTargetID());
 			pstmt.setString(3, target_specVO.getTrgNote());
 			pstmt.setString(4, target_specVO.getTrgPicPath());
+			pstmt.executeUpdate();
 			pstmt.setInt(1,target_specVO.getUserVO().getUserID());
 			
 			
-			pstmt.executeUpdate();
 			
 			 idpstmt = con.prepareStatement(GET_ID_STMT);
 			rs =idpstmt.executeQuery();
@@ -311,10 +328,27 @@ private static final String GET_TARGET_TYPE_STMT =
 		}
 		return list;
 	}
+	
+	@Override
+	public Target_specVO findByTargetID(Integer TargetID) {
+		
+		Target_specVO vo =  new Target_specVO();
+		vo =	(Target_specVO) hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ?", TargetID).get(0);
+		//System.out.println("findByTargetID :" + vo.getTrgPicPath());
+		return vo;
+
+	}
+	
 //
 	public static void main(String[] args) {
-
-		Target_specJDBCDAO dao = new Target_specJDBCDAO();
+		ApplicationContext context = new ClassPathXmlApplicationContext("model-config1-DriverManagerDataSource.xml");
+		Target_specJDBCDAO dao = (Target_specJDBCDAO )context.getBean("Target_specJDBCDAO");
+//		Target_specJDBCDAO dao= new Target_specJDBCDAO();
+		 Target_specVO zz=dao.findByTargetID(25); 
+		 System.out.println("zzzzzzzzzzzzzz=============="+zz);
+		
+		
+//		Target_specJDBCDAO dao = new Target_specJDBCDAO();
 //
 //		// INSERT
 //		Target_specVO target_specVO1 = new Target_specVO();
@@ -341,7 +375,7 @@ private static final String GET_TARGET_TYPE_STMT =
 ////
 //		List<Target_specVO> list = dao.getAll();
 //		for (Target_specVO aEmp : list) {
-//			System.out.print(aEmp.getUserID() + ",");
+//			
 //			System.out.print(aEmp.getTargetVO() + ",");
 //			System.out.print(aEmp.getTrgNote() + ",");
 //			System.out.print(aEmp.getTrgPicPath() + ",");
@@ -356,7 +390,10 @@ private static final String GET_TARGET_TYPE_STMT =
 //			System.out.println();
 //			
 //		}
+//		 System.out.println(dao.findByTargetID(25).getTrgSpecID());
+//		 System.out.println(dao.findByTargetID(25));
 	}
+
 
 
 //********************************************************************************************************
@@ -408,6 +445,7 @@ private static final String GET_TARGET_TYPE_STMT =
 				}
 			}
 		}}
+		@SuppressWarnings("resource")
 		@Override
 		public int insert_will_change_status(Target_specVO target_specVO) {
 
@@ -427,8 +465,8 @@ private static final String GET_TARGET_TYPE_STMT =
 				
 				pstmt = con.prepareStatement(INSERT_STMT);
 				
-				pstmt.setInt(1,target_specVO.getUserVO().getUserID());
-				pstmt.setInt(2, target_specVO.getTargetVO().getTargetID());
+				pstmt.setInt(1,1);
+				pstmt.setInt(2,1);
 				pstmt.setString(3, target_specVO.getTrgNote());
 				pstmt.setString(4, target_specVO.getTrgPicPath());
 				pstmt.setInt(1,target_specVO.getUserVO().getUserID());
@@ -468,5 +506,5 @@ private static final String GET_TARGET_TYPE_STMT =
 			}
 			return 0;
 
-	}
-}
+		}}
+

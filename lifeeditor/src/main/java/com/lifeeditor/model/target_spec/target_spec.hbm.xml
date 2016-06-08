@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.lifeeditor.model.target_spec.Target_specVO" table="target_spec" >
+        
+        <id name="trgSpecID" column="trgSpecID">
+            <generator class="identity"/>
+        </id>
+               
+        <many-to-one name="userVO" class="com.lifeeditor.model.user_spec.user_specVO" lazy="false">
+            <column name="userID" />
+        </many-to-one>
+        <many-to-one name="targetVO" class="com.lifeeditor.model.target.TargetVO" lazy="false">
+            <column name="targetID" />
+        </many-to-one>
+        
+          <property name="trgNote" column="trgNote" />
+         <property name="TrgPicPath" column="trgPicPath" />
+     
+        
+        
+    </class>
+</hibernate-mapping>
+

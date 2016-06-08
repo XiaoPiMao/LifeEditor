@@ -31,9 +31,9 @@
 				<!-- Header -->
 					<header id="header">
 						<h1><a href="#">Life Editor</a></h1>
-						<nav class="links">
+						<nav class="links">+
 							<ul>
-								<li><a href="userPage.jsp">目標</a></li>
+								<li><a href="setgoal.jsp">目標</a></li>
 								<li><a href="#">行事曆</a></li>
 								<li><a href="#">朋友</a></li>
 								<li><a href="#">關於我</a></li>
@@ -46,10 +46,10 @@
 						    			<img src="${FbPicture}"></img>
 								</c:when>
 							<c:otherwise>
-								<img height='40px' width='30px' src="HomeGetPicture">
+								<img height='45px' width='45px' src="HomeGetPicture">
 							</c:otherwise> 
 					</c:choose>
-				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>    
+				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();">  </a>    
 							
 							
 								<li class="search">
@@ -123,12 +123,12 @@
 						<!-- Post -->
 							<article class="post">
 								<header>
-							     	測試: ${LoginOK.pswd}_${LoginOK.gender}_${ LoginOK.email} _${LoginOK.picture }
+<%-- 							     	測試: ${LoginOK.pswd}_${LoginOK.gender}_${ LoginOK.email} _${LoginOK.picture } --%>
 <!-- 								<div class="postMetaInline-feedSummary inlineEditor-headerContent"> -->
 <!-- 								<div class="inlineEditor-placeholder js-inlineEditorPrompt">Write here…</div> -->
 									<div class="title">
 										<h2><a href="#">資策盃冠軍終於到手</a></h2>
-										<p>不放棄！絕不放棄！永不放棄！</p>
+										<h3>不放棄！絕不放棄！永不放棄！</h3>
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2016-06-06">June 6, 2016</time>
@@ -215,10 +215,10 @@
 
 						<!-- Intro -->
 							<section id="intro">
-								<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a>
+<!-- 								<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a> -->
 								<header>
 									<h2>Life Editor</h2>
-									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>
+<!-- 									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p> -->
 								</header>
 							</section>
 

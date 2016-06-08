@@ -73,15 +73,13 @@ public class TypeListJNDIDAO implements TypeListDAO_interface{
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void insert(TypeListVO TypeListVO) {
-		hibernateTemplate.saveOrUpdate(TypeListVO);
-		
+		hibernateTemplate.saveOrUpdate(TypeListVO);	
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void update(TypeListVO TypeListVO) {
-		hibernateTemplate.saveOrUpdate(TypeListVO);
-		
+		hibernateTemplate.saveOrUpdate(TypeListVO);	
 	}
 
 	@Override

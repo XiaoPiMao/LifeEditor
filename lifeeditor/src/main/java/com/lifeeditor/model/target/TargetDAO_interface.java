@@ -4,7 +4,7 @@ import java.util.*;
 
 public interface TargetDAO_interface {
 	
-	public void insert(TargetVO TrgVO);
+	public int insert(TargetVO TrgVO);
 	public void update(TargetVO TrgVO);
 	public void delete(Integer targetID);
 	public TargetVO findByPrimaryKey(Integer targetID);
