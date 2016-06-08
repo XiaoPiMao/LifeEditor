@@ -28,7 +28,8 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
                 <value>com/lifeeditor/model/target_list/target_list.hbm.xml</value>
                 <value>com/lifeeditor/model/target/target.hbm.xml</value>
                 <value>com/lifeeditor/model/achievement/achievement.hbm.xml</value> 
-                <value>com/lifeeditor/model/target_spec/target_spec.hbm.xml</value>                     
+                <value>com/lifeeditor/model/target_spec/target_spec.hbm.xml</value>           
+                <value>com/lifeeditor/model/ach_list/ach_list.hbm.xml</value>             
             </list> 
         </property> 
         <property name="hibernateProperties"> 
@@ -74,6 +75,9 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
         <property name="hibernateTemplate" ref="hibernateTemplate"/> 
     </bean>   
 
+	<bean id="ach_listDAO" class="com.lifeeditor.model.ach_list.ach_listDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>   
 
     <bean id="transactionManager"
         class="org.springframework.orm.hibernate3.HibernateTransactionManager">
