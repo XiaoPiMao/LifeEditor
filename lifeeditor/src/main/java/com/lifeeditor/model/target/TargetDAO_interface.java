@@ -2,6 +2,8 @@ package com.lifeeditor.model.target;
 
 import java.util.*;
 
+import com.lifeeditor.model.target_list.Target_ListVO;
+
 public interface TargetDAO_interface {
 	
 	public int insert(TargetVO TrgVO);
@@ -11,5 +13,6 @@ public interface TargetDAO_interface {
 	public List<TargetVO> getAll();
 	public List<TargetVO> getAllofficial();
 	public List<TargetVO> findByKeyword(String keyword);
+	public List<TargetVO> getAllChallengeNameFromUser(Integer userID);
 
 }
