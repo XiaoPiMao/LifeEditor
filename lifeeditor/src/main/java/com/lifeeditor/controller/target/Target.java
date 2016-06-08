@@ -13,7 +13,7 @@ import com.lifeeditor.model.type_list.TypeListVO;
 
 
 
-@WebServlet("/Target")
+@WebServlet("/target")
 public class Target extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -23,8 +23,12 @@ public class Target extends HttpServlet {
 
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
+		
+		System.out.println(1);
+		System.out.println(request.getParameter("trgName"));
+		System.out.println(action);
 		if("insert".equals(action)) {
 			String errorMsg = "";
 			String intension = request.getParameter("intension");

@@ -2,7 +2,9 @@
 USE LE01;
 
 drop table comments
+
 drop table genkiBar_list;
+
 DROP TABLE friend;
 DROP TABLE invite_list;
 DROP TABLE message;
@@ -93,9 +95,9 @@ CREATE TABLE achievement(
 );
 
 CREATE TABLE ach_list(
+	ach_listID int IDENTITY PRIMARY KEY,
 	userID int FOREIGN KEY REFERENCES user_spec(userID) NOT NULL,
 	achID int FOREIGN KEY REFERENCES achievement(achID) NOT NULL,
-	PRIMARY KEY (userID,achID)
 );
 
 CREATE TABLE target(
