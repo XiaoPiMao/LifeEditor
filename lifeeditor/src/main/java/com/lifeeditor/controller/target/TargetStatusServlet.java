@@ -9,8 +9,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lifeeditor.model.target.TargetVO;
+import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.service.TargetService;
 import com.lifeeditor.service.TargetSpecService;
+import com.lifeeditor.service.Target_List_Service;
+import com.lifeeditor.service.ach_listService;
 import com.lifeeditor.service.user_specService;
 
 
@@ -42,7 +46,25 @@ public class TargetStatusServlet extends HttpServlet {
 	
 		
 		TargetService targetSvc = new TargetService();
+		
+		Target_List_Service targetListSvc = new Target_List_Service();
+		
+		Target_ListVO target_listVO = targetListSvc.findByTargetID(targetID);
+		
+		Integer userID = new Integer(target_listVO.getUserVO().getUserID());
+		
+		TargetVO targetVO = targetSvc.getOneTrg(targetID);
+		
+		Integer achID = new Integer(targetVO.getAchVO().getAchID());
+		
+		ach_listService ach_listSvc = new ach_listService();
+		
+		
 		targetSvc.updateTargetStatus(status,targetID);
+		if(status == 3){
+			ach_listSvc.addAchList(userID, achID);
+		}
+		
 		
 //		request.setAttribute("setOKK",targetSvc);
 //		RequestDispatcher successMsg =request.getRequestDispatcher("/manager/showTargetSpec.jsp");
