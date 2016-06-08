@@ -46,7 +46,7 @@
 						    			<img src="${FbPicture}"></img>
 								</c:when>
 							<c:otherwise>
-								<img height='40px' width='30px' src="HomeGetPicture">
+								<img height='45px' width='45px' src="HomeGetPicture">
 							</c:otherwise> 
 					</c:choose>
 				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();">  </a>    
