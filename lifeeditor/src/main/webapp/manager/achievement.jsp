@@ -176,11 +176,11 @@ div#selects {
 								</select> &nbsp;&nbsp;&nbsp; 項目: <select id="selSec" name="sectionID"
 									form="myForm" class="opt"></select> &nbsp;&nbsp;&nbsp;&nbsp;
 									難易度: <select id="difficulty" name="difficulty" form="myForm">
-										<option value="1">簡單</option>
-										<option value="2">普通</option>
-										<option value="3">一般</option>
+										<option value="1">輕鬆</option>
+										<option value="2">簡單</option>
+										<option value="3">普通</option>
 										<option value="4">困難</option>
-										<option value="5">極嚴峻</option>
+										<option value="5">嚴酷</option>
 								</select> &nbsp;&nbsp;&nbsp; <br /> <br /></td>
 							</tr>
 							<tr>
@@ -388,9 +388,9 @@ $(function(){
 	        		$("#textarea2").val(target.achVO.achDesc);
 // 	        		$("#selType").val(target.typeID);
 	        		$("#selType").val(target.typeVO.typeID);
-	        		optSec();
 //  	        	$("#selSec").val(target.sectionID);
- 	        		$("#selSec").val(target.sectionVO.sectionID);
+					optSec();
+ 	        		$("#selSec").val(target.sectionVO.secID);
  	        		var eleImg = document.createElement("img");
 					eleImg.setAttribute("src", "${ctx}/ChallengeServlet?action=showPic&achID=" + achID);  
 					eleImg.setAttribute("class", "pictureDisplay"); 

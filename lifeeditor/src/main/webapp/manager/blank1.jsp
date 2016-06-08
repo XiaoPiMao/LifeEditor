@@ -29,7 +29,7 @@
 			
 			var name = "${backVO.account}";
 			var pswd = "${backVO.pswd}";
-			var pic = "${photo}";
+			var pic = "${backPhoto}";
 			//console.log(picture);
 			var picture = 'data:image/jpeg;base64,'+ pic;
 			for(var i = 1 ;i<=4;i++){

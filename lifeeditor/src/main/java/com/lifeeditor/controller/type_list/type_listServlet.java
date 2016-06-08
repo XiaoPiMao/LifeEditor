@@ -19,9 +19,12 @@ import org.hibernate.Hibernate;
 
 import com.lifeeditor.controller.user_spec.EmailUtils;
 import com.lifeeditor.controller.user_spec.VerifyUtils;
+import com.lifeeditor.init.ContextListener;
 import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.model.user_spec.user_specVO;
+import com.lifeeditor.service.SecListService;
 import com.lifeeditor.service.TypeListService;
+import com.lifeeditor.utility.MyGson;
 
 
 @WebServlet("/type_listServlet")
@@ -89,6 +92,12 @@ public class type_listServlet extends HttpServlet {
 				TypeListService TypeListService = new TypeListService();
 				TypeListVO = TypeListService.addType(typeName,picture);
 				
+				ContextListener.types = new TypeListService().getAll();
+				ContextListener.context.setAttribute("types", ContextListener.types);//類別
+				ContextListener.context.setAttribute("jTypes", MyGson.GSON.toJson(ContextListener.types));//類別Json
+				ContextListener.context.setAttribute("secs", MyGson.GSON.toJson(ContextListener.getSecMap()));//項目
+				
+				
 				
 				String url = "/manager/editorType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
@@ -155,7 +164,9 @@ public class type_listServlet extends HttpServlet {
 					TypeListVO = TypeListService.updateType(typeID,typeName,pictureUpdate);
 				}
 				
-				
+				ContextListener.types = new TypeListService().getAll();
+				ContextListener.context.setAttribute("types", ContextListener.types);//類別
+				ContextListener.context.setAttribute("jTypes", MyGson.GSON.toJson(ContextListener.types));//類別Json
 				
 				String url = "/manager/editorType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 

@@ -33,7 +33,7 @@
 						<h1><a href="#">Life Editor</a></h1>
 						<nav class="links">
 							<ul>
-								<li><a href="userPage.jsp">目標</a></li>
+								<li><a href="setgoal.jsp">目標</a></li>
 								<li><a href="#">行事曆</a></li>
 								<li><a href="#">朋友</a></li>
 								<li><a href="#">關於我</a></li>
@@ -46,7 +46,7 @@
 						    			<img src="${FbPicture}"></img>
 								</c:when>
 							<c:otherwise>
-								<img height='40px' width='30px' src="HomeGetPicture">
+								<img height='45px' width='45px' src="HomeGetPicture">
 							</c:otherwise> 
 					</c:choose>
 				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>    
