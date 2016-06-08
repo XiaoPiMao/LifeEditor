@@ -95,7 +95,7 @@ CREATE TABLE achievement(
 );
 
 CREATE TABLE ach_list(
-	ach_list int IDENTITY PRIMARY KEY,
+	ach_listID int IDENTITY PRIMARY KEY,
 	userID int FOREIGN KEY REFERENCES user_spec(userID) NOT NULL,
 	achID int FOREIGN KEY REFERENCES achievement(achID) NOT NULL,
 );
