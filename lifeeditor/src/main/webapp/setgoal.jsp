@@ -8,10 +8,10 @@
 <title>測試版_設定目標</title>
 <link href="css/jquery-ui.css" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css" />
-<script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.min.js"></script>
 <script src="js/jquery-ui.js"></script>
-<script src="js/validate.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<!-- <script src="js/validate.js"></script> -->
 
 <style>
 .set_goal {
@@ -65,7 +65,7 @@
 	text-align: center;
 }
 
-#myform {
+#myForm {
     display: none;  
 	position: absolute;
 	z-index: 2;
@@ -92,27 +92,31 @@
 	//	console.log(secs[1][0].secName);
 
 	$(document).ready(
-			function() {
+			   function() {
+				
+
+				
 				var frag = $(new DocumentFragment());
 				$.each(types, function(i, type) {
 					var div = $("<div></div>");
 					//<img id="type1" class="type" src="type.typePic" alt="typeName">
-					if (type.typeName != "自訂") {
+// 					if (type.typeName != "自訂") {
 						var img = $("<img>").attr("id", type.typeID).addClass(
 								"type").attr("src",
 								"data:image/png;base64," + type.typePic).attr(
 								"alt", type.typeName);
-					} else {
-						var img = $("<img>").attr("src",
-								"data:image/png;base64," + type.typePic).attr(
-								"alt", type.typeName).css({
-							width : "120px",
-							height : "120px",
-							padding : "5px",
-							float : "left",
-							margin : "0 10px 10px 10px"
-						});
-					}
+// 					} 
+// 					else {
+// 						var img = $("<img>").attr("src",
+// 								"data:image/png;base64," + type.typePic).attr(
+// 								"alt", type.typeName).css({
+// 							width : "120px",
+// 							height : "120px",
+// 							padding : "5px",
+// 							float : "left",
+// 							margin : "0 10px 10px 10px"
+// 						});
+// 					}
 					div.append(img);
 					frag.append(div);
 				})
@@ -123,7 +127,7 @@
 					revert : "invalid"
 				});
 
-				$(".goal").droppable(
+				$(".goal:first").droppable(
 						{
 							accept : ".type",
 							drop : function(ev, ui) {
@@ -156,21 +160,39 @@
 											"border-radius" : "60px",
 										});
 										$('#secs').empty().hide();
-										$("#myform").fadeIn("slow");
+										$("#myForm").fadeIn("slow");
+
+										$('#submit').click(function(e){
+											var myForm = document.querySelector("#myForm");
+											var postData = new FormData(myForm);
+											postData.append("action","insert");
+											var formURL = $(myForm).attr("action");
+											 $.ajax(
+											{
+												url : formURL,
+												type: "POST",
+												data : postData,
+								           		processData: false,
+												contentType: false,
+									            success:function(data) 
+									            {
+												    alert("資料寫入成功");
+													
+												},
+											});
+											
+						                 });
 									});
 								});
 								$("#secs").fadeIn("slow");
 							}
 						});
 
-                       $('#submit').click(function(){
-                    	  var data = new FormData(document.querySelector("#myform"));
-                    	  data.append("action","insert");
-                    	  $.post("Target",data,function(data){		  
-                    	  });
-                    	   
-                       });
-				
+                       
+				    
+//                        $('#reset').click(function(){
+//                     	  this.form.reset(); 
+//                        });
 				
 				
 			});
@@ -194,29 +216,29 @@
 				</ul>
 			</nav>
 			<nav class="main">
-				<!-- 							<ul> -->
-				<%-- 							<c:choose> --%>
-				<%-- 						    	<c:when test="${ ! empty FbPicture }"> --%>
-				<%-- 						    			<img src="${FbPicture}"></img> --%>
-				<%-- 								</c:when> --%>
-				<%-- 							<c:otherwise> --%>
-				<!-- 								<img height='40px' width='30px' src="HomeGetPicture"> -->
-				<%-- 							</c:otherwise>  --%>
-				<%-- 					</c:choose> --%>
-				<%-- 				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>     --%>
+											<ul>
+											<c:choose>
+										    	<c:when test="${ ! empty FbPicture }">
+										    			<img src="${FbPicture}"></img>
+												</c:when>
+											<c:otherwise>
+												<img height='40px' width='30px' src="HomeGetPicture">
+											</c:otherwise> 
+									</c:choose>
+								  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>    
 
 
-				<!-- 								<li class="search"> -->
-				<!-- 									<a class="fa-search" href="#search">Search</a> -->
-				<!-- 									<form id="search" method="get" action="#"> -->
-				<!-- 										<input type="text" name="query" placeholder="Search" /> -->
-				<!-- 									</form> -->
-				<!-- 								</li> -->
+												<li class="search">
+													<a class="fa-search" href="#search">Search</a>
+													<form id="search" method="get" action="#">
+														<input type="text" name="query" placeholder="Search" />
+													</form>
+												</li>
 
-				<!-- 								<li class="menu"> -->
-				<!-- 									<a class="fa-bars" href="#menu">Menu</a> -->
-				<!-- 								</li> -->
-				<!-- 							</ul> -->
+												<li class="menu">
+													<a class="fa-bars" href="#menu">Menu</a>
+												</li>
+											</ul>
 			</nav>
 		</header>
 		<!-- Main -->
@@ -246,10 +268,10 @@
 
 				<div id="circle2" style="position: relative">
 					<img class="goal" src="images/sec_list/sec.png">
-					<form id="myform" method="POST" action="Target">
+					<form id="myForm" method="POST" action="target">
 						<div class="form-group">
 							<label style="display:inline;margin-right:10px;">名  稱 : </label>
-							<input style="display:inline; width: 30em;" placeholder="請輸入你想完成的目標" type="text" name="trgName">
+							<input style="display:inline; width: 30em;" placeholder="" type="text" name="trgName">
 						</div>
 						<div class="form-group">
 							<label style="display:inline;margin-right:10px;">初  衷 : </label> 
@@ -279,10 +301,10 @@
 								<option value="3">私人</option>
 							</select>
 						</div>
-						<div style="display:inline;width: 30em;border-color:red;border-style: solid;" name="你是腦殘嗎?"></div>
+						<div style="display:inline;width: 30em;border-color:red;border-style: solid;"></div>
 						<div class="form-group">
-						<button id="reset" style="position:center;margin-right:10px;">重設</button>
-						<button id="submit" style="position:center;margin-left:10px;">確認</button>
+							<input id="reset" value="重設" type="button"/>
+							<input id="submit" value="確認"  type="button"/>
 						</div>
 						
 					</form>
@@ -293,7 +315,7 @@
 				</div>
 
 				<div id="circle4">
-					<img class="goal" src="images/sec_list/confirm.png">
+					<img class="goal" src="images/sec_list/go.png">
 				</div>
 			</div>
 
