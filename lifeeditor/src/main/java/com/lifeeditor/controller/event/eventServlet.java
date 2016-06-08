@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import javax.sql.rowset.serial.SerialBlob;
 
+
 import com.lifeeditor.model.event.eventVO;
 import com.lifeeditor.service.eventService;
 
@@ -50,7 +51,7 @@ public class eventServlet extends HttpServlet {
 					return;
 				}
 
-				// Send the use back to the form, if there were errors
+		
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/manager/eventTemplate/event_search_event.jsp");
@@ -108,15 +109,15 @@ public class eventServlet extends HttpServlet {
 				if (orgName == null || orgName.trim().length() == 0) {
 					errorMsgs.add("請輸入舉辦單位名稱");
 				}
-				java.sql.Date eventTime = null;
+				java.sql.Timestamp eventTime = null;
 				try {
-					eventTime = java.sql.Date.valueOf(req.getParameter(
-							"inputEventTime").trim());
+					eventTime = java.sql.Timestamp.valueOf(req.getParameter("inputEventTime").trim());
+					System.out.println(eventTime);
 				} catch (IllegalArgumentException e) {
-					eventTime = new java.sql.Date(System.currentTimeMillis());
+					eventTime = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入正確的時間");
 				}
-
+				
 				String orgAddr = req.getParameter("inputOrgAddr");
 				System.out.println(orgAddr);
 				if (orgAddr == null || orgAddr.trim().length() == 0) {
@@ -145,7 +146,7 @@ public class eventServlet extends HttpServlet {
 				eventService eventSvc = new eventService();
 				eventVO = eventSvc.addevent(eventName, eventPic, orgName,
 						orgAddr, eventTime, eventDesc);
-				System.out.println(eventVO.getEventName());
+				
 				String url = "/manager/eventTemplate/event_show_one_event.jsp";
 				// INSERT的完成後要跳轉的頁面
 				req.setAttribute("eventVO", eventVO);
@@ -225,12 +226,12 @@ public class eventServlet extends HttpServlet {
 				if (orgName == null || orgName.trim().length() == 0) {
 					errorMsgs.add("請輸入舉辦單位名稱");
 				}
-				java.sql.Date eventTime = null;
+				java.sql.Timestamp eventTime = null;
 				try {
-					eventTime = java.sql.Date.valueOf(req.getParameter(
+					eventTime = java.sql.Timestamp.valueOf(req.getParameter(
 							"updateEventTime").trim());
 				} catch (IllegalArgumentException e) {
-					eventTime = new java.sql.Date(System.currentTimeMillis());
+					eventTime = new java.sql.Timestamp(System.currentTimeMillis());
 					errorMsgs.add("請輸入正確的時間");
 				}
 
@@ -288,7 +289,7 @@ public class eventServlet extends HttpServlet {
 				eventService eventSvc = new eventService();
 				eventSvc.deleteevent(eventID);
 				String url = "/manager/eventTemplate/event_show_all_event.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);// �R�����\��,���^�e�X�R�����ӷ�����
+				RequestDispatcher successView = req.getRequestDispatcher(url);
 				successView.forward(req, res);
 
 			} catch (Exception e) {
@@ -301,7 +302,7 @@ public class eventServlet extends HttpServlet {
 	}
 
 	private byte[] readFully(InputStream in) {
-		// TODO Auto-generated method stub byte[] buffer = new byte[8192];
+		
 		byte[] buffer = new byte[8192];
 		int bytesRead;
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
@@ -310,7 +311,7 @@ public class eventServlet extends HttpServlet {
 				output.write(buffer, 0, bytesRead);
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		return output.toByteArray();

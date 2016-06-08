@@ -4,7 +4,7 @@
 <%@ page import="com.lifeeditor.model.event.*"%>
 <%@ page import="java.sql.*"%>
 <%
-	eventVO empVO = (eventVO) request.getAttribute("eventVO"); //EmpServlet.java (Concroller), 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+	eventVO eventVO = (eventVO) request.getAttribute("eventVO"); //EmpServlet.java (Concroller), 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>

@@ -3,7 +3,7 @@
 
     <%@ page import="java.util.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.lifeeditor.model.event.*"%>
+<%@ page import="com.lifeeditor.service.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -14,7 +14,7 @@
 <a href="event_maintain.jsp">返回活動維護頁面</a>
   
 
-  <jsp:useBean id="eventSvc" scope="page" class="com.lifeeditor.model.event.eventService" />
+  <jsp:useBean id="eventSvc" scope="page" class="com.lifeeditor.service.eventService" />
    
   <li>
      <FORM METHOD="post" ACTION="eventServlet.do" >

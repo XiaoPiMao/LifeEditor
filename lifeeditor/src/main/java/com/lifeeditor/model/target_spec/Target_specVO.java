@@ -1,8 +1,5 @@
 package com.lifeeditor.model.target_spec;
 
-import java.sql.Blob;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.user_spec.user_specVO;
@@ -11,8 +8,8 @@ public class Target_specVO implements java.io.Serializable{
 	private user_specVO userVO;
 	private TargetVO targetVO;
 	private String trgNote;
-	private String TrgPicPath;
-	
+	private String trgPicPath;
+	private Integer target_specID;
 	
 	public user_specVO getUserVO() {
 		return userVO;
@@ -33,10 +30,16 @@ public class Target_specVO implements java.io.Serializable{
 		this.trgNote = trgNote;
 	}
 	public String getTrgPicPath() {
-		return TrgPicPath;
+		return trgPicPath;
 	}
 	public void setTrgPicPath(String trgPicPath) {
-		TrgPicPath = trgPicPath;
+		trgPicPath = trgPicPath;
+	}
+	public Integer getTarget_specID() {
+		return target_specID;
+	}
+	public void setTarget_specID(Integer target_specID) {
+		this.target_specID = target_specID;
 	}
 
 	

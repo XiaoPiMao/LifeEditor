@@ -61,9 +61,9 @@ public  class eventDAO implements eventDAO_interface {
 			pstmt.setBlob(4, eventVO.getEventPic());
 			pstmt.setString(5, eventVO.getOrgAddr());
 			pstmt.setString(6, eventVO.getOrgName());
-			pstmt.setDate(7, eventVO.getEventTime());
+			pstmt.setTimestamp(7, eventVO.getEventTime());
 			pstmt.setString(8, eventVO.getEventDesc());
-			
+			pstmt.setInt(1, eventVO.getEventID());
 			pstmt.executeUpdate();
 			idpstmt = con.prepareStatement(GET_ID_STMT);
 			rs =idpstmt.executeQuery();
@@ -115,7 +115,7 @@ public  class eventDAO implements eventDAO_interface {
 			pstmt.setBlob(4, eventVO.getEventPic());
 			pstmt.setString(5, eventVO.getOrgAddr());
 			pstmt.setString(6, eventVO.getOrgName());
-			pstmt.setDate(7, eventVO.getEventTime());
+			pstmt.setTimestamp(7, eventVO.getEventTime());
 			pstmt.setString(8, eventVO.getEventDesc());
 			pstmt.setInt(9, eventVO.getEventID());
 
@@ -211,7 +211,7 @@ public  class eventDAO implements eventDAO_interface {
 				eventVO.setEventPic(rs.getBlob("eventPic"));
 				eventVO.setOrgAddr(rs.getString("orgAddr"));
 				eventVO.setOrgName(rs.getString("orgName"));
-				eventVO.setEventTime(rs.getDate("eventTime"));
+				eventVO.setEventTime(rs.getTimestamp("eventTime"));
 				eventVO.setEventDesc(rs.getString("eventDesc"));
 				
 			}
@@ -272,7 +272,7 @@ public  class eventDAO implements eventDAO_interface {
 				eventVO.setOrgAddr(rs.getString("orgAddr"));
 			
 				eventVO.setOrgName(rs.getString("orgName"));
-				eventVO.setEventTime(rs.getDate("eventTime"));
+				eventVO.setEventTime(rs.getTimestamp("eventTime"));
 				eventVO.setEventDesc(rs.getString("eventDesc"));
 				list.add(eventVO); // Store the row in the list
 			}

@@ -17,7 +17,7 @@ public class eventService {
 		dao = new eventDAO();
 	}
 
-	public eventVO addevent( String eventName,Blob eventPic, String orgName,String orgAddr,java.sql.Date eventTime,String eventDesc) {
+	public eventVO addevent( String eventName,Blob eventPic, String orgName,String orgAddr,java.sql.Timestamp eventTime,String eventDesc) {
 
 		eventVO eventVO = new eventVO();
 		
@@ -42,14 +42,13 @@ public class eventService {
 //	}
 //	
 	public eventVO updateevent(Integer eventID,Integer typeID,Integer secID,String eventName, java.sql.Blob eventPic,
-			 String orgName,String orgAddr,java.sql.Date eventTime,String eventDesc) {
+			 String orgName,String orgAddr,Timestamp eventTime,String eventDesc) {
 
 		eventVO eventVO = new eventVO();
 
 		eventVO.setEventID(eventID);
 		eventVO.setTypeID(typeID);
 		eventVO.setSecID(secID);
-		
 		eventVO.setEventName(eventName);
 		eventVO.setEventPic(eventPic);
 		eventVO.setOrgAddr(orgAddr);

@@ -23,27 +23,62 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
                             "target_spec ON target.targetID = target_spec.targetID INNER JOIN " +
                             "user_spec ON target_spec.userID = user_spec.userID " +
 							"WHERE hotman=1 ";
-	
 	private static final String DELETE =
 		      "DELETE FROM target_spec where userID = ?";
-
+//***************************************************************************************************************
+	//有關心得的sql字串
+private static final String GET_ID_STMT="SELECT @@IDENTITY as 'trgSpec'";
+	
+	//取得作者目標的值為何（是否為官方類別）
+private static final String GET_TARGET_TYPE_STMT =
+		      "SELECT userID,targetID,trgNote,trgPicPath FROM target_spec where trgSpecID=?";
+	private static final String UPDATE_ALL =
+		      "UPDATE target_spec set trgNote=?trgPicPath=? where trgSpecID=?";//這邊寫錯惹
+	private static final String CHANGE_TARGET_STATUS_STMT =
+		      "UPDATE target set status=?where targetID=?";
+	
+//***************************************************************************************************************	
+	
+//子皓有修改這個insert方法，將傳回值改成int，這個傳回的int的屬性為id
+//取得這個id可以抓到當下新增進去的值	
 	@Override
-	public void insert(Target_specVO target_specVO) {
+	public int insert_simple(Target_specVO target_specVO) {
 
 		Connection con = null;
-		PreparedStatement pstmt = null;
-
+		PreparedStatement pstmt=null;
+		PreparedStatement idpstmt=null;
+		ResultSet rs = null;
+       
 		try {
 			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+			
+			
+			/*
+			 *如果取到的值為普通心得，則使用這個方法
+			 * 
+			*/
+			
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setInt(1,target_specVO.getUserVO().getUserID());
 			pstmt.setInt(2, target_specVO.getTargetVO().getTargetID());
 			pstmt.setString(3, target_specVO.getTrgNote());
 			pstmt.setString(4, target_specVO.getTrgPicPath());
+			pstmt.setInt(1,target_specVO.getUserVO().getUserID());
 			
 			
 			pstmt.executeUpdate();
+			
+			 idpstmt = con.prepareStatement(GET_ID_STMT);
+			rs =idpstmt.executeQuery();
+			 while (rs.next()) {
+					int id = rs.getInt("trgSpec");
+					return id;
+			 }
+			 
+			
+
+			
 		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -63,11 +98,11 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 					e.printStackTrace(System.err);
 				}
 			}
+			
 		}
+		return 0;
 
-	}
-
-	@Override
+	}@Override
 	public void delete(Integer userID) {
 
 		Connection con = null;
@@ -323,4 +358,115 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 //		}
 	}
 
+
+//********************************************************************************************************
+	//下面4子皓寫der
+	@Override
+	public void update(Target_specVO target_specVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+			pstmt = con.prepareStatement(UPDATE_ALL);
+          
+			
+			pstmt = con.prepareStatement(UPDATE_ALL);
+           
+			
+			pstmt.setString(1, target_specVO.getTrgNote());
+			
+			pstmt.setString(2, target_specVO.getTrgPicPath());
+			
+			
+
+			pstmt.executeUpdate();
+
+			
+			
+			
+			
+			
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}}
+		@Override
+		public int insert_will_change_status(Target_specVO target_specVO) {
+
+			Connection con = null;
+			PreparedStatement pstmt=null;
+			PreparedStatement idpstmt=null;
+			ResultSet rs = null;
+	       
+			try {
+				con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+				
+				
+				/*
+				 *如果取到的值為官方類別，則使用這個方法，會將所有值insert後，再修改targetTable裡面status的值
+				 * 
+				*/
+				
+				pstmt = con.prepareStatement(INSERT_STMT);
+				
+				pstmt.setInt(1,target_specVO.getUserVO().getUserID());
+				pstmt.setInt(2, target_specVO.getTargetVO().getTargetID());
+				pstmt.setString(3, target_specVO.getTrgNote());
+				pstmt.setString(4, target_specVO.getTrgPicPath());
+				pstmt.setInt(1,target_specVO.getUserVO().getUserID());
+				
+				pstmt.executeUpdate();
+				
+				 idpstmt = con.prepareStatement(GET_ID_STMT);
+				rs =idpstmt.executeQuery();
+				 while (rs.next()) {
+						int id = rs.getInt("trgSpec");
+						return id;
+				 }
+				 pstmt = con.prepareStatement(CHANGE_TARGET_STATUS_STMT);
+				 pstmt.setInt(1,2);
+				 pstmt.executeUpdate();
+				
+			}catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+				
+			}
+			return 0;
+
+	}
 }

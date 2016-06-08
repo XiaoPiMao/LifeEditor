@@ -44,12 +44,9 @@
     <servlet-name>user_specServlet</servlet-name>
     <url-pattern>/register/user_spec.do</url-pattern>
   </servlet-mapping>
-
-
-
-   <servlet>
-	<servlet-name>LoginServlet</servlet-name>
-	<servlet-class>com.lifeeditor.controller.Login.LoginServlet</servlet-class>
+  <servlet>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>com.lifeeditor.controller.Login.LoginServlet</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>type_listServlet</servlet-name>
@@ -104,5 +101,3 @@
     <url-pattern>/Login.java</url-pattern>
   </servlet-mapping>
 </web-app>
-
-	
