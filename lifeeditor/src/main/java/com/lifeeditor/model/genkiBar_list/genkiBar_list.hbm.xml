@@ -3,21 +3,18 @@
 "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
 
 <hibernate-mapping>
-    <class name="com.lifeeditor.model.genkiBar_list.ach_listVO" table="ach_list" >
+    <class name="com.lifeeditor.model.genkiBar_list.genkiBar_listVO" table="genkiBar_list" >
         
-        <id name="ach_listID" column="ach_listID">
+        <id name="genkiBarID" column="genkiBarID">
             <generator class="identity"/>
         </id>
         
-      
+        <property name="targetID" column="targetID" />
         <many-to-one name="user_specVO" class="com.lifeeditor.model.user_spec.user_specVO" lazy="false">
             <column name="userID" />
         </many-to-one>
             
-          <many-to-one name="AchievementVO" class="com.lifeeditor.model.user_spec.AchievementVO" lazy="false">
-            <column name="achID" />
-        </many-to-one> 
-          
+               
     </class>
 </hibernate-mapping>
 
