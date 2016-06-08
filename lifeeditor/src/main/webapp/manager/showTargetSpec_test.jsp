@@ -19,8 +19,7 @@ $(document).ready(function(){
 					 status: $(this).val(),
 					 targetID : this.id
 				 });
-		});
-  
+		}); 
 });
 </script>
 <style>
@@ -32,69 +31,63 @@ $(document).ready(function(){
 </head>
 <body>
 <div align="center">
-<table id="example" class="display" cellspacing="0" width=auto>
-   <img src="${setOK.trgPicPath}"    width="500">
-
+<table  style="border:2px #696969 solid; "  border='1'  id="example" class="display" cellspacing="0" width=auto>
+         
+		    	    <c:forEach var="trgList" items="${trgList}">
+					<div style="border-width:3px;border-style:dashed;border-color:#FFAC55;padding:50px"><img src="${trgList.trgPicPath}"    width="400">	</div>
+					<br>
+<%-- 					心得內容：<h4>${trgList.trgNote}"</h4> --%>
+								
+		         	</c:forEach>
+		
         <thead>
-            <tr>
-                <th>使用者帳號</th>
-                <th>目標名稱</th>
-                
-                <th>心得內容</th>
-                <th>審核狀態</th>
-            </tr>
+	            <tr>
+		                <th>使用者帳號</th>
+		                <th>目標名稱</th>                
+		                <th>心得內容</th>        
+		                   
+	            </tr>
         </thead>
-        
-        
-<%--          <c:forEach var="Target_specVO"  items="${setOK}"> --%>
-<%--   <c:forEach var="TargetVO" varStatus="var" items="${targetSvc.all}"> --%>
-			
-	         <tr align='center' valign='middle'>
-				<td>${setOK.userVO.account}</td>
-				<td  width="300" height="300">${setOK.targetVO.trgName} </td>
-				
-<%-- 				 		<c:forEach items="${responseScope.setOK}" var="Target_specVO">  --%>
-<%--     			     			   <c:out value ="${setOK.trgPicPath}"/> --%>
-<%-- 						</c:forEach> --%>
-				
-				<td>${setOK.trgNote}	</td>
-				
-				
-				
-				<td> 
-				<select size="1" class="selHotMan" id="${setOK.targetVO.targetID}">
-				<c:choose>
-					<c:when test="${setOK.targetVO.status == '1'}">
-						<option value="1" selected="selected">未審核</option>
-						<option value="2">待審核</option>
-						<option value="3">已審核</option>
-					</c:when>
-					<c:when test="${setOK.targetVO.status == '2'}">
-						<option value="1">未審核</option>
-						<option value="2" selected="selected">待審核</option>						
-						<option value="3">已審核</option>					
-					</c:when>
-					<c:otherwise>											
-						<option value="1" >未審核</option>
-						<option value="2">待審核</option>
-						<option value="3" selected="selected">已審核</option>
-					</c:otherwise>
-				</c:choose>
-                </select></td> 		 
-<%--                 </c:forEach> --%>
-
-<%-- 		 </c:forEach> --%>
-		 
-		 
-		 
-        <tfoot>
-          
+  	
+	            <tr align='center' valign='middle'>
+						<td>${setOK.userVO.account}</td>
+						<td  width="300" height="300">${setOK.targetVO.trgName} </td>			
+					    <c:forEach var="trgList" items="${trgList}">		
+									<td>${trgList.trgNote} <br>
+					    </c:forEach>					
+														       
+				</tr>	
+        <tfoot>   
         </tfoot>
         
-    </table>
-    <input type ="button" onclick="window.location.href = '${ctx}/manager/CheckTarget.jsp'" value="回上頁"></input>
+</table>
+    
+    審核：<select size="1" class="selHotMan" id="${setOK.targetVO.targetID}">
+							<c:choose>
+									<c:when test="${setOK.targetVO.status == '1'}">
+												<option value="1" selected="selected">未審核</option>
+												<option value="2">待審核</option>
+												<option value="3">已審核</option>
+										</c:when>
+										<c:when test="${setOK.targetVO.status == '2'}">
+												<option value="1">未審核</option>
+												<option value="2" selected="selected">待審核</option>						
+												<option value="3">已審核</option>					
+										</c:when>
+										<c:otherwise>											
+												<option value="1" >未審核</option>
+												<option value="2">待審核</option>
+												<option value="3" selected="selected">已審核</option>
+									</c:otherwise>
+							</c:choose>			
+                </select>
+        
+                <br>
+                <br>
+    <input type ="button"  style="background-color:pink" onclick="window.location.href = '${ctx}/manager/CheckTarget.jsp'" value="確定"></input>
     </div>
     <script>
-</script>
+    </script>
+
 </body>
 </html>

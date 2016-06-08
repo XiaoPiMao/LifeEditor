@@ -32,19 +32,16 @@ $(document).ready(function(){
 <table id="example" class="display" cellspacing="0" width=auto>
         <thead>
             <tr>
-  		          
+  		          <th>審核狀態</th>
                 <th>目標名稱</th>
                 <th>目標ID</th>
                 <th>完成獎勵</th>   
-                <th>審核狀態</th>
+               
                 <th>審核GO</th>
             </tr>
         </thead>
          <c:forEach var="TargetVO" varStatus="var" items="${targetSvc.all}">
 	         <tr align='center' valign='middle'>
-				<td>${TargetVO.trgName}</td>
-				<td>${TargetVO.targetID} </td>				
-				<td>${TargetVO.achVO.achName}	</td>
 				<td>	
 						<c:choose>
 							<c:when test="${TargetVO.status == '1'}">
@@ -58,6 +55,10 @@ $(document).ready(function(){
 							</c:otherwise>
 						</c:choose>
                 </td> 		            
+				<td>${TargetVO.trgName}</td>
+				<td>${TargetVO.targetID} </td>				
+				<td>${TargetVO.achVO.achName}	</td>
+				
 				<td>
 							<form action="TargetSpecServlet" method="post">
 								<input type="submit" value="前往審核">
@@ -95,10 +96,11 @@ $(document).ready(function(){
 
         <tfoot>
             <tr>
+            <th>審核狀態</th>
                <th>目標名稱</th>
                 <th>目標ID</th>
                  <th>完成獎勵</th> 
-                <th>審核狀態</th>
+                
                 <th>審核GO</th>
                
             </tr>
