@@ -16,6 +16,10 @@
 <script src="${ctx}/manager/js/jquery.dataTables.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
+
+var id;
+var thething;
+
 $(document).ready(function(){
 	$( "#dialog" ).dialog({
 	      autoOpen: false,
@@ -28,13 +32,18 @@ $(document).ready(function(){
 	      buttons: {
 	          "確定送出": function() {
 	            $( this ).dialog( "close" );
-	            console.log("Sure");  
-
+	            console.log("進到dialog以後 id 再一次是"+ id); 
+	            console.log($(this).find("td")); 
+// 	            $(this).find("td").toggleClass( "highlight" );	
+	            console.log($(this).find('td').eq(8).text().trim()); 
 					
-// 	 			  $(this).find("td").toggleClass( "highlight" );	  
-// 	 			  $(this).find("#apply").prop('value', '已報名')
-// 	 			  $(this).find("#apply").css('color','red');
-	            
+// 	 			$(this).find("td").toggleClass( "highlight" );	  
+// 	 			$(this).find("#apply").prop('value', '已報名')
+// 		 	    $(this).find("#apply").prop('disabled', true);
+// 	 			$(this).find("#apply").css('color','red');
+//  				$('#applylist').fadeToggle(500);
+
+
 	            
 	          },
 	          Cancel: function() {
@@ -177,12 +186,18 @@ $(function(){
 	    //*******************滑鼠點擊時，勾選該列。*****************		
 		$( "tr" ).one( "click",function() {	
 			
-		  $( "#dialog" ).dialog( "open" );
+			    console.log($(this).attr("id")); //印出點，選時候所取得的任務ID值
+				id = this.id;	  //把ID用全域變數存起來，以免到時候this換人
+  			            
+				console.log("id是"+ id);
+				console.log("看看this是什麼"+ this);
+ 			            
+//   			    $( "#dialog" ).dialog( "open" );
 			   
-// 			  var id = this.id;	
-					  $(this).find("td").toggleClass( "highlight" );	  
-		 			  $(this).find("#apply").prop('value', '已報名');
-		 			  $(this).find("#apply").css('color','red');
+// 					  $('#applylist').fadeToggle(500);
+// 					  $(this).find("td").toggleClass( "highlight" );	  
+// 		 			  $(this).find("#apply").prop('value', '已報名');
+// 		 			  $(this).find("#apply").css('color','red');
 
 // 			  
 // 			  $('#applylist').fadeToggle(500,function() {
