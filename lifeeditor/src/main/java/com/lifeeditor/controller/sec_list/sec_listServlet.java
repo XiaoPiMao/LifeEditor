@@ -154,7 +154,7 @@ public class sec_listServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("SecListVO", SecListVO); 
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/manager/editorType.jsp");
+							.getRequestDispatcher("/manager/editorSec.jsp");
 					failureView.forward(req, resp);
 					return;
 				}
@@ -166,14 +166,14 @@ public class sec_listServlet extends HttpServlet {
 				ContextListener.context.setAttribute("secs", MyGson.GSON.toJson(ContextListener.getSecMap()));//項目
 				
 				
-				String url = "/manager/editorType.jsp";
+				String url = "/manager/editorSec.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); 
 				successView.forward(req, resp);
 			} catch (Exception e) {
 				e.getMessage();
 				errorMsgs.put("errorAccountempty","請選擇類別");
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/manager/editorType.jsp");
+						.getRequestDispatcher("/manager/editorSec.jsp");
 				failureView.forward(req, resp);
 			}
 		}

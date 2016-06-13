@@ -2,8 +2,12 @@ package com.lifeeditor.model.type_list;
 
 import java.sql.Blob;
 
+import com.google.gson.annotations.Expose;
+
 public class TypeListVO {
+	@Expose
 	private Integer typeID;
+	@Expose
 	private String typeName ;
 	private Blob typePic;
 	public Integer getTypeID() {

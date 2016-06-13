@@ -1,5 +1,6 @@
 package com.lifeeditor.model.target_list;
 
+import com.google.gson.annotations.Expose;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 
