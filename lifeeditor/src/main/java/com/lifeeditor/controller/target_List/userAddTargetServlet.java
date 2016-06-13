@@ -129,7 +129,24 @@ public class userAddTargetServlet extends HttpServlet {
 			return;
 		}
 			 
-		 
+
+		
+		/*********************5.從挑戰名稱取得的keyword下SQL指令，以算出達成率****************************/
+		
+		if("rateNames".equals(action)) { // 來自achievement.jsp的請求
+			
+			res.setCharacterEncoding("UTF-8");
+			String keyword = req.getParameter("keyword");
+				
+			trgSrvc =  new TargetService();
+			int result =  trgSrvc.countRateOfTargetName(keyword);
+			
+			os = res.getWriter();
+			os.print(result);
+		
+			return;
+		}
+		
 			 
 	}
 

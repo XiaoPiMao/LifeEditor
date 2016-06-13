@@ -242,7 +242,8 @@ var s2 = {
 		
 		function addTable() {
 			var frg = $(new DocumentFragment());
-			var result;
+			var numberResult;
+			var rateResult;
 			$.each(oc,function(i,official){
 				
 // 				***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**				
@@ -252,12 +253,23 @@ var s2 = {
 					"async": false,
 					"data":{"action":"countNames", "keyword": official.trgName},
 					"success":function(data){
-						result = data;
-						console.log("人數為: "+ result +" 人");	
+						numberResult = data;	
 					}
 				});
-		
 // 				**********************************************				
+// 				***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**	
+
+				$.ajax({
+					"type":"get",
+					"url":"${ctx}/userAddTargetServlet",
+					"async": false,
+					"data":{"action":"rateNames", "keyword": official.trgName},
+					"success":function(data){
+						rateResult = data;	
+					}
+				});
+				
+				
 				
 				
 				var applied = false;
@@ -299,8 +311,8 @@ var s2 = {
 						case 5 : difficulty = "嚴酷";break;
 					}
 					tr.append($("<td></td>").text(difficulty).addClass("send"));
-					tr.append($("<td></td>").text(result + " 人").addClass("send"));
-					tr.append($("<td></td>").text("0%").addClass("send"));
+					tr.append($("<td></td>").text(numberResult + " 人").addClass("send"));
+					tr.append($("<td></td>").text(rateResult + "%").addClass("send"));
 					tr.append($("<td></td>").text(official.timeFinish).addClass("send"));
 				}
 				else {
@@ -320,8 +332,8 @@ var s2 = {
 						case 5 : difficulty = "嚴酷";break;
 					}
 					tr.append($("<td></td>").text(difficulty));
-					tr.append($("<td></td>").text(result + " 人"));
-					tr.append($("<td></td>").text("0%"));
+					tr.append($("<td></td>").text(numberResult + " 人"));
+					tr.append($("<td></td>").text(rateResult + "%"));
 					tr.append($("<td></td>").text(official.timeFinish));
 			
 				}
