@@ -1,12 +1,15 @@
 package com.lifeeditor.controller.Login;
 
 import java.io.*;
+import java.net.URL;
 import java.sql.*;
 import java.util.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import org.hibernate.Hibernate;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParser;
@@ -65,8 +68,12 @@ public class FbServlet extends HttpServlet {
 			
 			user_specVO vo = mfio.checkIDPassword(email, pswd);									// 呼叫 ls物件的 checkIDPassword()，要記得傳入userid與password兩個參數,,同時將傳回值放入MemberBean型別的變數mb之內。	
 			if(vo == null){
+				URL url1 = new URL (url);
+				BufferedInputStream   in = new BufferedInputStream(url1.openStream());
+				Blob b = Hibernate.createBlob(in);
+				
 				mfio.addUser(email, pswd, lastname, firstname, gender, null,
-						email, null, null, null);
+						email, null, null, b);
 				session.setAttribute("FbPicture",url); 
 				session.setAttribute("LoginOK", vo);
 			}else{
@@ -75,7 +82,8 @@ public class FbServlet extends HttpServlet {
 				session.setAttribute("LoginOK", vo);
 			}
 			
-			
+		
+				
 			// OK, 將mb物件放入Session範圍內，識別字串為"LoginOK"，表示此使用者已經登入			
 			
 		

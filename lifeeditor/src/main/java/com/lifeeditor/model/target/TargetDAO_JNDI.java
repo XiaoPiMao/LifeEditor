@@ -50,7 +50,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	public  static final String GET_ALL_STMT = 
 			"SELECT targetID,trgName,typeID,sectionID,difficulty,intention,privacy,"
 			+ "genkiBar,achID,priority,remindTimes,trgType,punishment,status,timeStart,timeFinish,doneTime "
-			+ "FROM target order by targetID";
+			+ "FROM target where status = 2 ";
 	public  static final String GET_ONE_STMT = 
 			"SELECT targetID,trgName,typeID,sectionID,difficulty,intention,privacy,"
 			+ "genkiBar,achID,priority,remindTimes,trgType,punishment,status,timeStart,timeFinish,doneTime "
@@ -386,14 +386,12 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			AchievementService achSvc = new AchievementService();
-		
+		    
 			while(rs.next()) {
 				
 				TargetVO Trg = new TargetVO();
 				Trg.setTargetID(rs.getInt("targetID"));
-				Trg.setTrgName(rs.getString("trgName"));	
-				Trg.setTypeVO(new TypeListService().getOneUser(rs.getInt("typeID")));
-				Trg.setSectionVO(new SecListService().getOneUser(rs.getInt("sectionID")));  
+				Trg.setTrgName(rs.getString("trgName"));
 				Trg.setDifficulty(rs.getInt("difficulty"));
 				Trg.setIntention(rs.getString("intention"));
 				Trg.setPrivacy(rs.getInt("privacy"));
