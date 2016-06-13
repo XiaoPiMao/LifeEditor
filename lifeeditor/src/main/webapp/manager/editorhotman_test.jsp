@@ -32,7 +32,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div align="center">
-<table id="example" class="display" cellspacing="0" width=auto>
+<table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>會員帳號</th>
