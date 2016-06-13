@@ -54,8 +54,10 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			"SELECT targetID,trgName,typeID,sectionID,difficulty,intention,privacy,"
 			+ "genkiBar,achID,priority,remindTimes,trgType,punishment,status,timeStart,timeFinish,doneTime "
 			+ "FROM target where targetID = ?";
+	
 	public  static final String DELETE = 
 			"DELETE FROM target where targetID = ?";
+	
 	public  static final String UPDATE = 
 			"UPDATE target set trgName=?, typeID=?, sectionID=? , difficulty=? , intention=? , privacy=? , "
 			+ "genkiBar=? , achID=? , priority=? , remindTimes=? , trgType=? , punishment=? , status=? , timeStart=? , "
@@ -63,8 +65,10 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 	public  static final String SEARCH_LIKE = " select * from target where trgType =1 and trgName like ?" ;
 
-	public  static final String SHOW_OFFICIAL = "select * from target where trgType =1";
+	public  static final String SHOW_OFFICIAL = "select * from target where trgType =1 and timeFinish >= GETDATE()";
 	
+	public  static final String SHOW_ALL_CHALLENGE_NAME_FROM_USER = "SELECT trgName FROM target INNER JOIN target_list "+
+	"ON target.targetID = target_list.targetID where userID = ? and trgType = 2 and timeFinish >= GETDATE()";
 
 	@Override
 	public int insert(TargetVO TrgVO) {
@@ -581,6 +585,59 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				}
 			}
 		}
+		return list;
+	}
+
+	@Override
+	public List<TargetVO> getAllChallengeNameFromUser(Integer userID) {
+
+		List<TargetVO> list = new ArrayList<TargetVO>();
+		TargetVO TrgVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SHOW_ALL_CHALLENGE_NAME_FROM_USER);	
+			pstmt.setInt(1, userID);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TrgVO = new TargetVO();
+				TrgVO.setTrgName(rs.getString("trgName"));
+				list.add(TrgVO);
+						
+			}	
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("發生錯誤" + e.getMessage());
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	
 		return list;
 	}
 

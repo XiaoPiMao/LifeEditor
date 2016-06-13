@@ -4,9 +4,12 @@ import java.io.OutputStream;
 import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
+
+import com.lifeeditor.model.sec_list.SecListVO;
+import com.lifeeditor.model.target.TargetVO;
 public class eventVO implements java.io.Serializable{
     private Integer eventID;//資料庫產生的流水號
-	private Integer typeID;//類別ID
+	private  Integer typeID;//類別ID
 	private Integer secID;//項目ID
 	private	String eventName;//參考活動名稱
 	private Blob eventPic;//與活動有關的照片
@@ -15,12 +18,7 @@ public class eventVO implements java.io.Serializable{
     private java.sql.Timestamp eventTime;//時間
     private String eventDesc;//活動描述
  
-	public Integer getTypeID() {
-		return typeID;
-	}
-	public void setTypeID(Integer typeID) {
-		this.typeID = typeID;
-	}
+	
 	public Integer getSecID() {
 		return secID;
 	}
@@ -69,9 +67,12 @@ public class eventVO implements java.io.Serializable{
 	public void setEventID(Integer eventID) {
 		this.eventID = eventID;
 	}
-
-	
-	
+	public Integer getTypeID() {
+		return typeID;
+	}
+	public void setTypeID(Integer typeID) {
+		this.typeID = typeID;
+	}
 	
 	
 	

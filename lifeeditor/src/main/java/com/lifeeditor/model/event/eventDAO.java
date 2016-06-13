@@ -9,7 +9,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.lifeeditor.controller.event.*;
+import com.lifeeditor.model.sec_list.SecListVO;
+
 
 public  class eventDAO implements eventDAO_interface {
 
@@ -22,10 +23,11 @@ public  class eventDAO implements eventDAO_interface {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
+	
 	}
 
 	private static final String INSERT_STMT =
-		      "INSERT INTO event (typeID,secID,eventName,eventPic,orgName, orgAddr, eventTime, eventDesc) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
+		      "INSERT INTO event (typeID,secID,eventName,eventPic,orgName,orgAddr,eventTime,eventDesc) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";  
 	private static final String GET_ID_STMT="SELECT @@IDENTITY as 'ID'";
 	private static final String GET_ALL_STMT =
 		      "SELECT eventID,typeID,secID,eventName,eventPic,orgAddr,orgName,eventTime,eventDesc FROM event order by eventID";
@@ -35,14 +37,7 @@ public  class eventDAO implements eventDAO_interface {
 		      "DELETE FROM event where eventID = ?";
 	private static final String UPDATE =
 		      "UPDATE event set typeID=?,secID=?,eventName=?, eventPic=?, orgAddr=?, orgName=?, eventTime=?, eventDesc=? where eventID = ?";
-//	   ,[typeID]
-//			      ,[secID]
-//			      ,[eventName]
-//			      ,[eventPic]
-//			      ,[orgName]
-//			      ,[orgAddr]
-//			      ,[eventTime]
-//			      ,[eventDesc]
+
 	@Override
 	public int insert(eventVO eventVO) {
 		ResultSet rs = null;
@@ -51,28 +46,28 @@ public  class eventDAO implements eventDAO_interface {
 		PreparedStatement idpstmt=null;
 		int id=0;
 		try {System.out.println("insert");
-
+             
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-			System.out.println("n1");
-			pstmt.setInt(1, eventVO.getSecID());
-			System.out.println("n2");
-			pstmt.setInt(2, eventVO.getTypeID());
-			System.out.println("n3");
+			System.out.println("1");
+			pstmt.setInt(1, eventVO.getTypeID());
+			System.out.println("2");
+			pstmt.setInt(2, eventVO.getSecID());
+			System.out.println("3");
 			pstmt.setString(3, eventVO.getEventName());
+			System.out.println("4");
 			pstmt.setBlob(4, eventVO.getEventPic());
-			System.out.println("n3");
+			System.out.println("5");
 			pstmt.setString(5, eventVO.getOrgAddr());
-			System.out.println("n4");
+			System.out.println("6");
 			pstmt.setString(6, eventVO.getOrgName());
+			System.out.println("7");
 			pstmt.setTimestamp(7, eventVO.getEventTime());
+			System.out.println("8");
 			pstmt.setString(8, eventVO.getEventDesc());
-		
-			System.out.println("n5");
+
 			pstmt.executeUpdate();
-			System.out.println("n59999");
 			idpstmt = con.prepareStatement(GET_ID_STMT);
-			System.out.println("n6");
 			rs =idpstmt.executeQuery();
 			
 			while (rs.next()) {
@@ -80,7 +75,6 @@ public  class eventDAO implements eventDAO_interface {
 				System.out.println(id);
 				return id;
 			}
-			System.out.println("5");
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "

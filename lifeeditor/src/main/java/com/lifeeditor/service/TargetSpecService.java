@@ -19,6 +19,12 @@ public class TargetSpecService {
 		return dao.findByTargetID(TargetID);
 	}
 	
+	
+	public List<Target_specVO>  getNote(Integer userID , Integer targetID){	 
+		 return dao.getNote(userID, targetID);
+		 
+	}
+	
 	public List<Target_specVO> getAll() {
 		return dao.getAll();
 	}

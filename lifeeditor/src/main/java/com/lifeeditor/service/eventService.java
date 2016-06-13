@@ -1,14 +1,13 @@
 package com.lifeeditor.service;
 
-import java.io.InputStream;
 import java.sql.Blob;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
 import com.lifeeditor.model.event.eventDAO;
 import com.lifeeditor.model.event.eventDAO_interface;
 import com.lifeeditor.model.event.eventVO;
+import com.lifeeditor.model.sec_list.SecListVO;
 
 public class eventService {
 	private eventDAO_interface dao;
@@ -17,25 +16,23 @@ public class eventService {
 		dao = new eventDAO();
 	}
 
-	public eventVO addevent( String eventName,Blob eventPic, String orgName,String orgAddr,java.sql.Timestamp eventTime,String eventDesc) {
-
+	public eventVO addevent(String eventName,Blob eventPic, String orgName,String orgAddr,java.sql.Timestamp eventTime,String eventDesc) {
+ 
 		eventVO eventVO = new eventVO();
-		System.out.println("service");
-		eventVO.setTypeID(2);
-		System.out.println("1");
-		eventVO.setSecID(10);		
+		SecListVO secListVO=new SecListVO();
+		eventVO.setTypeID(secListVO.getTypeID());
+		eventVO.setSecID(secListVO.getSecID());		
 		eventVO.setEventName(eventName);
-		System.out.println("2");
 		eventVO.setEventPic(eventPic);
 		eventVO.setOrgName(orgName);
 		eventVO.setOrgAddr(orgAddr);
 		eventVO.setEventTime(eventTime);
 		eventVO.setEventDesc(eventDesc);
-		System.out.println("3");
-		int a= dao.insert(eventVO);
 		
-		eventVO.setEventID(a);
-		System.out.println("4");
+		dao.insert(eventVO);
+		
+	
+		System.out.println(dao.insert(eventVO));
 
 		return eventVO;
 	}

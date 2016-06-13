@@ -19,7 +19,7 @@ import com.lifeeditor.model.event.eventVO;
 import com.lifeeditor.service.eventService;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 500)
-@WebServlet("/manager/eventTemplate/eventServlet.do")
+@WebServlet("/eventServlet.do")
 public class eventServlet extends HttpServlet {
 
 	

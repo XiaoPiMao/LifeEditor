@@ -12,12 +12,12 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import com.lifeeditor.utility.GlobalValues;
+
 public class AchievementTableWithPicture {
 	
-	public final static String SQL_DRIVER = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+	
 	public final static String SQL_URL = "jdbc:sqlserver://localhost:1433;DatabaseName=LE01";
-	public final static String SQL_USER = "sa";
-	public final static String SQL_PWD = "password";
 	public static final String KEY = "KittySnoopyMicky";  // 16, 24, 32
 	public static final int IMAGE_FILENAME_LENGTH = 20;
 
@@ -52,7 +52,7 @@ public class AchievementTableWithPicture {
 	      
 	      try{
 	    	// 連上後端的資料庫
-	    	  con =  DriverManager.getConnection( SQL_URL,SQL_USER,SQL_PWD);
+	    	  con =  DriverManager.getConnection( GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
 	    	// 建立Statement物件，以便傳送SQL命令到後端的資料庫
 	    	  stmt = con.createStatement();
 	    	  

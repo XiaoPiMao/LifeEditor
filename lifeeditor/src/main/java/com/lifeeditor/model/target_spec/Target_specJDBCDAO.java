@@ -337,8 +337,14 @@ private static final String GET_TARGET_TYPE_STMT =
 		vo =	(Target_specVO) hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ?", TargetID).get(0);
 		//System.out.println("findByTargetID :" + vo.getTrgPicPath());
 		return vo;
-
 	}
+	@Override
+	public List<Target_specVO> getNote(Integer userID, Integer targetID) {
+		List<Target_specVO> list = null;
+		list = hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ? and t.userVO.userID = ?",targetID ,userID);
+		return list;
+	}
+	
 	
 //
 	public static void main(String[] args) {
@@ -394,6 +400,7 @@ private static final String GET_TARGET_TYPE_STMT =
 //		 System.out.println(dao.findByTargetID(25).getTrgSpecID());
 //		 System.out.println(dao.findByTargetID(25));
 	}
+
 
 
 
@@ -484,6 +491,12 @@ private static final String GET_TARGET_TYPE_STMT =
 				  System.out.println("4");
 				 int a = chpstmt.executeUpdate();
 				  System.out.println("success" + a);
+
+
+	
+
+	
+	  
 
 
 				 idpstmt = con.prepareStatement(GET_ID_STMT);
