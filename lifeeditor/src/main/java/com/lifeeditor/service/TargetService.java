@@ -127,6 +127,11 @@ public class TargetService {
 		return;
 	}
 	
+	public TargetVO countNumsOfTargetName(String keyword){
+		return dao.countNumsOfTargetName(keyword);
+		
+	}
+	
 	public List<TargetVO> getAllChallengeNameFromUser(Integer userID){
 		return dao.getAllChallengeNameFromUser(userID);
 	}
