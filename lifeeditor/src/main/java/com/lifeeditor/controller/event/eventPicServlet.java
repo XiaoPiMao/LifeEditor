@@ -56,12 +56,12 @@ public class eventPicServlet extends HttpServlet {
 			
 			
 			
-			
-				Integer id = Integer.parseInt(req.getParameter("id"));
+			    
+				eventVO eventVO=new eventVO();
 	
 				eventService eventSvc = new eventService();
 				res.setContentType("image/jpeg");
-				Blob pic = eventSvc.getOneevent(id).getEventPic();
+				Blob pic = eventSvc.getOneevent(eventVO.getEventID()).getEventPic();
 				
 				try{
 					int len = 0;

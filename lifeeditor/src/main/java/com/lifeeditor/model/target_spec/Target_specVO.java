@@ -8,9 +8,12 @@ public class Target_specVO implements java.io.Serializable{
 	private Integer trgSpecID; 
 	private user_specVO userVO;
 	private TargetVO targetVO;
+	private Integer UserID;
+	private Integer TargetID;
+
 	private String trgNote;
 	private String trgPicPath;
-	private Integer target_specID;
+	
 	
 	private String TrgPicPath;
 	public Integer getTrgSpecID() {
@@ -41,14 +44,21 @@ public class Target_specVO implements java.io.Serializable{
 		return trgPicPath;
 	}
 	public void setTrgPicPath(String trgPicPath) {
-		trgPicPath = trgPicPath;
+		this.trgPicPath = trgPicPath;
 	}
-	public Integer getTarget_specID() {
-		return target_specID;
+	public Integer getTargetID() {
+		return TargetID;
 	}
-	public void setTarget_specID(Integer target_specID) {
-		this.target_specID = target_specID;
+	public void setTargetID(Integer targetID) {
+		TargetID = targetID;
 	}
+	public Integer getUserID() {
+		return UserID;
+	}
+	public void setUserID(Integer userID) {
+		UserID = userID;
+	}
+
 	
 	
 	

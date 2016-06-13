@@ -11,6 +11,10 @@ import javax.servlet.http.*;
 import javax.sql.rowset.serial.SerialBlob;
 
 
+
+
+
+
 import com.lifeeditor.model.event.eventVO;
 import com.lifeeditor.service.eventService;
 
@@ -140,13 +144,19 @@ public class eventServlet extends HttpServlet {
 				} else if (fileSize > 1024 * 10 * 100) {
 					errorMsg.put("errorpicture", "大頭照大小不得超過1mb");
 				}
+				System.out.println("1");
 
 				eventVO eventVO = new eventVO();
 				// 取得了資料後，呼叫service的addevent方法將值存入VO
+				System.out.println("2");
+
 				eventService eventSvc = new eventService();
+				System.out.println("3");
+
 				eventVO = eventSvc.addevent(eventName, eventPic, orgName,
 						orgAddr, eventTime, eventDesc);
-				
+				System.out.println("4");
+
 				String url = "/manager/eventTemplate/event_show_one_event.jsp";
 				// INSERT的完成後要跳轉的頁面
 				req.setAttribute("eventVO", eventVO);

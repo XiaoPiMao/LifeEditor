@@ -25,7 +25,7 @@ public  class eventDAO implements eventDAO_interface {
 	}
 
 	private static final String INSERT_STMT =
-		      "INSERT INTO event (typeID,secID,eventName,eventPic,orgName,orgAddr,eventTime,eventDesc) VALUES (?, ?, ?, ?, ?, ? , ?,?)";
+		      "INSERT INTO event (typeID,secID,eventName,eventPic,orgName, orgAddr, eventTime, eventDesc) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ID_STMT="SELECT @@IDENTITY as 'ID'";
 	private static final String GET_ALL_STMT =
 		      "SELECT eventID,typeID,secID,eventName,eventPic,orgAddr,orgName,eventTime,eventDesc FROM event order by eventID";
@@ -49,29 +49,38 @@ public  class eventDAO implements eventDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement idpstmt=null;
-		
-		try {
+		int id=0;
+		try {System.out.println("insert");
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-		
+			System.out.println("n1");
 			pstmt.setInt(1, eventVO.getSecID());
+			System.out.println("n2");
 			pstmt.setInt(2, eventVO.getTypeID());
+			System.out.println("n3");
 			pstmt.setString(3, eventVO.getEventName());
 			pstmt.setBlob(4, eventVO.getEventPic());
+			System.out.println("n3");
 			pstmt.setString(5, eventVO.getOrgAddr());
+			System.out.println("n4");
 			pstmt.setString(6, eventVO.getOrgName());
 			pstmt.setTimestamp(7, eventVO.getEventTime());
 			pstmt.setString(8, eventVO.getEventDesc());
-			pstmt.setInt(1, eventVO.getEventID());
+		
+			System.out.println("n5");
 			pstmt.executeUpdate();
+			System.out.println("n59999");
 			idpstmt = con.prepareStatement(GET_ID_STMT);
+			System.out.println("n6");
 			rs =idpstmt.executeQuery();
+			
 			while (rs.next()) {
-				int id = rs.getInt("ID");
+				 id = rs.getInt("ID");
+				System.out.println(id);
 				return id;
 			}
-		
+			System.out.println("5");
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -93,7 +102,8 @@ public  class eventDAO implements eventDAO_interface {
 				}
 			}
 		}
-		return 0;
+		return id;
+		
 
 	}
 

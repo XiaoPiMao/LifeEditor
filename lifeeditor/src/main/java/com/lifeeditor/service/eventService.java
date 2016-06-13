@@ -20,18 +20,22 @@ public class eventService {
 	public eventVO addevent( String eventName,Blob eventPic, String orgName,String orgAddr,java.sql.Timestamp eventTime,String eventDesc) {
 
 		eventVO eventVO = new eventVO();
-		
+		System.out.println("service");
 		eventVO.setTypeID(2);
+		System.out.println("1");
 		eventVO.setSecID(10);		
 		eventVO.setEventName(eventName);
+		System.out.println("2");
 		eventVO.setEventPic(eventPic);
 		eventVO.setOrgName(orgName);
 		eventVO.setOrgAddr(orgAddr);
 		eventVO.setEventTime(eventTime);
 		eventVO.setEventDesc(eventDesc);
+		System.out.println("3");
+		int a= dao.insert(eventVO);
 		
-		eventVO.setEventID(dao.insert(eventVO));
-				
+		eventVO.setEventID(a);
+		System.out.println("4");
 
 		return eventVO;
 	}

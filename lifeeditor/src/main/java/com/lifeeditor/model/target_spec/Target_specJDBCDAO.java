@@ -41,12 +41,10 @@ private static final String GET_TARGET_TYPE_STMT =
 	private static final String UPDATE_ALL =
 		      "UPDATE target_spec set trgNote=?trgPicPath=? where trgSpecID=?";//這邊寫錯惹
 	private static final String CHANGE_TARGET_STATUS_STMT =
-		      "UPDATE target set status=?where targetID=?";
+		      "UPDATE target set status=? where targetID=?";
 	
 //***************************************************************************************************************	
 	
-//子皓有修改這個insert方法，將傳回值改成int，這個傳回的int的屬性為id
-//取得這個id可以抓到當下新增進去的值	
 
 
 	private static final String GET_ALL_TargetID = "from Target_spec  order by Target_specID";
@@ -64,6 +62,7 @@ private static final String GET_TARGET_TYPE_STMT =
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		PreparedStatement idpstmt=null;
+		PreparedStatement chpstmt=null;
 		ResultSet rs = null;
        
 		try {
@@ -81,11 +80,13 @@ private static final String GET_TARGET_TYPE_STMT =
 			pstmt.setInt(2, target_specVO.getTargetVO().getTargetID());
 			pstmt.setString(3, target_specVO.getTrgNote());
 			pstmt.setString(4, target_specVO.getTrgPicPath());
+			
+			
 			pstmt.executeUpdate();
-			pstmt.setInt(1,target_specVO.getUserVO().getUserID());
 			
-			
-			
+			chpstmt = con.prepareStatement(CHANGE_TARGET_STATUS_STMT);
+			chpstmt.setInt(1,2);
+			chpstmt.executeUpdate();
 			 idpstmt = con.prepareStatement(GET_ID_STMT);
 			rs =idpstmt.executeQuery();
 			 while (rs.next()) {
@@ -445,15 +446,16 @@ private static final String GET_TARGET_TYPE_STMT =
 				}
 			}
 		}}
-		@SuppressWarnings("resource")
 		@Override
 		public int insert_will_change_status(Target_specVO target_specVO) {
 
 			Connection con = null;
 			PreparedStatement pstmt=null;
 			PreparedStatement idpstmt=null;
+			PreparedStatement chpstmt=null;
 			ResultSet rs = null;
-	       
+	        System.out.println("jdbc,start");
+
 			try {
 				con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
 				
@@ -464,25 +466,40 @@ private static final String GET_TARGET_TYPE_STMT =
 				*/
 				
 				pstmt = con.prepareStatement(INSERT_STMT);
-				
+
 				pstmt.setInt(1,1);
 				pstmt.setInt(2,1);
 				pstmt.setString(3, target_specVO.getTrgNote());
 				pstmt.setString(4, target_specVO.getTrgPicPath());
-				pstmt.setInt(1,target_specVO.getUserVO().getUserID());
-				
+
 				pstmt.executeUpdate();
-				
+				  System.out.println("1");
+
+				 chpstmt = con.prepareStatement(CHANGE_TARGET_STATUS_STMT);
+				  System.out.println("2");
+
+				 chpstmt.setInt(1,1);
+//				  System.out.println("3");
+				  chpstmt.setInt(2,1);
+				  System.out.println("4");
+				 int a = chpstmt.executeUpdate();
+				  System.out.println("success" + a);
+
+
 				 idpstmt = con.prepareStatement(GET_ID_STMT);
+				  System.out.println("5");
+				  
 				rs =idpstmt.executeQuery();
+				  System.out.println("6");
+
 				 while (rs.next()) {
 						int id = rs.getInt("trgSpec");
-						return id;
+						System.out.println("rs :" + id);
+						//return id;
 				 }
-				 pstmt = con.prepareStatement(CHANGE_TARGET_STATUS_STMT);
-				 pstmt.setInt(1,2);
-				 pstmt.executeUpdate();
-				
+			
+			        System.out.println("7");
+
 			}catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
@@ -507,4 +524,3 @@ private static final String GET_TARGET_TYPE_STMT =
 			return 0;
 
 		}}
-
