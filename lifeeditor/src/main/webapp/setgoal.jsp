@@ -82,9 +82,91 @@
     margin:20px 0px 10px 0px;
  
 }
+
+
+/* button */
+
+@font-face {
+    font-family: 'Pacifico';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Pacifico'), url('http://themes.googleusercontent.com/font?kit=fKnfV28XkldRW297cFLeqfesZW2xOQ-xsNqO47m55DA') format('truetype');
+}
+/* body { */
+/*     text-align: center; */
+/* } */
+
+#button {
+    display: inline-block;
+    margin-top: 20%;
+    display: inline-block;
+    width:120px;
+    height:120px;
+     border-radius: 50%;
+    -webkit-box-shadow:    0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+    -moz-box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+    box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+    -webkit-transition: -webkit-box-shadow .1s ease-in-out;
+    -moz-transition: -moz-box-shadow .1s ease-in-out;
+    -o-transition: -o-box-shadow .1s ease-in-out;
+    transition: box-shadow .1s ease-in-out;
+    font-size: 50px;
+    color: #fff;
+}
+
+#button span {
+    display: inline-block;
+    padding: 20px 30px;
+    background-color: red;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(338, 90%, 80%, .8)), to(hsla(338, 90%, 70%, .2)));
+    background-image: -webkit-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+    background-image: -moz-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+    background-image: -o-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+    width:100px;
+    height:100px;
+     border-radius: 50%;
+    -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    font-family: 'Pacifico', Arial, sans-serif;
+    line-height: 1;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, .7);
+    -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
+    -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
+    -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
+    transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+}
+
+#button:hover span {
+display: inline-block;
+    background-color: #ec6a9c;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, .9), 0 0 5px rgba(255, 255, 255, .8);
+}
+
+#button:active, #button:focus {
+display: inline-block;
+    -webkit-box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+    box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+}
+
+#button:active span {
+display: inline-block;
+    -webkit-transform: translate(0, 4px);
+    -moz-transform: translate(0, 4px);
+    -o-transform: translate(0, 4px);
+    transform: translate(0, 4px);
+}
 </style>
 
 <script>
+
+document.getElementById('button').onclick = (function() {
+    document.getElementsByTagName('audio')[0].play();
+    document.getElementsByTagName('span')[0].innerHTML = 'GO';
+    return false;
+});
+
 	var types = JSON.parse('${jTypes}');
 	var secs = JSON.parse('${secs}');
 	// 	console.log('${jTypes}');
@@ -268,7 +350,7 @@
 
 				<div id="circle2" style="position: relative">
 					<img class="goal" src="images/sec_list/sec.png">
-					<form id="myForm" method="POST" action="target">
+					<div><form id="myForm" method="POST" action="target">
 						<div class="form-group">
 							<label style="display:inline;margin-right:10px;">名  稱 : </label>
 							<input style="display:inline; width: 30em;" placeholder="" type="text" name="trgName">
@@ -305,18 +387,22 @@
 						<div class="form-group">
 							<input id="reset" value="重設" type="button"/>
 							<input id="submit" value="確認"  type="button"/>
-						</div>
-						
-					</form>
+						</div>				
+					</form></div>
 				</div>
 
 				<div id="circle3" style="position: relative">
 					<img class="goal" src="images/sec_list/detail.png">
 				</div>
 
-				<div id="circle4">
-					<img class="goal" src="images/sec_list/go.png">
-				</div>
+<!-- 				<div id="circle4"> -->
+					<div id="button"><span>GO</span></div>
+<!-- 				</div> -->
+				
+				<audio preload="auto">
+    <source src="https://github.com/nclud/2011.beercamp.com/blob/gh-pages/audio/inception.mp3?raw=true" type="audio/mp3" />
+    <source src="https://github.com/nclud/2011.beercamp.com/blob/gh-pages/audio/inception.ogg?raw=true" type="audio/ogg" />
+</audio>
 			</div>
 
 

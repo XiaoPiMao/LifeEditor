@@ -26,38 +26,48 @@ public class Target extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
 		
-		System.out.println(1);
-		System.out.println(request.getParameter("trgName"));
+		System.out.println(request.getParameter("timeStart"));
 		System.out.println(action);
 		if("insert".equals(action)) {
 			String errorMsg = "";
-			String intension = request.getParameter("intension");
+			String intention = request.getParameter("intention");
 			String trgName = request.getParameter("trgName");
-			String timeStart = request.getParameter("timeStart");
-			String timeFinish = request.getParameter("timeFinish");
+			String timeStartStr = request.getParameter("timeStart");
+			String timeFinishStr = request.getParameter("timeFinish");
 			if(trgName == null || trgName.trim().length() == 0 ) 
 				errorMsg += "名稱要填唷!";
-			if(intension == null || intension.trim().length() == 0 ) 
+			if(intention == null || intention.trim().length() == 0 ) 
 				errorMsg += " 初衷要填唷!";
-			if(timeStart.contains("年") || timeFinish.contains("年"))	
+			if( (timeStartStr == null || timeFinishStr == null) || 
+					(timeStartStr.trim().length() == 0 || timeFinishStr.trim().length() == 0) )	
 				errorMsg += " 日期沒填好!";
+			else {
+				java.sql.Date timeStart = java.sql.Date.valueOf(timeStartStr);
+				java.sql.Date timeFinish = java.sql.Date.valueOf(timeFinishStr);
+				long start = timeStart.getTime();
+				long finish = timeFinish.getTime();
+				if(finish < System.currentTimeMillis()-86400*1000)
+					errorMsg += " 結束時間不能小於今天";
+				//if(timeStart.compareTo(anotherString))
+				else if(finish < start)
+					errorMsg += " 結束時間不能小於開始時間";
+			}
 			
 			if(errorMsg.length() != 0) {
-				System.out.println(1);
-				response.setCharacterEncoding("Big5");
+				response.setCharacterEncoding("utf-8");
 				response.getWriter().print(errorMsg);
 				return;
 			}
 			
-			
-			TargetVO target = new TargetVO();
-			
-			
-			
-			target.setTrgName(request.getParameter("trgName"));
-			TypeListVO type = new TypeListVO();
-			type.setTypeID(Integer.parseInt(request.getParameter("typeID")));
-			target.setTypeVO(type);
+//			
+//			TargetVO target = new TargetVO();
+//			
+//			
+//			
+//			target.setTrgName(request.getParameter("trgName"));
+//			TypeListVO type = new TypeListVO();
+//			type.setTypeID(Integer.parseInt(request.getParameter("typeID")));
+//			target.setTypeVO(type);
 			return;
 		}
 	}

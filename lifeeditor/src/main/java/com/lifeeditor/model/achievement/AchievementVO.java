@@ -4,6 +4,7 @@ import java.sql.Blob;
 
 public class AchievementVO implements java.io.Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private Integer achID;
 	private String achName;
 	private String achDesc;

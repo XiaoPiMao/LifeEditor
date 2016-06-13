@@ -11,7 +11,7 @@
 <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
-<script src="${ctx}/manager/js/jquery-1.12.4.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="${ctx}/manager/js/jquery.dataTables.min.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
@@ -348,28 +348,7 @@ var s2 = {
 		
 });
 
-// <c:forEach var="TargetVO" varStatus="var" items="${TrgSvc.allofficial}">
-// <tr id=${TargetVO.targetID } align='center' valign='middle'>
-// 	<td>${TargetVO.trgName}</td>
-// 	<td>
-// 	<input type='button' value='我要參加' id='apply'>
-// 	<button id="apply">我要參加</button>		
-// 	</td>
-// 	<td>${TargetVO.typeVO.typeName}</td>
-// 	<td>${TargetVO.sectionVO.secName}</td>
-// 	<td>${TargetVO.intention}</td>
-// 	<td>
-// 	<c:if test="${TargetVO.difficulty == '1'}" >輕鬆</c:if>
-// 	<c:if test="${TargetVO.difficulty == '2'}" >簡單</c:if>
-// 	<c:if test="${TargetVO.difficulty == '3'}" >普通</c:if>
-// 	<c:if test="${TargetVO.difficulty == '4'}" >困難</c:if>
-// 	<c:if test="${TargetVO.difficulty == '5'}" >嚴酷</c:if>
-// 	</td>
-// 	<td>0人</td>
-// 	<td>0%</td>
-// 	<td>${TargetVO.timeFinish}</td>
-// 	</tr>
-// </c:forEach>
+
 	
 
 		

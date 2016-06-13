@@ -2,9 +2,14 @@ package com.lifeeditor.model.sec_list;
 
 import java.sql.Blob;
 
+import com.google.gson.annotations.Expose;
+
 public class SecListVO {
+	@Expose
 	private Integer secID;
+	@Expose
 	private Integer typeID;
+	@Expose
 	private String secName;
 	private Blob secPic;
 	public Integer getSecID() {
