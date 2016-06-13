@@ -18,10 +18,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
+import com.lifeeditor.utility.GlobalValues;
 
 
 
-import com.lifeeditor.gobalService.GlobalService;
+
 
 @WebServlet("/_report/getDataService.do")
 public class getDataService extends HttpServlet {
@@ -30,7 +31,7 @@ public class getDataService extends HttpServlet {
 	
     public getDataService() throws NamingException {
         Context ctx = new InitialContext();
-        ds = (DataSource) ctx.lookup(GlobalService.JNDI_DB_NAME);
+        ds = (DataSource) ctx.lookup(GlobalValues.DS_LOOKUP);
     }
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

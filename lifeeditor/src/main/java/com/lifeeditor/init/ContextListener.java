@@ -1,6 +1,5 @@
 package com.lifeeditor.init;
 
-import java.sql.Blob;
 import java.util.*;
 
 import javax.servlet.ServletContextListener;

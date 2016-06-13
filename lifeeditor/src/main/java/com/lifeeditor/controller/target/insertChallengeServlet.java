@@ -53,6 +53,9 @@ public class insertChallengeServlet extends HttpServlet{
 		
 		if("autoComplete".equals(action)) { // 來自achievement.jsp的請求
 			
+			 res.setCharacterEncoding("UTF-8");
+			 res.setContentType("application/json");
+			
 			String keyword = req.getParameter("keyword");
 			
 			TargetService trgSrvc= new TargetService();
@@ -60,7 +63,6 @@ public class insertChallengeServlet extends HttpServlet{
 			
 			Gson gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
 			String jsonStr = gson.toJson(list);
-			res.setCharacterEncoding("UTF-8");
 			//System.out.println(jsonStr);
 			PrintWriter os = res.getWriter();
 			os.print(jsonStr);
@@ -185,7 +187,6 @@ public class insertChallengeServlet extends HttpServlet{
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
 			
 			
 		 }

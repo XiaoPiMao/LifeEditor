@@ -2,9 +2,6 @@
 /.settings/
 /.classpath
 /.project
-<<<<<<< HEAD
-/workspace_life_editor/
-=======
 
 /life_editor/
 
@@ -16,4 +13,3 @@
 /lifeeditor_workspace/
 /Popup-login-and-signup-with-leanModal.js-master/
 
->>>>>>> branch 'master' of https://github.com/eeit85groupone/testRemote.git

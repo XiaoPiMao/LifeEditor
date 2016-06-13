@@ -27,7 +27,7 @@ public class loginService extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getParameter("account").isEmpty() || request.getParameter("pswd").isEmpty()){
-			RequestDispatcher rd = request.getRequestDispatcher("../manager/_backstage/Backstage.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("../manager/Backstage.jsp");
 			rd.forward(request, response);
 			return;					
 		}else{
@@ -35,7 +35,7 @@ public class loginService extends HttpServlet {
 			String pswd = request.getParameter("pswd");
 			backmangerVO backVO = new loginServiceDB().chkpassword(account, pswd);
 			if(backVO.getPicture() == null){
-				response.sendRedirect((response.encodeRedirectURL("../manager/_backstage/Backstage.jsp")));
+				response.sendRedirect((response.encodeRedirectURL("../manager/Backstage.jsp")));
 				return;
 			}
 			//System.out.println(backVO.getPicture());
@@ -60,7 +60,7 @@ public class loginService extends HttpServlet {
 			session.setAttribute("backPhoto", photo64);
 			session.setAttribute("backVO", backVO);
 
-			response.sendRedirect(request.getServletContext().getContextPath() + "/manager/blank1.jsp");
+			response.sendRedirect(request.getServletContext().getContextPath() + "/manager/report.jsp");
 			return;
 
 			
