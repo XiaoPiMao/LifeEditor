@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%-- <jsp:useBean id="userSvc" class="com.lifeeditor.service.user_specService" /> --%>
 <jsp:useBean id="TrgSvc" class="com.lifeeditor.service.TargetService" />		
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,10 +16,11 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
 
-var id;
-var thething;
+var tr;
 
 $(document).ready(function(){
+	
+	//*******************滑鼠點擊時，跳出的對話方塊。*****************		
 	$( "#dialog" ).dialog({
 	      autoOpen: false,
 	      resizable: false,
@@ -31,27 +31,40 @@ $(document).ready(function(){
 	      },
 	      buttons: {
 	          "確定送出": function() {
+  	  
 	            $( this ).dialog( "close" );
-	            console.log("進到dialog以後 id 再一次是"+ id); 
-	            console.log($(this).find("td")); 
-// 	            $(this).find("td").toggleClass( "highlight" );	
-	            console.log($(this).find('td').eq(8).text().trim()); 
-					
-// 	 			$(this).find("td").toggleClass( "highlight" );	  
-// 	 			$(this).find("#apply").prop('value', '已報名')
-// 		 	    $(this).find("#apply").prop('disabled', true);
-// 	 			$(this).find("#apply").css('color','red');
-//  				$('#applylist').fadeToggle(500);
-
-
 	            
+	     	    $(tr).find("td").toggleClass( "highlight" );	  
+  	 			$(tr).find("#apply").prop('value', '已報名')
+  		 	    $(tr).find("#apply").prop('disabled', true);
+  	 			$(tr).find("#apply").css('color','red');
+ 				$('#applylist').fadeTo(1000,0.6);
+ 				
+//  				$.post("userAddTargetServlet",{"targetID":id, "action":"insert"},function(data){
+// 		  			alert("已新增至清單");
+// 		  		});
+
 	          },
-	          Cancel: function() {
-	            $( this ).dialog( "close" );
-	            console.log("Cancel");
+	          
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            console.log("Cancel");
+            
+            $(tr).one( "click",callDialog)
+	         
 	          }
 	        },
 	    }); 
+	//*******************滑鼠點擊時，勾選該列。*****************		
+	$( "tr" ).one( "click",callDialog);
+	function callDialog () {	
+		
+	    console.log("任務ID是: " +  $(this).attr("id")); //印出點，選時候所取得的任務ID值
+	    console.log("任務名稱是: " +  $(this).attr("id")); //印出點，選時候所取得的任務ID值
+	    tr = this;  	  //把tr用全域變數存起來，以免到時候this換人 			      
+		$( "#dialog" ).dialog( "open" );
+
+	}
 	    
 	$('.selHotMan').change(function(e) {
 		    $.post("${ctx}/EditorHotMan",{
@@ -93,6 +106,28 @@ color: blue;
   }		
 </style>
 
+<script>
+//***************所有的官方挑戰 (trgType=1的)*************
+
+$.ajax({
+	url : "${ctx}/userAddTargetServlet",
+	dataType : "json",
+	data : {
+		"action" : "showAllOfficial"
+	},
+	success : function(data) {
+
+		$.each(data, function(index, official) {
+			console.log("挑戰名稱:     選取:    類別:   項目:   內容敘述:   難度:   參加人數:   達成率:   截止日期:");
+			console.log(official.trgName + official.typeVO.typeID + official.sectionVO.secID + official.intention + official.difficulty + official.timeFinish);
+		  //console.log("data :" + data[index].trgName);
+
+		});
+
+	}
+});
+</script>
+
 </head>
 <body>
 <h1>挑戰任務</h1>
@@ -118,7 +153,6 @@ color: blue;
 			</thead>
 			<c:forEach var="TargetVO" varStatus="var" items="${TrgSvc.allofficial}">
 			<tr id=${TargetVO.targetID } align='center' valign='middle'>
-			
 				<td>${TargetVO.trgName}</td>
 				<td>
 				<input type='button' value='我要參加' id='apply'>
@@ -137,16 +171,18 @@ color: blue;
 				<td>0人</td>
 				<td>0%</td>
 				<td>${TargetVO.timeFinish}</td>
-
+				</tr>
 		 </c:forEach>
+		 	 
         <tfoot>
 
         </tfoot>
     </table>
+    
 </div>
 
 <div id="applylist" style="display:none">
-<p>${TargetVO.trgName}已接受新的挑戰!</p>
+<p>已加入新的挑戰!</p>
 </div>
 
 <div id="dialog" title="是否確認送出?">
@@ -183,48 +219,26 @@ $(function(){
 			$(this).css(s1);
 		};
 		
-	    //*******************滑鼠點擊時，勾選該列。*****************		
-		$( "tr" ).one( "click",function() {	
-			
-			    console.log($(this).attr("id")); //印出點，選時候所取得的任務ID值
-				id = this.id;	  //把ID用全域變數存起來，以免到時候this換人
-  			            
-				console.log("id是"+ id);
-				console.log("看看this是什麼"+ this);
- 			            
-//   			    $( "#dialog" ).dialog( "open" );
-			   
-// 					  $('#applylist').fadeToggle(500);
-// 					  $(this).find("td").toggleClass( "highlight" );	  
-// 		 			  $(this).find("#apply").prop('value', '已報名');
-// 		 			  $(this).find("#apply").css('color','red');
+	
 
-// 			  
-// 			  $('#applylist').fadeToggle(500,function() {
-				  
-// 				  if(this.style.display != 'none'){  	
-		  		
-				  		
-// // 				  		$.post("userAddTargetServlet",{"targetID":id, "action":"insert"},function(data){
-// // 				  			alert("已新增至清單");
-// // 				  		});
-				  					
-// 				  	}
-// 				  	else{
-// 				  		console.log("已取消選取");
-				  	
-// 				  		}
-				  	
-// 				  }
-// 			  );
-//
-			});
+	// ***************顯示目前使用者所選過，與官方挑戰同名(trgType=2)的任務名稱~*************
+	$.ajax({
+			url : "${ctx}/userAddTargetServlet",
+			dataType : "json",
+			data : {
+				"action" : "showAllChallengeName"
+			},
+			success : function(data) {
 
-					
+				$.each(data, function(index, target) {
+					console.log("data :" + target.trgName);
+				  //console.log("data :" + data[index].trgName);
+
+				});
+
+			}
+		});
+
 	});
-	
-
-
-	
 </script>
 </html>

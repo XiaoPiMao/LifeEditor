@@ -426,14 +426,14 @@ INSERT INTO sec_list values(4,'競賽',null);
 --TABLE: target 資料--
 INSERT INTO target values('買帝寶', 1, (select secID from sec_list where secName='存錢'), 5, '為了給妻子、父母跟子女一個好的的生活環境，我拼了命的賺錢，目的就是想要買到這棟夢寐以求的豪宅。加油! 再努力一點，我的努力就要達成了',
 0,95,null,2,100, 3, 3, 1, '2006-01-01', '2025-12-31', null);
-
 INSERT INTO target values('用走路環島', 3, (select secID from sec_list where secName='走路'), 3, '活了一把年紀，連高雄都沒去過!我決定在走不動之前，用這雙腳，繞台灣一圈!!!',
 0,99,null,0, 1, 3, 1, 1, '2016-05-21', '2016-06-01', null);
-
 INSERT INTO target values('數學考90分', 4, (select secID from sec_list where secName='考試認證'), 3, '我的數學一直都還算不錯，媽媽說這次考90分以上，要帶我去吃老四川麻辣鍋。太好了，我得好好加油!!',
 0,2,null,1, 3, 3, 1, 1, '2016-05-23', '2016-05-30', null);
+INSERT INTO target values('帶奶奶去日本旅遊', 5,(select secID from sec_list where secName='日本'),3,'奶奶沒有出國過要帶她出國玩',0,0,8,1,5, 1, 1, 1, '2016-05-17', '2016-05-22', null);
 
-INSERT INTO target values('Mr.Lady台大盃冠軍', 3, (select secID from sec_list where secName='跳舞'),3, 'Mr.Lady永遠的初衷就是要成為地表上最妖嬌的舞團！',0,0,7,1,10, 1, 1, 1, '2009-08-11', '2016-04-11', null);
+--官方目標--
+INSERT INTO target values('Mr.Lady台大盃冠軍', 3, (select secID from sec_list where secName='跳舞'),3, 'Mr.Lady永遠的初衷就是要成為地表上最妖嬌的舞團！',0,0,7,1,10, 3, 1, 1, '2009-08-11', '2016-04-11', null);
 INSERT INTO target values('日本旅遊通', 5,(select secID from sec_list where secName='日本'),3, '旅行、分享、抽大獎! 由LE旅行社發起贊助，邀各位朋友們分享自己到日本旅行的大小事。',0,0,8,1,5, 1, 1, 1, '2016-05-17', '2016-05-22', null);
 INSERT INTO target values('麥當勞基金會畫出愛的世界',2,(select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,0,9,1,3, 1, 1, 1, '2016-06-04', '2016-08-28', null);
 INSERT INTO target values('環台馬拉松', 3, (select secID from sec_list where secName='跑步'),3, '用雙腿完成繞台灣一圈的創舉，挑戰938公里的路程。',0,0,1,1,1, 1, 1, 1, '2016-06-04', '2016-09-28', null);
@@ -447,47 +447,49 @@ INSERT INTO target values('展現自己的好"舞"藝',3,(select secID from sec_
 
 
 --******模擬使用者承接官方挑戰後，target的trgType變成2的結果。target_list也立刻將資料寫入。(左邊參數為使用者ID、右邊為TargetID的順序)********--
-INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,2,9,1,3, 2, 1, 1, '2016-06-04', '2016-08-28', null);
-insert into target_list values (36,14);
+INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,2,9,1,3, 2, 1, 2, '2016-06-04', '2016-08-28', null);
+insert into target_list values (36,15);
 INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,0,9,1,3, 2, 1, 1, '2016-06-04', '2016-08-28', null);
-insert into target_list values (37,15);
-INSERT INTO target values('特斯拉-環保愛地球響應活動',5,(select secID from sec_list where secName='美國'),4,'X-Space、特斯拉汽車執行長-伊隆馬斯克，創立以科技、資訊、與環保為主題的線上挑戰任務，於活動期間內完成任務者，即有機會獲得馬斯克親頒大禮，更有機會前往美國矽谷赴X-Space和特斯拉總部見習!',0,3,6,1,1, 2, 1, 1, '2016-06-01', '2017-05-31', null);
-insert into target_list values (36,16);
+insert into target_list values (37,16);
+INSERT INTO target values('特斯拉-環保愛地球響應活動',5,(select secID from sec_list where secName='美國'),4,'X-Space、特斯拉汽車執行長-伊隆馬斯克，創立以科技、資訊、與環保為主題的線上挑戰任務，於活動期間內完成任務者，即有機會獲得馬斯克親頒大禮，更有機會前往美國矽谷赴X-Space和特斯拉總部見習!',0,3,6,1,1, 2, 1, 2, '2016-06-01', '2017-05-31', null);
+insert into target_list values (36,17);
 INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,0,9,1,3, 2, 1, 1, '2016-06-04', '2016-08-28', null);	
-insert into target_list values (72,17);
-INSERT INTO target values('特斯拉-環保愛地球響應活動',5,(select secID from sec_list where secName='美國'),4,'X-Space、特斯拉汽車執行長-伊隆馬斯克，創立以科技、資訊、與環保為主題的線上挑戰任務，於活動期間內完成任務者，即有機會獲得馬斯克親頒大禮，更有機會前往美國矽谷赴X-Space和特斯拉總部見習!',0,0,6,1,1, 2, 1, 1, '2016-06-01', '2017-05-31', null);
 insert into target_list values (72,18);
+INSERT INTO target values('特斯拉-環保愛地球響應活動',5,(select secID from sec_list where secName='美國'),4,'X-Space、特斯拉汽車執行長-伊隆馬斯克，創立以科技、資訊、與環保為主題的線上挑戰任務，於活動期間內完成任務者，即有機會獲得馬斯克親頒大禮，更有機會前往美國矽谷赴X-Space和特斯拉總部見習!',0,0,6,1,1, 2, 1, 2, '2016-06-01', '2017-05-31', null);
+insert into target_list values (72,19);
 INSERT INTO target values('日本旅遊通', 5, (select secID from sec_list where secName='日本') ,3, '旅行、分享、抽大獎! 由LE旅行社發起贊助，邀各位朋友們分享自己到日本旅行的大小事。',0,0,8,1,5, 2, 1, 1, '2016-05-17', '2016-05-22', null);
-insert into target_list values (64,19);
+insert into target_list values (64,20);
 INSERT INTO target values('微軟盃駭客挑戰賽', 4,(select secID from sec_list where secName='競賽'),5, '參加由Microsoft所舉辦的微軟盃線上駭客挑戰賽。於活動表現優異者，即可獲得特殊獎品及殊榮。',0,1,4,1,1, 2, 1, 1, '2016-07-01', '2016-07-31', null);
-insert into target_list values (72,20);
-INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,0,9,1,3, 2, 1, 1, '2016-06-04', '2016-08-28', null);
-insert into target_list values (41,21);
-INSERT INTO target values('合作完成期末專案', 4, (select secID from sec_list where secName='成果發表'),3, '使出渾身解數，有效的利用在資策會一切所學的技術，如期完成期末專案!',0,5,3,1,1, 2, 1, 1, '2016-05-24', '2017-06-22', null);
-insert into target_list values (75,22);
-INSERT INTO target values('合作完成期末專案', 4, (select secID from sec_list where secName='成果發表'),3, '使出渾身解數，有效的利用在資策會一切所學的技術，如期完成期末專案!',0,2,3,1,1, 2, 1, 1, '2016-05-24', '2017-06-22', null);
-insert into target_list values (72,23);
-INSERT INTO target values('展現自己的好"舞"藝',3,(select secID from sec_list where secName='跳舞'),4,'錄下自己的精湛舞步，上傳到LifeEditor和親友們大家一同分享吧!',0,2,7,1,1, 2, 1, 1, '2016-01-01', '2016-12-31', null);	
-insert into target_list values (36,24);
-INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,0,9,1,3, 2, 1, 1, '2016-06-04', '2016-08-28', null);
-insert into target_list values (74,25);
-INSERT INTO target values('合作完成期末專案', 4, (select secID from sec_list where secName='成果發表'),3, '使出渾身解數，有效的利用在資策會一切所學的技術，如期完成期末專案!',0,5,3,1,1, 2, 1, 1, '2016-05-24', '2017-06-22', null);
-insert into target_list values (36,26);
-INSERT INTO target values('環台馬拉松', 3, (select secID from sec_list where secName='跑步'),3, '用雙腿完成繞台灣一圈的創舉，挑戰938公里的路程。',0,0,1,1,1, 2, 1, 1, '2016-06-04', '2016-09-28', null);
-insert into target_list values (64,27);
+insert into target_list values (72,21);
+INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,0,9,1,3, 2, 1, 2, '2016-06-04', '2016-08-28', null);
+insert into target_list values (41,22);
+INSERT INTO target values('合作完成期末專案', 4, (select secID from sec_list where secName='成果發表'),3, '使出渾身解數，有效的利用在資策會一切所學的技術，如期完成期末專案!',0,5,3,1,1, 2, 1, 2, '2016-05-24', '2017-06-22', null);
+insert into target_list values (75,23);
+INSERT INTO target values('合作完成期末專案', 4, (select secID from sec_list where secName='成果發表'),3, '使出渾身解數，有效的利用在資策會一切所學的技術，如期完成期末專案!',0,2,3,1,1, 2, 1, 2, '2016-05-24', '2017-06-22', null);
+insert into target_list values (72,24);
+INSERT INTO target values('展現自己的好"舞"藝',3,(select secID from sec_list where secName='跳舞'),4,'錄下自己的精湛舞步，上傳到LifeEditor和親友們大家一同分享吧!',0,2,7,1,1, 2, 1, 2, '2016-01-01', '2016-12-31', null);	
+insert into target_list values (36,25);
+INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,0,9,1,3, 2, 1, 2, '2016-06-04', '2016-08-28', null);
+insert into target_list values (74,26);
+INSERT INTO target values('合作完成期末專案', 4, (select secID from sec_list where secName='成果發表'),3, '使出渾身解數，有效的利用在資策會一切所學的技術，如期完成期末專案!',0,5,3,1,1, 2, 1, 2, '2016-05-24', '2017-06-22', null);
+insert into target_list values (36,27);
+INSERT INTO target values('環台馬拉松', 3, (select secID from sec_list where secName='跑步'),3, '用雙腿完成繞台灣一圈的創舉，挑戰938公里的路程。',0,0,1,1,1, 2, 1,2, '2016-06-04', '2016-09-28', null);
+insert into target_list values (64,28);
 INSERT INTO target values('特斯拉-環保愛地球響應活動',5,(select secID from sec_list where secName='美國'),4,'X-Space、特斯拉汽車執行長-伊隆馬斯克，創立以科技、資訊、與環保為主題的線上挑戰任務，於活動期間內完成任務者，即有機會獲得馬斯克親頒大禮，更有機會前往美國矽谷赴X-Space和特斯拉總部見習!',0,10,6,1,1, 2, 1, 1, '2016-06-01', '2017-05-31', null);
-insert into target_list values (41,28);
+insert into target_list values (41,29);
 INSERT INTO target values('麥當勞基金會畫出愛的世界', 2, (select secID from sec_list where secName='繪畫'),1, '你心目中的療癒畫作，是甚麼樣子呢?麥當勞基金會致力於關懷喜憨兒。於八月底前，凡上傳手繪畫作入選佳作者，即可獲得獎盃、餐券及更多好禮。',0,5,9,1,3, 2, 1, 1, '2016-06-04', '2016-08-28', null);
-insert into target_list values (75,29);
-INSERT INTO target values('爬五座山', 3, (select secID from sec_list where secName='爬山'),4, '登山有益身心健康!為配合勞動部職業安全衛生署專案計畫，於105年12/31日前，順利攀登五座山者，即可獲本站及政府頒發之獎項與贈品，歡迎踴躍參加。',0,10,5,1,1, 2, 1, 1, '2016-01-01', '2016-12-31', null);	
 insert into target_list values (75,30);
+INSERT INTO target values('爬五座山', 3, (select secID from sec_list where secName='爬山'),4, '登山有益身心健康!為配合勞動部職業安全衛生署專案計畫，於105年12/31日前，順利攀登五座山者，即可獲本站及政府頒發之獎項與贈品，歡迎踴躍參加。',0,10,5,1,1, 2, 1, 1, '2016-01-01', '2016-12-31', null);	
+insert into target_list values (75,31);
+
+insert into target_list values (72,8)
 
 
 
 
 --TABLE: target_spec 資料--
 INSERT INTO target_spec VALUES
-('71','7','再看ㄧ次影片雷迪的心情還是跟所有人ㄧ樣激動～也相當感謝大家ㄧ直以來對於Mr.Lady的支持（深深ㄧ鞠躬）！雖然拿到台大盃冠軍是非常大的肯定，也是雷迪成軍多年來相當重要的里程碑，但這絕對不是終點，我們還是會繼續努力帶給大家更棒的作品！這次的作品無論在音樂、舞蹈、道具、架構⋯等各方面雷迪都下足了功夫，尤其最後ㄧ段十字街頭音樂的改編更讓我們費盡心思～這裡要特別感謝DJ KUEI 魁和RED 芮德為雷迪重新錄製了ㄧ個版本，給我們相當大的方向和啟發，最後才讓Mr.Lady創作出最終段瘋狂炸裂的雷迪版十字街頭！非常感謝他們的大力贊助，也希望大家對於這些同樣在藝術領域不斷堅持的創作者，能夠不吝嗇給予掌聲和支持，讓我們更有前進的動力哦！','http://www.unews.nccu.edu.tw/wp-content/uploads/2016/04/6540b4fedd4ee65875db4d49da217669.jpg');
+('71','4','再看ㄧ次影片雷迪的心情還是跟所有人ㄧ樣激動～也相當感謝大家ㄧ直以來對於Mr.Lady的支持（深深ㄧ鞠躬）！雖然拿到台大盃冠軍是非常大的肯定，也是雷迪成軍多年來相當重要的里程碑，但這絕對不是終點，我們還是會繼續努力帶給大家更棒的作品！這次的作品無論在音樂、舞蹈、道具、架構⋯等各方面雷迪都下足了功夫，尤其最後ㄧ段十字街頭音樂的改編更讓我們費盡心思～這裡要特別感謝DJ KUEI 魁和RED 芮德為雷迪重新錄製了ㄧ個版本，給我們相當大的方向和啟發，最後才讓Mr.Lady創作出最終段瘋狂炸裂的雷迪版十字街頭！非常感謝他們的大力贊助，也希望大家對於這些同樣在藝術領域不斷堅持的創作者，能夠不吝嗇給予掌聲和支持，讓我們更有前進的動力哦！','http://www.unews.nccu.edu.tw/wp-content/uploads/2016/04/6540b4fedd4ee65875db4d49da217669.jpg');
 
 INSERT INTO target_spec VALUES 
 ('72','8','我阿嬤將近要九十歲了，今天，是她很重要的一個日子...阿嬤不識字，因為她沒有上過學，可是她會用日文做筆記，寫些電話號碼什麼的，她總是在送弟弟上學之後偷偷趴在教室的床邊，看一點片假名，學一些漢字。這個如電影情節般的畫面，造就了阿嬤筆記本裡那些歪歪斜斜與不甚標準的日文字母...所以阿嬤對日本充滿了特殊情感，所以她這輩子，一直都很想去一趟日本。但經過了這麼多年，阿嬤的身體狀況已經不是用「一年不如一年」來形容了，而是一季不如一季，甚至是一月不如一月...所以當我在新加坡帶著妻女搭上遊輪的那一刻，我當下就立刻決定，就是它了！我要帶阿嬤搭遊輪去日本！而今天，就是遊輪就要啟航的日子。雖然到最後，我決定只讓阿嬤走下遊輪一天，也只能拜訪離台灣最近的沖繩，但我想，這也已經非常足夠了，在一個無法再走遠路的年紀，以及在一個無法離家太久的身體狀況下。希望阿嬤這趟能平平安安，開開心心，雖然她現在跟小孩一樣，有固定要吃、固定要睡的作息，而且擁有不肯坐輪椅的堅持。但我還是會一直陪在妳身旁的，陪妳慢慢走，陪妳慢慢吃，因為妳以前就是這樣陪著我，我一直沒有忘記，所以現在就換我牽著妳，帶妳想去的地方吧！','http://static.pop.tw.weibo.sina.com.tw/images/user_upload/2c77ccb76388e78637b5c1e37a25297d.jpeg');
@@ -498,6 +500,41 @@ VALUES ('73','9','即使很多人都說十萬人裡只有一人有機會成為�
 INSERT INTO target_spec
 VALUES ('74','5','2013年，為了證明電動車的潛力，我創立特斯拉公司。以往很多人都認為，電動車速度太慢、跑不遠、外型又醜，跟高爾夫球車沒兩樣。為了改變人們的印象，我們開發出了特斯拉Roadster，一款速度快、跑得遠、造型拉風的電動跑車。<br>所以，想要開公司，你必須實實在在地做出產品原型。因為，再怎麼精彩的紙上作業、PowerPoint報告，都比不上拿出實際產品有說服力。Roadster面世後，又有人說，「就算做得出昂貴的限量跑車，你們有本事做真正的量產汽車嗎？」沒問題，我們就推出四門房車Model S，證明給大家看。這就是我一路走來的創業歷程。我想說的是，你們都是二十一世紀的魔法師，想像力是沒有極限的，別讓任何事情阻止你，盡情地變魔法吧。','http://blogs-images.forbes.com/briansolomon/files/2014/06/tesla-elon-musk.jpg');
 
+INSERT INTO target_spec
+VALUES ('36','15','這次參加麥當勞的畫作活動，覺得非常充實，幫助別人也帶給自己心靈的成長，謝謝麥當勞讓我學到了很多！','http://www.bloglet.com/gallery/how-to-encourage-and-improve-kids-drawing-activities/how-to-encourage-and-improve-kids-drawing-activities.jpg');
+INSERT INTO target_spec
+VALUES ('36','17','這次參加特斯拉-環保愛地球響應活動活動，覺得非常充實，幫助地球環境也帶給自己心靈的成長，謝謝特斯拉讓我學到了很多！','http://pic.qiantucdn.com/10/73/43/89bOOOPICa7.jpg');
+INSERT INTO target_spec
+VALUES ('37','16','麥當勞的畫作活動，真的好好玩也覺得學到好多，助人為快樂之本，謝謝麥當勞讓我學到了很多！','http://www.letu.life/wp-content/uploads/2015/12/14510936475418.jpg');
+
+INSERT INTO target_spec
+VALUES ('72','18','麥當勞舉辦畫作活動，參加者好多，覺得非常充實，幫助別人也帶給自己心靈的成長，謝謝麥當勞讓我學到了很多！','http://image2.groupbuya.com/images/promo/116259/116259_a.jpg');
+INSERT INTO target_spec
+VALUES ('72','19','我喜歡日本，喜歡旅遊，是個日本旅遊通，所以我參加活動得到獎勵根本易如反掌，快給我獎勵吧哈哈！','http://e.blog.xuite.net/e/f/6/b/23577022/blog_2031282/txt/31864398/0.jpg');
+INSERT INTO target_spec
+VALUES ('64','20','愛寫程式的我，也研究過駭客的技術，參加了微軟駭客挑戰賽，看看我的實力如何，看到眾多高手，看來我還得要苦練十年了','http://blog.trendmicro.com.tw/wp-content/uploads/2013/01/attack.jpg');
+INSERT INTO target_spec
+VALUES ('72','21','這次參加麥當勞的畫作活動，覺得非常充實，幫助別人也帶給自己心靈的成長，謝謝麥當勞讓我學到了很多！','http://tw.classf0001.uschoolnet.com/css000000063429/daily_122535187385780.jpg');
+INSERT INTO target_spec
+VALUES ('41','22','透過理性溝通、團隊合作，從藍圖開始計畫，到現在完成這整張圖，真的好開心呀！','http://imga999.5054399.com/upload_pic/2011/11/16/4399_09395885949.jpg');
+INSERT INTO target_spec
+VALUES ('75','23','把這半年來所學到的知識，應用在這個專題裡面，想起老師話猶言在耳，深知此事必躬行啊！開心開心','http://blog.boyeau.com/wp-content/uploads/2015/05/ruby-vs-java.png');
+INSERT INTO target_spec
+VALUES ('72','24','從來不會跳舞的我，看到官方舉辦這個活動，讓我也想當個會跳舞的人，現在我會基本的舞步了，謝謝官方～～','https://www.sydneydancecompany.com/wp-content/uploads/2014/01/JFH.jpg');
+INSERT INTO target_spec
+VALUES ('36','25','這次參加特斯拉-環保愛地球響應活動活動，覺得非常充實，幫助地球環境也帶給自己心靈的成長，謝謝特斯拉讓我學到了很多！','http://pic.qiantucdn.com/10/73/43/89bOOOPICa7.jpg');
+INSERT INTO target_spec
+VALUES ('74','26','謝謝麥當勞讓我學到了很多！而且與多人一起競賽繪畫，很好玩呢','http://www.medpireland.com/communities/3/004/011/419/023/images/4583491184.jpg');
+INSERT INTO target_spec
+VALUES ('36','27','在這麼短的時間之內要完成一個完整專案，真的很不容易呢！大家忙得不可開交，但我們還是成功了！太爽啦！！','http://www.usability.gov/sites/default/files/images/develop-a-plan-full.jpg');
+INSERT INTO target_spec
+VALUES ('64','28','我很愛跑步！但是沒跑整個台灣過！經過這次參加，我覺得太有成就感了！','http://cdn2.mf.techbang.com.tw/system/excerpt_images/1617/original/29dd2023ee267259100c423b71a4c4d0.jpg?1438674470');
+INSERT INTO target_spec
+VALUES ('41','29','為了人類永續生存，我們要立刻開始愛地球，支持特斯拉舉辦的這個活動，感謝！','http://www.fudy.com.tw/images/service_quality_p1.png');
+INSERT INTO target_spec
+VALUES ('75','30','愛畫畫的我當然要參加畫畫比賽呀，而且又是我最愛的麥當勞舉辦，參加比賽還可以填飽肚子，太開心了！','http://pt.sjps.ntpc.edu.tw/artclass/wp-content/uploads/sites/13/2015/10/27.jpg');
+INSERT INTO target_spec
+VALUES ('75','31','透過官方舉辦的活動，讓我有爬山的衝勁，謝謝LifeEditor，我覺得我的身體變得非常健康，也很有成就感!','http://www.taroko.gov.tw/showImage.ashx?tag=TrailTW&id=26&filename=t_geology_img3468247660516.JPG&thumb=0');
 
 
 

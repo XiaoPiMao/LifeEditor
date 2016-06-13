@@ -8,8 +8,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>編輯熱門人物</title>
 <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="${ctx}/manager/js/jquery-1.12.4.min.js"></script>
 <script src="${ctx}/manager/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -20,7 +18,9 @@ $(document).ready(function(){
 				 id : this.id
 			 });
 		});
-    $('#example').DataTable();
+    $('#example').DataTable({
+    	"order": [[ 3, "desc" ]]
+    });
 });
 </script>
 <style>
@@ -32,7 +32,7 @@ $(document).ready(function(){
 </head>
 <body>
 <div align="center">
-<table id="example" class="display" cellspacing="0" width=auto>
+<table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
                 <th>會員帳號</th>

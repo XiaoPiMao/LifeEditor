@@ -14,7 +14,8 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 import javax.xml.bind.DatatypeConverter;
 
-import com.lifeeditor.gobalService.GlobalService;
+import com.lifeeditor.utility.GlobalValues;
+
 
 public class loginServiceDB {
 	
@@ -23,7 +24,7 @@ public class loginServiceDB {
 	public loginServiceDB(){
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup(GlobalService.JNDI_DB_NAME);
+			ds = (DataSource) ctx.lookup(GlobalValues.DS_LOOKUP);
 		} catch (NamingException e) {
 			System.out.println(e.getMessage());
 		}

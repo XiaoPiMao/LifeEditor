@@ -298,8 +298,14 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 		vo =	(Target_specVO) hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ?", TargetID).get(0);
 		//System.out.println("findByTargetID :" + vo.getTrgPicPath());
 		return vo;
-
 	}
+	@Override
+	public List<Target_specVO> getNote(Integer userID, Integer targetID) {
+		List<Target_specVO> list = null;
+		list = hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ? and t.userVO.userID = ?",targetID ,userID);
+		return list;
+	}
+	
 	
 //
 	public static void main(String[] args) {
@@ -355,6 +361,10 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 //		 System.out.println(dao.findByTargetID(25).getTrgSpecID());
 //		 System.out.println(dao.findByTargetID(25));
 	}
+
+
+
+	
 
 	
 	  

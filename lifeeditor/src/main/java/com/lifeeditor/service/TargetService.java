@@ -5,9 +5,6 @@ import java.util.List;
 
 import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.target.*;
-import com.lifeeditor.model.target.TargetDAO_JNDI;
-import com.lifeeditor.model.target.TargetDAO_interface;
-import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.type_list.TypeListVO;
 
 
@@ -128,6 +125,15 @@ public class TargetService {
 		new Target_List_Service().addTrgList(userID, targetID);
         
 		return;
+	}
+	
+	public TargetVO countNumsOfTargetName(String keyword){
+		return dao.countNumsOfTargetName(keyword);
+		
+	}
+	
+	public List<TargetVO> getAllChallengeNameFromUser(Integer userID){
+		return dao.getAllChallengeNameFromUser(userID);
 	}
 	
 	

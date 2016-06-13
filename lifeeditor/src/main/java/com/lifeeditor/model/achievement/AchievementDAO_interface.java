@@ -1,9 +1,7 @@
 package com.lifeeditor.model.achievement;
 
 import java.util.List;
-
 import com.lifeeditor.model.achievement.AchievementVO;
-import com.lifeeditor.model.target.TargetVO;
 
 public interface AchievementDAO_interface {
 
