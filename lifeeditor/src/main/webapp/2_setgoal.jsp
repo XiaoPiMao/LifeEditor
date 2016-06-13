@@ -14,6 +14,24 @@
 <!-- <script src="js/validate.js"></script> -->
 
 <style>
+.close {
+background: none repeat scroll 0 0 #606061;
+border-radius: 12px 12px 12px 12px;
+box-shadow: 1px 1px 3px #000000;
+color: #FFFFFF;
+font-weight: bold;
+line-height: 25px;
+position: absolute;
+right: -12px;
+text-align: center;
+text-decoration: none;
+top: -10px;
+width: 24px;
+}
+
+.close:hover {
+background: none repeat scroll 0 0 #00D9FF;
+}
 
 #alligator {
 	position: fixed;
@@ -281,13 +299,13 @@ margin: 75px 5px 50px 35px;
 				style="text-align: center; margin: 10px 10px 50px 100px;">
 			</div>
 
-<!-- - - 	- - -set goal  -->
+<!------------ set goal ------------>
 			<div class="row" id="set">
-<!-- 			step -->
+<!------------ step ------>
 			
 			
 			
-<!-- 			circle -->
+<!------------circle -------------->
 			<div class="col-md-5">
 			 <div id="circle1" ><img class="goal" src="images/sec_list/goal.png"></div>
 			 <div id="circle2" style="display:none;"><img class="goal" src="images/sec_list/sec.png"></div>
@@ -296,8 +314,9 @@ margin: 75px 5px 50px 35px;
 			
 <!-- 			form -->
 			<div class="col-md-7">
-             <div id="secs" class="sec_list" >
-			</div>
+             <div id="secs" class="sec_list" ><button class="close-button" aria-label="Close alert" type="button">
+         <span aria-hidden="true">×</span>
+      </button></div>
 			
 					<div>
 					<form id="myForm" method="POST" action="target">
