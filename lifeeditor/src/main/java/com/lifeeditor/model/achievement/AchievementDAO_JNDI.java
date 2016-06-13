@@ -214,7 +214,7 @@ public class AchievementDAO_JNDI implements AchievementDAO_interface{
 				AchVO.setAchID(rs.getInt("achID"));
 				AchVO.setAchName(rs.getString("achName"));
 				AchVO.setAchDesc(rs.getString("achDesc"));
-				//AchVO.setRewardPic(rs.getBlob("rewardPic"));
+				AchVO.setRewardPic(rs.getBlob("rewardPic"));
 				
 				
 			}	

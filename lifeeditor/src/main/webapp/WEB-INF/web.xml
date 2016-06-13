@@ -104,13 +104,29 @@
     <servlet-name>genkiBar_list</servlet-name>
     <url-pattern>/genkitest/genkiBar_list.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>comments</servlet-name>
     <servlet-class>com.lifeeditor.controller.comments.commentsServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>comments</servlet-name>
     <url-pattern>/genkitest/comments.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>ach_list</servlet-name>
+    <servlet-class>com.lifeeditor.controller.ach_list.ach_listServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ach_list</servlet-name>
+    <url-pattern>/ach_list/ach_list.do</url-pattern>
+  </servlet-mapping>
+   <servlet>
+    <servlet-name>getAchPic</servlet-name>
+    <servlet-class>com.lifeeditor.controller.ach_list.getAchPic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>getAchPic</servlet-name>
+    <url-pattern>/ach_list/getAchPic.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
