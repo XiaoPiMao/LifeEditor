@@ -13,6 +13,7 @@ public interface TargetDAO_interface {
 	public List<TargetVO> getAll();
 	public List<TargetVO> getAllofficial();
 	public List<TargetVO> findByKeyword(String keyword);
+	public TargetVO countNumsOfTargetName(String keyword);
 	public List<TargetVO> getAllChallengeNameFromUser(Integer userID);
 
 }

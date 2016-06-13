@@ -189,7 +189,6 @@ public class insertChallengeServlet extends HttpServlet{
 			}
 			
 			
-			
 		 }
  
 		 

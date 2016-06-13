@@ -14,11 +14,8 @@ import javax.sql.DataSource;
 
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
-import com.lifeeditor.model.target.TargetVO;
-import com.lifeeditor.service.AchievementService;
-
-
 public class AchievementDAO_JNDI implements AchievementDAO_interface{
+	@SuppressWarnings("unused")
 	private HibernateTemplate hibernateTemplate;    
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
         this.hibernateTemplate = hibernateTemplate;
@@ -54,6 +51,7 @@ public class AchievementDAO_JNDI implements AchievementDAO_interface{
 
 	public  static final String GET_PICTURE = "SELECT rewardPic FROM achievement where achID = ?";
 	
+	@SuppressWarnings("resource")
 	@Override
 	public int insert(AchievementVO achVO) {
 		Connection con = null;
@@ -67,6 +65,7 @@ public class AchievementDAO_JNDI implements AchievementDAO_interface{
 			pstmt.setBlob(3, achVO.getRewardPic());
 			pstmt.executeUpdate();
 		
+			//***************利用SQL特殊指令"select @@IDENTITY AS 'result'"在Insert完成的當下，立刻取得該筆新增的ID***********//
 			pstmt = con.prepareStatement(GET_IDENTITY);
 			ResultSet rs = pstmt.executeQuery();
 			if(rs.next()) {
