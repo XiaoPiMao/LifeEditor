@@ -10,8 +10,10 @@ public interface Target_specDAO_interface {
     public   List<Target_specVO>  getNote(Integer userID , Integer targetID);
     public List<Target_specVO> getAll();
     public List<Target_specVO> getAllByHotMan();
-	public void update(Target_specVO target_specVO);
+	public void updateeNote(Target_specVO target_specVO);
 	public	int insert_will_change_status(Target_specVO target_specVO);
+	public Target_specVO updatePicPath(Target_specVO target_specVO);
+	public Target_specVO updateNote(Target_specVO target_specVO);
     
 
 }

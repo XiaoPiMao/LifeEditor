@@ -10,6 +10,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Blob;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,6 +61,7 @@ public class Target_specServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		req.setCharacterEncoding("UTF-8");
@@ -124,7 +126,60 @@ public class Target_specServlet extends HttpServlet {
 //			}
 //		}
 //	
-
+//		if ("start_insert_Target_spec".equals(action)) {
+//
+//			List<String> errorMsgs = new LinkedList<String>();
+//
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			Map<String, String> errorMsg = new HashMap<String, String>();
+//			try {
+//			/*這邊取得使用者資訊，將從session理取到的使用者資訊與使用者目標資訊做比對，確認為該目標及該使用者     
+//                                  ，確認無誤後才能跳轉頁面，同時讀出該類別的資料顯示在表單上
+//			
+//				
+//			*/
+//			
+//				HttpSession session = req.getSession();
+//				Object user_specVO=session.getAttribute("LoginOK");
+//				
+//				Object TargetDAO_JNDI=session.getAttribute("?");
+//				Target_specVO Target_specVO=new Target_specVO();
+//				
+//				
+//				
+//				
+//				Target_specVO.getUserVO().getUserID();
+//				Target_specVO.getTargetVO().getTargetID();
+//				Target_specVO.getTargetVO().getTrgName();
+//
+//				String url = "跳轉到新增網頁（需動態載入按鈕，審核/新增）JSP";
+//				
+//
+//					
+//					
+//					
+//					
+//					
+//					req.setAttribute("TargetName", Target_specVO.getTargetVO().getTrgName());
+//					req.setAttribute("TargetName", Target_specVO.getTargetVO().getTrgName());
+//					RequestDispatcher successView = req.getRequestDispatcher(url);
+//					successView.forward(req, res);
+//					
+//					
+//				
+//				
+//				
+//			
+//			} catch (Exception e) {
+//				// 出現錯誤後要跳轉的頁面
+//				errorMsgs.add(e.getMessage());
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/manager/eventTemplate/event_event_insert.jsp");
+//				failureView.forward(req, res);
+//			}
+//		}
+//	
 		
 		//前面需在寫一支servlet做判斷，判斷是否為已審核
 		//能進入都為修改無關係的
@@ -155,7 +210,9 @@ public class Target_specServlet extends HttpServlet {
 
 		     RequestDispatcher successView = req.getRequestDispatcher(url);
 //			//以下為取得表單要insert的值
-			Integer UserID = 77;
+		   long time=System.currentTimeMillis();
+		     
+			Integer UserID = 777;
 			Integer TargetID =1;
 			String UserTarget_desc = req.getParameter("input_target_Note");		
 			//這邊將要insert的路徑做設定
@@ -163,7 +220,7 @@ public class Target_specServlet extends HttpServlet {
 	        System.out.println("Current dir:"+current);                       
 	        String currentDir = System.getProperty("user.dir");
 	        System.out.println("Current dir using System:" +currentDir);
-	        String trgPicPath="C:\\LocalRepository\\lifeeditor\\src\\main\\webapp\\images\\"+UserID.toString()+TargetID.toString()+".jpg";
+	        String trgPicPath="C:\\LocalRepository\\lifeeditor\\src\\main\\webapp\\images\\"+UserID.toString()+TargetID.toString()+time+".jpg";
 	        Part filePart = req.getPart("insert_targetPic");
 	        File file1=new File(trgPicPath);//存入檔案的路徑
 	        FileOutputStream fos1 = new FileOutputStream(file1);
@@ -184,7 +241,7 @@ public class Target_specServlet extends HttpServlet {
 				successView.forward(req, res);     
 
 			}else{
-					TargetspecVO = Target_specSvc.addTargetSpec_changeStatus(UserID,TargetID,UserTarget_desc,trgPicPath);
+					TargetspecVO = Target_specSvc.addTargetSpec(UserID,TargetID,UserTarget_desc,trgPicPath);
 					req.setAttribute("TargetspecVO", TargetspecVO);
 					successView.forward(req, res);     
 				
@@ -198,6 +255,38 @@ public class Target_specServlet extends HttpServlet {
 		}}
 	
 
+	
+	if ("getOne_TargetSpec_For_Update".equals(action)) {
+
+		List<String> errorMsgs = new LinkedList<String>();
+		// 這邊需要一個物件來裝錯誤訊息
+		req.setAttribute("errorMsgs", errorMsgs);
+
+		try {
+			// 這邊先取得eventID對應的值
+			Integer trgspecID = new Integer(req.getParameter("ID"));
+			// 呼叫service來取出eventID的數值
+			TargetSpecService eventSvc = new TargetSpecService();
+			
+			// 給予一個屬性其一個屬性名稱
+
+			req.setAttribute("trgSpecVO", trgspecID);
+			String url = "修改的jsp頁面";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+
+		} catch (Exception e) {
+			// 發生錯誤後要顯示的錯誤內容及要跳轉的頁面
+			errorMsgs.add("顯示錯誤名稱:" + e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/manager/eventTemplate/event_show_all_event.jsp");
+			failureView.forward(req, res);
+		}
+	}
+	/*跳轉頁面執行修改，修改頁面上會出現心得以及顯示圖片如果檔案等於null則只update心得內容，如果兩者都有取到值則upadte檔案
+	 * 
+	 * 
+	 */
 	if ("Target_spec_update".equals(action)) {
 
 		List<String> errorMsgs = new LinkedList<String>();
@@ -207,28 +296,30 @@ public class Target_specServlet extends HttpServlet {
 		Map<String, String> errorMsg = new HashMap<String, String>();
 
 		try {
+			
 			Target_specVO TargetspecVO=new Target_specVO();
-
+			
 			TargetVO TargetVO=new TargetVO();
-
-		    int targettypevalue=2;
-	                         
-
 		    TargetSpecService Target_specSvc = new TargetSpecService();
-		     String url = "ok.jsp";
-
-		     RequestDispatcher successView = req.getRequestDispatcher(url);
+			String Userupdate_target_Note = req.getParameter("update_target_Note");	
+		    if (Userupdate_target_Note == null || Userupdate_target_Note.trim().length() == 0) {
+				//則條入無修改頁面
+			}
+		    Integer trgSpecID =TargetspecVO.getTrgSpecID();
+		    TargetspecVO=Target_specSvc.updateTargetSpecNote(trgSpecID, Userupdate_target_Note);
+		     
 			Integer UserID = 6;
 			Integer TargetID =1;
-			String UserTarget_desc = req.getParameter("update_target_Note");	
+			
+			Part filePart = req.getPart("insert_targetPic");
+			if(filePart != null){
 			
 			String current = new java.io.File( "." ).getCanonicalPath();
-			
 	        System.out.println("Current dir:"+current);                       
 	        String currentDir = System.getProperty("user.dir");
 	        System.out.println("Current dir using System:" +currentDir);
 	        String trgPicPath="C:\\LocalRepository\\lifeeditor\\src\\main\\webapp\\images\\target_spec_Pic\\"+UserID.toString()+TargetID.toString()+".jpg";
-	        Part filePart = req.getPart("insert_targetPic");
+	        
 	        File file1=new File(trgPicPath);//存入檔案的路徑
 	        FileOutputStream fos1 = new FileOutputStream(file1);
 	        InputStream in = filePart.getInputStream();
@@ -237,22 +328,14 @@ public class Target_specServlet extends HttpServlet {
 	 				Blob Pic = new SerialBlob(b);
 	 				Pic.getBytes(1, (int) Pic.length());
 	 				fos1.write(Pic.getBytes(1, (int) Pic.length()),0,(int) Pic.length());
+	 				TargetspecVO=Target_specSvc.updateTargetSpecPic(trgSpecID, trgPicPath);
+	 				req.setAttribute("TargetspecVO", TargetspecVO);
 			//targettype為1官方方便管理.2玩官方3.為自定
 			//ststus1不需審核.2未審核.3已審核
-			if(targettypevalue==2){
-			 
-		       TargetspecVO = Target_specSvc.addTargetSpec_changeStatus(UserID,TargetID,UserTarget_desc,trgPicPath);
-
-		 		req.setAttribute("TargetspecVO", TargetspecVO);
-
-				successView.forward(req, res);     
-
-			}else{
-					TargetspecVO = Target_specSvc.addTargetSpec_changeStatus(UserID,TargetID,UserTarget_desc,trgPicPath);
-					req.setAttribute("TargetspecVO", TargetspecVO);
-					successView.forward(req, res);     
-				
-			}
+			}req.setAttribute("TargetspecVO", TargetspecVO);
+	 				  String url = "ok.jsp";
+	 				 RequestDispatcher successView = req.getRequestDispatcher(url);
+	 				successView.forward(req, res); 
 		} catch (Exception e) {
 			// 出現錯誤後要跳轉的頁面
 			errorMsgs.add(e.getMessage());

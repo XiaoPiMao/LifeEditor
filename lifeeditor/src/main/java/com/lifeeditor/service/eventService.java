@@ -16,12 +16,12 @@ public class eventService {
 		dao = new eventDAO();
 	}
 
-	public eventVO addevent(String eventName,Blob eventPic, String orgName,String orgAddr,java.sql.Timestamp eventTime,String eventDesc) {
+	public eventVO addevent(Integer secID,Integer typeID,String eventName,Blob eventPic, String orgName,String orgAddr,java.sql.Timestamp eventTime,String eventDesc) {
  
 		eventVO eventVO = new eventVO();
-		SecListVO secListVO=new SecListVO();
-		eventVO.setTypeID(secListVO.getTypeID());
-		eventVO.setSecID(secListVO.getSecID());		
+		
+		eventVO.setTypeID(typeID);
+		eventVO.setSecID(secID);		
 		eventVO.setEventName(eventName);
 		eventVO.setEventPic(eventPic);
 		eventVO.setOrgName(orgName);
@@ -29,10 +29,9 @@ public class eventService {
 		eventVO.setEventTime(eventTime);
 		eventVO.setEventDesc(eventDesc);
 		
-		dao.insert(eventVO);
-		
+		int a= dao.insert(eventVO);
+		eventVO.setEventID(a);
 	
-		System.out.println(dao.insert(eventVO));
 
 		return eventVO;
 	}

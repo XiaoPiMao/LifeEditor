@@ -38,10 +38,12 @@ private static final String GET_ID_STMT="SELECT @@IDENTITY as 'trgSpec'";
 	//取得作者目標的值為何（是否為官方類別）
 private static final String GET_TARGET_TYPE_STMT =
 		      "SELECT userID,targetID,trgNote,trgPicPath FROM target_spec where trgSpecID=?";
-	private static final String UPDATE_ALL =
-		      "UPDATE target_spec set trgNote=?trgPicPath=? where trgSpecID=?";//這邊寫錯惹
+	private static final String UPDATE_TRG_NOTE =
+		      "UPDATE target_spec set trgNote=?where trgSpecID=?";//這邊寫錯惹
 	private static final String CHANGE_TARGET_STATUS_STMT =
 		      "UPDATE target set status=? where targetID=?";
+	private static final String UPDATE_TRGPIC_PATH =
+		      "UPDATE target_spec set trgPicPath=? where trgSpecID=?";//這邊寫錯惹
 	
 //***************************************************************************************************************	
 	
@@ -407,22 +409,21 @@ private static final String GET_TARGET_TYPE_STMT =
 //********************************************************************************************************
 	//下面4子皓寫der
 	@Override
-	public void update(Target_specVO target_specVO) {
+	public Target_specVO updateNote(Target_specVO target_specVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
-			pstmt = con.prepareStatement(UPDATE_ALL);
+			
           
 			
-			pstmt = con.prepareStatement(UPDATE_ALL);
+			pstmt = con.prepareStatement(UPDATE_TRG_NOTE);
            
 			
 			pstmt.setString(1, target_specVO.getTrgNote());
 			
-			pstmt.setString(2, target_specVO.getTrgPicPath());
 			
 			
 
@@ -452,7 +453,55 @@ private static final String GET_TARGET_TYPE_STMT =
 					e.printStackTrace(System.err);
 				}
 			}
-		}}
+		}
+		return target_specVO;}
+	public Target_specVO updatePicPath(Target_specVO target_specVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+			
+          
+			
+			pstmt = con.prepareStatement(UPDATE_TRGPIC_PATH);
+           
+			
+			pstmt.setString(1, target_specVO.getTrgPicPath());
+
+			
+			
+			
+
+			pstmt.executeUpdate();
+
+			
+			
+			
+			
+			
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return target_specVO;}
 		@Override
 		public int insert_will_change_status(Target_specVO target_specVO) {
 
@@ -536,4 +585,12 @@ private static final String GET_TARGET_TYPE_STMT =
 			}
 			return 0;
 
+		}
+
+
+
+		@Override
+		public void updateeNote(Target_specVO target_specVO) {
+			// TODO Auto-generated method stub
+			
 		}}

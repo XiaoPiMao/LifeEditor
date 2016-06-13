@@ -19,7 +19,7 @@ import com.lifeeditor.model.event.eventVO;
 import com.lifeeditor.service.eventService;
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 500)
-@WebServlet("/eventServlet.do")
+@WebServlet("/manager/eventTemplate/eventServlet.do")
 public class eventServlet extends HttpServlet {
 
 	
@@ -95,6 +95,9 @@ public class eventServlet extends HttpServlet {
 
 			Map<String, String> errorMsg = new HashMap<String, String>();
 			try {
+				
+				Integer secID=new Integer( req.getParameter("secID"));
+				Integer typeID=new Integer( req.getParameter("typeID"));
 				// 從jsp上的input取得物件的值
 				String eventName = req.getParameter("inputEventName");
 				System.out.println(eventName);
@@ -153,7 +156,7 @@ public class eventServlet extends HttpServlet {
 				eventService eventSvc = new eventService();
 				System.out.println("3");
 
-				eventVO = eventSvc.addevent(eventName, eventPic, orgName,
+				eventVO = eventSvc.addevent(secID,typeID,eventName, eventPic, orgName,
 						orgAddr, eventTime, eventDesc);
 				System.out.println("4");
 

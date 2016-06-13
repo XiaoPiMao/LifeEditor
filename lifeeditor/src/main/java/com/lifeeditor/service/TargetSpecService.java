@@ -46,15 +46,25 @@ public class TargetSpecService {
 		return Target_specVO;
 	}
 
-	public Target_specVO updateTargetSpec(Integer Target_specID,String userTarget_desc, String trgPicPath) {
+	public Target_specVO updateTargetSpecNote(Integer Target_specID,String userTarget_desc) {
 
 		Target_specVO Target_specVO= new Target_specVO();
 		Target_specVO.setTrgSpecID(Target_specID);
 		Target_specVO.getTargetVO().setTargetID(Target_specVO.getTargetVO().getTargetID());
 		Target_specVO.getUserVO().setUserID(Target_specVO.getUserVO().getUserID());
-		Target_specVO.setTrgPicPath(userTarget_desc);
+		Target_specVO.setTrgNote(userTarget_desc);
+		
+		dao.updateeNote(Target_specVO);
+		return dao.findByPrimaryKey(Target_specID);
+	}
+	public Target_specVO updateTargetSpecPic(Integer Target_specID, String trgPicPath) {
+
+		Target_specVO Target_specVO= new Target_specVO();
+		Target_specVO.setTrgSpecID(Target_specID);
+		Target_specVO.getTargetVO().setTargetID(Target_specVO.getTargetVO().getTargetID());
+		Target_specVO.getUserVO().setUserID(Target_specVO.getUserVO().getUserID());
 		Target_specVO.setTrgPicPath(trgPicPath);
-		dao.update(Target_specVO);
+		dao.updatePicPath(Target_specVO);
 		return dao.findByPrimaryKey(Target_specID);
 	}
 

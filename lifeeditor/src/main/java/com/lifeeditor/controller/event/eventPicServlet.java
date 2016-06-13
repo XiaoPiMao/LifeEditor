@@ -55,13 +55,14 @@ public class eventPicServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			
-			
+			Integer id = new Integer(req.getParameter("id"));
 			    
-				eventVO eventVO=new eventVO();
+			
 	
 				eventService eventSvc = new eventService();
+				
 				res.setContentType("image/jpeg");
-				Blob pic = eventSvc.getOneevent(eventVO.getEventID()).getEventPic();
+				Blob pic = eventSvc.getOneevent(id).getEventPic();
 				
 				try{
 					int len = 0;
