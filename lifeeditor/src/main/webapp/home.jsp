@@ -25,16 +25,15 @@
 		</style>
 	</head>
 	<body>
-
 		<!-- Wrapper -->
 			<div id="wrapper">
 
 				<!-- Header -->
 					<header id="header">
 						<h1><a href="#">Life Editor</a></h1>
-						<nav class="links">
+						<nav class="links">+
 							<ul>
-								<li><a href="#">目標</a></li>
+								<li><a href="setgoal.jsp">目標</a></li>
 								<li><a href="#">行事曆</a></li>
 								<li><a href="addfriend.jsp">朋友</a></li>
 								<li><a href="#">關於我</a></li>					
@@ -42,13 +41,15 @@
 						</nav>
 						<nav class="main">
 							<ul>
-						    	<c:if test="${ ! empty LoginOK }">
-		         	   <a href="<c:url value='/logout_index.jsp' />"    > 登出 </a>
-			</c:if>
-							<c:if test="${! empty LoginOK }">
-               <img height='40px' width='30px'
-								src="images/3.jpg">
-			</c:if>
+							<c:choose>
+						    	<c:when test="${ ! empty FbPicture }">
+						    			<img src="${FbPicture}"></img>
+								</c:when>
+							<c:otherwise>
+								<img height='45px' width='45px' src="HomeGetPicture">
+							</c:otherwise> 
+					</c:choose>
+				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();">  </a>    
 							
 							
 								<li class="search">
@@ -122,11 +123,12 @@
 						<!-- Post -->
 							<article class="post">
 								<header>
+<%-- 							     	測試: ${LoginOK.pswd}_${LoginOK.gender}_${ LoginOK.email} _${LoginOK.picture } --%>
 <!-- 								<div class="postMetaInline-feedSummary inlineEditor-headerContent"> -->
 <!-- 								<div class="inlineEditor-placeholder js-inlineEditorPrompt">Write here…</div> -->
 									<div class="title">
 										<h2><a href="#">資策盃冠軍終於到手</a></h2>
-										<p>不放棄！絕不放棄！永不放棄！</p>
+										<h3>不放棄！絕不放棄！永不放棄！</h3>
 									</div>
 									<div class="meta">
 										<time class="published" datetime="2016-06-06">June 6, 2016</time>
@@ -213,10 +215,10 @@
 
 						<!-- Intro -->
 							<section id="intro">
-								<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a>
+<!-- 								<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a> -->
 								<header>
 									<h2>Life Editor</h2>
-									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p>
+<!-- 									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p> -->
 								</header>
 							</section>
 
@@ -226,45 +228,18 @@
                                    <h2>熱門人物</h2>
 									<!-- Mini Post -->
 										<article class="mini-post">
-										<c:forEach var="Target_specVO" items="${trgSvc.all}">
+										<c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
 											<header>
-												<h3><a href="#">2016台大盃冠軍</a></h3>
-												<time class="published" datetime="2016-04-08">April 08, 2016</time>
-												<a href="#" class="author"><img src="GetUserPicture?id=28" alt="Mr.Lady" /></a>
+											<a href="#" class="author"><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span><img src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
+												<h4><a href="#" style="font-size:12px">${Target_specVO.targetVO.trgName}</a></h4>
+												<h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
+												
+											    
 											</header>
 											<a href="#" class="image"><img id="img" src='${Target_specVO.trgPicPath}'/></a>
 											</c:forEach>
 										</article>
 
-									<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="#">蛋黃哥懶得展-高雄科工館</a></h3>
-												<time class="published" datetime="2016-07-04">July 04, 2016</time>
-												<a href="#" class="author"><img src="images/gudetama.jpg" alt="" /></a>
-											</header>
-											<a href="#" class="image"><img src="images/egg.jpg" alt="" /></a>
-										</article>
-										
-										<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="#">宥勝之旅</a></h3>
-												<time class="published" datetime="2016-05-17">May 17, 2016</time>
-												<a href="#" class="author"><img src="images/yo.jpg" alt="yo" /></a>
-											</header>
-											<a href="#" class="image"><img src="images/travel1.jpg" alt="" /></a>
-										</article>
-
-									<!-- Mini Post -->
-										<article class="mini-post">
-											<header>
-												<h3><a href="#">完成單車環島</a></h3>
-												<time class="published" datetime="2014-04-06">April 6, 2014</time>
-												<a href="#" class="author"><img src="images/1.jpg" alt="Jones Wang" /></a>
-											</header>
-											<a href="#" class="image"><img src="images/bike.jpg" alt="" /></a>
-										</article>
 								</div>
 							</section>
 
@@ -349,6 +324,37 @@
 			<script src="js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="js/main.js"></script>
-			
+
+<!-- 			<script> -->		
+<script>
+        window.fbAsyncInit = function() {
+                FB.init({
+                	appId : '236995580009135',
+                status: true,
+                cookie: true,
+                xfbml: true,
+                version : 'v2.6' 
+            });
+        };
+
+
+        (function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id))
+						return;
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//connect.facebook.net/zh_TW/sdk.js";
+					fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+        function logout() {
+            FB.logout(function(response) {
+            });
+        }
+
+
+        </script>
+<!-- 			</script> -->
 	</body>
 </html>

@@ -53,10 +53,10 @@ float: right;;
 		<label for="exampleInputaccount">類別:</label> 
 		<select id="select1" name="typeID1" class="opt">
 			<option value=""></option>
-			<c:forEach var="type" items="${typeSvc.all }">
-			<c:if test="${type.typeName != '自訂' }">
+			<c:forEach var="type" items="${types}">
+<%-- 			<c:if test="${type.typeName != '自訂' }"> --%>
 			<option value=${type.typeID }>${type.typeName }</option>
-			</c:if>
+<%-- 			</c:if> --%>
 			</c:forEach>
 		</select>
 	</div>

@@ -1,5 +1,6 @@
 package com.lifeeditor.invite_list;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -80,7 +81,7 @@ public class addFriendDAO {
 	public List<user_listVO> selectFriend(Integer user) throws SQLException{
 		
 		String queryString = "select userID,account,lastName+firstName as name,picture from user_spec where userID  not in " +
-							 "(select receiver from invite_list  where inviter = "+user+")";
+							 "(select inviter from invite_list  where inviter = '"+user+"' or receiver='"+user+"')";
 		
 		List<user_listVO> getall = new ArrayList<user_listVO>();
 		try{
@@ -88,17 +89,19 @@ public class addFriendDAO {
 			psmt = conn.prepareStatement(queryString);
 			rs = psmt.executeQuery();
 			
-			while(rs.next()){
-				user_listVO userData = new user_listVO();
-				userData.setUserid(rs.getInt(1));
-				userData.setAccount(rs.getString(2));
-				userData.setName(rs.getString(3));			
-				InputStream in = rs.getBinaryStream(4);			
-
-				byte[] data = IOUtils.toByteArray(in);
-				String photo =  DatatypeConverter.printBase64Binary(data);
-				userData.setPicture(photo);
-				getall.add(userData); 
+			while(rs.next()){		
+				if(rs.getInt(1) != user){
+					user_listVO userData = new user_listVO();
+					userData.setUserid(rs.getInt(1));
+					userData.setAccount(rs.getString(2));
+					userData.setName(rs.getString(3));			
+					InputStream in = rs.getBinaryStream(4);			
+	
+					byte[] data = IOUtils.toByteArray(in);
+					String photo =  DatatypeConverter.printBase64Binary(data);
+					userData.setPicture(photo);
+					getall.add(userData); 
+				}
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -109,5 +112,159 @@ public class addFriendDAO {
 		}
 		
 		return getall;	
+	}
+	
+	public List<user_listVO> checkMyFriend(Integer user) throws SQLException, IOException{
+		
+		String queryString = "select inviter,account,(lastName+firstName) as name,picture from invite_list " + 
+							 "inner join user_spec on invite_list.inviter = user_spec.userID " +
+							 "where receiver = "+user+" and accepted = 0";
+		List<user_listVO> getall = new ArrayList<user_listVO>();
+		try{
+			
+			conn = ds.getConnection();
+			psmt = conn.prepareStatement(queryString);
+			rs = psmt.executeQuery();
+			while(rs.next()){
+				user_listVO friend = new user_listVO();
+				friend.setUserid(rs.getInt(1));
+				friend.setAccount(rs.getString(2));
+				friend.setName(rs.getString(3));
+				InputStream in = rs.getBinaryStream(4);
+				byte[] data = IOUtils.toByteArray(in);
+				String photo = DatatypeConverter.printBase64Binary(data);
+				friend.setPicture(photo);
+				getall.add(friend);
+			}
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			conn.close();
+			psmt.close();
+			rs.close();
+		}
+		return getall;
+	}
+	
+	public void deleteInviter(String user,String inviter){
+		
+		//String deleteString = "delete invite_list where inviter='"+inviter+"' and receiver = '"+user+"'";
+		String deleteString = "delete invite_list where (inviter = '"+user+"' and receiver = '"+inviter+"') or (inviter = '"+inviter+"' and receiver = '"+user+"')";
+		try{
+			conn = ds.getConnection();
+			psmt = conn.prepareStatement(deleteString);
+			psmt.executeUpdate();			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+				psmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
+	public void addFriendFromInviter(String user,String inviter){
+		
+		String updateString="update invite_list set accepted = 'true' where inviter='"+inviter+"' and receiver = '"+user+"'";
+		
+		try{
+			conn = ds.getConnection();
+			psmt = conn.prepareStatement(updateString);
+			psmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+				psmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+					
+		}
+		addInviterToFriend(user,inviter); //增加好友
+		addInviterToFriend(inviter,user);
+	}
+	public void addInviterToFriend(String user,String inviter){
+		
+		String addFriend = "insert into friend (userID,friendID,frdSince) values("+user+","+inviter+",GetDate())";
+		
+		try{
+			conn = ds.getConnection();
+			psmt = conn.prepareStatement(addFriend);
+			psmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+				psmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}	
+	}
+	
+	public List<user_listVO> showMyFriend(Integer data) throws IOException{
+		
+		String queryString = "select userID,account,lastName+firstName as name,picture from user_spec where userID in (select friendID from friend where userID = '"+data+"')";
+		List<user_listVO> getall = new ArrayList<user_listVO>();
+		try{
+			conn = ds.getConnection();
+			psmt = conn.prepareStatement(queryString);
+			rs = psmt.executeQuery();
+			while(rs.next()){
+				
+				user_listVO user = new user_listVO();
+				user.setUserid(rs.getInt(1));
+				user.setAccount(rs.getString(2));
+				user.setName(rs.getString(3));
+				InputStream in = rs.getBinaryStream(4);
+				byte[] piv = IOUtils.toByteArray(in);
+				String photo = DatatypeConverter.printBase64Binary(piv);
+				user.setPicture(photo);
+				
+				getall.add(user);
+				
+			}
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			
+		}
+		
+		return getall;
+	}
+	
+	public void deleteFriend(String user,String inviter){
+		
+		String deleteString = "delete friend where (userID = '"+user+"'  and friendID = '"+inviter+"') or (userID = '"+inviter+"'  and friendID = '"+user+"')";
+		
+		try{
+			conn = ds.getConnection();
+			psmt = conn.prepareStatement(deleteString);
+			psmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally{
+			try {
+				conn.close();
+				psmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 }

@@ -2,17 +2,22 @@ package com.lifeeditor.model.target;
 
 import java.sql.Date;
 
+import com.lifeeditor.model.achievement.AchievementVO;
+import com.lifeeditor.model.sec_list.SecListVO;
+import com.lifeeditor.model.type_list.TypeListVO;
+
 public class TargetVO implements java.io.Serializable {
-	
+	 
+	private static final long serialVersionUID = 1L;
 	private Integer targetID;
 	private String trgName;
-	private Integer typeID;
-	private Integer sectionID;
+	private TypeListVO typeVO;
+	private SecListVO sectionVO;
 	private Integer difficulty;	
 	private String intention;
 	private Integer privacy;
 	private Integer genkiBar;
-	private Integer achID;
+	private AchievementVO achVO;
 	private Integer priority ;
 	private Integer remindTimes;
 	private Integer trgType;
@@ -21,7 +26,6 @@ public class TargetVO implements java.io.Serializable {
 	private Date timeStart;
 	private Date timeFinish;
 	private Date doneTime ;
-	
 	
 	public Integer getTargetID() {
 		return targetID;
@@ -35,17 +39,17 @@ public class TargetVO implements java.io.Serializable {
 	public void setTrgName(String trgName) {
 		this.trgName = trgName;
 	}
-	public Integer getTypeID() {
-		return typeID;
+	public TypeListVO getTypeVO() {
+		return typeVO;
 	}
-	public void setTypeID(Integer typeID) {
-		this.typeID = typeID;
+	public void setTypeVO(TypeListVO typeVO) {
+		this.typeVO = typeVO;
 	}
-	public Integer getSectionID() {
-		return sectionID;
+	public SecListVO getSectionVO() {
+		return sectionVO;
 	}
-	public void setSectionID(Integer sectionID) {
-		this.sectionID = sectionID;
+	public void setSectionVO(SecListVO sectionVO) {
+		this.sectionVO = sectionVO;
 	}
 	public Integer getDifficulty() {
 		return difficulty;
@@ -71,11 +75,11 @@ public class TargetVO implements java.io.Serializable {
 	public void setGenkiBar(Integer genkiBar) {
 		this.genkiBar = genkiBar;
 	}
-	public Integer getAchID() {
-		return achID;
+	public AchievementVO getAchVO() {
+		return achVO;
 	}
-	public void setAchID(Integer achID) {
-		this.achID = achID;
+	public void setAchVO(AchievementVO achVO) {
+		this.achVO = achVO;
 	}
 	public Integer getPriority() {
 		return priority;
@@ -126,7 +130,5 @@ public class TargetVO implements java.io.Serializable {
 		this.doneTime = doneTime;
 	}
 
-	
-	
 	
 }

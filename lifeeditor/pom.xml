@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.lifeeditor</groupId>
 	<artifactId>lifeeditor</artifactId>
@@ -16,9 +17,15 @@
 
 	<dependencies>
 		<dependency>
-    		<groupId>com.google.code.gson</groupId>
-    		<artifactId>gson</artifactId>
-    		<version>2.6.2</version>
+			<groupId>javax.servlet.jsp</groupId>
+			<artifactId>javax.servlet.jsp-api</artifactId>
+			<version>2.3.1</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.6.2</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -38,16 +45,16 @@
 			<version>1.2</version>
 		</dependency>
 		<dependency>
-           <groupId>org.glassfish</groupId>
-           <artifactId>javax.json</artifactId>
-           <version>1.0.4</version>
-       </dependency>
-		<dependency>
-    		<groupId>org.apache.struts</groupId>
-    		<artifactId>struts2-core</artifactId>
-    		<version>2.5</version>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.json</artifactId>
+			<version>1.0.4</version>
 		</dependency>
-				<dependency>
+		<dependency>
+			<groupId>org.apache.struts</groupId>
+			<artifactId>struts2-core</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>${spring.version}</version>
@@ -66,8 +73,8 @@
 			<artifactId>spring-beans</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-		
-		
+
+
 		<!-- Aspect Oriented Programming (AOP) Framework (depends on spring-core, 
 			spring-beans) Define this if you use Spring AOP APIs (org.springframework.aop.*) -->
 		<dependency>
@@ -169,90 +176,90 @@
 			<version>${spring.version}</version>
 		</dependency>
 
-    <!-- Java Mail API -->
+		<!-- Java Mail API -->
 		<dependency>
 			<groupId>javax.mail</groupId>
 			<artifactId>mail</artifactId>
 			<version>1.4.3</version>
 		</dependency>
-		
-    <!-- Apache Commons -->
-    	<dependency>
-    		 <groupId>commons-logging</groupId>
-    		 <artifactId>commons-logging</artifactId>
-     		<version>1.2</version>
-   		 </dependency>
-   		<dependency>
-    		<groupId>org.apache.commons</groupId>
-    		<artifactId>commons-lang3</artifactId>
-    		<version>3.4</version>
+
+		<!-- Apache Commons -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
-       		<groupId>org.hibernate</groupId>
-       		<artifactId>hibernate-core</artifactId>
-       		<version>${hibernate.version}</version>
-      	</dependency>      	
-      
-      	<dependency>
-       		<groupId>org.hibernate</groupId>
-       		<artifactId>hibernate-entitymanager</artifactId>
-       		<version>${hibernate.version}</version>
-     	 </dependency>
-      
-      	<dependency>
-       		<groupId>org.hibernate</groupId>
-       		<artifactId>hibernate-c3p0</artifactId>
-       		<version>${hibernate.version}</version>
-      	</dependency>
-      
-      	<dependency>
-      		 <groupId>org.hibernate</groupId>
-       		<artifactId>hibernate-proxool</artifactId>
-      		 <version>${hibernate.version}</version>
-      	</dependency>
-      
-      
-      <!-- Apache Commons -->
-      <dependency>
-       <groupId>commons-logging</groupId>
-       <artifactId>commons-logging</artifactId>
-       <version>1.2</version>
-      </dependency>
-      
-      <!-- slf4j -->
-      <dependency>
-       <groupId>org.slf4j</groupId>
-       <artifactId>slf4j-api</artifactId>
-       <version>1.7.19</version>
-      </dependency>
-      
-      <!-- slf4j -->
-      <dependency>
-       <groupId>org.slf4j</groupId>
-       <artifactId>slf4j-log4j12</artifactId>
-       <version>1.7.19</version>
-      </dependency>
-      
-      <!-- log4j -->
-      <dependency>
-       <groupId>log4j</groupId>
-       <artifactId>log4j</artifactId>
-       <version>1.2.17</version>
-      </dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-c3p0</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-proxool</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+
+		<!-- Apache Commons -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>1.2</version>
+		</dependency>
+
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.19</version>
+		</dependency>
+
+		<!-- slf4j -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>1.7.19</version>
+		</dependency>
+
+		<!-- log4j -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>

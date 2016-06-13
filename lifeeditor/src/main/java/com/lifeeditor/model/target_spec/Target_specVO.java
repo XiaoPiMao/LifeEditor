@@ -4,23 +4,32 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import com.lifeeditor.model.target.TargetVO;
+import com.lifeeditor.model.user_spec.user_specVO;
+
 public class Target_specVO implements java.io.Serializable{
-	private Integer userID;
-	private Integer targetID;
+	private Integer trgSpecID; 
+	private user_specVO userVO;
+	private TargetVO targetVO;
 	private String trgNote;
 	private String TrgPicPath;
-	
-	public Integer getUserID() {
-		return userID;
+	public Integer getTrgSpecID() {
+		return trgSpecID;
 	}
-	public void setUserID(Integer userID) {
-		this.userID = userID;
+	public void setTrgSpecID(Integer trgSpecID) {
+		this.trgSpecID = trgSpecID;
 	}
-	public Integer getTargetID() {
-		return targetID;
+	public user_specVO getUserVO() {
+		return userVO;
 	}
-	public void setTargetID(Integer targetID) {
-		this.targetID = targetID;
+	public void setUserVO(user_specVO userVO) {
+		this.userVO = userVO;
+	}
+	public TargetVO getTargetVO() {
+		return targetVO;
+	}
+	public void setTargetVO(TargetVO targetVO) {
+		this.targetVO = targetVO;
 	}
 	public String getTrgNote() {
 		return trgNote;
@@ -34,7 +43,8 @@ public class Target_specVO implements java.io.Serializable{
 	public void setTrgPicPath(String trgPicPath) {
 		TrgPicPath = trgPicPath;
 	}
-
+	
+	
 	
 	
 	

@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 
 @WebServlet("/backstageLogin/loginService")
@@ -26,7 +27,7 @@ public class loginService extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getParameter("account").isEmpty() || request.getParameter("pswd").isEmpty()){
-			RequestDispatcher rd = request.getRequestDispatcher("../manager/_backstage/Backstage.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("../manager/Backstage.jsp");
 			rd.forward(request, response);
 			return;					
 		}else{
@@ -34,7 +35,7 @@ public class loginService extends HttpServlet {
 			String pswd = request.getParameter("pswd");
 			backmangerVO backVO = new loginServiceDB().chkpassword(account, pswd);
 			if(backVO.getPicture() == null){
-				response.sendRedirect((response.encodeRedirectURL("../manager/_backstage/Backstage.jsp")));
+				response.sendRedirect((response.encodeRedirectURL("../manager/Backstage.jsp")));
 				return;
 			}
 			//System.out.println(backVO.getPicture());
@@ -55,11 +56,11 @@ public class loginService extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			request.setAttribute("photo", photo64);
-			request.setAttribute("backVO", backVO);
+			HttpSession session = request.getSession();
+			session.setAttribute("backPhoto", photo64);
+			session.setAttribute("backVO", backVO);
 
-			RequestDispatcher rd = request.getRequestDispatcher("../manager/_backstage/blank1.jsp");
-			rd.forward(request, response);
+			response.sendRedirect(request.getServletContext().getContextPath() + "/manager/report.jsp");
 			return;
 
 			
