@@ -14,6 +14,15 @@
 <!-- <script src="js/validate.js"></script> -->
 
 <style>
+
+#alligator {
+	position: fixed;
+	left: 1300px;
+	bottom: 0;
+	width:200px;
+	height:200px;
+}
+
 .article {
 	margin: auto;
 	width: 1200px;
@@ -192,7 +201,23 @@ margin: 75px 5px 50px 35px;
 							}
 						});
 
-                       
+				$('#alligator').click(function() {
+					//練習五 animate()
+					//使用者點選alligator的圖片後,使用5秒鐘的時間完成下列動作
+					//向右移動到200px的位置(left:200)
+					//向上移動到0px的位置(top:0)
+					//不透明度調整成0.3(opacity:0.3)
+					//寬度調整成200px(width:200)
+					//瀏覽網頁看看效果
+					$(this).animate({
+						//'left':'0px',
+						'top':'0px',
+	 					'opacity':'0.1',
+						//'width':'50px',
+						//'height':'50px'
+					},3000);
+
+				});
 				    
 //                        $('#reset').click(function(){
 //                     	  this.form.reset(); 
@@ -320,6 +345,7 @@ margin: 75px 5px 50px 35px;
             </div>
 			
 		</article>
+		<img src="images/start.png" id="alligator">
 	</div>
 
 
