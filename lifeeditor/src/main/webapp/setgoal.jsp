@@ -396,7 +396,7 @@ document.getElementById('button').onclick = (function() {
 				</div>
 
 <!-- 				<div id="circle4"> -->
-					<div href="#" id="button"><span>GO</span></div>
+					<div id="button"><span>GO</span></div>
 <!-- 				</div> -->
 				
 				<audio preload="auto">

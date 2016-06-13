@@ -14,6 +14,18 @@
 <!-- <script src="js/validate.js"></script> -->
 
 <style>
+
+.background{
+position:fixed;
+left:0px;
+top:0px;
+width:100vw;
+height:100vh;
+background-color:black;
+opacity:0.5;
+z-index:5555555;
+display:none; 
+}
 .close {
 background: none repeat scroll 0 0 #606061;
 border-radius: 15px;
@@ -33,11 +45,12 @@ background: none repeat scroll 0 0 #00D9FF;
 }
 
 #rocket {
+    display: none;
+    width : 800px; 
 	position: fixed;
-	left: 1300px;
-	bottom: 0;
-	width:200px;
-	height:200px;
+	left: calc(50vw - 400px);
+	top: 100vh;
+	z-index:9999999;
 }
 
 .article {
@@ -82,6 +95,9 @@ background: none repeat scroll 0 0 #00D9FF;
 	border-width: 3px;
 }
 
+.sec_list img{
+cursor:pointer;
+}
 .col-md-7{
 margin: 75px 5px 50px 35px;
 }
@@ -109,9 +125,87 @@ margin: 75px 5px 50px 35px;
     margin:20px 0px 10px 0px;
  
 }
+
+
+@font-face {
+    font-family: 'Pacifico';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Pacifico'), url('http://themes.googleusercontent.com/font?kit=fKnfV28XkldRW297cFLeqfesZW2xOQ-xsNqO47m55DA') format('truetype');
+}
+/* body { */
+/*     text-align: center; */
+/* } */
+
+#button {
+    display: inline-block;
+    margin-top: 20%;
+    display: inline-block;
+    width:120px;
+    height:120px;
+     border-radius: 50%;
+    -webkit-box-shadow:    0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+    -moz-box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+    box-shadow: 0 8px 0 #c5376d, 0 15px 20px rgba(0, 0, 0, .35);
+    -webkit-transition: -webkit-box-shadow .1s ease-in-out;
+    -moz-transition: -moz-box-shadow .1s ease-in-out;
+    -o-transition: -o-box-shadow .1s ease-in-out;
+    transition: box-shadow .1s ease-in-out;
+    font-size: 50px;
+    color: #fff;
+    position:relative;
+    left:15px;
+}
+
+#button span {
+    display: inline-block;
+    padding: 20px 30px;
+    background-color: red;
+    background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(hsla(338, 90%, 80%, .8)), to(hsla(338, 90%, 70%, .2)));
+    background-image: -webkit-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+    background-image: -moz-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+    background-image: -o-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
+    width:120px;
+    height:120px;
+    border-radius: 50%;
+    -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
+    font-family: 'Pacifico', Arial, sans-serif;
+    line-height: 1;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, .7);
+    -webkit-transition: background-color .2s ease-in-out, -webkit-transform .1s ease-in-out;
+    -moz-transition: background-color .2s ease-in-out, -moz-transform .1s ease-in-out;
+    -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
+    transition: background-color .2s ease-in-out, transform .1s ease-in-out;
+}
+
+#button:hover span {
+display: inline-block;
+    background-color: #ec6a9c;
+    text-shadow: 0 -1px 1px rgba(175, 49, 95, .9), 0 0 5px rgba(255, 255, 255, .8);
+}
+
+#button:active, #button:focus {
+display: inline-block;
+    -webkit-box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+    -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+    box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
+}
+
+#button:active span {
+display: inline-block;
+    -webkit-transform: translate(0, 4px);
+    -moz-transform: translate(0, 4px);
+    -o-transform: translate(0, 4px);
+    transform: translate(0, 4px);
+}
 </style>
 
 <script>
+
+
+
 	var types = JSON.parse('${jTypes}');
 	var secs = JSON.parse('${secs}');
 	// 	console.log('${jTypes}');
@@ -120,7 +214,43 @@ margin: 75px 5px 50px 35px;
 
 	$(document).ready(
 			   function() {
-				
+				   document.getElementById('button').onclick = (function() {
+					    document.getElementsByTagName('audio')[0].play();
+					    document.getElementsByTagName('span')[0].innerHTML = 'GO';
+					    return false;
+					});
+
+				   $('#circle3').click(function(){
+						var form = $('#myForm')
+						var data = form.serializeArray();
+						var action = new Object();
+						action.name = "action";
+						action.value = "insert";
+						data.push(action);
+						var typeID = new Object();
+						typeID.name = "typeID";
+						typeID.value = $('#circle1>img').attr('id');
+						data.push(typeID);
+						var sectionID =  new Object();
+						sectionID.name = "sectionID";
+						sectionID.value = $('#circle2>img').attr('id');
+						data.push(sectionID);
+						console.log(JSON.stringify(data));
+						$.post('target',data,function(data){
+							$('#errorMsg').text(data);
+							if(data.length == 0) {
+								$("#set").css("height",$("#set").height())
+								form.css("display","none");
+								go();
+							}
+						})
+						
+			         });
+				   
+				   $('#resetBtn').click(function(){
+						document.getElementById("myForm").reset();
+						$("#errorMsg").text("");
+					})
 
 				
 				var frag = $(new DocumentFragment());
@@ -159,7 +289,11 @@ margin: 75px 5px 50px 35px;
 							accept : ".type",
 							drop : function(ev, ui) {
 								$(this).attr("src", ui.draggable.attr("src"));
-
+                                if(ui.draggable.attr('id')==0){
+                                	$("#circle3").fadeIn("slow");
+									$("#myForm").fadeIn("slow");
+                                }else{
+                                	
 								$('#secs').empty();
 								$("#secs").html('<div><a href="${pageContext.request.requestURL}" title="Close" class="close">X</a></div>');
 								$("#circle2").fadeIn("slow");
@@ -181,11 +315,44 @@ margin: 75px 5px 50px 35px;
 									d.append(s);
                                     
 									(s).click(function() {
-										$("#circle2>img").attr("src",
+// 										$("#circle2>img").attr("src",
+// 												$(this).attr("src")).css({
+// 											"border" : "5px solid black",
+// 											"border-radius" : "60px",
+// 										});
+										var circle2 = $('#circle2');
+										circle2.empty();
+										var label = $("<label></label>").text($(this).attr("title"))
+																		.css({
+																			"display" : "block",
+																			"font-size" : "12pt",
+																			"position" : "relative",
+																			"top" : "-10px",
+																			"font-family":"Segoe UI",
+																			"font-weight":"680"
+																		})
+										
+										
+										var img = $("<img></img>").attr("src",
 												$(this).attr("src")).css({
+													"width" : "60%",
+													"height" : "60%"
+												})
+										
+										var div = $("<div></div>").css({
+											"width" : "120px",
+											"height" : "120px",
 											"border" : "5px solid black",
 											"border-radius" : "60px",
+											"padding-top" : "10px",
+											"text-align" : "center",
+											"position" : "relative",
+											"left" : "40px",
+											"top" : "10px"
 										});
+										div.append(img);
+										div.append(label);
+										circle2.append(div);
 										
 										$('#secs').empty().hide();
 										
@@ -193,44 +360,25 @@ margin: 75px 5px 50px 35px;
 										
 										$("#myForm").fadeIn("slow");
 
-										$('#submit').click(function(e){
-											var myForm = document.querySelector("#myForm");
-											var postData = new FormData(myForm);
-											postData.append("action","insert");
-											var formURL = $(myForm).attr("action");
-											 $.ajax(
-											{
-												url : formURL,
-												type: "POST",
-												data : postData,
-								           		processData: false,
-												contentType: false,
-									            success:function(data) 
-									            {
-												    alert("資料寫入成功");
-													
-												},
-											});
-											
-						                 });
 									});
 								});
 								
 								$("#secs").fadeIn("slow");
-							}
+							}} //else end
 						});
 
-				$('#circle3').click(function() {
-
+				function go(){
+					$('.background').show();
+					$("#rocket").fadeIn("fast");
 					$('#rocket').animate({
 						//'left':'0px',
-						'top':'-100px',
+						'top':-$(this).height(),
 	 					'opacity':'0',
 						//'width':'50px',
 						//'height':'50px'
-					},2000,function(){location.href='test.jsp';}
+					},2500,function(){location.href='test.jsp';}
 					);
-				});		
+				};		
 				
 			});
 </script>
@@ -299,7 +447,8 @@ margin: 75px 5px 50px 35px;
 			<div class="col-md-5">
 			 <div id="circle1" ><img class="goal" src="images/sec_list/goal.png"></div>
 			 <div id="circle2" style="display:none;"><img class="goal" src="images/sec_list/sec.png"></div>
-			 <div id="circle3" style="display:none;"><img class="goal" src="images/sec_list/go.png"></div>
+<!-- 			 <div id="circle3" style="display:none;"><img class="goal" src="images/sec_list/go.png"></div> -->
+			 <div id="circle3" style="display:none;"><div id="button"><span>GO</span></div></div>
 			</div>
 			
 <!-- 			form -->
@@ -340,10 +489,9 @@ margin: 75px 5px 50px 35px;
 								<option value="3">私人</option>
 							</select>
 						</div>
-						<div style="display:inline;width: 30em;border-color:red;border-style: solid;"></div>
+						<div id="errorMsg" style="display:inline;width: 30em;color:red;"></div>
 						<div class="form-group">
-							<input id="reset" value="重設" type="button"/>
-							<input id="submit" value="確認"  type="button"/>
+							<input id="resetBtn" value="重設" type="button"/>
 						</div>
 						
 					</form>
@@ -352,6 +500,7 @@ margin: 75px 5px 50px 35px;
             </div>
 			
 		</article>
+		<div class="background"></div>
 		<img src="images/start.png" id="rocket">
 	</div>
 
