@@ -66,7 +66,11 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 	public  static final String SEARCH_LIKE = " select * from target where trgType =1 and trgName like ?" ;
 
-	public  static final String SHOW_OFFICIAL = "select * from target where trgType =1 and timeFinish >= GETDATE()";
+	public  static final String SHOW_OFFICIAL = "select t.trgName,ty.typeName,s.secName,t.intention,t.difficulty,t.timeFinish,t.typeID,t.sectionID,t.targetID" + 
+												" from target t" +   
+												" JOIN type_list ty ON ty.typeID = t.typeID" + 
+												" JOIN sec_list s ON s.secID = t.sectionID" + 
+												" where trgType =1 and timeFinish >= GETDATE()";
 	
 	public  static final String COUNT_NUMS_OF_TARGET_NAME = "SELECT COUNT(*) FROM target where trgName= ? and trgType =2 ";
 	
@@ -456,27 +460,24 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			pstmt = con.prepareStatement(SHOW_OFFICIAL);
 			rs = pstmt.executeQuery();
 			AchievementService achSvc = new AchievementService();
-		
+			TargetVO Trg = null;
+			TypeListVO type = null;
+			SecListVO sec = null;
 			while(rs.next()) {
-				
-				TargetVO Trg = new TargetVO();
+				Trg = new TargetVO();
+				type = new TypeListVO();
+				sec = new SecListVO();
 				Trg.setTargetID(rs.getInt("targetID"));
-				Trg.setTrgName(rs.getString("trgName"));	
-				Trg.setTypeVO(new TypeListService().getOneUser(rs.getInt("typeID")));
-				Trg.setSectionVO(new SecListService().getOneUser(rs.getInt("sectionID")));  
+				Trg.setTrgName(rs.getString("trgName"));
+				type.setTypeID(rs.getInt("typeID"));
+				type.setTypeName(rs.getString("typeName"));
+				Trg.setTypeVO(type);
+				sec.setSecID(rs.getInt("sectionID"));
+				sec.setSecName(rs.getString("secName"));
+				Trg.setSectionVO(sec);  
 				Trg.setDifficulty(rs.getInt("difficulty"));
 				Trg.setIntention(rs.getString("intention"));
-				Trg.setPrivacy(rs.getInt("privacy"));
-				Trg.setGenkiBar(rs.getInt("genkiBar"));
-				Trg.setAchVO(achSvc.getOneAchmt(rs.getInt("achID")));
-				Trg.setPriority(rs.getInt("priority"));
-				Trg.setRemindTimes(rs.getInt("remindTimes"));
-				Trg.setTrgType(rs.getInt("trgType"));
-				Trg.setPunishment(rs.getInt("punishment"));
-				Trg.setStatus(rs.getInt("status"));
-				Trg.setTimeStart(rs.getDate("timeStart"));
 				Trg.setTimeFinish(rs.getDate("timeFinish"));
-				Trg.setDoneTime(rs.getDate("doneTime"));
 				list.add(Trg);
 				
 				
