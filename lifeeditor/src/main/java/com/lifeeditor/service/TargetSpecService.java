@@ -29,4 +29,8 @@ public class TargetSpecService {
 	public List<Target_specVO> getAllByHotMan() {
 		return dao.getAllByHotMan();
 	}
+	
+	public List<Target_specVO> getByUser(Integer userID) {
+		return dao.findByUser(userID);
+	}
 }

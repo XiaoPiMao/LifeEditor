@@ -9,11 +9,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.target_spec.Target_specVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.TargetSpecService;
 import com.lifeeditor.service.Target_List_Service;
+import com.lifeeditor.utility.MyGson;
 
 /**
  * Servlet implementation class getTarget
@@ -38,6 +42,15 @@ public class getTarget extends HttpServlet {
 		Target_List_Service trgSvc = new Target_List_Service();
 		user_specVO user = (user_specVO)request.getSession().getAttribute("LoginOK");
 		List<Target_ListVO> list = trgSvc.findByUserID(user.getUserID());
+		JsonArray jsonArray = new JsonArray();
+		Gson gson = new Gson();
+		for(Target_ListVO targetList : list) {
+			jsonArray.add(gson.toJsonTree(targetList.getTrgVO()));
+		}
+		
+		response.setContentType("application/json");
+		response.setCharacterEncoding("utf-8");
+		response.getWriter().write(jsonArray.toString());
 	}
 
 }
