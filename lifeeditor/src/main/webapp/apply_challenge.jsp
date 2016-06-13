@@ -21,6 +21,9 @@
 
 
 var tr;
+var numberResult;
+var rateResult;
+var officialTrg;
 $(document).ready(function(){
 	
 	//*******************滑鼠點擊時，跳出的對話方塊。*****************		
@@ -45,9 +48,36 @@ $(document).ready(function(){
  				$('#applylist').fadeTo(1000,0.6);
  				
  				$.post("userAddTargetServlet",{"targetID":tr.id, "action":"insert"},function(data){
-		  			alert("已新增至清單");
-		  		});
+		  			officialTrg = $(tr).find("td:eq(0)").text();
 
+
+	 				$.ajax({
+						"type":"get",
+						"url":"${ctx}/userAddTargetServlet",
+						"data":{"action":"countNames", "keyword": officialTrg},
+						"success":function(data){
+							numberResult = data;
+							$.ajax({
+								"type":"get",
+								"url":"${ctx}/userAddTargetServlet",
+								"data":{"action":"rateNames", "keyword": officialTrg},
+								"success":function(data){
+									rateResult = data;
+									$(tr).find("td:eq(6)").text(numberResult + " 人");
+									$(tr).find("td:eq(7)").text(rateResult + "%");
+									alert("已新增至清單");
+								}
+							});
+						}
+					});
+	 				
+		  		});
+ 				
+ 				
+//					**********************************************				
+//					***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**	
+
+				
 	          },
 	          
           Cancel: function() {
@@ -57,10 +87,7 @@ $(document).ready(function(){
 	        },
 	    }); 
 	
-	    
-	
-    
- 
+
     
 });
 </script>
@@ -128,28 +155,7 @@ font-style: italic;
 				</tr>
 			</thead>
 			<tbody></tbody>
-<%-- 			<c:forEach var="TargetVO" varStatus="var" items="${TrgSvc.allofficial}"> --%>
-<%-- 			<tr id=${TargetVO.targetID } align='center' valign='middle'> --%>
-<%-- 				<td>${TargetVO.trgName}</td> --%>
-<!-- 				<td> -->
-<!-- 				<input type='button' value='我要參加' id='apply'> -->
-<!-- <!-- 				<button id="apply">我要參加</button>		 --> 
-<!-- 				</td> -->
-<%-- 				<td>${TargetVO.typeVO.typeName}</td> --%>
-<%-- 				<td>${TargetVO.sectionVO.secName}</td> --%>
-<%-- 				<td>${TargetVO.intention}</td> --%>
-<!-- 				<td> -->
-<%-- 				<c:if test="${TargetVO.difficulty == '1'}" >輕鬆</c:if> --%>
-<%-- 				<c:if test="${TargetVO.difficulty == '2'}" >簡單</c:if> --%>
-<%-- 				<c:if test="${TargetVO.difficulty == '3'}" >普通</c:if> --%>
-<%-- 				<c:if test="${TargetVO.difficulty == '4'}" >困難</c:if> --%>
-<%-- 				<c:if test="${TargetVO.difficulty == '5'}" >嚴酷</c:if> --%>
-<!-- 				</td> -->
-<!-- 				<td>0人</td> -->
-<!-- 				<td>0%</td> -->
-<%-- 				<td>${TargetVO.timeFinish}</td> --%>
-<!-- 				</tr> -->
-<%-- 		 </c:forEach> --%>
+
 		 	 
         <tfoot>
 
@@ -180,6 +186,7 @@ $(function(){
 	//***************所有的官方挑戰 (trgType=1的)*************//
 var oc;
 var ut;
+
 $.ajax({
 	url : "${ctx}/userAddTargetServlet",
 	dataType : "json",
@@ -202,20 +209,8 @@ $.ajax({
 				ut = data;
 				console.log(data);
 				addTable();
-//	 			$.each(data, function(index, target) {
-//	 				console.log("data :" + target.trgName);
-					
-//	 			  //console.log("data :" + data[index].trgName);
-
-//	 			});
-
 			}
 		});
-// 		$.each(data, function(index, official) {
-// 			console.log("挑戰名稱:     選取:    類別:   項目:   內容敘述:   難度:   參加人數:   達成率:   截止日期:");
-// 			console.log(official.trgName + official.typeVO.typeID + official.sectionVO.secID + official.intention + official.difficulty + official.timeFinish);
-// 		  //console.log("data :" + data[index].trgName);
-// 		});
 
 	}
 });
@@ -238,12 +233,41 @@ var s2 = {
 		'font-weight':'normal',
 		'border' : '1px solid green'  };
 
-
-	
 		
 		function addTable() {
 			var frg = $(new DocumentFragment());
+			
 			$.each(oc,function(i,official){
+				officialTrg = official.trgName;
+				//*********************************************************************
+//				***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**				
+				$.ajax({
+					"type":"get",
+					"url":"${ctx}/userAddTargetServlet",
+					"async": false,
+					"data":{"action":"countNames", "keyword": officialTrg},
+					"success":function(data){
+						numberResult = data;	
+					}
+				});
+//					**********************************************				
+//					***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**	
+
+				if(numberResult !=0 ){
+					$.ajax({
+						"type":"get",
+						"url":"${ctx}/userAddTargetServlet",
+						"async": false,
+						"data":{"action":"rateNames", "keyword": officialTrg},
+						"success":function(data){
+							rateResult = data;	
+						}
+					});
+					
+					
+				}
+				
+				
 				
 				var applied = false;
 				var tr = $("<tr></tr>").attr({"id":official.targetID,
@@ -261,17 +285,9 @@ var s2 = {
 					var td = $("<td></td>").text(official.trgName).addClass("send");
 					tr.append(td);
 					
-// 					var input = $("<input></input>").attr({"type":"button","value":"已報名","id":"apply", "disabled": true,"color": "red"});
-// 					tr.append($("<td></td>").append(input)).addClass("send");
 					
 					var input = $("<input></input>").attr({"type":"button","value":"已報名","id":"apply", "disabled": true}).css('font-style', 'italic');
-					tr.append($("<td></td>").addClass("send").append(input));
-					
-// 	  	 			$(tr).find("#apply").prop('value', '已報名')
-// 	  		 	    $(tr).find("#apply").prop('disabled', true);
-// 	  	 			$(tr).find("#apply").css('color','red');
-					
-					
+					tr.append($("<td></td>").addClass("send").append(input));				
 					tr.append($("<td></td>").text(official.typeVO.typeName).addClass("send"));
 					tr.append($("<td></td>").text(official.sectionVO.secName).addClass("send"));
 					tr.append($("<td></td>").text(official.intention).addClass("send"));	
@@ -284,8 +300,8 @@ var s2 = {
 						case 5 : difficulty = "嚴酷";break;
 					}
 					tr.append($("<td></td>").text(difficulty).addClass("send"));
-					tr.append($("<td></td>").text("0人").addClass("send"));
-					tr.append($("<td></td>").text("0%").addClass("send"));
+					tr.append($("<td></td>").text(numberResult + " 人").addClass("send"));
+					tr.append($("<td></td>").text(rateResult + "%").addClass("send"));
 					tr.append($("<td></td>").text(official.timeFinish).addClass("send"));
 				}
 				else {
@@ -305,8 +321,8 @@ var s2 = {
 						case 5 : difficulty = "嚴酷";break;
 					}
 					tr.append($("<td></td>").text(difficulty));
-					tr.append($("<td></td>").text("0人"));
-					tr.append($("<td></td>").text("0%"));
+					tr.append($("<td></td>").text(numberResult + " 人"));
+					tr.append($("<td></td>").text(rateResult + "%"));
 					tr.append($("<td></td>").text(official.timeFinish));
 			
 				}
@@ -336,10 +352,7 @@ var s2 = {
 						
 				    console.log("任務ID是: " +  $(this).attr("id")); //印出點，選時候所取得的任務ID值
 				    tr = this;  	  //把tr用全域變數存起來，以免到時候this換人 	
-				    console.log($(tr).find('td:eq(0)').text());
-// 				    console.log("任務名稱是: " + $("tr").text()); 
-// 				    console.log("任務名稱是: " + $("tr td:first-child")); 
-				    
+				    console.log($(tr).find('td:eq(0)').text());			    
 				    
 					$( "#dialog" ).dialog( "open" );
 
@@ -348,29 +361,7 @@ var s2 = {
 		
 });
 
-// <c:forEach var="TargetVO" varStatus="var" items="${TrgSvc.allofficial}">
-// <tr id=${TargetVO.targetID } align='center' valign='middle'>
-// 	<td>${TargetVO.trgName}</td>
-// 	<td>
-// 	<input type='button' value='我要參加' id='apply'>
-// 	<button id="apply">我要參加</button>		
-// 	</td>
-// 	<td>${TargetVO.typeVO.typeName}</td>
-// 	<td>${TargetVO.sectionVO.secName}</td>
-// 	<td>${TargetVO.intention}</td>
-// 	<td>
-// 	<c:if test="${TargetVO.difficulty == '1'}" >輕鬆</c:if>
-// 	<c:if test="${TargetVO.difficulty == '2'}" >簡單</c:if>
-// 	<c:if test="${TargetVO.difficulty == '3'}" >普通</c:if>
-// 	<c:if test="${TargetVO.difficulty == '4'}" >困難</c:if>
-// 	<c:if test="${TargetVO.difficulty == '5'}" >嚴酷</c:if>
-// 	</td>
-// 	<td>0人</td>
-// 	<td>0%</td>
-// 	<td>${TargetVO.timeFinish}</td>
-// 	</tr>
-// </c:forEach>
-	
+
 
 		
 	
