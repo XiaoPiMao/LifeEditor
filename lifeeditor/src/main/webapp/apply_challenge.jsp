@@ -180,6 +180,7 @@ $(function(){
 	//***************所有的官方挑戰 (trgType=1的)*************//
 var oc;
 var ut;
+
 $.ajax({
 	url : "${ctx}/userAddTargetServlet",
 	dataType : "json",
@@ -238,12 +239,26 @@ var s2 = {
 		'font-weight':'normal',
 		'border' : '1px solid green'  };
 
-
-	
 		
 		function addTable() {
 			var frg = $(new DocumentFragment());
+			var result;
 			$.each(oc,function(i,official){
+				
+// 				***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**				
+				$.ajax({
+					"type":"get",
+					"url":"${ctx}/userAddTargetServlet",
+					"async": false,
+					"data":{"action":"countNames", "keyword": official.trgName},
+					"success":function(data){
+						result = data;
+						console.log("人數為: "+ result +" 人");	
+					}
+				});
+		
+// 				**********************************************				
+				
 				
 				var applied = false;
 				var tr = $("<tr></tr>").attr({"id":official.targetID,
@@ -284,7 +299,7 @@ var s2 = {
 						case 5 : difficulty = "嚴酷";break;
 					}
 					tr.append($("<td></td>").text(difficulty).addClass("send"));
-					tr.append($("<td></td>").text("0人").addClass("send"));
+					tr.append($("<td></td>").text(result + " 人").addClass("send"));
 					tr.append($("<td></td>").text("0%").addClass("send"));
 					tr.append($("<td></td>").text(official.timeFinish).addClass("send"));
 				}
@@ -305,7 +320,7 @@ var s2 = {
 						case 5 : difficulty = "嚴酷";break;
 					}
 					tr.append($("<td></td>").text(difficulty));
-					tr.append($("<td></td>").text("0人"));
+					tr.append($("<td></td>").text(result + " 人"));
 					tr.append($("<td></td>").text("0%"));
 					tr.append($("<td></td>").text(official.timeFinish));
 			

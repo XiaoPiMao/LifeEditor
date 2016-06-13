@@ -118,20 +118,14 @@ public class userAddTargetServlet extends HttpServlet {
 		if("countNames".equals(action)) { // 來自achievement.jsp的請求
 			
 			res.setCharacterEncoding("UTF-8");
-			res.setContentType("application/json");
-			
 			String keyword = req.getParameter("keyword");
-			
-			
+				
 			trgSrvc =  new TargetService();
-			TargetVO trgVO =  trgSrvc.countNumsOfTargetName(keyword);
+			int result =  trgSrvc.countNumsOfTargetName(keyword);
 			
-			
-			jsonStr = MyGson.GSON.toJson(trgVO);
 			os = res.getWriter();
-			os.print(jsonStr);
-
-					
+			os.print(result);
+		
 			return;
 		}
 			 

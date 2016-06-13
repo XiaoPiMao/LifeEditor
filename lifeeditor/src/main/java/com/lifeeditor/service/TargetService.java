@@ -127,7 +127,7 @@ public class TargetService {
 		return;
 	}
 	
-	public TargetVO countNumsOfTargetName(String keyword){
+	public int countNumsOfTargetName(String keyword){
 		return dao.countNumsOfTargetName(keyword);
 		
 	}

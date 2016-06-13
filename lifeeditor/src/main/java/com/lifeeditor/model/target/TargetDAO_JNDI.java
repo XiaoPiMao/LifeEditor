@@ -68,7 +68,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 
 	public  static final String SHOW_OFFICIAL = "select * from target where trgType =1 and timeFinish >= GETDATE()";
 	
-	public  static final String COUNT_NUMS_OF_TARGET_NAME = "SELECT COUNT(*) FROM target where trgName= ? and trgType =2 ";
+	public  static final String COUNT_NUMS_OF_TARGET_NAME = "SELECT COUNT(*) FROM target where trgName=? and trgType =2 ";
 	
 	public  static final String SHOW_ALL_CHALLENGE_NAME_FROM_USER = "SELECT trgName FROM target INNER JOIN target_list "+
 	"ON target.targetID = target_list.targetID where userID = ? and trgType = 2 and timeFinish >= GETDATE()";
@@ -594,9 +594,9 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 
 	
 	@Override
-	public TargetVO countNumsOfTargetName(String keyword) {
+	public int countNumsOfTargetName(String keyword) {
 
-		TargetVO TrgVO = new TargetVO();
+		int result = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -610,7 +610,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 		
 			if(rs.next()) {
-				TrgVO.setTrgName(rs.getString("trgName"));
+				result = rs.getInt(1); 
 				
 					
 			}	
@@ -640,7 +640,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				}
 			}
 		}
-		return TrgVO;
+		return result;
 		
 	}
 	
