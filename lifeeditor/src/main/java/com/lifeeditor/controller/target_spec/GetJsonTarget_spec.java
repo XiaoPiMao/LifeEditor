@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.lifeeditor.model.target_list.Target_ListVO;
@@ -36,18 +37,21 @@ public class GetJsonTarget_spec extends HttpServlet {
 			TargetSpecService trgSpcSvc = new TargetSpecService();
 			user_specVO user = (user_specVO)request.getSession().getAttribute("LoginOK");
 			List<Target_specVO> list = trgSpcSvc.getByUser(user.getUserID());
-			JsonArray jsonArray = new JsonArray();
-			JsonObject jsonObj = new JsonObject();
-			Gson gson = new Gson();
+			JsonArray jArray = null;
+			JsonObject jObj = null;
+			JsonObject jObj2 = null;
+			Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().create();
 			for(Target_specVO targetSpec : list) {
+				jArray = new JsonArray();
+				jObj = new JsonObject();
 				
-//				jsonObj.add(targetSpec.getTargetVO().getTargetID(), value);
-//				jsonArray.add(gson.toJsonTree(targeSpec.getTrgVO()));
+				//jObj.add(targetSpec.getTargetVO().getTargetID().toString(), gson.);
+				//jArray.add(gson.toJsonTree(targeSpec.getTrgVO()));
 			}
 			
 			response.setContentType("application/json");
 			response.setCharacterEncoding("utf-8");
-			response.getWriter().write(jsonArray.toString());
+			//response.getWriter().write(jsonArray.toString());
 		}
 
 	}
