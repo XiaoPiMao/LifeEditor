@@ -290,6 +290,23 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public Target_specVO findByTargetID(Integer TargetID) {
+		
+		Target_specVO vo =  new Target_specVO();
+		vo =	(Target_specVO) hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ?", TargetID).get(0);
+		//System.out.println("findByTargetID :" + vo.getTrgPicPath());
+		return vo;
+	}
+	@Override
+	public List<Target_specVO> getNote(Integer userID, Integer targetID) {
+		List<Target_specVO> list = null;
+		list = hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ? and t.userVO.userID = ?",targetID ,userID);
+		return list;
+	}
+	
+	
 //
 	public static void main(String[] args) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("model-config1-DriverManagerDataSource.xml");
@@ -345,17 +362,13 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 //		 System.out.println(dao.findByTargetID(25));
 	}
 
+
+
+	
+
 	
 	  
-@Override
-public Target_specVO findByTargetID(Integer TargetID) {
-	
-	Target_specVO vo =  new Target_specVO();
-	vo =	(Target_specVO) hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ?", TargetID).get(0);
-	//System.out.println("findByTargetID :" + vo.getTrgPicPath());
-	return vo;
 
-}
 
 
 

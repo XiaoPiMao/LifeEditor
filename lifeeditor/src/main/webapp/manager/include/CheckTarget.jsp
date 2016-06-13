@@ -9,8 +9,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>審核官方挑戰</title>
 <link href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script src="${ctx}/manager/js/jquery-1.12.4.min.js"></script>
 <script src="${ctx}/manager/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -29,22 +27,19 @@ $(document).ready(function(){
 </head>
 <body>
 <div align="center">
-<table id="example" class="display" cellspacing="0" width=auto>
+<table id="example" class="display" cellspacing="0" width="100%">
         <thead>
             <tr>
-  		          
+  		          <th>審核狀態</th>
                 <th>目標名稱</th>
                 <th>目標ID</th>
                 <th>完成獎勵</th>   
-                <th>審核狀態</th>
+               
                 <th>審核GO</th>
             </tr>
         </thead>
          <c:forEach var="TargetVO" varStatus="var" items="${targetSvc.all}">
 	         <tr align='center' valign='middle'>
-				<td>${TargetVO.trgName}</td>
-				<td>${TargetVO.targetID} </td>				
-				<td>${TargetVO.achVO.achName}	</td>
 				<td>	
 						<c:choose>
 							<c:when test="${TargetVO.status == '1'}">
@@ -58,6 +53,10 @@ $(document).ready(function(){
 							</c:otherwise>
 						</c:choose>
                 </td> 		            
+				<td>${TargetVO.trgName}</td>
+				<td>${TargetVO.targetID} </td>				
+				<td>${TargetVO.achVO.achName}	</td>
+				
 				<td>
 							<form action="TargetSpecServlet" method="post">
 								<input type="submit" value="前往審核">
@@ -95,10 +94,11 @@ $(document).ready(function(){
 
         <tfoot>
             <tr>
+            <th>審核狀態</th>
                <th>目標名稱</th>
                 <th>目標ID</th>
                  <th>完成獎勵</th> 
-                <th>審核狀態</th>
+                
                 <th>審核GO</th>
                
             </tr>

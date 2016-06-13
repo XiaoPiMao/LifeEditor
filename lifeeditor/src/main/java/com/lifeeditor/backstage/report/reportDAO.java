@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-
 import java.sql.SQLException;
 
 import javax.naming.Context;
@@ -12,7 +11,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.lifeeditor.gobalService.GlobalService;
+import com.lifeeditor.utility.GlobalValues;
+
 
 public class reportDAO  implements Serializable{
 	
@@ -24,7 +24,7 @@ public class reportDAO  implements Serializable{
 	public reportDAO(){
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup(GlobalService.JNDI_DB_NAME);
+			ds = (DataSource) ctx.lookup(GlobalValues.DS_LOOKUP);
 		} catch (NamingException e) {			
 			e.printStackTrace();
 		}

@@ -1,4 +1,4 @@
-package com.lifeeditor.model.genkiBar_list;
+package com.lifeeditor.model.ach_list;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,11 +9,11 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Transactional(readOnly = true)
-public class genkiBar_listDAO implements genkiBar_listDAO_interface{
+public class ach_listDAO implements ach_list_interface{
 	
-	private static final String GET_GENKINAME = "from genkiBar_listVO where targetID=?";
-	
+	private static final String GET_ACHNAME = "from ach_listVO where userID=?";
 	
 
 	
@@ -24,24 +24,24 @@ public class genkiBar_listDAO implements genkiBar_listDAO_interface{
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void insert(genkiBar_listVO user_specVO) {
+	public void insert(ach_listVO user_specVO) {
 		hibernateTemplate.saveOrUpdate(user_specVO);
 		
 	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void delete(Integer genkiBarID) {
-		genkiBar_listVO genkiBar_listVO = new genkiBar_listVO(); //�������h�����p���Y��A�A�R��
-		genkiBar_listVO.setGenkiBarID(genkiBarID);
-		hibernateTemplate.delete(genkiBar_listVO);
+	public void delete(Integer ach_listID) {
+		ach_listVO ach_listVO = new ach_listVO(); //�������h�����p���Y��A�A�R��
+		ach_listVO.setAch_listID(ach_listID);
+		hibernateTemplate.delete(ach_listVO);
 		
 	}
 	@Override
-	public List<genkiBar_listVO> getGenkiName(Integer targetID) {
+	public List<ach_listVO> getAchName(Integer userID) {
 		System.out.println(hibernateTemplate);
-		List<genkiBar_listVO> list = null;
-		list = hibernateTemplate.find(GET_GENKINAME, targetID);
+		List<ach_listVO> list = null;
+		list = hibernateTemplate.find(GET_ACHNAME, userID);
 		return list;
 	}
 
@@ -52,9 +52,9 @@ public class genkiBar_listDAO implements genkiBar_listDAO_interface{
 		ApplicationContext context = new ClassPathXmlApplicationContext("model-config1-DriverManagerDataSource.xml");
         
        
-		genkiBar_listDAO_interface dao =(genkiBar_listDAO_interface) context.getBean("user_specDAO");
+		ach_list_interface dao =(ach_list_interface) context.getBean("user_specDAO");
+        System.out.println("");
 
-		
 
 //		EmpVO empVO1 = new EmpVO();
 //		empVO1.setEname("�d�ç�1");

@@ -1,6 +1,8 @@
 package com.lifeeditor.controller.target;
 
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +15,7 @@ import com.lifeeditor.model.target_spec.Target_specVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.TargetService;
 import com.lifeeditor.service.TargetSpecService;
+import com.lifeeditor.service.Target_List_Service;
 import com.lifeeditor.service.user_specService;
 
 
@@ -44,16 +47,25 @@ public class TargetSpecServlet extends HttpServlet {
 //  	Integer trgNote = Integer.parseInt(request.getParameter("trgNote"));
 
 		TargetSpecService trgSpeSvc = new TargetSpecService();
+		Target_List_Service trg_listSvc = new Target_List_Service();
+		
+		Integer userID = new Integer(trg_listSvc.findByTargetID(targetID).getUserVO().getUserID());
+		
+		List<Target_specVO> trgList = trgSpeSvc.getNote(userID, targetID);
+		request.setAttribute("trgList", trgList);
+		
 		
 		Target_specVO vo = trgSpeSvc.getOneTrgSpec(targetID);
 		System.out.println( "vo img path------------------------------------------ :" + vo.getTrgPicPath());
 		request.setAttribute("setOK",vo);
+		
+		
 		RequestDispatcher successMsg =request.getRequestDispatcher("/manager/showTargetSpec.jsp");
 		successMsg.forward(request,response);
 		return;
 
 	    
-
+		
 	}
 
 }

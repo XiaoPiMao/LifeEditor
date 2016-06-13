@@ -1,6 +1,5 @@
 package com.lifeeditor.model.achievement;
 
-import java.sql.Blob;
 import java.util.*;
 
 import org.hibernate.*;
@@ -80,6 +79,7 @@ public class AchievementHibernateDAO implements AchievementDAO_interface{
 		return achVO;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<AchievementVO> getAll() {
 		List<AchievementVO> list = null;
 		Session session = com.lifeeditor.utility.HibernateUtil.getSessionFactory().getCurrentSession();

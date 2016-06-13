@@ -6,6 +6,7 @@ public class genkiBar_listVO implements java.io.Serializable{
 	private Integer genkiBarID;
 	private Integer targetID;
 	private user_specVO user_specVO;
+	
 	public Integer getGenkiBarID() {
 		return genkiBarID;
 	}

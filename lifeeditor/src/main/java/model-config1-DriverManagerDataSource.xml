@@ -13,9 +13,9 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
   
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource"> 
         <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/> 
-        <property name="url" value="jdbc:sqlserver://localhost:1433;DatabaseName=LE01"/> 
-        <property name="username" value="sa"/> 
-        <property name="password" value="password"/> 
+        <property name="url" value="jdbc:sqlserver://b8u90arerg.database.windows.net:1433;database=LE01;"/> 
+        <property name="username" value="lifeeditor@b8u90arerg"/> 
+        <property name="password" value="Passw0rd"/> 
     </bean> 
     
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean" destroy-method="destroy"> 
@@ -28,7 +28,8 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
                 <value>com/lifeeditor/model/target_list/target_list.hbm.xml</value>
                 <value>com/lifeeditor/model/target/target.hbm.xml</value>
                 <value>com/lifeeditor/model/achievement/achievement.hbm.xml</value> 
-                <value>com/lifeeditor/model/target_spec/target_spec.hbm.xml</value>                     
+                <value>com/lifeeditor/model/target_spec/target_spec.hbm.xml</value>           
+                <value>com/lifeeditor/model/ach_list/ach_list.hbm.xml</value>             
             </list> 
         </property> 
         <property name="hibernateProperties"> 
@@ -74,6 +75,9 @@ http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
         <property name="hibernateTemplate" ref="hibernateTemplate"/> 
     </bean>   
 
+	<bean id="ach_listDAO" class="com.lifeeditor.model.ach_list.ach_listDAO">
+        <property name="hibernateTemplate" ref="hibernateTemplate"/> 
+    </bean>   
 
     <bean id="transactionManager"
         class="org.springframework.orm.hibernate3.HibernateTransactionManager">
