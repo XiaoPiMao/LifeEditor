@@ -16,24 +16,23 @@
 <style>
 .close {
 background: none repeat scroll 0 0 #606061;
-border-radius: 12px 12px 12px 12px;
-box-shadow: 1px 1px 3px #000000;
+border-radius: 15px;
+
 color: #FFFFFF;
 font-weight: bold;
-line-height: 25px;
-position: absolute;
-right: -12px;
+position: relative;
+height:30px;
+width: 30px;
+float:right;
+margin:3px 6px 0px 0px;
 text-align: center;
-text-decoration: none;
-top: -10px;
-width: 24px;
 }
 
 .close:hover {
 background: none repeat scroll 0 0 #00D9FF;
 }
 
-#alligator {
+#rocket {
 	position: fixed;
 	left: 1300px;
 	bottom: 0;
@@ -162,6 +161,7 @@ margin: 75px 5px 50px 35px;
 								$(this).attr("src", ui.draggable.attr("src"));
 
 								$('#secs').empty();
+								$("#secs").html('<div><a href="${pageContext.request.requestURL}" title="Close" class="close">X</a></div>');
 								$("#circle2").fadeIn("slow");
 								$.each(secs[ui.draggable.attr("id")], function(
 										i, sec) {
@@ -178,7 +178,6 @@ margin: 75px 5px 50px 35px;
 										helper : "clone",
 										revert : "invalid"
 									});
-
 									d.append(s);
                                     
 									(s).click(function() {
@@ -187,6 +186,7 @@ margin: 75px 5px 50px 35px;
 											"border" : "5px solid black",
 											"border-radius" : "60px",
 										});
+										
 										$('#secs').empty().hide();
 										
 										$("#circle3").fadeIn("slow");
@@ -215,32 +215,22 @@ margin: 75px 5px 50px 35px;
 						                 });
 									});
 								});
+								
 								$("#secs").fadeIn("slow");
 							}
 						});
 
-				$('#alligator').click(function() {
-					//練習五 animate()
-					//使用者點選alligator的圖片後,使用5秒鐘的時間完成下列動作
-					//向右移動到200px的位置(left:200)
-					//向上移動到0px的位置(top:0)
-					//不透明度調整成0.3(opacity:0.3)
-					//寬度調整成200px(width:200)
-					//瀏覽網頁看看效果
-					$(this).animate({
+				$('#circle3').click(function() {
+
+					$('#rocket').animate({
 						//'left':'0px',
-						'top':'0px',
-	 					'opacity':'0.1',
+						'top':'-100px',
+	 					'opacity':'0',
 						//'width':'50px',
 						//'height':'50px'
-					},3000);
-
-				});
-				    
-//                        $('#reset').click(function(){
-//                     	  this.form.reset(); 
-//                        });
-				
+					},2000,function(){location.href='test.jsp';}
+					);
+				});		
 				
 			});
 </script>
@@ -314,9 +304,7 @@ margin: 75px 5px 50px 35px;
 			
 <!-- 			form -->
 			<div class="col-md-7">
-             <div id="secs" class="sec_list" ><button class="close-button" aria-label="Close alert" type="button">
-         <span aria-hidden="true">×</span>
-      </button></div>
+             <div id="secs" class="sec_list"></div>
 			
 					<div>
 					<form id="myForm" method="POST" action="target">
@@ -364,7 +352,7 @@ margin: 75px 5px 50px 35px;
             </div>
 			
 		</article>
-		<img src="images/start.png" id="alligator">
+		<img src="images/start.png" id="rocket">
 	</div>
 
 
