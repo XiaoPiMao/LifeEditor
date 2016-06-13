@@ -503,6 +503,12 @@ VALUES ('74','5','2013年，為了證明電動車的潛力，我創立特斯拉�
 INSERT INTO target_spec
 VALUES ('36','15','這次參加麥當勞的畫作活動，覺得非常充實，幫助別人也帶給自己心靈的成長，謝謝麥當勞讓我學到了很多！','http://www.bloglet.com/gallery/how-to-encourage-and-improve-kids-drawing-activities/how-to-encourage-and-improve-kids-drawing-activities.jpg');
 INSERT INTO target_spec
+VALUES ('36','15','第二次修改,謝謝麥當勞還提供免費的餐點，非常棒的一天，學到很多!','http://cdn3.t17.techbang.com.tw/system/attached_images/2013/07/100706/original/f982fb091834c480a14f5f8fa8c47fbd.jpg?1373425386');
+INSERT INTO target_spec
+VALUES ('36','15','第三次修改,我得到了畫畫冠軍，不只達成了目標，還有額外的收穫太棒了!','http://photo.ihergo.com/photo/product/11/300_11_1392728237769.jpg');
+
+
+INSERT INTO target_spec
 VALUES ('36','17','這次參加特斯拉-環保愛地球響應活動活動，覺得非常充實，幫助地球環境也帶給自己心靈的成長，謝謝特斯拉讓我學到了很多！','http://pic.qiantucdn.com/10/73/43/89bOOOPICa7.jpg');
 INSERT INTO target_spec
 VALUES ('37','16','麥當勞的畫作活動，真的好好玩也覺得學到好多，助人為快樂之本，謝謝麥當勞讓我學到了很多！','http://www.letu.life/wp-content/uploads/2015/12/14510936475418.jpg');

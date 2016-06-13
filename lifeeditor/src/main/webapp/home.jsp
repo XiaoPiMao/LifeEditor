@@ -49,7 +49,7 @@
 								<img height='45px' width='45px' src="HomeGetPicture">
 							</c:otherwise> 
 					</c:choose>
-				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();">  </a>    
+				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();">登出 </a>    
 							
 							
 								<li class="search">
