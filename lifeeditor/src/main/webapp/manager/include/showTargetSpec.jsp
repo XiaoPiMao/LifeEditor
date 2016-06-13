@@ -33,7 +33,8 @@ $(document).ready(function(){
 <div align="center">
 <table  style="border:2px #696969 solid; "  border='1'  id="example" class="display" cellspacing="0" width=auto>
          
-		    	    <c:forEach var="trgList" items="${trgList}">
+		    	    <c:forEach var="trgList" items="${trgList}" varStatus="idStatus">
+		    	    第${idStatus.count}次新增
 					<div style="border-width:3px;border-style:dashed;border-color:#FFAC55;padding:50px"><img src="${trgList.trgPicPath}"    width="400">	</div>
 					<br>
 <%-- 					心得內容：<h4>${trgList.trgNote}"</h4> --%>
@@ -43,16 +44,17 @@ $(document).ready(function(){
         <thead>
 	            <tr>
 		                <th>使用者帳號</th>
-		                <th>目標名稱</th>                
-		                <th>心得內容</th>        
-		                   
+		                <th>目標名稱</th>  
+		                 <c:forEach var="trgList" items="${trgList}"  varStatus="idStatus">                 
+		                <th>心得內容第${idStatus.count}次新增</th>        
+		                   </c:forEach>
 	            </tr>
         </thead>
   	
 	            <tr align='center' valign='middle'>
 						<td>${setOK.userVO.account}</td>
 						<td  width="300" height="300">${setOK.targetVO.trgName} </td>			
-					    <c:forEach var="trgList" items="${trgList}">		
+					    <c:forEach var="trgList" items="${trgList}" >		
 									<td>${trgList.trgNote} <br>
 					    </c:forEach>					
 														       
