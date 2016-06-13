@@ -45,5 +45,7 @@
 	<script src="${ctx }/js/bootstrap.min.js"></script>
 	<!-- AdminLTE App -->
 	<script src="${ctx }/manager/dist/js/app.min.js" ></script>
+	<script src="${ctx }/js/jquery-ui.min.js"></script>
+	<script src="${ctx }/manager/js/achievement.js"></script>
 </body>
 </html>
