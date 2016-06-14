@@ -118,24 +118,35 @@ public class userAddTargetServlet extends HttpServlet {
 		if("countNames".equals(action)) { // 來自achievement.jsp的請求
 			
 			res.setCharacterEncoding("UTF-8");
-			res.setContentType("application/json");
-			
 			String keyword = req.getParameter("keyword");
-			
-			
+				
 			trgSrvc =  new TargetService();
-			TargetVO trgVO =  trgSrvc.countNumsOfTargetName(keyword);
+			int result =  trgSrvc.countNumsOfTargetName(keyword);
 			
-			
-			jsonStr = MyGson.GSON.toJson(trgVO);
 			os = res.getWriter();
-			os.print(jsonStr);
-
-					
+			os.print(result);
+		
 			return;
 		}
 			 
-		 
+
+		
+		/*********************5.從挑戰名稱取得的keyword下SQL指令，以算出達成率****************************/
+		
+		if("rateNames".equals(action)) { // 來自achievement.jsp的請求
+			
+			res.setCharacterEncoding("UTF-8");
+			String keyword = req.getParameter("keyword");
+				
+			trgSrvc =  new TargetService();
+			int result =  trgSrvc.countRateOfTargetName(keyword);
+			
+			os = res.getWriter();
+			os.print(result);
+		
+			return;
+		}
+		
 			 
 	}
 

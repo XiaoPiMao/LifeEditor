@@ -9,6 +9,22 @@
   <script src="//code.jquery.com/jquery-1.10.2.js"></script>
   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <link rel="stylesheet" href="/resources/demos/style.css">
+  
+  <style>
+  
+  .alert
+{
+    font-size: 1.3em;
+    padding: 1em;
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+    word-wrap: normal;
+}
+  
+  </style>
+  
+  
   <script>
   $(function() {
     $( "#dialog" ).dialog({
@@ -37,6 +53,33 @@
       $( "#dialog" ).dialog( "open" );
     });
   });
+  
+  
+  
+  
+  
+  
+  
+  
+  window.alert = function(message){
+	    $(document.createElement('div'))
+	        .attr({title: 'Alert', 'class': 'alert'})
+	        .html(message)
+	        .dialog({
+	            buttons: {OK: function(){$(this).dialog('close');}},
+	            close: function(){$(this).remove();},
+	            draggable: true,
+	            modal: true,
+	            resizable: false,
+	            width: 'auto'
+	        });
+	};
+  
+  
+	function myFunction() {
+	    alert("I am an alert box!");
+	}
+  
   </script>
 </head>
 <body>
@@ -47,7 +90,7 @@
 </div>
  
 <button id="opener">點擊測試</button>
+<button onclick="myFunction()">Try it</button>
 
- 
 </body>
 </html>

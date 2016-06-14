@@ -2,6 +2,7 @@ package com.lifeeditor.model.target;
 
 import java.sql.Date;
 
+import com.google.gson.annotations.Expose;
 import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.type_list.TypeListVO;
@@ -9,22 +10,38 @@ import com.lifeeditor.model.type_list.TypeListVO;
 public class TargetVO implements java.io.Serializable {
 	 
 	private static final long serialVersionUID = 1L;
+	@Expose
 	private Integer targetID;
+	@Expose
 	private String trgName;
+	@Expose
 	private TypeListVO typeVO;
+	@Expose
 	private SecListVO sectionVO;
+	@Expose
 	private Integer difficulty;	
+	@Expose
 	private String intention;
+	@Expose
 	private Integer privacy;
+	@Expose
 	private Integer genkiBar;
 	private AchievementVO achVO;
+	@Expose
 	private Integer priority ;
+	@Expose
 	private Integer remindTimes;
+	@Expose
 	private Integer trgType;
+	@Expose
 	private Integer punishment;
+	@Expose
 	private Integer status;
+	@Expose
 	private Date timeStart;
+	@Expose
 	private Date timeFinish;
+	@Expose
 	private Date doneTime ;
 	
 	public Integer getTargetID() {

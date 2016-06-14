@@ -80,7 +80,7 @@
 			<!-- Social Login -->
 			<div class="social_login" style="margin:auto;">
 				<div class="">					
-					<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();" ></div>
+					<div class="fb-login-button" scope="email" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();" ></div>
 <!-- 						<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" ></fb:login-button> -->
 						<span class="icon"><i class="fa fa-facebook"></i></span>
 						<span class="icon_title">使用Facebook帳號</span>		
@@ -565,13 +565,11 @@
 				        {   
 				        		if(data != "") {
 				        			var errMsg = JSON.parse(data);	
-					    			
-	 				             	       	
 					        	    document.getElementById("ErrorMsg").innerHTML =errMsg.LoginError;       
 				        		}else {
 				        			window.location.href = "home.jsp"
 				        		}
-				    			
+				    		
 				        }
 				        
 				    });
@@ -603,8 +601,8 @@
 
 	window.fbAsyncInit = function() {
 		FB.init({
-		    	appId : '236995580009135',
-// 			appId : '467832290092585',
+	    	appId : '236995580009135',
+ 	//		appId : '467832290092585',
 			//appId : 1751012028468871,
 			cookie : true, // enable cookies to allow the server to access 
 			// the session
@@ -629,7 +627,7 @@
 		console.log('Welcome!  Fetching your information.... ');
 		FB.api('/me','GET', {"fields":"email,last_name,first_name,id,gender,picture{url}"},
 				  function(response){					
-//                      			console.log(JSON.stringify(response));
+                     			console.log(JSON.stringify(response));
 //  								console.log(response);
 			                console.log(response.picture);
 							 ajaxPost(response.email,response.last_name,response.first_name,response.id,response.gender,response.picture);														
@@ -644,7 +642,7 @@
 	function ajaxPost(email,last_name,first_name,id,gender,picture)
 
 	{
-			alert(JSON.stringify(picture));
+		//	alert(JSON.stringify(picture));
 	      //===AJAX POST===
 	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender, "PIC":JSON.stringify(picture)};
 	         $.ajax({

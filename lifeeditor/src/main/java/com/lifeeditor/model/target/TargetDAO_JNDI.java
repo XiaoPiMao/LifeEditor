@@ -50,7 +50,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	public  static final String GET_ALL_STMT = 
 			"SELECT targetID,trgName,typeID,sectionID,difficulty,intention,privacy,"
 			+ "genkiBar,achID,priority,remindTimes,trgType,punishment,status,timeStart,timeFinish,doneTime "
-			+ "FROM target order by targetID";
+			+ "FROM target where status = 2 ";
 	public  static final String GET_ONE_STMT = 
 			"SELECT targetID,trgName,typeID,sectionID,difficulty,intention,privacy,"
 			+ "genkiBar,achID,priority,remindTimes,trgType,punishment,status,timeStart,timeFinish,doneTime "
@@ -66,9 +66,15 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 	public  static final String SEARCH_LIKE = " select * from target where trgType =1 and trgName like ?" ;
 
-	public  static final String SHOW_OFFICIAL = "select * from target where trgType =1 and timeFinish >= GETDATE()";
+	public  static final String SHOW_OFFICIAL = "select t.trgName,ty.typeName,s.secName,t.intention,t.difficulty,t.timeFinish,t.typeID,t.sectionID,t.targetID" + 
+												" from target t" +   
+												" JOIN type_list ty ON ty.typeID = t.typeID" + 
+												" JOIN sec_list s ON s.secID = t.sectionID" + 
+												" where trgType =1 and timeFinish >= GETDATE()";
 	
-	public  static final String COUNT_NUMS_OF_TARGET_NAME = "SELECT COUNT(*) FROM target where trgName= ? and trgType =2 ";
+	public  static final String COUNT_NUMS_OF_TARGET_NAME = "SELECT COUNT(*) FROM target where trgName=? and trgType =2 ";
+	
+	public  static final String COUNT_RATES_OF_TARGET_NAME = "select convert(decimal(3,0),round((convert(decimal(2,0),   (SELECT COUNT(*) FROM target where trgName=? and trgType =2 and status = 3))/(SELECT COUNT(*) FROM target where trgName=? and trgType =2)  )*100,0))";
 	
 	public  static final String SHOW_ALL_CHALLENGE_NAME_FROM_USER = "SELECT trgName FROM target INNER JOIN target_list "+
 	"ON target.targetID = target_list.targetID where userID = ? and trgType = 2 and timeFinish >= GETDATE()";
@@ -89,7 +95,10 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			pstmt.setString(1, TrgVO.getTrgName());
 			pstmt.setInt(2, TrgVO.getTypeVO().getTypeID());
 			pstmt.setInt(3, TrgVO.getSectionVO().getSecID());
-			pstmt.setInt(4, TrgVO.getDifficulty());
+			if(TrgVO.getDifficulty() != null)
+				pstmt.setInt(4, TrgVO.getDifficulty());
+			else
+				pstmt.setNull(4, java.sql.Types.INTEGER);
 			pstmt.setString(5, TrgVO.getIntention());
 			if(TrgVO.getPrivacy() != null) 
 				pstmt.setInt(6, TrgVO.getPrivacy());
@@ -102,9 +111,12 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				pstmt.setNull(7, java.sql.Types.INTEGER);
 			
 			AchievementVO achVO = TrgVO.getAchVO();
-			if(achVO.getAchID() != null) 
-				pstmt.setInt(8, achVO.getAchID());
-			else
+			if(achVO != null) {
+				if(achVO.getAchID() != null) 
+					pstmt.setInt(8, achVO.getAchID());
+				else
+					pstmt.setNull(8, java.sql.Types.INTEGER);
+			}else
 				pstmt.setNull(8, java.sql.Types.INTEGER);
 			
 			if(TrgVO.getPriority() != null) 
@@ -386,14 +398,12 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 			AchievementService achSvc = new AchievementService();
-		
+		    
 			while(rs.next()) {
 				
 				TargetVO Trg = new TargetVO();
 				Trg.setTargetID(rs.getInt("targetID"));
-				Trg.setTrgName(rs.getString("trgName"));	
-				Trg.setTypeVO(new TypeListService().getOneUser(rs.getInt("typeID")));
-				Trg.setSectionVO(new SecListService().getOneUser(rs.getInt("sectionID")));  
+				Trg.setTrgName(rs.getString("trgName"));
 				Trg.setDifficulty(rs.getInt("difficulty"));
 				Trg.setIntention(rs.getString("intention"));
 				Trg.setPrivacy(rs.getInt("privacy"));
@@ -456,27 +466,24 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			pstmt = con.prepareStatement(SHOW_OFFICIAL);
 			rs = pstmt.executeQuery();
 			AchievementService achSvc = new AchievementService();
-		
+			TargetVO Trg = null;
+			TypeListVO type = null;
+			SecListVO sec = null;
 			while(rs.next()) {
-				
-				TargetVO Trg = new TargetVO();
+				Trg = new TargetVO();
+				type = new TypeListVO();
+				sec = new SecListVO();
 				Trg.setTargetID(rs.getInt("targetID"));
-				Trg.setTrgName(rs.getString("trgName"));	
-				Trg.setTypeVO(new TypeListService().getOneUser(rs.getInt("typeID")));
-				Trg.setSectionVO(new SecListService().getOneUser(rs.getInt("sectionID")));  
+				Trg.setTrgName(rs.getString("trgName"));
+				type.setTypeID(rs.getInt("typeID"));
+				type.setTypeName(rs.getString("typeName"));
+				Trg.setTypeVO(type);
+				sec.setSecID(rs.getInt("sectionID"));
+				sec.setSecName(rs.getString("secName"));
+				Trg.setSectionVO(sec);  
 				Trg.setDifficulty(rs.getInt("difficulty"));
 				Trg.setIntention(rs.getString("intention"));
-				Trg.setPrivacy(rs.getInt("privacy"));
-				Trg.setGenkiBar(rs.getInt("genkiBar"));
-				Trg.setAchVO(achSvc.getOneAchmt(rs.getInt("achID")));
-				Trg.setPriority(rs.getInt("priority"));
-				Trg.setRemindTimes(rs.getInt("remindTimes"));
-				Trg.setTrgType(rs.getInt("trgType"));
-				Trg.setPunishment(rs.getInt("punishment"));
-				Trg.setStatus(rs.getInt("status"));
-				Trg.setTimeStart(rs.getDate("timeStart"));
 				Trg.setTimeFinish(rs.getDate("timeFinish"));
-				Trg.setDoneTime(rs.getDate("doneTime"));
 				list.add(Trg);
 				
 				
@@ -594,9 +601,9 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 
 	
 	@Override
-	public TargetVO countNumsOfTargetName(String keyword) {
+	public int countNumsOfTargetName(String keyword) {
 
-		TargetVO TrgVO = new TargetVO();
+		int result = 0;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -610,7 +617,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 		
 			if(rs.next()) {
-				TrgVO.setTrgName(rs.getString("trgName"));
+				result = rs.getInt(1); 
 				
 					
 			}	
@@ -640,9 +647,63 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				}
 			}
 		}
-		return TrgVO;
+		return result;
 		
 	}
+	
+	
+
+	@Override
+	public int countRateOfTargetName(String keyword) {
+		int result = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(COUNT_RATES_OF_TARGET_NAME);
+			
+			pstmt.setString(1, keyword);
+			pstmt.setString(2, keyword);
+			rs = pstmt.executeQuery();
+	
+		
+			if(rs.next()) {
+				result = rs.getInt(1); 
+				
+					
+			}	
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("發生錯誤" + e.getMessage());
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return result;
+		
+	}
+
 	
 	
 	

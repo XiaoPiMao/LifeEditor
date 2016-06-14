@@ -41,7 +41,7 @@ public class AchievementServlet extends HttpServlet {
 		/*********************achievement.jsp頁面展示時，必走的程式****************************/
 		
 		if("autoComplete".equals(action)) { // 來自achievement.jsp的請求
-			
+			resp.setCharacterEncoding("UTF-8");
 			resp.setContentType("application/json");
 			String keyword = req.getParameter("keyword");
 			
