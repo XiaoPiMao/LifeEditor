@@ -1,6 +1,8 @@
 package com.lifeeditor.utility;
 
 import java.io.UnsupportedEncodingException;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.Base64;
 
 public class DoBase64 {
@@ -30,4 +32,13 @@ public class DoBase64 {
 	public static String encode(byte[] bytes) {
 		return encoder.encodeToString(bytes);
 	}
+	public static String encode(Blob blob) {
+		try {
+			return encode(blob.getBytes(1, (int)blob.length() ) );
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 }

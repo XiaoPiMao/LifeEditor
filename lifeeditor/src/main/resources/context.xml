@@ -16,9 +16,7 @@
   limitations under the License.
 --><!-- The contents of this file will be loaded for each web application -->
 <Context antiResourceLocking="false" privileged="true"
-                      reloadable="true" crossContext="true">
-
-	<Resource name="jdbc/LE01" auth="Container"
+                      reloadable="true" crossContext="true"><Resource name="jdbc/LE01" auth="Container"
          type="javax.sql.DataSource" driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
          url="jdbc:sqlserver://b8u90arerg.database.windows.net:1433;database=LE01"
          username="lifeeditor@b8u90arerg" password="Passw0rd" maxActive="20" maxIdle="10" maxWait="-1"/>

@@ -31,6 +31,7 @@ public class EmailUtils {
      * @param user 未激活的用户 
      */  
     public static void sendAccountActivateEmail(user_specVO user_specVO) {  
+    	System.out.println(user_specVO.getEmail());
         Session session = getSession();  
         MimeMessage message = new MimeMessage(session);  
         try {  

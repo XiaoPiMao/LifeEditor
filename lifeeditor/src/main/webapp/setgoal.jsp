@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>測試版_設定目標</title>
+<title>設定目標</title>
 <link href="css/jquery-ui.css" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css" />
 <script src="js/jquery.min.js"></script>
@@ -14,49 +14,84 @@
 <!-- <script src="js/validate.js"></script> -->
 
 <style>
-.set_goal {
+.background{
+position:fixed;
+left:0px;
+top:0px;
+width:100vw;
+height:100vh;
+background-color:black;
+opacity:0.5;
+z-index:5555555;
+display:none; 
+}
+.close {
+background: none repeat scroll 0 0 #606061;
+border-radius: 15px;
+color: #FFFFFF;
+font-weight: bold;
+position: relative;
+height:30px;
+width: 30px;
+float:right;
+margin:3px 6px 0px 0px;
+text-align: center;
+}
+.close:hover {
+background: none repeat scroll 0 0 #00D9FF;
+}
+#rocket {
+    display: none;
+    width : 800px; 
+	position: fixed;
+	left: calc(50vw - 400px);
+	top: 90vh;
+	z-index:9999999;
+}
+.article {
 	margin: auto;
 	width: 1200px;
 	text-align: center;
 }
-
 .type {
 	width: 120px;
 	height: 120px;
 	padding: 5px;
-	float: left;
+ 	float: left; 
 	margin: 0 10px 10px 10px;
 }
-
 #set {
-	width: 880px;
-	height: 220px;
+	width: 890px;
+	height: auto;
 	border: 2px solid #ff6666;
-	float: left;
-	margin: 30px 10px 50px 150px;
-	text-align: center;
+/*  	float: left; */
+	margin: 180px 150px 50px 150px;
+/* 	text-align: center; */
 }
-
 .goal {
 	width: 120px;
 	height: 120px;
-	display: inline-block;
-	float: left;
-	margin: 45px 10px 45px 60px;
+	margin: 20px 10px 10px 40px;
 }
-
 .sec_list {
-	display: none;
-	position: absolute;
-	z-index: 2;
-	left: 55px;
-	top: 180px;
-	width: 480px;
-	height: 360px;
-	overflow: scroll;
-	background-color: white;
+ 	display: none; 
+ 	z-index: 2; 
+ 	left: 250px; 
+ 	width: 500px; 
+	height: 360px; 
+ 	overflow: scroll; 
+ 	background-color: white; 
+ 	border-style: ridge;
+	border-color: #66ffff;
+	border-width: 3px;
 }
-
+.sec_list img{
+cursor:pointer;
+}
+.col-md-7{
+margin: 65px 5px 50px 55px;
+left: 200px;
+}
 .secPic {
 	width: 65px;
 	height: 65px;
@@ -64,10 +99,8 @@
 	float: left;
 	text-align: center;
 }
-
 #myForm {
-    display: none;  
-	position: absolute;
+    display: none;   
 	z-index: 2;
 	left: 250px;
 	top: 180px;
@@ -77,15 +110,10 @@
 	border-color: #66ffff;
 	background-color: white;
 }
-
 .form-group{
     margin:20px 0px 10px 0px;
  
 }
-
-
-/* button */
-
 @font-face {
     font-family: 'Pacifico';
     font-style: normal;
@@ -95,7 +123,6 @@
 /* body { */
 /*     text-align: center; */
 /* } */
-
 #button {
     display: inline-block;
     margin-top: 20%;
@@ -112,8 +139,9 @@
     transition: box-shadow .1s ease-in-out;
     font-size: 50px;
     color: #fff;
+    position:relative;
+    left:15px;
 }
-
 #button span {
     display: inline-block;
     padding: 20px 30px;
@@ -122,9 +150,9 @@
     background-image: -webkit-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
     background-image: -moz-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
     background-image: -o-linear-gradient(hsla(338, 90%, 80%, .8), hsla(338, 90%, 70%, .2));
-    width:100px;
-    height:100px;
-     border-radius: 50%;
+    width:120px;
+    height:120px;
+    border-radius: 50%;
     -webkit-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
     -moz-box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
     box-shadow: inset 0 -1px 1px rgba(255, 255, 255, .15);
@@ -136,20 +164,17 @@
     -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
     transition: background-color .2s ease-in-out, transform .1s ease-in-out;
 }
-
 #button:hover span {
 display: inline-block;
     background-color: #ec6a9c;
     text-shadow: 0 -1px 1px rgba(175, 49, 95, .9), 0 0 5px rgba(255, 255, 255, .8);
 }
-
 #button:active, #button:focus {
 display: inline-block;
     -webkit-box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
     -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
     box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
 }
-
 #button:active span {
 display: inline-block;
     -webkit-transform: translate(0, 4px);
@@ -160,23 +185,48 @@ display: inline-block;
 </style>
 
 <script>
-
-document.getElementById('button').onclick = (function() {
-    document.getElementsByTagName('audio')[0].play();
-    document.getElementsByTagName('span')[0].innerHTML = 'GO';
-    return false;
-});
-
 	var types = JSON.parse('${jTypes}');
 	var secs = JSON.parse('${secs}');
 	// 	console.log('${jTypes}');
 	//	console.log('${secs}');
 	//	console.log(secs[1][0].secName);
-
 	$(document).ready(
 			   function() {
-				
-
+				   document.getElementById('button').onclick = (function() {
+					    document.getElementsByTagName('span')[0].innerHTML = 'GO';
+					    return false;
+					});
+				   $('#circle3').click(function(){
+						var form = $('#myForm')
+						var data = form.serializeArray();
+						var action = new Object();
+						action.name = "action";
+						action.value = "insert";
+						data.push(action);
+						var typeID = new Object();
+						typeID.name = "typeID";
+						typeID.value = $('#circle1 img').attr('id');
+						data.push(typeID);
+						var sectionID =  new Object();
+						sectionID.name = "sectionID";
+						sectionID.value = $('#circle2 img').attr('id');
+						data.push(sectionID);
+						console.log(JSON.stringify(data));
+						$.post('target',data,function(data){
+							$('#errorMsg').text(data);
+							if(data.length == 0) {
+								$("#set").css("height",$("#set").height())
+								form.css("display","none");
+								go();
+							}
+						})
+						
+			         });
+				   
+				   $('#resetBtn').click(function(){
+						document.getElementById("myForm").reset();
+						$("#errorMsg").text("");
+					})
 				
 				var frag = $(new DocumentFragment());
 				$.each(types, function(i, type) {
@@ -203,20 +253,24 @@ document.getElementById('button').onclick = (function() {
 					frag.append(div);
 				})
 				$(".type_list").append(frag);
-
 				$(".type").draggable({
 					helper : "clone",
 					revert : "invalid"
 				});
-
 				$(".goal:first").droppable(
 						{
 							accept : ".type",
 							drop : function(ev, ui) {
 								$(this).attr("src", ui.draggable.attr("src"));
-
+								$(this).attr("id",ui.draggable.attr("id"));
+                                if($(this).attr("id") ==0){
+                                	$("#circle3").fadeIn("slow");
+									$("#myForm").fadeIn("slow");
+                                }else{
+                                $('#word').html('<div><h1>點擊想完成的項目</h1></div');
 								$('#secs').empty();
-
+								$("#secs").html('<div><a href="${pageContext.request.requestURL}" title="Close" class="close">X</a></div>');
+								$("#circle2").fadeIn("slow");
 								$.each(secs[ui.draggable.attr("id")], function(
 										i, sec) {
 									var d = $("#secs");
@@ -227,55 +281,72 @@ document.getElementById('button').onclick = (function() {
 															+ sec.secPic).attr(
 													"title", sec.secName)
 											.addClass("secPic");
-
 									$(s).draggable({
 										helper : "clone",
 										revert : "invalid"
 									});
-
 									d.append(s);
-
+                                    
 									(s).click(function() {
-										$("#circle2>img").attr("src",
+									    $('#word').html('<div><h1>填寫內文</h1></div');
+										var circle2 = $('#circle2');
+										circle2.empty();
+										var label = $("<label></label>").text($(this).attr("title"))
+																		.css({
+																			"display" : "block",
+																			"font-size" : "12pt",
+																			"position" : "relative",
+																			"top" : "-10px",
+																			"font-family":"Segoe UI",
+																			"font-weight":"680"
+																		})
+										
+										
+										var img = $("<img></img>").attr("src",
 												$(this).attr("src")).css({
+													"width" : "60%",
+													"height" : "60%"
+												}).attr("id",$(this).attr("id"));
+										
+										var div = $("<div></div>").css({
+											"width" : "120px",
+											"height" : "120px",
 											"border" : "5px solid black",
 											"border-radius" : "60px",
+											"padding-top" : "10px",
+											"text-align" : "center",
+											"position" : "relative",
+											"left" : "40px",
+											"top" : "10px"
 										});
+										div.append(img);
+										div.append(label);
+										circle2.append(div);
+										
 										$('#secs').empty().hide();
+										
+										$("#circle3").fadeIn("slow");
+										
 										$("#myForm").fadeIn("slow");
-
-										$('#submit').click(function(e){
-											var myForm = document.querySelector("#myForm");
-											var postData = new FormData(myForm);
-											postData.append("action","insert");
-											var formURL = $(myForm).attr("action");
-											 $.ajax(
-											{
-												url : formURL,
-												type: "POST",
-												data : postData,
-								           		processData: false,
-												contentType: false,
-									            success:function(data) 
-									            {
-												    alert("資料寫入成功");
-													
-												},
-											});
-											
-						                 });
 									});
 								});
+								
 								$("#secs").fadeIn("slow");
-							}
+							}} //else end
 						});
-
-                       
-				    
-//                        $('#reset').click(function(){
-//                     	  this.form.reset(); 
-//                        });
-				
+				function go(){
+					$('.background').show();
+					$('.background').html('<audio autoplay src="sound/rocket.mp3" ></audio>');
+					$("#rocket").fadeIn("fast");
+					$('#rocket').animate({
+						//'left':'0px',
+						'top':-$(this).height(),
+	 					'opacity':'0',
+						//'width':'50px',
+						//'height':'50px'
+					},2500,function(){location.href='test.jsp';}
+					);
+				};		
 				
 			});
 </script>
@@ -287,11 +358,11 @@ document.getElementById('button').onclick = (function() {
 		<!-- Header -->
 		<header id="header">
 			<h1>
-				<a href="#">Life Editor</a>
+				<a href="home.jsp">Life Editor</a>
 			</h1>
 			<nav class="links">
 				<ul>
-					<li><a href="userPage.jsp">目標</a></li>
+					<li><a href="setgoal.jsp">目標</a></li>
 					<li><a href="#">行事曆</a></li>
 					<li><a href="#">朋友</a></li>
 					<li><a href="#">關於我</a></li>
@@ -308,15 +379,12 @@ document.getElementById('button').onclick = (function() {
 											</c:otherwise> 
 									</c:choose>
 								  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>    
-
-
 												<li class="search">
 													<a class="fa-search" href="#search">Search</a>
 													<form id="search" method="get" action="#">
 														<input type="text" name="query" placeholder="Search" />
 													</form>
 												</li>
-
 												<li class="menu">
 													<a class="fa-bars" href="#menu">Menu</a>
 												</li>
@@ -324,33 +392,31 @@ document.getElementById('button').onclick = (function() {
 			</nav>
 		</header>
 		<!-- Main -->
-		<article class="set_goal">
-
-			<div style="text-align: center; margin: 10px 10px 50px 10px;">
-				<h1>步驟一 : 請將你想要完成的目標類型拖曳到下方的類別圓圈裡</h1>
-			</div>
-
+		<article class="article">
+			
 			<div class="type_list"
 				style="text-align: center; margin: 10px 10px 50px 100px;">
-
-				<!-- 				<div> -->
-				<!-- 					<img id="type0" -->
-				<!-- 						style="width: 120px; height: 120px; padding: 5px; float: left; margin: 0 10px 10px 10px;" -->
-				<!-- 						src="images/type0.png" alt="自訂"> -->
-				<!-- 				</div> -->
 			</div>
-
-			<div id="set">
-				<div id="circle1" style="position: relative">
-					<img class="goal" src="images/sec_list/goal.png">
-					<div id="secs" class="sec_list"
-						style="border-width: 3px; border-style: ridge; border-color: #66ffff; padding: 4px;">
-					</div>
-				</div>
-
-				<div id="circle2" style="position: relative">
-					<img class="goal" src="images/sec_list/sec.png">
-					<div><form id="myForm" method="POST" action="target">
+<!------------ set goal ------------>
+			<div class="row" id="set">
+<!------------ step ------>
+						
+<!------------circle -------------->
+			<div class="col-md-5">
+			 <div id="circle1" ><img class="goal" src="images/sec_list/goal.png"></div>
+			 <div id="circle2" style="display:none;"><img class="goal" src="images/sec_list/sec.png"></div>
+			 <div id="circle3" style="display:none;"><div id="button"><span>GO</span></div></div>
+			</div>
+			
+<!------------form ----------------->
+			<div class="col-md-7">
+			<div id="word" style="text-align: center; margin: 0px 10px 20px 0px;">
+				<h1>將想要完成的目標類型拖曳到左方的類別圓圈裡</h1>
+			</div>
+             <div id="secs" class="sec_list"></div>
+			
+					<div>
+					<form id="myForm" method="POST" action="target">
 						<div class="form-group">
 							<label style="display:inline;margin-right:10px;">名  稱 : </label>
 							<input style="display:inline; width: 30em;" placeholder="" type="text" name="trgName">
@@ -369,7 +435,7 @@ document.getElementById('button').onclick = (function() {
 						</div>
 						<div class="form-group">
 							<label style="display:inline;margin-right:10px;">順   序 : </label> 
-							<select style="display:inline;width: 30em;">
+							<select style="display:inline;width: 30em;" form="myForm" name="priority">
 								<option value="1">十萬火急!一定要完成</option>
 								<option value="2" selected>普通</option>
 								<option value="3">享受過程~慢慢來~</option>
@@ -377,41 +443,25 @@ document.getElementById('button').onclick = (function() {
 						</div>
 						<div class="form-group">
 							<label style="display:inline;margin-right:10px;">隱   私 : </label> 
-							<select style="display:inline;width: 30em;">
+							<select style="display:inline;width: 30em;" form="myForm" name="privacy">
 								<option value="1">公開</option>
 								<option value="2">朋友</option>
 								<option value="3">私人</option>
 							</select>
 						</div>
-						<div style="display:inline;width: 30em;border-color:red;border-style: solid;"></div>
+						<div id="errorMsg" style="display:inline;width: 30em;color:red;"></div>
 						<div class="form-group">
-							<input id="reset" value="重設" type="button"/>
-							<input id="submit" value="確認"  type="button"/>
-						</div>				
-					</form></div>
-				</div>
-
-				<div id="circle3" style="position: relative">
-					<img class="goal" src="images/sec_list/detail.png">
-				</div>
-
-<!-- 				<div id="circle4"> -->
-					<div id="button"><span>GO</span></div>
-<!-- 				</div> -->
-				
-				<audio preload="auto">
-    <source src="https://github.com/nclud/2011.beercamp.com/blob/gh-pages/audio/inception.mp3?raw=true" type="audio/mp3" />
-    <source src="https://github.com/nclud/2011.beercamp.com/blob/gh-pages/audio/inception.ogg?raw=true" type="audio/ogg" />
-</audio>
+<!-- 							<input id="resetBtn" value="重設" type="button"/> -->
+						</div>
+						
+					</form>
+					</div>
 			</div>
-
-
-
-
+            </div>
+			
 		</article>
+		<div class="background"></div>
+		<img src="images/start.png" id="rocket">
 	</div>
-
-
 </body>
-
 </html>

@@ -57,7 +57,7 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 		try {
 			System.out.println("findByUserID()");
 			@SuppressWarnings("unchecked")
-			List<Target_ListVO> list = hibernateTemplate.find("FROM Target_ListVO u WHERE u.userVO.userID = ?", userID);
+			List<Target_ListVO> list = hibernateTemplate.find("FROM Target_ListVO u WHERE u.userVO.userID = ? ORDER BY u.targetListID DESC", userID);
 			
 			return list;
 			
