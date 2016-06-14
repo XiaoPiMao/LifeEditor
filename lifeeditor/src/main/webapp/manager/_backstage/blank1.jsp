@@ -113,7 +113,7 @@
       </div>
 
       <!-- Sidebar Menu -->
-      <ul class="sidebar-menu" style="margin-top:20px">
+      <ul class="sidebar-menu" style="margin-top:20px;height:2000px">
         <!-- Optionally, you can add icons to the links -->
         <li class="active"><a href="#"><i class="fa fa-link"></i> <span>系統分類</span></a></li>
         <li><a href="#"><i class="fa fa-link"></i> <span>參考資訊</span></a></li>
