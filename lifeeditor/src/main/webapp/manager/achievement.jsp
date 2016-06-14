@@ -361,14 +361,15 @@ $(function(){
 	          dataType: "text",
 	          data: {"action":"autoComplete","keyword": $("#tag1" ).val()},
 	          success: function( data ) {
-	        	    	  
 	        	  var res = new Array();
-	        	  targets = JSON.parse(data);
-	        	  console.log(data);
+	        	  if(data.length != 0) {
+		        	targets = JSON.parse(data);
+		        	console.log(data);
 					$.each(targets, function(index, target){
-					console.log(target.trgName);
-					res.push(target.trgName);		
-				});
+						console.log(target.trgName);
+						res.push(target.trgName);		
+					});
+	        	  }
 					response(res);			
 	          }
 	        });
@@ -414,16 +415,16 @@ $(function(){
 		          dataType: "text",
 		          data: {"action":"autoComplete","keyword": $("#tag2" ).val()},
 		          success: function( data ) {
-		        	    	  
 		        	  var res = new Array();
-		        	  achievements = JSON.parse(data);
-		        	  console.log(data);
-						$.each(achievements, function(index, achievement){
-						console.log(achievement.achName);
-						res.push(achievement.achName);		
-					});
+		        	  if(data.length != 0) {
+			        	  achievements = JSON.parse(data);
+			        	  console.log(data);
+						  $.each(achievements, function(index, achievement){
+								console.log(achievement.achName);
+								res.push(achievement.achName);		
+						   });
+		        	  }
 						response(res);	
-						
 		          }
 		        });
 		      },

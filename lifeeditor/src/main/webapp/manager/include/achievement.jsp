@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<script>var allSecs = JSON.parse('${secs}');</script>
 <div id="elements">
 	<form id="myForm" action="${ctx}/ChallengeServlet">
 		<table style="width: 100%">

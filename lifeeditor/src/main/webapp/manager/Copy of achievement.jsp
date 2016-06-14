@@ -112,12 +112,12 @@ div#selects {
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 	<div class="wrapper">
-<!-- 		<header class="main-header"> -->
-<%-- 			<jsp:include page="template/template.jsp"></jsp:include> --%>
-<!-- 		</header> -->
-<!-- 		<aside class="main-sidebar"> -->
-<%-- 			<jsp:include page="template/template.jsp"></jsp:include> --%>
-<!-- 		</aside> -->
+		<header class="main-header">
+			<jsp:include page="include/template.jsp"></jsp:include>
+		</header>
+		<aside class="main-sidebar">
+			<jsp:include page="include/template.jsp"></jsp:include>
+		</aside>
 		<div class="content-wrapper">
 			<section class="content-header">
 				<h1>
@@ -140,13 +140,12 @@ div#selects {
 									<!--**************實際上只需要用到這一行↓ ********************************-->
 									<b>獎項名稱: </b> <input id="tag2" type="text" name="achName">
 									<!--*************這是暫時顯示有哪些選項的EL ↓ *****************************-->
-									<select id="achName" name="achName"  size="1"
-									class="trophy">
-										<option value=""></option>
-										<c:forEach var="AchievementVO" items="${AchmtSvc.all}">
-											<option value="${AchievementVO.achID}">${AchievementVO.achName}</option>
-										</c:forEach>
-								</select> <br /></td>
+<!-- 									<select id="achName" name="achName"  size="1" class="trophy"> -->
+<!-- 										<option value=""></option> -->
+<%-- 										<c:forEach var="AchievementVO" items="${AchmtSvc.all}"> --%>
+<%-- 											<option value="${AchievementVO.achID}">${AchievementVO.achName}</option> --%>
+<%-- 										</c:forEach> --%>
+<!-- 								</select> <br /></td> -->
 							</tr>
 							<tr>
 								<td><textarea id="textarea1" name="intention" form="myForm"
