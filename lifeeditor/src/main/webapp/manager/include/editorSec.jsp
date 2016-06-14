@@ -196,7 +196,7 @@ $(function(){
 	    
 	    
 	    var id = $(this).val();
-	    
+	    $("#select2").append($("<option></option>"))
 			//datas 就是一個JSON物件
 			$.each(allSecs[p],function(){
 				var id = this.secID;
@@ -204,7 +204,6 @@ $(function(){
 				var opt = $("<option></option>").val(id).text(name);
 				$("#select2").append(opt);
 			});
-		
 		
 	});
 	

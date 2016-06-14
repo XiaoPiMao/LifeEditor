@@ -34,6 +34,7 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 	
 	private static final String BY_TYPEID_STMT = "SELECT secID,secName,secPic FROM sec_list WHERE typeID = ?";
 
+	
 	@Override
 	public List<SecListVO> findByTypeListID(Integer id) {
 		Connection conn = null;

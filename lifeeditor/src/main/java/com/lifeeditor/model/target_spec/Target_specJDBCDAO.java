@@ -3,6 +3,11 @@ package com.lifeeditor.model.target_spec;
 import java.util.*;
 import java.sql.*;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
@@ -16,6 +21,15 @@ import com.lifeeditor.utility.GlobalValues;
  
 public class Target_specJDBCDAO implements Target_specDAO_interface {
 
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup(GlobalValues.DS_LOOKUP);
+		} catch (NamingException ne) {
+			ne.printStackTrace();
+		}
+	}
 	private static final String INSERT_STMT =
 		      "INSERT INTO target_spec (userID,targetID,trgNote,trgPicPath) VALUES (?, ?, ?, ?)";
 	private static final String GET_ALL_STMT =
@@ -42,8 +56,8 @@ private static final String GET_TARGET_TYPE_STMT =
 		      "UPDATE target_spec set trgNote=?where trgSpecID=?";//這邊寫錯惹
 	private static final String CHANGE_TARGET_STATUS_STMT =
 		      "UPDATE target set status=? where targetID=?";
-	private static final String UPDATE_TRGPIC_PATH =
-		      "UPDATE target_spec set trgPicPath=? where trgSpecID=?";//這邊寫錯惹
+	private static final String UPDATE_ALL =
+		      "UPDATE target_spec set trgNote=?trgPicPath=? where trgSpecID=?";//這邊寫錯惹
 	
 //***************************************************************************************************************	
 	
@@ -68,14 +82,8 @@ private static final String GET_TARGET_TYPE_STMT =
 		ResultSet rs = null;
        
 		try {
-			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
-			
-			
-			/*
-			 *如果取到的值為普通心得，則使用這個方法
-			 * 
-			*/
-			
+
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
 			pstmt.setInt(1,target_specVO.getUserVO().getUserID());
@@ -129,7 +137,7 @@ private static final String GET_TARGET_TYPE_STMT =
 		PreparedStatement pstmt = null;
 
 		try {
-			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
 			pstmt.setInt(1, userID);
@@ -161,15 +169,15 @@ private static final String GET_TARGET_TYPE_STMT =
 	}
 
 	@Override
-	public Target_specVO findByPrimaryKey(Integer userID) {
-
+	public List<Target_specVO> findByUser(Integer userID) {
+		List<Target_specVO> list = new ArrayList<>();
 		Target_specVO target_specVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
-			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
 			pstmt.setInt(1, userID);
@@ -184,6 +192,7 @@ private static final String GET_TARGET_TYPE_STMT =
 				target_specVO.setTargetVO(trgSvc.getOneTrg(rs.getInt("targetID")));
 				target_specVO.setTrgNote(rs.getString("trgNote"));
 				target_specVO.setTrgPicPath(rs.getString("trgPicPath"));
+				list.add(target_specVO);
 			}
 		}  catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -212,7 +221,7 @@ private static final String GET_TARGET_TYPE_STMT =
 				}
 			}
 		}
-		return target_specVO;
+		return list;
 	}
 
 	@Override
@@ -225,7 +234,7 @@ private static final String GET_TARGET_TYPE_STMT =
 		ResultSet rs = null;
 
 		try {
-			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
@@ -283,7 +292,7 @@ private static final String GET_TARGET_TYPE_STMT =
 		ResultSet rs = null;
 
 		try {
-			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALLHOTMANS_STMT);
 			rs = pstmt.executeQuery();
 
@@ -340,7 +349,7 @@ private static final String GET_TARGET_TYPE_STMT =
 		//System.out.println("findByTargetID :" + vo.getTrgPicPath());
 		return vo;
 	}
-	@Override
+	@Override   
 	public List<Target_specVO> getNote(Integer userID, Integer targetID) {
 		List<Target_specVO> list = null;
 		list = hibernateTemplate.find("from Target_specVO t where t.targetVO.targetID = ? and t.userVO.userID = ?",targetID ,userID);
@@ -455,7 +464,7 @@ private static final String GET_TARGET_TYPE_STMT =
 			}
 		}
 		return target_specVO;}
-	public Target_specVO updatePicPath(Target_specVO target_specVO) {
+	public Target_specVO updateAll(Target_specVO target_specVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -465,10 +474,10 @@ private static final String GET_TARGET_TYPE_STMT =
 			
           
 			
-			pstmt = con.prepareStatement(UPDATE_TRGPIC_PATH);
+			pstmt = con.prepareStatement(UPDATE_ALL);
            
-			
-			pstmt.setString(1, target_specVO.getTrgPicPath());
+			pstmt.setString(1, target_specVO.getTrgNote());
+			pstmt.setString(2, target_specVO.getTrgPicPath());
 
 			
 			
@@ -593,4 +602,7 @@ private static final String GET_TARGET_TYPE_STMT =
 		public void updateeNote(Target_specVO target_specVO) {
 			// TODO Auto-generated method stub
 			
-		}}
+		}
+
+
+}

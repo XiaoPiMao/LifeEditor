@@ -32,7 +32,7 @@ public class TargetSpecService {
 //	public void insert(Target_specVO target_specVO);
 //	public void update(Target_specVO target_specVO);
 	public Target_specVO addTargetSpec(Integer userID, Integer targetID, String userTarget_desc, String trgPicPath ) {
-        System.out.println("1service,start");
+
 
 		Target_specVO Target_specVO= new Target_specVO();
 		Target_specVO.getTargetVO().setTargetID(targetID);
@@ -46,28 +46,30 @@ public class TargetSpecService {
 		return Target_specVO;
 	}
 
-	public Target_specVO updateTargetSpecNote(Integer Target_specID,String userTarget_desc) {
+	public Target_specVO updateTargetSpecTrgAll(Integer Target_specID,String userTarget_desc, String trgPicPath) {
 
 		Target_specVO Target_specVO= new Target_specVO();
 		Target_specVO.setTrgSpecID(Target_specID);
 		Target_specVO.getTargetVO().setTargetID(Target_specVO.getTargetVO().getTargetID());
 		Target_specVO.getUserVO().setUserID(Target_specVO.getUserVO().getUserID());
 		Target_specVO.setTrgNote(userTarget_desc);
+		Target_specVO.setTrgPicPath(trgPicPath);
 		
-		dao.updateeNote(Target_specVO);
-		return dao.findByPrimaryKey(Target_specID);
+		return dao.updateAll(Target_specVO);
 	}
-	public Target_specVO updateTargetSpecPic(Integer Target_specID, String trgPicPath) {
+	public Target_specVO updateTargetSpecNote(Integer Target_specID,String userTarget_desc) {
 
 		Target_specVO Target_specVO= new Target_specVO();
 		Target_specVO.setTrgSpecID(Target_specID);
 		Target_specVO.getTargetVO().setTargetID(Target_specVO.getTargetVO().getTargetID());
 		Target_specVO.getUserVO().setUserID(Target_specVO.getUserVO().getUserID());
-		Target_specVO.setTrgPicPath(trgPicPath);
-		dao.updatePicPath(Target_specVO);
-		return dao.findByPrimaryKey(Target_specID);
+		Target_specVO.setTrgPicPath(userTarget_desc);
+		Target_specVO.setTrgPicPath(Target_specVO.getTrgPicPath());
+		dao.updateeNote(Target_specVO);
+		return dao.updateNote(Target_specVO);
 	}
 
+	
 	public List<Target_specVO> getAllByHotMan() {
 		return dao.getAllByHotMan();
 	}
@@ -76,7 +78,7 @@ public class TargetSpecService {
 		return userID;
 	}
 	public Target_specVO findByPrimaryKey(Integer userID) {
-		return dao.findByPrimaryKey(userID);
+		return ((TargetSpecService) dao).findByPrimaryKey(userID);
 	}
 	public Target_specVO addTargetSpec_changeStatus(Integer userID, Integer targetID, String userTarget_desc, String trgPicPath ) {
 		Target_specVO Target_specVO= new Target_specVO();

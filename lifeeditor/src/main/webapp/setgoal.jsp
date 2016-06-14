@@ -350,7 +350,7 @@ document.getElementById('button').onclick = (function() {
 
 				<div id="circle2" style="position: relative">
 					<img class="goal" src="images/sec_list/sec.png">
-					<form id="myForm" method="POST" action="target">
+					<div><form id="myForm" method="POST" action="target">
 						<div class="form-group">
 							<label style="display:inline;margin-right:10px;">名  稱 : </label>
 							<input style="display:inline; width: 30em;" placeholder="" type="text" name="trgName">
@@ -387,9 +387,8 @@ document.getElementById('button').onclick = (function() {
 						<div class="form-group">
 							<input id="reset" value="重設" type="button"/>
 							<input id="submit" value="確認"  type="button"/>
-						</div>
-						
-					</form>
+						</div>				
+					</form></div>
 				</div>
 
 				<div id="circle3" style="position: relative">
@@ -397,7 +396,7 @@ document.getElementById('button').onclick = (function() {
 				</div>
 
 <!-- 				<div id="circle4"> -->
-					<div href="#" id="button"><span>GO</span></div>
+					<div id="button"><span>GO</span></div>
 <!-- 				</div> -->
 				
 				<audio preload="auto">

@@ -104,7 +104,7 @@
     <servlet-name>genkiBar_list</servlet-name>
     <url-pattern>/genkitest/genkiBar_list.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>comments</servlet-name>
     <servlet-class>com.lifeeditor.controller.comments.commentsServlet</servlet-class>
   </servlet>

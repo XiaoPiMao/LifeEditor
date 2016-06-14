@@ -32,6 +32,8 @@ public class TypeListJNDIDAO implements TypeListDAO_interface{
 	
 	private static final String GET_ALL_STMT = "SELECT * FROM type_list";
 
+	
+	
 	@Override
 	public List<TypeListVO> getAll() {
 		Connection conn = null;

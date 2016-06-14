@@ -39,7 +39,7 @@ import com.lifeeditor.service.eventService;
 
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 500)
-@WebServlet("/manager/target_Spec/Target_specServlet.do")
+@WebServlet("/Target_specServlet.do")
 public class Target_specServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -264,7 +264,7 @@ public class Target_specServlet extends HttpServlet {
 
 		try {
 			// 這邊先取得eventID對應的值
-			Integer trgspecID = new Integer(req.getParameter("ID"));
+			Integer trgspecID = new Integer(req.getParameter("trgspecID"));
 			// 呼叫service來取出eventID的數值
 			TargetSpecService eventSvc = new TargetSpecService();
 			
@@ -311,7 +311,7 @@ public class Target_specServlet extends HttpServlet {
 			Integer UserID = 6;
 			Integer TargetID =1;
 			
-			Part filePart = req.getPart("insert_targetPic");
+			Part filePart = req.getPart("updatefile");
 			if(filePart != null){
 			
 			String current = new java.io.File( "." ).getCanonicalPath();
@@ -328,7 +328,7 @@ public class Target_specServlet extends HttpServlet {
 	 				Blob Pic = new SerialBlob(b);
 	 				Pic.getBytes(1, (int) Pic.length());
 	 				fos1.write(Pic.getBytes(1, (int) Pic.length()),0,(int) Pic.length());
-	 				TargetspecVO=Target_specSvc.updateTargetSpecPic(trgSpecID, trgPicPath);
+	 				TargetspecVO=Target_specSvc.updateTargetSpecTrgAll(trgSpecID,Userupdate_target_Note, trgPicPath);
 	 				req.setAttribute("TargetspecVO", TargetspecVO);
 			//targettype為1官方方便管理.2玩官方3.為自定
 			//ststus1不需審核.2未審核.3已審核
