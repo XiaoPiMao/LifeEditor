@@ -4,14 +4,18 @@ import java.sql.Blob;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import com.google.gson.annotations.Expose;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 
 public class Target_specVO implements java.io.Serializable{
+	
 	private Integer trgSpecID; 
 	private user_specVO userVO;
 	private TargetVO targetVO;
+	@Expose
 	private String trgNote;
+	@Expose
 	private String TrgPicPath;
 	public Integer getTrgSpecID() {
 		return trgSpecID;

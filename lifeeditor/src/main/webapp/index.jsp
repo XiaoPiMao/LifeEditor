@@ -642,7 +642,7 @@
 	function ajaxPost(email,last_name,first_name,id,gender,picture)
 
 	{
-			alert(JSON.stringify(picture));
+		//	alert(JSON.stringify(picture));
 	      //===AJAX POST===
 	        var params = {"EMAIL" : email ,"LASTNAME" : last_name ,"FIRSTNAME" : first_name ,"PSWD" : id,"GENDER":gender, "PIC":JSON.stringify(picture)};
 	         $.ajax({
