@@ -1,5 +1,6 @@
 package com.lifeeditor.test;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -26,7 +27,7 @@ public class DBTest_JNDI {
 
 	private static final String SELECT_STMT = "SELECT firstName FROM user_spec";
 	
-	public List<String> getMemberList() {
+	public List<String> getall() {
 
 		List<String> list = new ArrayList<>();
 		Connection con = null;
@@ -40,8 +41,8 @@ public class DBTest_JNDI {
 			ResultSet rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				String firstName = rs.getString("firstName");
-				list.add(firstName);
+				String  a= rs.getString("firstName");
+				list.add(a);
 			}
 			
 			return list;

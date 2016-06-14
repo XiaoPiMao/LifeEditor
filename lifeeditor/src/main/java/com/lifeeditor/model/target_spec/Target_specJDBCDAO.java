@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import com.lifeeditor.model.event.eventVO;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.type_list.TypeListDAO_interface;
 import com.lifeeditor.model.user_spec.user_specVO;
@@ -42,9 +43,29 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
                             "target_spec ON target.targetID = target_spec.targetID INNER JOIN " +
                             "user_spec ON target_spec.userID = user_spec.userID " +
 							"WHERE hotman=1 ";
-	
 	private static final String DELETE =
 		      "DELETE FROM target_spec where userID = ?";
+
+//***************************************************************************************************************
+	//有關心得的sql字串
+private static final String GET_ID_STMT="SELECT @@IDENTITY as 'trgSpec'";
+	
+	//取得作者目標的值為何（是否為官方類別）
+private static final String GET_ONETARGET_SPEC_STMT =
+		      "SELECT trgSpecID,userID,targetID,trgNote,trgPicPath FROM target_spec where trgSpecID=?";
+
+private static final String GET_ALLTARGET_SPEC_STMT =
+"SELECT trgSpecID,userID,targetID,trgNote,trgPicPath FROM target_spec order by trgSpecID=?";
+	private static final String UPDATE_TRG_NOTE =
+		      "UPDATE target_spec set trgNote=?where trgSpecID=?";//這邊寫錯惹
+	private static final String CHANGE_TARGET_STATUS_STMT =
+		      "UPDATE target set status=? where targetID=?";
+	private static final String UPDATE_ALL =
+		      "UPDATE target_spec set trgNote=?trgPicPath=? where trgSpecID=?";//這邊寫錯惹
+	
+//***************************************************************************************************************	
+	
+
 
 	private static final String GET_ALL_TargetID = "from Target_spec  order by Target_specID";
 	
@@ -56,12 +77,16 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 	
 	
 	@Override
-	public void insert(Target_specVO target_specVO) {
+	public int insert_simple(Target_specVO target_specVO) {
 
 		Connection con = null;
-		PreparedStatement pstmt = null;
-
+		PreparedStatement pstmt=null;
+		PreparedStatement idpstmt=null;
+		PreparedStatement chpstmt=null;
+		ResultSet rs = null;
+       
 		try {
+
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 			
@@ -72,6 +97,20 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 			
 			
 			pstmt.executeUpdate();
+			
+			chpstmt = con.prepareStatement(CHANGE_TARGET_STATUS_STMT);
+			chpstmt.setInt(1,2);
+			chpstmt.executeUpdate();
+			 idpstmt = con.prepareStatement(GET_ID_STMT);
+			rs =idpstmt.executeQuery();
+			 while (rs.next()) {
+					int id = rs.getInt("trgSpec");
+					return id;
+			 }
+			 
+			
+
+			
 		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -91,11 +130,11 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 					e.printStackTrace(System.err);
 				}
 			}
+			
 		}
+		return 0;
 
-	}
-
-	@Override
+	}@Override
 	public void delete(Integer userID) {
 
 		Connection con = null;
@@ -379,14 +418,310 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 
 
 
+
+//********************************************************************************************************
+	//下面4子皓寫der
+	@Override
+	public Target_specVO updateNote(Target_specVO target_specVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+			
+          
+			
+			pstmt = con.prepareStatement(UPDATE_TRG_NOTE);
+           
+			
+			pstmt.setString(1, target_specVO.getTrgNote());
+			
+			
+			
+
+			pstmt.executeUpdate();
+
+			
+			
+			
+			
+			
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return target_specVO;}
+	public Target_specVO updateAll(Target_specVO target_specVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+			
+          
+			
+			pstmt = con.prepareStatement(UPDATE_ALL);
+           
+			pstmt.setString(1, target_specVO.getTrgNote());
+			pstmt.setString(2, target_specVO.getTrgPicPath());
+
+			
+			
+			
+
+			pstmt.executeUpdate();
+
+			
+			
+			
+			
+			
+		}catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return target_specVO;}
+		@Override
+		public int insert_will_change_status(Target_specVO target_specVO) {
+
+			Connection con = null;
+			PreparedStatement pstmt=null;
+			PreparedStatement idpstmt=null;
+			PreparedStatement chpstmt=null;
+			ResultSet rs = null;
+	        System.out.println("jdbc,start");
+
+			try {
+				con = DriverManager.getConnection(GlobalValues.SQL_URL,GlobalValues.SQL_USER,GlobalValues.SQL_PWD);
+				
+				
+				/*
+				 *如果取到的值為官方類別，則使用這個方法，會將所有值insert後，再修改targetTable裡面status的值
+				 * 
+				*/
+				
+				pstmt = con.prepareStatement(INSERT_STMT);
+
+				pstmt.setInt(1,1);
+				pstmt.setInt(2,1);
+				pstmt.setString(3, target_specVO.getTrgNote());
+				pstmt.setString(4, target_specVO.getTrgPicPath());
+
+				pstmt.executeUpdate();
+				  System.out.println("1");
+
+				 chpstmt = con.prepareStatement(CHANGE_TARGET_STATUS_STMT);
+				  System.out.println("2");
+
+				 chpstmt.setInt(1,1);
+//				  System.out.println("3");
+				  chpstmt.setInt(2,1);
+				  System.out.println("4");
+				 int a = chpstmt.executeUpdate();
+				  System.out.println("success" + a);
+
+
 	
 
 	
 	  
 
 
+				 idpstmt = con.prepareStatement(GET_ID_STMT);
+				  System.out.println("5");
+				  
+				rs =idpstmt.executeQuery();
+				  System.out.println("6");
+
+				 while (rs.next()) {
+						int id = rs.getInt("trgSpec");
+						System.out.println("rs :" + id);
+						//return id;
+				 }
+			
+			        System.out.println("7");
+
+			}catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+				
+			}
+			return 0;
+
+		}
+		@Override
+		public Target_specVO findByPrimaryKey(Integer trgSpecID) {
+
+			Target_specVO target_specVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ONETARGET_SPEC_STMT);
+
+				pstmt.setInt(1, trgSpecID);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// eventVO 也稱為 Domain objects
+					target_specVO = new Target_specVO();
+					target_specVO.setTrgSpecID(rs.getInt("trgSpecID"));
+					target_specVO.setUserID(rs.getInt("userID"));
+					target_specVO.setTargetID(rs.getInt("typeID"));
+					target_specVO.setTrgNote(rs.getString("trgNote"));
+					target_specVO.setTrgPicPath(rs.getString("trgPicPath"));
+					
+					
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return target_specVO;
+		}
 
 
+		@Override
+		public void updateeNote(Target_specVO target_specVO) {
+			// TODO Auto-generated method stub
+			
+		}
+		@Override
+		public List<Target_specVO> getAllTrgSpec() {
+			List<Target_specVO> list = new ArrayList<Target_specVO>();
+			Target_specVO Target_specVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ALLTARGET_SPEC_STMT);
+				rs = pstmt.executeQuery();
 
+				while (rs.next()) {
+					// eventVO 也稱為 Domain objects
+					
+					Target_specVO = new Target_specVO();
+					Target_specVO.setTrgSpecID(rs.getInt("trgSpecID"));
+					Target_specVO.setUserID(rs.getInt("userID"));
+					Target_specVO.setTargetID(rs.getInt("targetID"));
+					Target_specVO.setTrgNote(rs.getString("trgNote"));
+					Target_specVO.setTrgPicPath(rs.getString("trgPicPath"));
+				
+				
+					
+					list.add(Target_specVO); // Store the row in the list
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
 
 }
