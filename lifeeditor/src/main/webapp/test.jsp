@@ -57,10 +57,11 @@
     	
 $(document).ready(function(){
     	
-      
+     
     	//console.log(data);
+    	data = JSON.parse('${targets}');
     	var str = "";
-    	var data = JSON.parse('${targets}');
+    	
 		$.each(data,function(){
 			catogoryNum[this.typeName]++;
 			str += '<div class="col-md-12 col-sm-12">' +
@@ -103,7 +104,7 @@ $(document).ready(function(){
 <body>
 <!-- <div id="wrapper"> -->
 <!-- Header -->
-<header id="header" >
+<header id="header" style="padding:0px;">
 	<h1><a href="home.jsp">Life Editor</a></h1>
 		<nav class="links">
 			<ul>
@@ -145,8 +146,8 @@ $(document).ready(function(){
 <section id="blog" class="padding-top">
   <div class="container">
     <div class="row">
-        <div class="col-md-3 col-sm-5">
-            <div class="sidebar blog-sidebar">
+        <div class="col-md-3 col-sm-5" >
+            <div class="sidebar blog-sidebar" style="margin-right:50px;">
                 <div class="sidebar-item  recent">
                     <h3>最 新 留 言</h3>
                       <div class="media">
@@ -181,8 +182,7 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-7">
-                 </div>
+                <div class="col-md-9 col-sm-7"></div>
             </div>
         </div>
     </section>

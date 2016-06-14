@@ -57,7 +57,7 @@
 					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
 					</c:when>
 				    <c:when test="${! empty LoginOK }">
-					   <a href="test.jsp"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
+					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
 					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
 					</c:when>
 				</c:choose>
@@ -222,17 +222,17 @@
 
 					</div>
 
-				<!-- Sidebar -->
-					<section id="sidebar">
+<!-- Sidebar -->
+<section id="sidebar" style="margin-right:50px;">
 
 						<!-- Intro -->
-							<section id="intro">
+<!-- 							<section id="intro"> -->
 <!-- 								<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a> -->
-								<header>
-									<h2>Life Editor</h2>
+<!-- 								<header> -->
+<!-- 									<h2>Life Editor</h2> -->
 <!-- 									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p> -->
-								</header>
-							</section>
+<!-- 								</header> -->
+<!-- 							</section> -->
 
 <!-- Mini Posts -->
 <section>
@@ -243,7 +243,6 @@
 		  <div id="hotmans">
 		  <c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
 		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a></div>
-		    
 		    <header style="margin-bottom:40px;padding:2px;">
 			   <a href="#" class="author" ><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
 			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
@@ -258,65 +257,65 @@
 	</div>
 </section>
 
-						<!-- Posts List -->
-							<section>
-								<ul class="posts">
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Lorem ipsum fermentum ut nisl vitae</a></h3>
-												<time class="published" datetime="2015-10-20">October 20, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Convallis maximus nisl mattis nunc id lorem</a></h3>
-												<time class="published" datetime="2015-10-15">October 15, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Euismod amet placerat vivamus porttitor</a></h3>
-												<time class="published" datetime="2015-10-10">October 10, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic10.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Magna enim accumsan tortor cursus ultricies</a></h3>
-												<time class="published" datetime="2015-10-08">October 8, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic11.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Congue ullam corper lorem ipsum dolor</a></h3>
-												<time class="published" datetime="2015-10-06">October 7, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic12.jpg" alt="" /></a>
-										</article>
-									</li>
-								</ul>
-							</section>
+<!-- Posts List -->
+<!-- <section> -->
+<!-- 	<ul class="posts"> -->
+<!-- 		<li> -->
+<!-- 			<article> -->
+<!-- 				<header> -->
+<!-- 					<h3><a href="#">Lorem ipsum fermentum ut nisl vitae</a></h3> -->
+<!-- 					<time class="published" datetime="2015-10-20">October 20, 2015</time> -->
+<!-- 				</header> -->
+<!-- 			    <a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a> -->
+<!-- 			</article> -->
+<!-- 		</li> -->
+<!-- 									<li> -->
+<!-- 										<article> -->
+<!-- 											<header> -->
+<!-- 												<h3><a href="#">Convallis maximus nisl mattis nunc id lorem</a></h3> -->
+<!-- 												<time class="published" datetime="2015-10-15">October 15, 2015</time> -->
+<!-- 											</header> -->
+<!-- 											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a> -->
+<!-- 										</article> -->
+<!-- 									</li> -->
+<!-- 									<li> -->
+<!-- 										<article> -->
+<!-- 											<header> -->
+<!-- 												<h3><a href="#">Euismod amet placerat vivamus porttitor</a></h3> -->
+<!-- 												<time class="published" datetime="2015-10-10">October 10, 2015</time> -->
+<!-- 											</header> -->
+<!-- 											<a href="#" class="image"><img src="images/pic10.jpg" alt="" /></a> -->
+<!-- 										</article> -->
+<!-- 									</li> -->
+<!-- 									<li> -->
+<!-- 										<article> -->
+<!-- 											<header> -->
+<!-- 												<h3><a href="#">Magna enim accumsan tortor cursus ultricies</a></h3> -->
+<!-- 												<time class="published" datetime="2015-10-08">October 8, 2015</time> -->
+<!-- 											</header> -->
+<!-- 											<a href="#" class="image"><img src="images/pic11.jpg" alt="" /></a> -->
+<!-- 										</article> -->
+<!-- 									</li> -->
+<!-- 									<li> -->
+<!-- 										<article> -->
+<!-- 											<header> -->
+<!-- 												<h3><a href="#">Congue ullam corper lorem ipsum dolor</a></h3> -->
+<!-- 												<time class="published" datetime="2015-10-06">October 7, 2015</time> -->
+<!-- 											</header> -->
+<!-- 											<a href="#" class="image"><img src="images/pic12.jpg" alt="" /></a> -->
+<!-- 										</article> -->
+<!-- 									</li> -->
+<!-- 								</ul> -->
+<!-- </section> -->
 
-						<!-- About -->
-							<section class="blurb">
-								<h2>About</h2>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
-								<ul class="actions">
-									<li><a href="#" class="button">Learn More</a></li>
-								</ul>
-							</section>
+<!-- About -->
+<!-- <section class="blurb"> -->
+<!-- 								<h2>About</h2> -->
+<!-- 								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p> -->
+<!-- 								<ul class="actions"> -->
+<!-- 									<li><a href="#" class="button">Learn More</a></li> -->
+<!-- 								</ul> -->
+<!-- </section> -->
 
 						<!-- Footer -->
 							<section id="footer">
