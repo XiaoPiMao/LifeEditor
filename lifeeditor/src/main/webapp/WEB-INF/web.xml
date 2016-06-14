@@ -114,6 +114,7 @@
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
+
     <url-pattern>/Login.java</url-pattern>
   </servlet-mapping>
     <error-page>
@@ -162,5 +163,3 @@
 	            <location>/errorPage.html</location>
 	</error-page>
 </web-app>
-
-

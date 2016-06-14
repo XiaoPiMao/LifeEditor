@@ -65,7 +65,7 @@ $(document).ready(function(){
 									rateResult = data;
 									$(tr).find("td:eq(6)").text(numberResult + " 人");
 									$(tr).find("td:eq(7)").text(rateResult + "%");
-									alert("已新增至清單");
+									alert("新的挑戰已新增至您的目標清單。");
 								}
 							});
 						}
@@ -123,7 +123,19 @@ font-style: italic;
     background: #dad;
     font-weight: bold;
     font-size: 16px;
-  }		
+  }	
+  
+  .alert
+{
+    font-size: 1.3em;
+    padding: 1em;
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+    word-wrap: normal;
+}
+    
+  	
 </style>
 
 <script>
@@ -136,7 +148,8 @@ font-style: italic;
 
 
 <div align="center" style="display:none" >
-<b>登入者ID: ${LoginOK.userID}, 帳號: ${LoginOK.account}</b>
+<b>哈囉~ ${LoginOK.lastName}${LoginOK.firstName} 歡迎你來報名參加有興趣的挑戰喔!</b>
+<%-- <b>登入者ID: ${LoginOK.userID}, 帳號: ${LoginOK.account}</b> --%>
 
 
 
@@ -179,6 +192,22 @@ font-style: italic;
 
 </body>
 <script>
+//***************套用特殊的alert樣式 *************//
+
+window.alert = function(message){
+    $(document.createElement('div'))
+        .attr({title: '送出成功', 'class': 'alert'})
+        .html(message)
+        .dialog({
+            buttons: {OK: function(){$(this).dialog('close');}},
+            close: function(){$(this).remove();},
+            draggable: true,
+            modal: true,
+            resizable: false,
+            width: 'auto'
+        });
+};
+
 
 
 $(function(){        
@@ -330,7 +359,7 @@ var s2 = {
 			})
 			$('#example>tbody').append(frg);
 			$('div[align="center"]').css("display","block");
-			$('#example').DataTable();
+			
 			
 			//*******************滑鼠指到時，改變樣式。*****************		
 			
@@ -357,6 +386,7 @@ var s2 = {
 					$( "#dialog" ).dialog( "open" );
 
 				}
+				$('#example').DataTable();
 		}
 		
 });
