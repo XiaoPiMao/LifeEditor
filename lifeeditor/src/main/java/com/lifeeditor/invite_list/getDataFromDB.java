@@ -42,6 +42,7 @@ public class getDataFromDB extends HttpServlet {
 		HttpSession session = request.getSession();
 		user_specVO user = (user_specVO) session.getAttribute("LoginOK"); //得到user
 		Integer userID = user.getUserID(); //取得userID
+	
 		List<user_listVO> EndData = new ArrayList<user_listVO>();//回傳的List
 		
 		try {
