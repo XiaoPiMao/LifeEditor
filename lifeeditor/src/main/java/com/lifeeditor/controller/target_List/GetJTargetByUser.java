@@ -40,7 +40,9 @@ public class GetJTargetByUser extends HttpServlet {
 			TargetVO trg = trgList.getTrgVO();
 			JsonObject JTrg = gson.toJsonTree(trg).getAsJsonObject();
 			jsonObj.addProperty("typeID", trg.getTypeVO().getTypeID());
+			jsonObj.addProperty("typeName", trg.getTypeVO().getTypeName());
 			jsonObj.addProperty("secID", trg.getSectionVO().getSecID());
+			jsonObj.addProperty("secName", trg.getSectionVO().getSecName());
 			
 			for(Entry<String,JsonElement> entry : JTrg.entrySet()) {
 				String key = entry.getKey();
