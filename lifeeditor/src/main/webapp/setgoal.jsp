@@ -217,7 +217,6 @@ display: inline-block;
 	$(document).ready(
 			   function() {
 				   document.getElementById('button').onclick = (function() {
-					    document.getElementsByTagName('audio')[0].play();
 					    document.getElementsByTagName('span')[0].innerHTML = 'GO';
 					    return false;
 					});
@@ -231,11 +230,11 @@ display: inline-block;
 						data.push(action);
 						var typeID = new Object();
 						typeID.name = "typeID";
-						typeID.value = $('#circle1>img').attr('id');
+						typeID.value = $('#circle1 img').attr('id');
 						data.push(typeID);
 						var sectionID =  new Object();
 						sectionID.name = "sectionID";
-						sectionID.value = $('#circle2>img').attr('id');
+						sectionID.value = $('#circle2 img').attr('id');
 						data.push(sectionID);
 						console.log(JSON.stringify(data));
 						$.post('target',data,function(data){
@@ -291,7 +290,8 @@ display: inline-block;
 							accept : ".type",
 							drop : function(ev, ui) {
 								$(this).attr("src", ui.draggable.attr("src"));
-                                if(ui.draggable.attr('id')==0){
+								$(this).attr("id",ui.draggable.attr("id"));
+                                if($(this).attr("id") ==0){
                                 	$("#circle3").fadeIn("slow");
 									$("#myForm").fadeIn("slow");
                                 }else{
@@ -335,7 +335,7 @@ display: inline-block;
 												$(this).attr("src")).css({
 													"width" : "60%",
 													"height" : "60%"
-												})
+												}).attr("id",$(this).attr("id"));
 										
 										var div = $("<div></div>").css({
 											"width" : "120px",
@@ -472,7 +472,7 @@ display: inline-block;
 						</div>
 						<div class="form-group">
 							<label style="display:inline;margin-right:10px;">順   序 : </label> 
-							<select style="display:inline;width: 30em;">
+							<select style="display:inline;width: 30em;" form="myForm" name="priority">
 								<option value="1">十萬火急!一定要完成</option>
 								<option value="2" selected>普通</option>
 								<option value="3">享受過程~慢慢來~</option>
@@ -480,7 +480,7 @@ display: inline-block;
 						</div>
 						<div class="form-group">
 							<label style="display:inline;margin-right:10px;">隱   私 : </label> 
-							<select style="display:inline;width: 30em;">
+							<select style="display:inline;width: 30em;" form="myForm" name="privacy">
 								<option value="1">公開</option>
 								<option value="2">朋友</option>
 								<option value="3">私人</option>
