@@ -389,11 +389,11 @@ display: inline-block;
 		<!-- Header -->
 		<header id="header">
 			<h1>
-				<a href="#">Life Editor</a>
+				<a href="home.jsp">Life Editor</a>
 			</h1>
 			<nav class="links">
 				<ul>
-					<li><a href="userPage.jsp">目標</a></li>
+					<li><a href="setgoal.jsp">目標</a></li>
 					<li><a href="#">行事曆</a></li>
 					<li><a href="#">朋友</a></li>
 					<li><a href="#">關於我</a></li>
