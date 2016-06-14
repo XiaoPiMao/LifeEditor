@@ -36,6 +36,7 @@ public class GetJsonTarget_spec extends HttpServlet {
 		public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			TargetSpecService trgSpcSvc = new TargetSpecService();
 			user_specVO user = (user_specVO)request.getSession().getAttribute("LoginOK");
+
 			List<Target_specVO> list = trgSpcSvc.getByUser(user.getUserID());
 			JsonArray jArray = null;
 			JsonObject jObj = null;
