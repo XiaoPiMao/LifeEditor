@@ -1,7 +1,10 @@
 package com.lifeeditor.controller.user_spec;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +12,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.hibernate.Hibernate;
 
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.user_specService;
@@ -40,10 +45,27 @@ public class RegisteredServlet extends HttpServlet {
 		String address = user_specVO.getAddress();
 		String phone = user_specVO.getPhone(); 
 		Blob picture = user_specVO.getPicture();
+		System.out.println(picture);
 		
-		user_specService user_specService = new user_specService();
-     	user_specVO = user_specService.addUser(account, pswd, lastName, firstName, gender, birthdate,email,address,phone,picture);
-     	
+		InputStream in = new FileInputStream(req.getServletContext().getRealPath("/images/picture.jpg"));
+		@SuppressWarnings("deprecation")
+		Blob picture1 = Hibernate.createBlob(in);
+		System.out.println(picture1);
+		try {
+			if(picture.length() == 0){
+				user_specService user_specService = new user_specService();
+			 	user_specVO = user_specService.addUser(account, pswd, lastName, firstName, gender, birthdate,email,address,phone,picture1);
+			 	
+			}else{
+				user_specService user_specService = new user_specService();
+			 	user_specVO = user_specService.addUser(account, pswd, lastName, firstName, gender, birthdate,email,address,phone,picture);
+			 	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
      	req.getSession().setAttribute("LoginOK", user_specVO);
      	
      	String url = "/home.jsp";

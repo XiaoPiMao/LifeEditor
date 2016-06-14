@@ -13,7 +13,10 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 		<style>
-				
+		.user-icon{
+		border-radius:50%;
+		}
+		
 		.mini-post#img{
     width:100px;
     height:100px;
@@ -24,6 +27,7 @@
 	<body>
 		<!-- Wrapper -->
 			<div id="wrapper">
+
 
 	<!-- Header -->
 <header id="header">
@@ -53,27 +57,31 @@
 <%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
 <%-- 														</c:if>	 --%>
 													
-					<li class="">
-					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
-					</li>
+														<li class="search">
+																<a class="fa-search" href="#search">Search</a>
+																<form id="search" method="get" action="#">
+																	<input type="text" name="query" placeholder="Search" />
+																</form>
+														</li>
 																	
-					<li class="menu">
-						<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
-						<a id="modal_trigger2" href="#modal" class="">登出</a>
-					</li>
-
-			</ul>
-							 </nav>
+														<li class="menu">
+															<a class="fa-bars" href="#menu">Menu</a>
+														</li>
+												</ul>
+									</nav>
 					</header>
+
+
 
 				<!-- Menu -->
 					<section id="menu">
+
 						<!-- Search -->
-<!-- 							<section> -->
-<!-- 								<form class="search" method="get" action="#"> -->
-<!-- 									<input type="text" name="query" placeholder="Search" /> -->
-<!-- 								</form> -->
-<!-- 							</section> -->
+							<section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section>
 
 						<!-- Links -->
 							<section>
@@ -321,7 +329,7 @@
 			<script src="js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="js/main.js"></script>
-       <!-- <script> -->		
+<!-- 			<script> -->		
 <script>
         window.fbAsyncInit = function() {
                 FB.init({
@@ -346,6 +354,7 @@
             });
         }
         </script>
-<!-- </script> -->
+<!-- 			</script> -->
 	</body>
+
 </html>
