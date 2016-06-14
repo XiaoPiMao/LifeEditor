@@ -32,7 +32,7 @@
 			<ul>
 				<li><a href="setgoal.jsp">目標</a></li>
 				<li><a href="#">行事曆</a></li>
-				<li><a href="#">朋友</a></li>
+				<li><a href="http://localhost:8080/lifeeditor/addfriend.jsp">朋友</a></li>
 				<li><a href="#">關於我</a></li>
 			</ul>
 		</nav>
@@ -332,8 +332,6 @@
                 version : 'v2.6' 
             });
         };
-
-
         (function(d, s, id) {
 					var js, fjs = d.getElementsByTagName(s)[0];
 					if (d.getElementById(id))
@@ -343,13 +341,10 @@
 					js.src = "//connect.facebook.net/zh_TW/sdk.js";
 					fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
-
         function logout() {
             FB.logout(function(response) {
             });
         }
-
-
         </script>
 <!-- </script> -->
 	</body>
