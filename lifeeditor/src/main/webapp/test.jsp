@@ -57,10 +57,10 @@
     	
 $(document).ready(function(){
     	
-      $.getJSON('GetJTargetByUser',function(data){
+      
     	//console.log(data);
     	var str = "";
-    	
+    	var data = JSON.parse('${targets}');
 		$.each(data,function(){
 			catogoryNum[this.typeName]++;
 			str += '<div class="col-md-12 col-sm-12">' +
@@ -96,7 +96,7 @@ $(document).ready(function(){
 		})
 		$("[class = 'col-md-9 col-sm-7']").append( $("<div></div>").addClass("row").html(str) );
 	})
-});
+
 	
     </script>
 </head>
