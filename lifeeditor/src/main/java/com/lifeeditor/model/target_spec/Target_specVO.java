@@ -1,20 +1,24 @@
 package com.lifeeditor.model.target_spec;
 
 
+import com.google.gson.annotations.Expose;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 
 public class Target_specVO implements java.io.Serializable{
+	
 	private Integer trgSpecID; 
 	private user_specVO userVO;
 	private TargetVO targetVO;
 	private Integer UserID;
 	private Integer TargetID;
 
+	@Expose
 	private String trgNote;
 	private String trgPicPath;
 	
 	
+	@Expose
 	private String TrgPicPath;
 	public Integer getTrgSpecID() {
 		return trgSpecID;

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.lifeeditor.model.event.eventVO;
 import com.lifeeditor.model.target_spec.*;
 
 public class TargetSpecService {
@@ -90,4 +91,13 @@ public class TargetSpecService {
 		return Target_specVO;
 		
 	}
+	
+	public Target_specVO getOneTrgSpecByKey(Integer trgSpecID) {
+		return dao.findByPrimaryKey(trgSpecID);
+	}
+	public List<Target_specVO> getAll1() {
+		
+		return dao.getAllTrgSpec();
+	}
+	
 }

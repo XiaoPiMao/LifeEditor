@@ -39,37 +39,36 @@ import com.lifeeditor.service.eventService;
 
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 500)
-@WebServlet("/Target_specServlet.do")
+@WebServlet("/manager/target_Spec/Target_specServlet.do")
 public class Target_specServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+    /*這隻程式的重點在於心得部分的insert及update，在使用者按下按鈕新增或修改時判斷使用者資訊
+     * 
+     * */   
+	
+	
+    
     public Target_specServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+             
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	@SuppressWarnings("resource")
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 	
-
+//取得使用者資訊
 			
-		
+		TargetSpecService trgSpcSvc = new TargetSpecService();
+		user_specVO user = (user_specVO)req.getSession().getAttribute("LoginOK");
 		
 		
 //		if ("start_insert_Target_spec".equals(action)) {
@@ -126,7 +125,9 @@ public class Target_specServlet extends HttpServlet {
 //			}
 //		}
 //	
-//		if ("start_insert_Target_spec".equals(action)) {
+		
+		
+//		if ("start_update_Target_spec".equals(action)) {
 //
 //			List<String> errorMsgs = new LinkedList<String>();
 //
@@ -211,18 +212,20 @@ public class Target_specServlet extends HttpServlet {
 		     RequestDispatcher successView = req.getRequestDispatcher(url);
 //			//以下為取得表單要insert的值
 		   long time=System.currentTimeMillis();
-		     
-			Integer UserID = 777;
-			Integer TargetID =1;
+		    
+			Integer UserID = user.getUserID();
+			Integer TargetID =new Integer(req.getParameter("input_trgetID"));		;
 			String UserTarget_desc = req.getParameter("input_target_Note");		
 			//這邊將要insert的路徑做設定
 			String current = new java.io.File( "." ).getCanonicalPath();
 	        System.out.println("Current dir:"+current);                       
 	        String currentDir = System.getProperty("user.dir");
 	        System.out.println("Current dir using System:" +currentDir);
-	        String trgPicPath="C:\\LocalRepository\\lifeeditor\\src\\main\\webapp\\images\\"+UserID.toString()+TargetID.toString()+time+".jpg";
+	        String trgPicPath="\\images\\"+UserID.toString()+TargetID.toString()+time+".jpg";
+	        
+	        String Path=req.getServletContext().getRealPath(trgPicPath);
 	        Part filePart = req.getPart("insert_targetPic");
-	        File file1=new File(trgPicPath);//存入檔案的路徑
+	        File file1=new File(Path);//存入檔案的路徑
 	        FileOutputStream fos1 = new FileOutputStream(file1);
 	        InputStream in = filePart.getInputStream();
 	 				byte[] b = readFully(in);
@@ -254,7 +257,7 @@ public class Target_specServlet extends HttpServlet {
 			failureView.forward(req, res);
 		}}
 	
-
+//測試
 	
 	if ("getOne_TargetSpec_For_Update".equals(action)) {
 
@@ -263,15 +266,13 @@ public class Target_specServlet extends HttpServlet {
 		req.setAttribute("errorMsgs", errorMsgs);
 
 		try {
-			// 這邊先取得eventID對應的值
-			Integer trgspecID = new Integer(req.getParameter("trgspecID"));
-			// 呼叫service來取出eventID的數值
-			TargetSpecService eventSvc = new TargetSpecService();
-			
-			// 給予一個屬性其一個屬性名稱
+			Target_specVO TargetspecVO=new Target_specVO();
+			Integer trgspecID = new Integer(req.getParameter("trgSpecID"));
+			TargetSpecService trgspecSvc = new TargetSpecService();
+			TargetspecVO=trgspecSvc.getOneTrgSpecByKey(trgspecID);
 
-			req.setAttribute("trgSpecVO", trgspecID);
-			String url = "修改的jsp頁面";
+			req.setAttribute("trgSpecVO", TargetspecVO);
+			String url = "/manager/target_Spec/Update.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 

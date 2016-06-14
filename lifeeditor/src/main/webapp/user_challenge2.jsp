@@ -348,28 +348,7 @@ var s2 = {
 		
 });
 
-// <c:forEach var="TargetVO" varStatus="var" items="${TrgSvc.allofficial}">
-// <tr id=${TargetVO.targetID } align='center' valign='middle'>
-// 	<td>${TargetVO.trgName}</td>
-// 	<td>
-// 	<input type='button' value='我要參加' id='apply'>
-// 	<button id="apply">我要參加</button>		
-// 	</td>
-// 	<td>${TargetVO.typeVO.typeName}</td>
-// 	<td>${TargetVO.sectionVO.secName}</td>
-// 	<td>${TargetVO.intention}</td>
-// 	<td>
-// 	<c:if test="${TargetVO.difficulty == '1'}" >輕鬆</c:if>
-// 	<c:if test="${TargetVO.difficulty == '2'}" >簡單</c:if>
-// 	<c:if test="${TargetVO.difficulty == '3'}" >普通</c:if>
-// 	<c:if test="${TargetVO.difficulty == '4'}" >困難</c:if>
-// 	<c:if test="${TargetVO.difficulty == '5'}" >嚴酷</c:if>
-// 	</td>
-// 	<td>0人</td>
-// 	<td>0%</td>
-// 	<td>${TargetVO.timeFinish}</td>
-// 	</tr>
-// </c:forEach>
+
 	
 
 		

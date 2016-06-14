@@ -26,7 +26,6 @@ public class TargetVO implements java.io.Serializable {
 	private Integer privacy;
 	@Expose
 	private Integer genkiBar;
-	@Expose
 	private AchievementVO achVO;
 	@Expose
 	private Integer priority ;

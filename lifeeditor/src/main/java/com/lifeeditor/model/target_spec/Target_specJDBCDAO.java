@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 
+import com.lifeeditor.model.event.eventVO;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.type_list.TypeListDAO_interface;
 import com.lifeeditor.model.user_spec.user_specVO;
@@ -50,8 +51,11 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 private static final String GET_ID_STMT="SELECT @@IDENTITY as 'trgSpec'";
 	
 	//取得作者目標的值為何（是否為官方類別）
-private static final String GET_TARGET_TYPE_STMT =
-		      "SELECT userID,targetID,trgNote,trgPicPath FROM target_spec where trgSpecID=?";
+private static final String GET_ONETARGET_SPEC_STMT =
+		      "SELECT trgSpecID,userID,targetID,trgNote,trgPicPath FROM target_spec where trgSpecID=?";
+
+private static final String GET_ALLTARGET_SPEC_STMT =
+"SELECT trgSpecID,userID,targetID,trgNote,trgPicPath FROM target_spec order by trgSpecID=?";
 	private static final String UPDATE_TRG_NOTE =
 		      "UPDATE target_spec set trgNote=?where trgSpecID=?";//這邊寫錯惹
 	private static final String CHANGE_TARGET_STATUS_STMT =
@@ -595,7 +599,65 @@ private static final String GET_TARGET_TYPE_STMT =
 			return 0;
 
 		}
+		@Override
+		public Target_specVO findByPrimaryKey(Integer trgSpecID) {
 
+			Target_specVO target_specVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+
+			try {
+
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ONETARGET_SPEC_STMT);
+
+				pstmt.setInt(1, trgSpecID);
+
+				rs = pstmt.executeQuery();
+
+				while (rs.next()) {
+					// eventVO 也稱為 Domain objects
+					target_specVO = new Target_specVO();
+					target_specVO.setTrgSpecID(rs.getInt("trgSpecID"));
+					target_specVO.setUserID(rs.getInt("userID"));
+					target_specVO.setTargetID(rs.getInt("typeID"));
+					target_specVO.setTrgNote(rs.getString("trgNote"));
+					target_specVO.setTrgPicPath(rs.getString("trgPicPath"));
+					
+					
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return target_specVO;
+		}
 
 
 		@Override
@@ -603,6 +665,63 @@ private static final String GET_TARGET_TYPE_STMT =
 			// TODO Auto-generated method stub
 			
 		}
+		@Override
+		public List<Target_specVO> getAllTrgSpec() {
+			List<Target_specVO> list = new ArrayList<Target_specVO>();
+			Target_specVO Target_specVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ALLTARGET_SPEC_STMT);
+				rs = pstmt.executeQuery();
 
+				while (rs.next()) {
+					// eventVO 也稱為 Domain objects
+					
+					Target_specVO = new Target_specVO();
+					Target_specVO.setTrgSpecID(rs.getInt("trgSpecID"));
+					Target_specVO.setUserID(rs.getInt("userID"));
+					Target_specVO.setTargetID(rs.getInt("targetID"));
+					Target_specVO.setTrgNote(rs.getString("trgNote"));
+					Target_specVO.setTrgPicPath(rs.getString("trgPicPath"));
+				
+				
+					
+					list.add(Target_specVO); // Store the row in the list
+				}
+
+				// Handle any driver errors
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return list;
+		}
 
 }

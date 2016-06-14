@@ -14,6 +14,8 @@ public interface Target_specDAO_interface {
 	public	int insert_will_change_status(Target_specVO target_specVO);
 	public Target_specVO updateAll(Target_specVO target_specVO);
 	public Target_specVO updateNote(Target_specVO target_specVO);
+	public Target_specVO findByPrimaryKey(Integer trgSpecID);
+	public List<Target_specVO> getAllTrgSpec();
     
 
 }
