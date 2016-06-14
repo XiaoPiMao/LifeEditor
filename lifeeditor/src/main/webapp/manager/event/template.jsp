@@ -89,37 +89,36 @@
       <c:set var="path" value="${pageContext.request.servletPath }" />
       <ul class="sidebar-menu" style="margin-top:20px">
         <!-- Optionally, you can add icons to the links -->
-        <li <c:if test="${path == '/manager/report.jsp' }">class="active"</c:if>>
+        <li>
         	<a href="${ctx }/manager/report.jsp"><i class="fa fa-link"></i> 
         	<span>網站分析</span></a>
         </li>
         
-        <li <c:if test="${path == '/manager/editorhotman.jsp' }">class="active"</c:if>>
+        <li>
         	<a href="${ctx }/manager/editorhotman.jsp"><i class="fa fa-link"></i> 
         	<span>熱門人物</span></a>
         </li>
 
-		<li <c:if test="${path == '/manager/editorType.jsp' }">class="active"</c:if>>
+		<li>
         	<a href="${ctx }/manager/editorType.jsp"><i class="fa fa-link"></i> 
         	<span>編輯類別</span></a>
         </li>
         
-        <li <c:if test="${path == '/manager/editorSec.jsp' }">class="active"</c:if>>
+        <li>
         	<a href="${ctx }/manager/editorSec.jsp"><i class="fa fa-link"></i> 
         	<span>編輯項目</span></a>
         </li>
         
-        <li>
+        <li class="active">
         	<a href="${ctx }/manager/eventTemplate/event_maintain.jsp"><i class="fa fa-link"></i> 
-        	<span>參考資訊</span></a>
-        </li>
+        	<span>參考資訊</span></a></li>
         
-        <li <c:if test="${path == '/manager/achievement.jsp' }">class="active"</c:if>>
+        <li>
         	<a href="${ctx }/manager/achievement.jsp"><i class="fa fa-link"></i> 
         	<span>成就系統</span></a>
         </li>
         
-        <li <c:if test="${path == '/manager/CheckTarget.jsp' || path == '/manager/showTargetSpec.jsp' }">class="active"</c:if>>
+        <li>
         	<a href="${ctx }/manager/CheckTarget.jsp"><i class="fa fa-link"></i> 
         	<span>成就審核</span></a>
         </li>
