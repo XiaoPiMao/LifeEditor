@@ -30,40 +30,45 @@
 
 				<!-- Header -->
 					<header id="header">
-						<h1><a href="#">Life Editor</a></h1>
-						<nav class="links">
-							<ul>
-								<li><a href="setgoal.jsp">目標</a></li>
-								<li><a href="fullCalendar.jsp">行事曆</a></li>
-								<li><a href="addfriend.jsp">朋友</a></li>
-								<li><a href="#">關於我</a></li>					
-							</ul>
-						</nav>
-						<nav class="main">
-							<ul>
-							<c:choose>
-						    	<c:when test="${ ! empty FbPicture }">
-						    			<img src="${FbPicture}"></img>
-								</c:when>
-							<c:otherwise>
-								<img height='45px' width='45px' src="HomeGetPicture">
-							</c:otherwise> 
-					</c:choose>
-				  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();">  </a>    
-							
-							
-								<li class="search">
-									<a class="fa-search" href="#search">Search</a>
-									<form id="search" method="get" action="#">
-										<input type="text" name="query" placeholder="Search" />
-									</form>
-								</li>
-								
-								<li class="menu">
-									<a class="fa-bars" href="#menu">Menu</a>
-								</li>
-							</ul>
-						</nav>
+							<h1><a href="#">Life Editor</a></h1>
+							<nav class="links">
+								<ul>
+									<li><a href="setgoal.jsp">目標</a></li>
+									<li><a href="#">行事曆</a></li>
+									<li><a href="#">朋友</a></li>
+									<li><a href="#">關於我</a></li>
+								</ul>
+							</nav>
+									<nav class="main">
+												<ul>
+														<c:choose>
+															    	<c:when test="${ ! empty FbPicture }">
+															    			<img src="${FbPicture}"></img>
+															    			<a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a> 
+																	</c:when>
+																	<c:when test="${! empty LoginOK }">
+																			<img height='45px' width='45px' src="HomeGetPicture">
+																			<a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a> 
+																	</c:when>
+														</c:choose>
+														
+<%-- 													 	<c:if test="${! empty LoginOK }"> --%>
+<%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
+<%-- 														</c:if>	 --%>
+													
+														<li class="search">
+																<a class="fa-search" href="#search">Search</a>
+																<form id="search" method="get" action="#">
+																	<input type="text" name="query" placeholder="Search" />
+																</form>
+														</li>
+																	
+														<li class="menu">
+															<a class="fa-bars" href="#menu">Menu</a>
+														</li>
+												</ul>
+									</nav>
+>>>>>>> branch 'master' of https://github.com/eeit85groupone/testRemote.git
 					</header>
 
 
@@ -329,7 +334,7 @@
 <script>
         window.fbAsyncInit = function() {
                 FB.init({
-                	appId : '236995580009135',
+               	appId : '236995580009135',
                 status: true,
                 cookie: true,
                 xfbml: true,

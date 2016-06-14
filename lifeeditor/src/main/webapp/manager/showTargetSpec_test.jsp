@@ -37,7 +37,7 @@ $(document).ready(function(){
 					<div style="border-width:3px;border-style:dashed;border-color:#FFAC55;padding:50px"><img src="${trgList.trgPicPath}"    width="400">	</div>
 					<br>
 <%-- 					心得內容：<h4>${trgList.trgNote}"</h4> --%>
-								
+					${trgList.trgSpecID}
 		         	</c:forEach>
 		
         <thead>
