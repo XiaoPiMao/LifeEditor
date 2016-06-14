@@ -28,29 +28,30 @@
 		<!-- Wrapper -->
 			<div id="wrapper">
 
-				<!-- Header -->
-					<header id="header">
-							<h1><a href="#">Life Editor</a></h1>
-							<nav class="links">
-								<ul>
-									<li><a href="setgoal.jsp">目標</a></li>
-									<li><a href="#">行事曆</a></li>
-									<li><a href="#">朋友</a></li>
-									<li><a href="#">關於我</a></li>
-								</ul>
-							</nav>
-									<nav class="main">
-												<ul>
-														<c:choose>
-															    	<c:when test="${ ! empty FbPicture }">
-															    			<img src="${FbPicture}"></img>
-															    			<a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a> 
-																	</c:when>
-																	<c:when test="${! empty LoginOK }">
-																			<img height='45px' width='45px' src="HomeGetPicture">
-																			<a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a> 
-																	</c:when>
-														</c:choose>
+
+	<!-- Header -->
+<header id="header">
+	<h1><a href="home.jsp">Life Editor</a></h1>
+		<nav class="links">
+			<ul>
+				<li><a href="setgoal.jsp">目標</a></li>
+				<li><a href="#">行事曆</a></li>
+				<li><a href="http://localhost:8080/lifeeditor/addfriend.jsp">朋友</a></li>
+				<li><a href="#">關於我</a></li>
+			</ul>
+		</nav>
+		<nav class="main">
+			<ul>
+				<c:choose>
+					<c:when test="${ ! empty FbPicture }">
+					   <img src="${FbPicture}" style="border-radius:50%;"></img>
+					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
+					</c:when>
+				    <c:when test="${! empty LoginOK }">
+					   <img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;">
+					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
+					</c:when>
+				</c:choose>
 														
 <%-- 													 	<c:if test="${! empty LoginOK }"> --%>
 <%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
@@ -339,8 +340,6 @@
                 version : 'v2.6' 
             });
         };
-
-
         (function(d, s, id) {
 					var js, fjs = d.getElementsByTagName(s)[0];
 					if (d.getElementById(id))
@@ -350,14 +349,12 @@
 					js.src = "//connect.facebook.net/zh_TW/sdk.js";
 					fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
-
         function logout() {
             FB.logout(function(response) {
             });
         }
-
-
         </script>
 <!-- 			</script> -->
 	</body>
+
 </html>
