@@ -21,7 +21,6 @@ public class LoginServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// 設定輸入資料的編碼
 		request.setCharacterEncoding("UTF-8");
-	
 		HttpSession session = request.getSession();                                              	// 定義存放錯誤訊息的 Collection物件		
 		Map<String, String> errorMsgMap = new HashMap<String, String>();    // 準備存放錯誤訊息的 Map<String, String> 物件 : errorMsgMap		
 		request.setAttribute("ErrorMsgKey", errorMsgMap);                                // 將 errorMsgMap 放入 request 置物櫃內，識別字串為 "ErrorMsgKey"
@@ -57,7 +56,7 @@ public class LoginServlet extends HttpServlet {
 					System.out.println("帳號密碼吻合");				
 					session.setAttribute("LoginOK", vo); 																// OK, 將mb物件放入Session範圍內，識別字串為"LoginOK"，表示此使用者已經登入
 					System.out.println(session.getAttribute("LoginOK") + "<br>");
-				} else {
+				} else{
 	
 					System.out.println("帳號密碼不吻合");														// NG, userid與密碼的組合錯誤，放錯誤訊息"該帳號不存在或密碼錯誤"到 errorMsgMap 之內,,, 對應的識別字串為 "LoginError"
 					errorMsgMap.put("LoginError", "該帳號不存在或密碼錯誤");

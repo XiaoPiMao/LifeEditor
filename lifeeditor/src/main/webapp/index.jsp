@@ -99,7 +99,7 @@
 					<input type="text" name="account" size="10">					
 					<br />
 					<label>密碼</label>
-					<input type="password" name="pswd" size="10">
+					<input type="password" name="pswd" size="10" >
 					<small><Font id="ErrorMsg" color='red' size="-1"></Font></small>
 					<br />
 					<div class="checkbox">
