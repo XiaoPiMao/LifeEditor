@@ -44,13 +44,25 @@
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="js/main.js"></script>
     <script>
-$(document).ready(function(){
+    var jTypes = JSON.parse('${jTypes}');
     
+    
+    var catogoryNum = new Object();
+    $.each(jTypes,function() {
+    	catogoryNum[this.typeName] = 0 ;
+    })
+    
+    		
+    		
+    	
+$(document).ready(function(){
+    	
       $.getJSON('GetJTargetByUser',function(data){
-    	   //console.log(data);
+    	//console.log(data);
     	var str = "";
     	
 		$.each(data,function(){
+			catogoryNum[this.typeName]++;
 			str += '<div class="col-md-12 col-sm-12">' +
 		            '<div class="single-blog two-column">' +
 		            '<div class="post-thumb">' +
@@ -60,14 +72,14 @@ $(document).ready(function(){
 		                '</div>' +
 		            '</div>' +
 		            '<div class="post-content overflow">' +
-		                '<h2 class="post-title bold"><a href="blogdetails.html">Advanced business cards design</a></h2>' +
-		                '<h3 class="post-author"><a href="#">Posted by micron News</a></h3>' +
-		                '<p></p>'+
+		                '<h2 class="post-title bold"><a href="blogdetails.html">' + this.trgName +'</a></h2>' +
+		                '<h3 class="post-author"><a href="#">micron News</a></h3>' +
+		                '<p>'+ this.intention + '</p>'+
 		                '<a href="#" class="read-more">View More</a>'+
 		                '<div class="post-bottom overflow">'+
 		                    '<ul class="nav navbar-nav post-nav">'+
-		                        '<li><a href="#"><i class="fa fa-tag"></i>Creative</a></li>'+
-		                        '<li><a href="#"><i class="fa fa-heart"></i>32 Love</a></li>'+
+		                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
+		                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
 		                        '<li><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
 		                    '</ul>'+
 		                '</div>'+
@@ -76,8 +88,13 @@ $(document).ready(function(){
 		    '</div>'
   
 		});
+		var spans = document.querySelectorAll('.pull-right');
+		var i = 0;
+		$.each(catogoryNum,function(name,value) {
+			$(spans[i]).text("(" + value + ")");
+			i++;
+		})
 		$("[class = 'col-md-9 col-sm-7']").append( $("<div></div>").addClass("row").html(str) );
-		
 	})
 });
 	
@@ -134,7 +151,7 @@ $(document).ready(function(){
                 <div class="col-md-3 col-sm-5">
                     <div class="sidebar blog-sidebar">
                         <div class="sidebar-item  recent">
-                            <h3>Comments</h3>
+                            <h3>最 新 留 言</h3>
                             <div class="media">
                                 <div class="pull-left">
                                     <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" alt=""></a>
@@ -144,49 +161,16 @@ $(document).ready(function(){
                                     <p>posted on  07 March 2014</p>
                                 </div>
                             </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img src="singlecolor/images/portfolio/project2.jpg" alt=""></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4>
-                                    <p>posted on  07 March 2014</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img src="singlecolor/images/portfolio/project3.jpg" alt=""></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4>
-                                    <p>posted on  07 March 2014</p>
-                                </div>
-                            </div>
                         </div>
                         <div class="sidebar-item categories">
-                            <h3>Categories</h3>
+                            <h3>目 標 類 別</h3>
                             <ul class="nav navbar-stacked">
-                                <li><a href="#">Lorem ipsum<span class="pull-right">(1)</span></a></li>
-                                <li class="active"><a href="#">Dolor sit amet<span class="pull-right">(8)</span></a></li>
-                                <li><a href="#">Adipisicing elit<span class="pull-right">(4)</span></a></li>
-                                <li><a href="#">Sed do<span class="pull-right">(9)</span></a></li>
-                                <li><a href="#">Eiusmod<span class="pull-right">(3)</span></a></li>
-                                <li><a href="#">Mockup<span class="pull-right">(4)</span></a></li>
-                                <li><a href="#">Ut enim ad minim <span class="pull-right">(2)</span></a></li>
-                                <li><a href="#">Veniam, quis nostrud <span class="pull-right">(8)</span></a></li>
+                            <c:forEach var="type" items="${types}">
+                                <li><a href="#">${type.typeName}<span class="pull-right">(0)</span></a></li>
+                            </c:forEach>
                             </ul>
                         </div>
-                        <div class="sidebar-item tag-cloud">
-                            <h3>Tag Cloud</h3>
-                            <ul class="nav nav-pills">
-                                <li><a href="#">Corporate</a></li>
-                                <li><a href="#">Joomla</a></li>
-                                <li><a href="#">Abstract</a></li>
-                                <li><a href="#">Creative</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li><a href="#">Product</a></li>
-                            </ul>
-                        </div>
+
                         <div class="sidebar-item popular">
                             <h3>Latest Photos</h3>
                             <ul class="gallery">
