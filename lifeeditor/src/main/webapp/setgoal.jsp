@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>測試版_設定目標</title>
+<title>設定目標</title>
 <link href="css/jquery-ui.css" rel="stylesheet">
 <link rel="stylesheet" href="css/main.css" />
 <script src="js/jquery.min.js"></script>
@@ -26,10 +26,10 @@ opacity:0.5;
 z-index:5555555;
 display:none; 
 }
+
 .close {
 background: none repeat scroll 0 0 #606061;
 border-radius: 15px;
-
 color: #FFFFFF;
 font-weight: bold;
 position: relative;
@@ -49,7 +49,7 @@ background: none repeat scroll 0 0 #00D9FF;
     width : 800px; 
 	position: fixed;
 	left: calc(50vw - 400px);
-	top: 100vh;
+	top: 90vh;
 	z-index:9999999;
 }
 
@@ -67,12 +67,12 @@ background: none repeat scroll 0 0 #00D9FF;
 	margin: 0 10px 10px 10px;
 }
 
-.row {
-	width: 900px;
+#set {
+	width: 890px;
 	height: auto;
 	border: 2px solid #ff6666;
 /*  	float: left; */
-	margin: 200px 150px 50px 135px;
+	margin: 180px 150px 50px 150px;
 /* 	text-align: center; */
 }
 
@@ -85,8 +85,8 @@ background: none repeat scroll 0 0 #00D9FF;
 .sec_list {
  	display: none; 
  	z-index: 2; 
- 	left: 55px; 
- 	width: 480px; 
+ 	left: 250px; 
+ 	width: 500px; 
 	height: 360px; 
  	overflow: scroll; 
  	background-color: white; 
@@ -99,8 +99,10 @@ background: none repeat scroll 0 0 #00D9FF;
 cursor:pointer;
 }
 .col-md-7{
-margin: 75px 5px 50px 35px;
+margin: 65px 5px 50px 55px;
+left: 200px;
 }
+
 .secPic {
 	width: 65px;
 	height: 65px;
@@ -110,7 +112,7 @@ margin: 75px 5px 50px 35px;
 }
 
 #myForm {
-     display: none;   
+    display: none;   
 	z-index: 2;
 	left: 250px;
 	top: 180px;
@@ -293,7 +295,7 @@ display: inline-block;
                                 	$("#circle3").fadeIn("slow");
 									$("#myForm").fadeIn("slow");
                                 }else{
-                                	
+                                $('#word').html('<div><h1>點擊想完成的項目</h1></div');
 								$('#secs').empty();
 								$("#secs").html('<div><a href="${pageContext.request.requestURL}" title="Close" class="close">X</a></div>');
 								$("#circle2").fadeIn("slow");
@@ -315,11 +317,7 @@ display: inline-block;
 									d.append(s);
                                     
 									(s).click(function() {
-// 										$("#circle2>img").attr("src",
-// 												$(this).attr("src")).css({
-// 											"border" : "5px solid black",
-// 											"border-radius" : "60px",
-// 										});
+									    $('#word').html('<div><h1>填寫內文</h1></div');
 										var circle2 = $('#circle2');
 										circle2.empty();
 										var label = $("<label></label>").text($(this).attr("title"))
@@ -369,6 +367,7 @@ display: inline-block;
 
 				function go(){
 					$('.background').show();
+					$('.background').html('<audio autoplay src="sound/rocket.mp3" ></audio>');
 					$("#rocket").fadeIn("fast");
 					$('#rocket').animate({
 						//'left':'0px',
@@ -429,9 +428,7 @@ display: inline-block;
 		<!-- Main -->
 		<article class="article">
 
-			<div style="text-align: center; margin: 10px 10px 50px 10px;">
-				<h1>步驟一 : 請將你想要完成的目標類型拖曳到下方的類別圓圈裡</h1>
-			</div>
+			
 
 			<div class="type_list"
 				style="text-align: center; margin: 10px 10px 50px 100px;">
@@ -440,19 +437,19 @@ display: inline-block;
 <!------------ set goal ------------>
 			<div class="row" id="set">
 <!------------ step ------>
-			
-			
-			
+						
 <!------------circle -------------->
 			<div class="col-md-5">
 			 <div id="circle1" ><img class="goal" src="images/sec_list/goal.png"></div>
 			 <div id="circle2" style="display:none;"><img class="goal" src="images/sec_list/sec.png"></div>
-<!-- 			 <div id="circle3" style="display:none;"><img class="goal" src="images/sec_list/go.png"></div> -->
 			 <div id="circle3" style="display:none;"><div id="button"><span>GO</span></div></div>
 			</div>
 			
-<!-- 			form -->
+<!------------form ----------------->
 			<div class="col-md-7">
+			<div id="word" style="text-align: center; margin: 0px 10px 20px 0px;">
+				<h1>將想要完成的目標類型拖曳到左方的類別圓圈裡</h1>
+			</div>
              <div id="secs" class="sec_list"></div>
 			
 					<div>
@@ -491,7 +488,7 @@ display: inline-block;
 						</div>
 						<div id="errorMsg" style="display:inline;width: 30em;color:red;"></div>
 						<div class="form-group">
-							<input id="resetBtn" value="重設" type="button"/>
+<!-- 							<input id="resetBtn" value="重設" type="button"/> -->
 						</div>
 						
 					</form>
