@@ -95,7 +95,10 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			pstmt.setString(1, TrgVO.getTrgName());
 			pstmt.setInt(2, TrgVO.getTypeVO().getTypeID());
 			pstmt.setInt(3, TrgVO.getSectionVO().getSecID());
-			pstmt.setInt(4, TrgVO.getDifficulty());
+			if(TrgVO.getDifficulty() != null)
+				pstmt.setInt(4, TrgVO.getDifficulty());
+			else
+				pstmt.setNull(4, java.sql.Types.INTEGER);
 			pstmt.setString(5, TrgVO.getIntention());
 			if(TrgVO.getPrivacy() != null) 
 				pstmt.setInt(6, TrgVO.getPrivacy());
@@ -108,9 +111,12 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				pstmt.setNull(7, java.sql.Types.INTEGER);
 			
 			AchievementVO achVO = TrgVO.getAchVO();
-			if(achVO.getAchID() != null) 
-				pstmt.setInt(8, achVO.getAchID());
-			else
+			if(achVO != null) {
+				if(achVO.getAchID() != null) 
+					pstmt.setInt(8, achVO.getAchID());
+				else
+					pstmt.setNull(8, java.sql.Types.INTEGER);
+			}else
 				pstmt.setNull(8, java.sql.Types.INTEGER);
 			
 			if(TrgVO.getPriority() != null) 
