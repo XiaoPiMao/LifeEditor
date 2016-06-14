@@ -8,8 +8,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.type_list.TypeListVO;
+import com.lifeeditor.model.user_spec.user_specVO;
+import com.lifeeditor.service.TargetService;
+import com.lifeeditor.service.Target_List_Service;
 
 
 
@@ -25,15 +29,15 @@ public class Target extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
-		
-		System.out.println(request.getParameter("timeStart"));
-		System.out.println(action);
+		user_specVO user = (user_specVO)request.getSession().getAttribute("LoginOK");
 		if("insert".equals(action)) {
 			String errorMsg = "";
 			String intention = request.getParameter("intention");
 			String trgName = request.getParameter("trgName");
 			String timeStartStr = request.getParameter("timeStart");
 			String timeFinishStr = request.getParameter("timeFinish");
+			java.sql.Date timeStart = null;
+			java.sql.Date timeFinish = null;
 			if(trgName == null || trgName.trim().length() == 0 ) 
 				errorMsg += "名稱要填唷!";
 			if(intention == null || intention.trim().length() == 0 ) 
@@ -42,8 +46,8 @@ public class Target extends HttpServlet {
 					(timeStartStr.trim().length() == 0 || timeFinishStr.trim().length() == 0) )	
 				errorMsg += " 日期沒填好!";
 			else {
-				java.sql.Date timeStart = java.sql.Date.valueOf(timeStartStr);
-				java.sql.Date timeFinish = java.sql.Date.valueOf(timeFinishStr);
+				timeStart = java.sql.Date.valueOf(timeStartStr);
+				timeFinish = java.sql.Date.valueOf(timeFinishStr);
 				long start = timeStart.getTime();
 				long finish = timeFinish.getTime();
 				if(finish < System.currentTimeMillis()-86400*1000)
@@ -59,15 +63,31 @@ public class Target extends HttpServlet {
 				return;
 			}
 			
-//			
-//			TargetVO target = new TargetVO();
-//			
-//			
-//			
-//			target.setTrgName(request.getParameter("trgName"));
-//			TypeListVO type = new TypeListVO();
-//			type.setTypeID(Integer.parseInt(request.getParameter("typeID")));
-//			target.setTypeVO(type);
+			Integer typeID = Integer.parseInt(request.getParameter("typeID"));
+			
+			TargetVO target = new TargetVO();
+			target.setTimeStart(timeStart);
+			target.setTimeFinish(timeFinish);
+			target.setIntention(intention);
+			target.setTrgName(trgName);
+			target.setPrivacy(Integer.parseInt(request.getParameter("privacy")));
+			target.setPriority(Integer.parseInt(request.getParameter("priority")));
+			target.setGenkiBar(0);
+			target.setStatus(1);
+			target.setTrgType(3);
+			TypeListVO type = new TypeListVO();
+			type.setTypeID(typeID);
+			target.setTypeVO(type);
+			if(typeID != 0) {
+				SecListVO sec = new SecListVO();
+				sec.setSecID(Integer.parseInt(request.getParameter("sectionID")));
+				target.setSectionVO(sec);
+			}
+			TargetService trgSvc = new TargetService();
+			int targetID = trgSvc.addTrg(target);
+			
+			Target_List_Service trgListSvc = new Target_List_Service();
+			trgListSvc.addTrgList(user.getUserID(), targetID);
 			return;
 		}
 	}
