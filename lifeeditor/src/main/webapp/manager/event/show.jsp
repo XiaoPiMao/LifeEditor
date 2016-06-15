@@ -6,12 +6,20 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 </head>
+<style>
+	.eventShow{
+		margin-left : 150px;
+		font-size : 18pt;
+	}
+	.firstShow{
+		margin-top : 50px;
+	}
+</style>
 <body>
 
-<h1>參考公告維護系統</h1>
-<li><a href=' event_event_insert.jsp'>新增活動公告</a> all event  </li> <br><br>
- <li><a href=' event_show_all_event.jsp'>活動維護</a> all event  </li> <br><br>
- <li><a href=' event_search_event.jsp'>單一活動搜尋</a> all event  </li> <br><br>
+ <li class="eventShow firstShow"><a href=' event_event_insert.jsp'>新增活動公告</a> all event  </li> <br><br>
+ <li class="eventShow"><a href=' event_show_all_event.jsp'>活動維護</a> all event  </li> <br><br>
+ <li class="eventShow"><a href=' event_search_event.jsp'>單一活動搜尋</a> all event  </li> <br><br>
   
 </body>
 </html>

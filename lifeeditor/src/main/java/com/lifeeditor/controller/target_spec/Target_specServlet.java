@@ -207,20 +207,17 @@ public class Target_specServlet extends HttpServlet {
 	                         
 
 		    TargetSpecService Target_specSvc = new TargetSpecService();
-		     String url = "ok.jsp";
+		     String url = "/manager/target_Spec/ok.jsp";
 
 		     RequestDispatcher successView = req.getRequestDispatcher(url);
 //			//以下為取得表單要insert的值
 		   long time=System.currentTimeMillis();
 		    
-			Integer UserID = user.getUserID();
+			Integer UserID = 1;
+					//user.getUserID();
 			Integer TargetID =new Integer(req.getParameter("input_trgetID"));		;
 			String UserTarget_desc = req.getParameter("input_target_Note");		
 			//這邊將要insert的路徑做設定
-			String current = new java.io.File( "." ).getCanonicalPath();
-	        System.out.println("Current dir:"+current);                       
-	        String currentDir = System.getProperty("user.dir");
-	        System.out.println("Current dir using System:" +currentDir);
 	        String trgPicPath="\\images\\"+UserID.toString()+TargetID.toString()+time+".jpg";
 	        
 	        String Path=req.getServletContext().getRealPath(trgPicPath);
