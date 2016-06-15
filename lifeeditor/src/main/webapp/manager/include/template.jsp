@@ -3,18 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script type="text/javascript">
-		window.onload = function(){	
-			
-			var name = "${backVO.account}";
-			var pswd = "${backVO.pswd}";
+		$(function(){
 			var pic = "${backPhoto}";
-			//console.log(picture);
-			var picture = 'data:image/jpeg;base64,'+ pic;
-			for(var i = 1 ;i<=4;i++){
-				document.getElementById("img"+i).src=picture;
-			}
-			
-		};
+			var pswd = "${backVO.pswd}";
+			var picture = 'data:image/jpeg;base64,'+ pic; 
+			var name = "${backVO.account}";
+			$('img[alt="User Image"]').attr("src",picture);
+		}) 
 </script>
 
   <header class="main-header">
@@ -114,7 +109,10 @@
         	<span>編輯項目</span></a>
         </li>
         
-        <li><a href="#"><i class="fa fa-link"></i> <span>參考資訊</span></a></li>
+        <li>
+        	<a href="${ctx }/manager/eventTemplate/event_maintain.jsp"><i class="fa fa-link"></i> 
+        	<span>參考資訊</span></a>
+        </li>
         
         <li <c:if test="${path == '/manager/achievement.jsp' }">class="active"</c:if>>
         	<a href="${ctx }/manager/achievement.jsp"><i class="fa fa-link"></i> 
