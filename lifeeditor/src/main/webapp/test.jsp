@@ -56,9 +56,10 @@
     		
     	
 $(document).ready(function(){
+    	liveComments = JSON.parse('${liveComments}');
     	
      
-    	//console.log(data);
+    	console.log(liveComments);
     	data = JSON.parse('${targets}');
     	var str = "";
     	

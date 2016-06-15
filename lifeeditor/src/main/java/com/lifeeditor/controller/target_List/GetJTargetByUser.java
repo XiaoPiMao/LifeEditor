@@ -12,10 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.*;
+import com.lifeeditor.model.comments.commentsVO;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.Target_List_Service;
+import com.lifeeditor.service.commentsService;
 
 
 @WebServlet("/UserPage")
@@ -31,8 +33,9 @@ public class GetJTargetByUser extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Target_List_Service trgListSvc = new Target_List_Service();
 		user_specVO user = (user_specVO)request.getSession().getAttribute("LoginOK");
+		Integer userID = user.getUserID();
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
-		List<Target_ListVO> list = trgListSvc.findByUserID(user.getUserID());
+		List<Target_ListVO> list = trgListSvc.findByUserID(userID);
 		JsonArray jsonArray = new JsonArray();
 		JsonObject jsonObj = null;
 		for(Target_ListVO trgList : list) {
@@ -49,12 +52,23 @@ public class GetJTargetByUser extends HttpServlet {
 				if(!key.equals("typeVO") && !key.equals("sectionVO")) 
 					jsonObj.add(key, entry.getValue());
 			}
-			
-			
 			jsonArray.add(jsonObj);
 		}
-		
 		request.setAttribute("targets", jsonArray.toString());
+		
+		jsonArray = new JsonArray();
+		commentsService cmtSvc = new commentsService();
+		List<commentsVO> comments = cmtSvc.getCommentByUser(userID);
+		for(commentsVO comment : comments) {
+			jsonObj = new JsonObject();
+			jsonObj.addProperty("targetID", comment.getTargetID());
+			jsonObj.addProperty("userID", comment.getUser_specVO().getUserID());
+			jsonObj.addProperty("comment", comment.getComment());
+			jsonArray.add(jsonObj);
+			
+		}
+		request.setAttribute("liveComments", jsonArray.toString());
+		
 		request.getRequestDispatcher("/test.jsp").forward(request, response);
 	}
 
