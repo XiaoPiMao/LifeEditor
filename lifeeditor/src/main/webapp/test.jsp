@@ -71,6 +71,7 @@
 <script>
     var jTypes = JSON.parse('${jTypes}');
     var jUser = JSON.parse('${jUser}');
+    var data = JSON.parse('${targets}');
     console.log(jUser);
     
     var catogoryNum = new Object();
@@ -83,14 +84,28 @@
 $(document).ready(function(){
     	liveComments = JSON.parse('${liveComments}');
     	console.log(liveComments);
-    	data = JSON.parse('${targets}');
+    	var lastComment ="<h3>最 新 留 言</h3>";
+    	$.each(liveComments,function(){
+    		lastComment += 
+            '<div class="media">' +
+               '<div class="pull-left">' +
+                   '<a href="#"><img style="border-radius:50%;height:55px;width:55px;" src="${ctx}/GetUserPicture?id=' + this.userID +'"></a>' +
+               '</div>' +
+             '<div class="media-body">' +
+                  '<h4><a href="#">' +  this.comment + '</a></h4>' +
+                   '<p>'+ this.lastName + ' ' + this.firstName + '</p>' +
+              '</div>' +
+            '</div>' 
+    	})
+    	$('.sidebar-item.recent').html(lastComment);
     	var str = "";
     	
     	$('.carousel').carousel({
     	      interval: 6000
     	    })
-    	    
+
 		$.each(data,function(){
+			var num = Math.floor(Math.random() * 3 + 1);
 			catogoryNum[this.typeName]++;
 			str += '<div class="col-md-12 col-sm-12">' +
 			        '<div class="carousel slide" id="myCarousel">'+
@@ -101,7 +116,7 @@ $(document).ready(function(){
 	                '<h3 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h3>' +
 	                '<p> 初衷 : '+ this.intention + '</p>'+
 		            '<div class="post-thumb">' +
-		                '<a href="blogdetails.html"><img src="singlecolor/images/blog/8.jpg" class="img-responsive" alt=""></a>'+
+		                '<a href="blogdetails.html"><img src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt=""></a>'+
 		                '<div class="post-overlay">' +
 		                    '<span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>' +
 		                '</div>' +
@@ -132,7 +147,7 @@ $(document).ready(function(){
 			$(spans[i]).text("(" + value + ")");
 			i++;
 		})
-		$("[class = 'col-md-9 col-sm-7']").append( $("<div></div>").addClass("row").html(str) );
+		$(".col-md-9.col-sm-7").append( $("<div></div>").addClass("row").html(str) );
 	})
 
 	
@@ -186,16 +201,16 @@ $(document).ready(function(){
         <div class="col-md-3 col-sm-5" >
             <div class="sidebar blog-sidebar" style="margin-right:50px;">
                 <div class="sidebar-item  recent">
-                    <h3>最 新 留 言</h3>
-                      <div class="media">
-                         <div class="pull-left">
-                             <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" alt=""></a>
-                         </div>
-                       <div class="media-body">
-                            <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4>
-                             <p>posted on  07 March 2014</p>
-                        </div>
-                      </div>
+                    
+<!--                       <div class="media"> -->
+<!--                          <div class="pull-left"> -->
+<!--                              <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" title="123"></a> -->
+<!--                          </div> -->
+<!--                        <div class="media-body"> -->
+<!--                             <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4> -->
+<!--                              <p>posted on  07 March 2014</p> -->
+<!--                         </div> -->
+<!--                       </div> -->
                  </div>
                         <div class="sidebar-item categories">
                             <h3>目 標 類 別</h3>
@@ -207,7 +222,7 @@ $(document).ready(function(){
                         </div>
 
                         <div class="sidebar-item popular">
-                            <h3>Latest Photos</h3>
+                            <h3>我 的 榮 耀</h3>
                             <ul class="gallery">
                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li>
                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular2.jpg" alt=""></a></li>
