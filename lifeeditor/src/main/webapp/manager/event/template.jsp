@@ -1,45 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>LifeEditor Manager</title>
-<meta
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
-	name="viewport">
-<link rel="stylesheet" href="${ctx }/manager/bootstrap/css/bootstrap.min.css">
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-	<link rel="stylesheet" href="${ctx }/manager/dist/css/AdminLTE.min.css">
-	<link rel="stylesheet" href="${ctx }/manager/dist/css/skins/skin-blue.min.css">
-
-<!--[if lt IE 9]>
-	  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-	  <![endif]-->
-				
 <script type="text/javascript">
-		window.onload = function(){	
-			
-			var name = "${backVO.account}";
+		$(function(){
+			var pic = "${backPhoto}";
 			var pswd = "${backVO.pswd}";
-			var pic = "${photo}";
-			//console.log(picture);
-			var picture = 'data:image/jpeg;base64,'+ pic;
-			for(var i = 1 ;i<=4;i++){
-				document.getElementById("img"+i).src=picture;
-			}
-			
-		};
+			var picture = 'data:image/jpeg;base64,'+ pic; 
+			var name = "${backVO.account}";
+			$('img[alt="User Image"]').attr("src",picture);
+		}) 
 </script>
-</head>
-<header class="main-header">
+
+  <header class="main-header">
 	
     <!-- Logo -->
     <a href="index2.html" class="logo">
@@ -113,42 +86,48 @@
       </div>
 
       <!-- Sidebar Menu -->
-      <ul class="sidebar-menu" style="margin-top:20px;height:2000px">
+      <c:set var="path" value="${pageContext.request.servletPath }" />
+      <ul class="sidebar-menu" style="margin-top:20px">
         <!-- Optionally, you can add icons to the links -->
-        <li class="active"><a href="#"><i class="fa fa-link"></i> <span>系統分類</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>參考資訊</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>熱門人物</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>成就系統</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>分析</span></a></li>
-        <li><a href="#"><i class="fa fa-link"></i> <span>審核</span></a></li>
+        <li>
+        	<a href="${ctx }/manager/report.jsp"><i class="fa fa-link"></i> 
+        	<span>網站分析</span></a>
+        </li>
+        
+        <li>
+        	<a href="${ctx }/manager/editorhotman.jsp"><i class="fa fa-link"></i> 
+        	<span>熱門人物</span></a>
+        </li>
+
+		<li>
+        	<a href="${ctx }/manager/editorType.jsp"><i class="fa fa-link"></i> 
+        	<span>編輯類別</span></a>
+        </li>
+        
+        <li>
+        	<a href="${ctx }/manager/editorSec.jsp"><i class="fa fa-link"></i> 
+        	<span>編輯項目</span></a>
+        </li>
+        
+        <li class="active">
+        	<a href="${ctx }/manager/eventTemplate/event_maintain.jsp"><i class="fa fa-link"></i> 
+        	<span>參考資訊</span></a></li>
+        
+        <li>
+        	<a href="${ctx }/manager/achievement.jsp"><i class="fa fa-link"></i> 
+        	<span>成就系統</span></a>
+        </li>
+        
+        <li>
+        	<a href="${ctx }/manager/CheckTarget.jsp"><i class="fa fa-link"></i> 
+        	<span>成就審核</span></a>
+        </li>
       </ul>
       <!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->
     </aside>
-<body class="hold-transition skin-blue sidebar-mini">
+    
 
-		<div class="content-wrapper">
-			<section class="content-header">
-				<h1>
-					分析報表 <small>life Editor</small>
-				</h1>
+  
 
-			</section>
-
-			<section class="content">
-
-				<jsp:include page="report.jsp"></jsp:include>
-
-			</section>
-		</div>
-
-
-	<!-- jQuery 2.2.0 -->
-	<script src="${ctx }/plugins/jQuery/jQuery-2.2.0.min.js"></script>
-	<!-- Bootstrap 3.3.6 -->
-	<script src="${ctx }/manager/bootstrap/js/bootstrap.min.js"></script>
-	<!-- AdminLTE App -->
-	<script src="${ctx }/manager/dist/js/app.min.js"></script>
-</body>
-</html>
