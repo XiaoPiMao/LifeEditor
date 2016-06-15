@@ -15,6 +15,7 @@ import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.FriendService;
 import com.lifeeditor.service.user_specService;
 import com.lifeeditor.utility.DoBase64;
+import com.lifeeditor.utility.MyGson;
 
 
  
@@ -64,6 +65,7 @@ public class LoginServlet extends HttpServlet {
 						jFriends.add(friend.getUserID().toString(), jFriend);
 					}
 					session.setAttribute("jFriends", jFriends.toString());
+					session.setAttribute("jUser", MyGson.GSON.toJson(vo));
 				} else{
 	
 					System.out.println("帳號密碼不吻合");														// NG, userid與密碼的組合錯誤，放錯誤訊息"該帳號不存在或密碼錯誤"到 errorMsgMap 之內,,, 對應的識別字串為 "LoginError"
