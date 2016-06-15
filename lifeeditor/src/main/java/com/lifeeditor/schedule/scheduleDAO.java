@@ -32,17 +32,16 @@ public class scheduleDAO {
 		}
 	}
 	
-	public List<scheduleVO> getScheduleFromUser(Integer userID) throws SQLException{
+	public List<scheduleVO> getScheduleFromUser(String userID) throws SQLException{
 		
-		String queryString = "select targetListID,target_list.userID,user_spec.lastName + user_spec.firstName as name,target.trgName,target.typeID,type_list.typeName,"+
-							 "target.sectionID,sec_list.secName,target.difficulty,target.intention,target.privacy,target.priority,"+
-							 "target.remindTimes,target.trgType,target.punishment,target.status,target.timeStart,target.timeFinish,target.doneTime "+
-							 "from target_list "+ 
-							 "inner join target on target_list.targetID = target.targetID "+
-							 "inner join sec_list on sec_list.secID = target.sectionID "+
+		String queryString = "select user_spec.lastName + user_spec.firstName as name,target.trgName,type_list.typeName,"+
+							 "sec_list.secName,target.intention,target.timeStart,target.timeFinish "+
+							 "from target_list "+
+							 "inner join target on target_list.targetID = target.targetID " +
+							 "inner join sec_list on sec_list.secID = target.sectionID " +
 							 "inner join user_spec on user_spec.userID = target_list.userID "+
-							 "inner join type_list on type_list.typeID = target.typeID "+
-							 "where target_list.userID = "+userID+"";
+							 "inner join type_list on type_list.typeID = target.typeID " +
+							 "where targetListID = "+userID+"";
 		
 		List<scheduleVO> userData = new ArrayList<scheduleVO>();
 		
@@ -56,25 +55,14 @@ public class scheduleDAO {
 				
 				scheduleVO schedule = new scheduleVO();
 				
-				schedule.setTargetListID(rs.getInt(1));
-				schedule.setUserID(rs.getInt(2));
-				schedule.setName(rs.getString(3));
-				schedule.setTargerName(rs.getString(4));
-				schedule.setTypeID(rs.getInt(5));
-				schedule.setTypeName(rs.getString(6));
-				schedule.setSectionID(rs.getInt(7));
-				schedule.setSecName(rs.getString(8));
-				schedule.setDifficulty(rs.getInt(9));
-				schedule.setIntention(rs.getString(10));
-				schedule.setPrivacy(rs.getInt(11));
-				schedule.setPriority(rs.getInt(12));
-				schedule.setRemindTimes(rs.getInt(13));
-				schedule.setTryType(rs.getInt(14));
-				schedule.setPunishment(rs.getInt(15));
-				schedule.setStatus(rs.getInt(16));
-				schedule.setTimeStart(rs.getDate(17));
-				schedule.setTimeFinish(rs.getDate(18));
-				schedule.setDownTime(rs.getDate(19));
+
+				schedule.setName(rs.getString(1));
+				schedule.setTargerName(rs.getString(2));
+				schedule.setTypeName(rs.getString(3));
+				schedule.setSecName(rs.getString(4));
+				schedule.setIntention(rs.getString(5));
+				schedule.setTimeStart(rs.getDate(6));
+				schedule.setTimeFinish(rs.getDate(7));
 				
 				userData.add(schedule);
 				

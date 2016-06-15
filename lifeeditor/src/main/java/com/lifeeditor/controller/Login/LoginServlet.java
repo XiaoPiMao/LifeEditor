@@ -7,6 +7,7 @@ import java.util.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.*;
 import javax.servlet.http.*;
+import javax.xml.bind.DatatypeConverter;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -29,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 		request.setAttribute("ErrorMsgKey", errorMsgMap);                                // 將 errorMsgMap 放入 request 置物櫃內，識別字串為 "ErrorMsgKey"
 		String account =request.getParameter("account");
 		String pswd = request.getParameter("pswd");
+		String rm = request.getParameter("rememberMe");
 		System.out.println(account);
 		System.out.println(pswd);
 		  
@@ -40,15 +42,6 @@ public class LoginServlet extends HttpServlet {
 				errorMsgMap.put("LoginError", "帳號密碼請勿空白");
 			}
 			
-			
-
-//			if (!errorMsgMap.isEmpty()) { 																			// 如果 errorMsgMap 不是空的，表示有錯誤，交棒給/ch06_01/login.jsp，然後 return
-//				System.out.println("有錯誤訊息 回login.jsp");
-//				RequestDispatcher rd = request
-//						.getRequestDispatcher("/login.jsp");
-//				rd.forward(request, response);
-//				return;
-//			} 
 
 			if(errorMsgMap.isEmpty()) {
 				user_specService ls = new user_specService();        								        	   // 4. 進行 Business Logic 運算 ,, 將LoginService類別new為物件，存放物件參考的變數為 ls,user_specVO 扮演封裝輸入資料的角色	
@@ -78,24 +71,44 @@ public class LoginServlet extends HttpServlet {
 				}
 			}
 					
+		//  **********Remember Me**************************** 
+			Cookie cookieUser = null;
+			Cookie cookiePassword = null;
+			Cookie cookieRememberMe = null;
+			
+			if (rm != null) {   // rm存放瀏覽器送來之RememberMe的選項
+				cookieUser = new Cookie("account", account);
+				cookieUser.setMaxAge(30*60*60);
+				cookieUser.setPath(request.getContextPath());
+				// 稍微編碼(不算是加密)
+				String encodePassword = DatatypeConverter.printBase64Binary(pswd.getBytes());
+				cookiePassword = new Cookie("pswd", encodePassword);
+				cookiePassword.setMaxAge(30*60*60);
+				cookiePassword.setPath(request.getContextPath());
+				cookieRememberMe = new Cookie("rm", "true");
+				cookieRememberMe.setMaxAge(30*60*60);
+				cookieRememberMe.setPath(request.getContextPath());
+			} else {
+				cookieUser = new Cookie("account", account);
+				cookieUser.setMaxAge(0);   // MaxAge==0 表示要請瀏覽器刪除此Cookie
+				cookieUser.setPath(request.getContextPath());
+				String encodePassword = DatatypeConverter.printBase64Binary(pswd.getBytes());
+				cookiePassword = new Cookie("pswd", encodePassword);
+				cookiePassword.setMaxAge(0);
+				cookiePassword.setPath(request.getContextPath());
+				cookieRememberMe = new Cookie("rm", "false");
+				cookieRememberMe.setMaxAge(30*60*60);
+				cookieRememberMe.setPath(request.getContextPath());
+			}
+			response.addCookie(cookieUser);
+			response.addCookie(cookiePassword);
+			response.addCookie(cookieRememberMe);
+			//********************************************
+			
+			
+			
 			if (errorMsgMap.isEmpty()) {																						// 5.依照 Business Logic 運算結果來挑選適當的畫面,,,// 如果 errorMsgMap是空的，表示沒有任何錯誤，準備交棒給下一隻程式
 
-//				// 如果session物件內含有"target"屬性物件，表示使用者先前嘗試執行某個應該
-//				// 登入，但使用者未登入的網頁，由該網頁放置的"target"屬性物件，因此如果
-//				// 有"target"屬性物件則導向"target"屬性物件所標示的網頁，否則導向首頁
-//				System.out.println("沒有錯誤");
-//				String contextPath = getServletContext().getContextPath();
-//				String target = (String) session.getAttribute("target");
-//				if (target != null) {
-//					System.out.println("有target屬性");				
-//					session.removeAttribute("target"); 																			    	// 先由session中移除此項屬性，否則下一次User直接執行login功能後，	// 會再度被導向到 target					
-//					response.sendRedirect(																										// 導向 contextPath + target	//response.sendRedirect(contextPath + target);
-//				       response.encodeRedirectURL(contextPath + target));
-//				} else {
-//					System.out.println("沒有target屬性.回到首頁");			
-//	                response.sendRedirect(																										// 導向 contextPath + "/index.jsp"	//response.sendRedirect(contextPath + "/index.jsp");
-//				      response.encodeRedirectURL(contextPath + "/home.jsp" ));
-//				}
 				return;
 			} 
 			else {	
@@ -105,10 +118,7 @@ public class LoginServlet extends HttpServlet {
 				Gson gson = new Gson();		
 				System.out.println(gson.toJson(errorMsgMap));
 				os.write(gson.toJson(errorMsgMap));
-//			System.out.println("有錯誤回到login頁面");
-//				RequestDispatcher rd = request                  // 如果 errorMsgMap 不是空的，表示有錯誤，交棒給/ch06_01/login.jsp
-//						.getRequestDispatcher("/login.jsp");
-//				rd.forward(request, response);
+
 				return;
 			}
 		}
