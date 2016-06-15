@@ -368,29 +368,34 @@ display: inline-block;
 					<li><a href="#">關於我</a></li>
 				</ul>
 			</nav>
-			<nav class="main">
-											<ul>
-											<c:choose>
-										    	<c:when test="${ ! empty FbPicture }">
-										    			<img src="${FbPicture}"></img>
-												</c:when>
-											<c:otherwise>
-												<img height='40px' width='30px' src="HomeGetPicture">
-											</c:otherwise> 
-									</c:choose>
-								  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>    
-												<li class="search">
-													<a class="fa-search" href="#search">Search</a>
-													<form id="search" method="get" action="#">
-														<input type="text" name="query" placeholder="Search" />
-													</form>
-												</li>
-												<li class="menu">
-													<a class="fa-bars" href="#menu">Menu</a>
-												</li>
-											</ul>
-			</nav>
-		</header>
+<nav class="main">
+			<ul>
+				<c:choose>
+					<c:when test="${ ! empty FbPicture }">
+					   <img src="${FbPicture}" style="border-radius:50%;height:40px;width:40px;"></img>
+					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
+					</c:when>
+				    <c:when test="${! empty LoginOK }">
+					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
+					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
+					</c:when>
+				</c:choose>
+														
+<%-- 													 	<c:if test="${! empty LoginOK }"> --%>
+<%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
+<%-- 														</c:if>	 --%>
+													
+			   <li class="">
+					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
+			   </li>
+																	
+			   <li class="menu">
+					<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
+					<a id="modal_trigger2" href="#modal" class="">登出</a>
+			   </li>
+			</ul>
+		</nav>
+</header>
 		<!-- Main -->
 		<article class="article">
 			

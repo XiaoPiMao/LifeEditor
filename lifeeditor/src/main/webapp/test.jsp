@@ -155,18 +155,18 @@ $(document).ready(function(){
 			<ul>
 				<c:choose>
 					<c:when test="${ ! empty FbPicture }">
-						<img src="${FbPicture}"></img>
-						<a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a> 
+					   <img src="${FbPicture}" style="border-radius:50%;height:40px;width:40px;"></img>
+					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
 					</c:when>
-					<c:when test="${! empty LoginOK }">
-					<img src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></img>
-					<a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a> 
+				    <c:when test="${! empty LoginOK }">
+					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
+					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
 					</c:when>
 				</c:choose>
 														
-<%-- 			<c:if test="${! empty LoginOK }"> --%>
-<%-- 			<a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
-<%-- 			</c:if>	 --%>
+<%-- 													 	<c:if test="${! empty LoginOK }"> --%>
+<%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
+<%-- 														</c:if>	 --%>
 													
 			   <li class="">
 					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
