@@ -18,7 +18,7 @@ import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.Target_List_Service;
 
 
-@WebServlet("/GetJTargetByUser")
+@WebServlet("/UserPage")
 public class GetJTargetByUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -49,12 +49,13 @@ public class GetJTargetByUser extends HttpServlet {
 				if(!key.equals("typeVO") && !key.equals("sectionVO")) 
 					jsonObj.add(key, entry.getValue());
 			}
+			
+			
 			jsonArray.add(jsonObj);
 		}
 		
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		response.getWriter().write(jsonArray.toString());
+		request.setAttribute("targets", jsonArray.toString());
+		request.getRequestDispatcher("/test.jsp").forward(request, response);
 	}
 
 }

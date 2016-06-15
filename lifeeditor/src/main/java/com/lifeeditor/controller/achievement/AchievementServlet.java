@@ -47,11 +47,12 @@ public class AchievementServlet extends HttpServlet {
 			
 			AchievementService achmtSrvc= new AchievementService();
 			List<AchievementVO> list = achmtSrvc.findKey(keyword);
-			
-			Gson gson = new Gson();
-			String jsonStr = gson.toJson(list);
-			PrintWriter pos = resp.getWriter();
-			pos.print(jsonStr);
+			if(list.size() != 0) {
+				Gson gson = new Gson();
+				String jsonStr = gson.toJson(list);
+				PrintWriter pos = resp.getWriter();
+				pos.print(jsonStr);
+			}
 					
 			return;
 		}

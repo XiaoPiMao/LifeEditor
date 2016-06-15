@@ -57,8 +57,9 @@
     	
 $(document).ready(function(){
     	
-      $.getJSON('GetJTargetByUser',function(data){
+     
     	//console.log(data);
+    	data = JSON.parse('${targets}');
     	var str = "";
     	
 		$.each(data,function(){
@@ -96,72 +97,69 @@ $(document).ready(function(){
 		})
 		$("[class = 'col-md-9 col-sm-7']").append( $("<div></div>").addClass("row").html(str) );
 	})
-});
+
 	
     </script>
 </head>
 <body>
 <!-- <div id="wrapper"> -->
-				<!-- Header -->
-					<header id="header">
-							<h1><a href="home.jsp">Life Editor</a></h1>
-							<nav class="links">
-								<ul>
-									<li><a href="setgoal.jsp">目標</a></li>
-									<li><a href="#">行事曆</a></li>
-									<li><a href="#">朋友</a></li>
-									<li><a href="#">關於我</a></li>
-								</ul>
-							</nav>
-									<nav class="main">
-												<ul>
-														<c:choose>
-															    	<c:when test="${ ! empty FbPicture }">
-															    			<img src="${FbPicture}"></img>
-															    			<a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a> 
-																	</c:when>
-																	<c:when test="${! empty LoginOK }">
-																			<img height='45px' width='45px' src="HomeGetPicture">
-																			<a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a> 
-																	</c:when>
-														</c:choose>
+<!-- Header -->
+<header id="header" style="padding:0px;">
+	<h1><a href="home.jsp">Life Editor</a></h1>
+		<nav class="links">
+			<ul>
+				<li><a href="setgoal.jsp">目標</a></li>
+				<li><a href="#">行事曆</a></li>
+				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
+				<li><a href="#">關於我</a></li>
+			</ul>
+		</nav>
+		<nav class="main">
+			<ul>
+				<c:choose>
+					<c:when test="${ ! empty FbPicture }">
+						<img src="${FbPicture}"></img>
+						<a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a> 
+					</c:when>
+					<c:when test="${! empty LoginOK }">
+					<img src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></img>
+					<a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a> 
+					</c:when>
+				</c:choose>
 														
-<%-- 													 	<c:if test="${! empty LoginOK }"> --%>
-<%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
-<%-- 														</c:if>	 --%>
+<%-- 			<c:if test="${! empty LoginOK }"> --%>
+<%-- 			<a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
+<%-- 			</c:if>	 --%>
 													
-														<li class="search">
-																<a class="fa-search" href="#search">Search</a>
-																<form id="search" method="get" action="#">
-																	<input type="text" name="query" placeholder="Search" />
-																</form>
-														</li>
+			   <li class="">
+					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
+			   </li>
 																	
-														<li class="menu">
-															<a class="fa-bars" href="#menu">Menu</a>
-														</li>
-												</ul>
-									</nav>
-					</header>
+			   <li class="menu">
+					<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
+					<a id="modal_trigger2" href="#modal" class="">登出</a>
+			   </li>
+			</ul>
+		</nav>
+</header>
 
-
-    <section id="blog" class="padding-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-5">
-                    <div class="sidebar blog-sidebar">
-                        <div class="sidebar-item  recent">
-                            <h3>最 新 留 言</h3>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" alt=""></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4>
-                                    <p>posted on  07 March 2014</p>
-                                </div>
-                            </div>
+<section id="blog" class="padding-top">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-5" >
+            <div class="sidebar blog-sidebar" style="margin-right:50px;">
+                <div class="sidebar-item  recent">
+                    <h3>最 新 留 言</h3>
+                      <div class="media">
+                         <div class="pull-left">
+                             <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" alt=""></a>
+                         </div>
+                       <div class="media-body">
+                            <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4>
+                             <p>posted on  07 March 2014</p>
                         </div>
+                      </div>
+                 </div>
                         <div class="sidebar-item categories">
                             <h3>目 標 類 別</h3>
                             <ul class="nav navbar-stacked">
@@ -184,8 +182,7 @@ $(document).ready(function(){
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-7">
-                 </div>
+                <div class="col-md-9 col-sm-7"></div>
             </div>
         </div>
     </section>

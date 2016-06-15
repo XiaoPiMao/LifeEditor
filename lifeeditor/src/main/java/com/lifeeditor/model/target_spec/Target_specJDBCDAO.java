@@ -31,15 +31,25 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 			ne.printStackTrace();
 		}
 	}
-	private static final String INSERT_STMT = "INSERT INTO target_spec (userID,targetID,trgNote,trgPicPath) VALUES (?, ?, ?, ?)";
-	private static final String GET_ALL_STMT = "SELECT userID,targetID,trgNote,trgPicPath FROM target_spec order by userID";
-	private static final String GET_ONE_STMT = "SELECT userID,targetID,trgNote,trgPicPath FROM target_spec where userID=?";
-	private static final String GET_ALLHOTMANS_STMT = "SELECT target.doneTime,target.trgName, target_spec.userID, target_spec.trgNote, target_spec.trgPicPath, user_spec.lastName,user_spec.firstName "
-			+ "FROM target INNER JOIN "
-			+ "target_spec ON target.targetID = target_spec.targetID INNER JOIN "
-			+ "user_spec ON target_spec.userID = user_spec.userID "
-			+ "WHERE hotman=1 ";
-	private static final String DELETE = "DELETE FROM target_spec where userID = ?";
+
+	private static final String INSERT_STMT =
+		      "INSERT INTO target_spec (userID,targetID,trgNote,trgPicPath) VALUES (?, ?, ?, ?)";
+	private static final String GET_ALL_STMT =
+		      "SELECT userID,targetID,trgNote,trgPicPath FROM target_spec order by userID";
+	private static final String GET_ONE_STMT =
+		      "SELECT userID,targetID,trgNote,trgPicPath FROM target_spec where userID=?";
+	private static final String GET_ALLHOTMANS_STMT =
+		      "SELECT TOP 5 target.doneTime,target.trgName, target_spec.userID, target_spec.trgNote, target_spec.trgPicPath, user_spec.lastName,user_spec.firstName " +
+                     "FROM target INNER JOIN " +
+                            "target_spec ON target.targetID = target_spec.targetID INNER JOIN " +
+                            "user_spec ON target_spec.userID = user_spec.userID " +
+							"WHERE hotman=1 "+
+                            "ORDER BY NEWID()";
+
+	private static final String DELETE =
+		      "DELETE FROM target_spec where userID = ?";
+
+
 
 	// ***************************************************************************************************************
 	// 有關心得的sql字串

@@ -61,11 +61,13 @@ public class insertChallengeServlet extends HttpServlet{
 			TargetService trgSrvc= new TargetService();
 			List<TargetVO> list = trgSrvc.findKey(keyword);
 			
-			Gson gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
-			String jsonStr = gson.toJson(list);
-			//System.out.println(jsonStr);
-			PrintWriter os = res.getWriter();
-			os.print(jsonStr);
+			if(list.size()!=0) {
+				Gson gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
+				String jsonStr = gson.toJson(list);
+				//System.out.println(jsonStr);
+				PrintWriter os = res.getWriter();
+				os.print(jsonStr);
+			}
 			
 			
 			return;
