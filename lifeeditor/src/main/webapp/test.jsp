@@ -59,6 +59,7 @@ $(document).ready(function(){
     	
      
     	//console.log(data);
+    	
     	data = JSON.parse('${targets}');
     	var str = "";
     	
@@ -66,6 +67,9 @@ $(document).ready(function(){
 			catogoryNum[this.typeName]++;
 			str += '<div class="col-md-12 col-sm-12">' +
 		            '<div class="single-blog two-column">' +
+		            '<h2 class="post-title bold"><a href="blogdetails.html">' + this.trgName +'</a></h2>' +
+	                '<h3 class="post-author"><a href="#">micron News</a></h3>' +
+	                '<p>'+ this.intention + '</p>'+
 		            '<div class="post-thumb">' +
 		                '<a href="blogdetails.html"><img src="singlecolor/images/blog/8.jpg" class="img-responsive" alt=""></a>'+
 		                '<div class="post-overlay">' +
@@ -73,9 +77,6 @@ $(document).ready(function(){
 		                '</div>' +
 		            '</div>' +
 		            '<div class="post-content overflow">' +
-		                '<h2 class="post-title bold"><a href="blogdetails.html">' + this.trgName +'</a></h2>' +
-		                '<h3 class="post-author"><a href="#">micron News</a></h3>' +
-		                '<p>'+ this.intention + '</p>'+
 		                '<a href="#" class="read-more">View More</a>'+
 		                '<div class="post-bottom overflow">'+
 		                    '<ul class="nav navbar-nav post-nav">'+

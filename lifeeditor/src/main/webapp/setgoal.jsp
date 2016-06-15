@@ -344,7 +344,7 @@ display: inline-block;
 	 					'opacity':'0',
 						//'width':'50px',
 						//'height':'50px'
-					},2500,function(){location.href='test.jsp';}
+					},2500,function(){location.href='${ctx}/UserPage';}
 					);
 				};		
 				
