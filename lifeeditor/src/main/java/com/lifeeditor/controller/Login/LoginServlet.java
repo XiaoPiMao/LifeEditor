@@ -61,7 +61,6 @@ public class LoginServlet extends HttpServlet {
 						jFriend = new JsonObject();
 						jFriend.addProperty("firstName", friend.getFirstName());
 						jFriend.addProperty("lastName", friend.getLastName());
-						jFriend.addProperty("picture", DoBase64.encode(friend.getPicture()));
 						jFriends.add(friend.getUserID().toString(), jFriend);
 					}
 					session.setAttribute("jFriends", jFriends.toString());
