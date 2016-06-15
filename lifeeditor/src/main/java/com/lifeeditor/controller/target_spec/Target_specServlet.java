@@ -39,7 +39,7 @@ import com.lifeeditor.service.eventService;
 
 
 @MultipartConfig(maxFileSize = 1024 * 1024 * 500)
-@WebServlet("/manager/target_Spec/Target_specServlet.do")
+@WebServlet("/target_Spec/Target_specServlet.do")
 public class Target_specServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     /*這隻程式的重點在於心得部分的insert及update，在使用者按下按鈕新增或修改時判斷使用者資訊
@@ -207,20 +207,17 @@ public class Target_specServlet extends HttpServlet {
 	                         
 
 		    TargetSpecService Target_specSvc = new TargetSpecService();
-		     String url = "ok.jsp";
+		     String url = "/target_Spec/ok.jsp";
 
 		     RequestDispatcher successView = req.getRequestDispatcher(url);
-//			//以下為取得表單要insert的值
+			//以下為取得表單要insert的值
 		   long time=System.currentTimeMillis();
 		    
-			Integer UserID = user.getUserID();
+			Integer UserID = 1;
+					//user.getUserID();
 			Integer TargetID =new Integer(req.getParameter("input_trgetID"));		;
 			String UserTarget_desc = req.getParameter("input_target_Note");		
 			//這邊將要insert的路徑做設定
-			String current = new java.io.File( "." ).getCanonicalPath();
-	        System.out.println("Current dir:"+current);                       
-	        String currentDir = System.getProperty("user.dir");
-	        System.out.println("Current dir using System:" +currentDir);
 	        String trgPicPath="\\images\\"+UserID.toString()+TargetID.toString()+time+".jpg";
 	        
 	        String Path=req.getServletContext().getRealPath(trgPicPath);
@@ -272,7 +269,7 @@ public class Target_specServlet extends HttpServlet {
 			TargetspecVO=trgspecSvc.getOneTrgSpecByKey(trgspecID);
 
 			req.setAttribute("trgSpecVO", TargetspecVO);
-			String url = "/manager/target_Spec/Update.jsp";
+			String url = "/target_Spec/Update.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 

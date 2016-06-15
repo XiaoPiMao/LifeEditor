@@ -87,7 +87,7 @@ public class TargetSpecService {
 		Target_specVO.setUserID(userID);
 		Target_specVO.setTrgNote(userTarget_desc);
 		Target_specVO.setTrgPicPath(trgPicPath);
-		Target_specVO.getTargetVO().setTargetID(dao.insert_will_change_status(Target_specVO));
+		Target_specVO.setTrgSpecID(dao.insert_will_change_status(Target_specVO));
 		return Target_specVO;
 		
 	}

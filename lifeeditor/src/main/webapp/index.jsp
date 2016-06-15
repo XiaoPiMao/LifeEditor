@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -96,15 +97,18 @@
 			<div class="user_login" style="margin:auto;">
 				<form id="form-id" Action="Login.java" method="POST">
 					<label>帳號</label>
-					<input type="text" name="account" size="10">					
+					 <input  type="text" name="account" size="10"  value="${sessionScope.account}">				
 					<br />
 					<label>密碼</label>
-					<input type="password" name="pswd" size="10" >
+					   <input  type="password" name="pswd"  size="10"   value="${sessionScope.pswd}">
 					<small><Font id="ErrorMsg" color='red' size="-1"></Font></small>
 					<br />
 					<div class="checkbox">
-						<input id="remember" type="checkbox" />
-						<label for="remember">記住這個帳號</label>
+					 
+						 <input type="checkbox" name="rememberMe" value="true"
+					       <c:if test='${sessionScope.rememberMe == true}' > checked='checked'  </c:if>  /> 
+					
+						<label for="rememberMe">記住這個帳號</label>
 					</div>
 					<div class="action_btns">
 						<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> 上一頁</a></div>

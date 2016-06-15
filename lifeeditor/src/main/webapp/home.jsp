@@ -13,9 +13,7 @@
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 <style>
-.user-icon{
-	border-radius:50%;
-}
+
 
 #hotmanicon{
     width:60px;
@@ -53,7 +51,7 @@
 			<ul>
 				<c:choose>
 					<c:when test="${ ! empty FbPicture }">
-					   <img src="${FbPicture}" style="border-radius:50%;"></img>
+					   <img src="${FbPicture}" style="border-radius:50%;height:40px;width:40px;"></img>
 					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
 					</c:when>
 				    <c:when test="${! empty LoginOK }">
