@@ -10,9 +10,9 @@
 
 					<form  ENCTYPE="multipart/form-data"method="POST"action="Target_specServlet.do" role="form">
 				
-
+                                   <input type="TEXT"	name="input_trgetID"value="請輸入TARGETID"/><br/>
 			  
-			
+	
 						      
 							<textarea style="width: 600px; resize: none;" cols="80" rows="10"name="input_target_Note"></textarea><br/>
 						
