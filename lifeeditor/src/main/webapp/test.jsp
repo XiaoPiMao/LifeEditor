@@ -37,39 +37,69 @@
     height:100px;
     border-radius: 50%;
 }
+
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    font-size: 60px;
+    font-weight: 100;
+    line-height: 30px;
+    color: #fff;
+    text-align: center;
+    border: 3px solid #fff;
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 23px;
+    opacity: .5;
+    filter: alpha(opacity=50);
+}
+
+.carousel-control.right {
+  right: 15px;
+}
 		</style>
-	<script src="js/jquery.min.js"></script>
-			<script src="js/skel.min.js"></script>
-			<script src="js/util.js"></script>
-			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-			<script src="js/main.js"></script>
-    <script>
+<script src="js/jquery.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="js/main.js"></script>
+<script>
     var jTypes = JSON.parse('${jTypes}');
-    
+    var jUser = JSON.parse('${jUser}');
+    console.log(jUser);
     
     var catogoryNum = new Object();
     $.each(jTypes,function() {
     	catogoryNum[this.typeName] = 0 ;
     })
     
-    		
-    		
-    	
+    
+    
 $(document).ready(function(){
     	liveComments = JSON.parse('${liveComments}');
-    	
-    
     	console.log(liveComments);
     	data = JSON.parse('${targets}');
     	var str = "";
     	
+    	$('.carousel').carousel({
+    	      interval: 6000
+    	    })
+    	    
 		$.each(data,function(){
 			catogoryNum[this.typeName]++;
 			str += '<div class="col-md-12 col-sm-12">' +
+			        '<div class="carousel slide" id="myCarousel">'+
+			        '<div class="carousel-inner">' +
+			        '<div class="item active">' +
 		            '<div class="single-blog two-column">' +
-		            '<h2 class="post-title bold"><a href="blogdetails.html">' + this.trgName +'</a></h2>' +
-	                '<h3 class="post-author"><a href="#">micron News</a></h3>' +
-	                '<p>'+ this.intention + '</p>'+
+		            '<h2 class="post-title bold"><a href="blogdetails.html"> 目 標 : ' + this.trgName +'</a></h2>' +
+	                '<h3 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h3>' +
+	                '<p> 初衷 : '+ this.intention + '</p>'+
 		            '<div class="post-thumb">' +
 		                '<a href="blogdetails.html"><img src="singlecolor/images/blog/8.jpg" class="img-responsive" alt=""></a>'+
 		                '<div class="post-overlay">' +
@@ -77,7 +107,6 @@ $(document).ready(function(){
 		                '</div>' +
 		            '</div>' +
 		            '<div class="post-content overflow">' +
-		                '<a href="#" class="read-more">View More</a>'+
 		                '<div class="post-bottom overflow">'+
 		                    '<ul class="nav navbar-nav post-nav">'+
 		                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
@@ -87,6 +116,13 @@ $(document).ready(function(){
 		                '</div>'+
 		            '</div>'+
 		        '</div>'+
+		        '</div>'+   //item
+		        '</div>'+   //carousel-inner
+		        '<div class="control-box">' +                            
+            '<a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>' +
+            '<a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>' +
+            '</div>' +     //control-box
+		       '</div>'+   //#myCarousel 
 		    '</div>'
   
 		});
