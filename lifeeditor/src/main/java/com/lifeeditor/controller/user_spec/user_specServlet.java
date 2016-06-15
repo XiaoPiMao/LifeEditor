@@ -1,5 +1,6 @@
 package com.lifeeditor.controller.user_spec;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -152,33 +153,35 @@ public class user_specServlet extends HttpServlet {
 	            }
 				
 				Part filePart = req.getPart("picture");
-				int fileSize = (int) filePart.getSize();				
-				if(fileSize == 0){
-					errorMsgs.put("errorpicture","請選擇大頭照");
-				}else if(fileSize > 1024*10*100){ 
+				int fileSize = (int) filePart.getSize();
+				
+				if(fileSize > 1024*10*100){ 
 					errorMsgs.put("errorpicture","大頭照大小不得超過1mb");
 	            }
-	            	InputStream in = filePart.getInputStream();
-					
+				    
+				    InputStream in = filePart.getInputStream();
 					@SuppressWarnings("deprecation")
 					Blob picture = Hibernate.createBlob(in);
-					System.out.println("111");	
-					//String picture = req.getParameter("picture").trim();
+	            
+//					InputStream is = new FileInputStream("src/main/webapp/images/picture.jpg");
+//					@SuppressWarnings("deprecation")
+//					Blob picture1 = Hibernate.createBlob(is);
+					
 	            
 				
+					user_specVO user_specVO = new user_specVO();
+					user_specVO.setAccount(account);
+					user_specVO.setPswd(pswd);
+					user_specVO.setLastName(lastName);
+					user_specVO.setFirstName(firstName);
+					user_specVO.setGender(gender);
+					user_specVO.setBirthdate(birthdate);
+					user_specVO.setEmail(email);
+					user_specVO.setAddress(address);
+					user_specVO.setPhone(phone);
+					user_specVO.setPicture(picture);
 				
-					
-				user_specVO user_specVO = new user_specVO();
-				user_specVO.setAccount(account);
-				user_specVO.setPswd(pswd);
-				user_specVO.setLastName(lastName);
-				user_specVO.setFirstName(firstName);
-				user_specVO.setGender(gender);
-				user_specVO.setBirthdate(birthdate);
-				user_specVO.setEmail(email);
-				user_specVO.setAddress(address);
-				user_specVO.setPhone(phone);
-				user_specVO.setPicture(picture);
+				System.out.println(user_specVO.getEmail());
 				
 				if (!errorMsgs.isEmpty()) {
 //					req.setAttribute("user_specVO", user_specVO); 
