@@ -403,37 +403,37 @@
 					  <div class="carousel-inner">
 					    <div class="item active mb centered">
 					      <h3>Fled Tee</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t1.jpg" width="80"></p>
 					    </div>
 
 					    <div class="item mb centered">
 					      <h3>Jones Wang</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t2.jpg" width="80"></p>
 					    </div>
 
 					    <div class="item mb centered">
 					      <h3>Amy Chen</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t3.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>Shin Da Tsai</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t4.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>Tzu Hao Kuan</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t5.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>YANG,JING-JUN</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t6.jpg" width="80"></p>
 					    </div>
 
