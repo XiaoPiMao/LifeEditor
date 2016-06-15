@@ -21,10 +21,12 @@ import com.lifeeditor.utility.GlobalValues;
 public class commentsDAO implements commentsDAO_interface{
 	
 	private static final String GET_COMMENTNAME = "from commentsVO where targetID=?";
-	private static final String GET_COMMENT_BY_USER= "SELECT TOP 5 c.targetID,c.userID,c.comment FROM comments c" +
-													" JOIN(SELECT targetID FROM target_list WHERE userID = ?)ut ON" +
-													" c.targetID = ut.targetID" +
-													" ORDER BY c.commentID DESC";
+	private static final String GET_COMMENT_BY_USER= "SELECT v.targetID,v.userID,v.comment,u.firstName,u.lastName from user_spec u JOIN"+
+														" (SELECT TOP 5 c.targetID,c.userID,c.comment FROM comments c"+
+																" JOIN(SELECT targetID FROM target_list WHERE userID = ?)ut ON"+
+																" c.targetID = ut.targetID"+
+																" ORDER BY c.commentID) v" +
+															" ON u.userID = v.userID";
 	private static DataSource ds = null;
 	static {
 		try {
@@ -83,6 +85,8 @@ public class commentsDAO implements commentsDAO_interface{
 				comment.setComment(rs.getString("comment"));
 				comment.setTargetID(rs.getInt("targetID"));
 				user_specVO user = new user_specVO();
+				user.setFirstName(rs.getString("firstName"));
+				user.setLastName(rs.getString("lastName"));
 				user.setUserID(rs.getInt("userID"));
 				comment.setUser_specVO(user);
 				list.add(comment);

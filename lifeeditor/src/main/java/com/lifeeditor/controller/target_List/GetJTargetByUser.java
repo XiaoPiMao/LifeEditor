@@ -62,7 +62,10 @@ public class GetJTargetByUser extends HttpServlet {
 		for(commentsVO comment : comments) {
 			jsonObj = new JsonObject();
 			jsonObj.addProperty("targetID", comment.getTargetID());
-			jsonObj.addProperty("userID", comment.getUser_specVO().getUserID());
+			user_specVO gUser = comment.getUser_specVO();
+			jsonObj.addProperty("userID", gUser.getUserID());
+			jsonObj.addProperty("firstName", gUser.getFirstName());
+			jsonObj.addProperty("lastName", gUser.getLastName());
 			jsonObj.addProperty("comment", comment.getComment());
 			jsonArray.add(jsonObj);
 			
