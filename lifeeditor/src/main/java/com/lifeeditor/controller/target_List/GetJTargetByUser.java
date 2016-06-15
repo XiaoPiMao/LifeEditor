@@ -35,12 +35,11 @@ public class GetJTargetByUser extends HttpServlet {
 		user_specVO user = (user_specVO)request.getSession().getAttribute("LoginOK");
 		Integer userID = user.getUserID();
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
-		List<Target_ListVO> list = trgListSvc.findByUserID(userID);
+		List<TargetVO> list = trgListSvc.pageFindByUserID(userID);
 		JsonArray jsonArray = new JsonArray();
 		JsonObject jsonObj = null;
-		for(Target_ListVO trgList : list) {
+		for(TargetVO trg  : list) {
 			jsonObj = new JsonObject();
-			TargetVO trg = trgList.getTrgVO();
 			JsonObject JTrg = gson.toJsonTree(trg).getAsJsonObject();
 			jsonObj.addProperty("typeID", trg.getTypeVO().getTypeID());
 			jsonObj.addProperty("typeName", trg.getTypeVO().getTypeName());
