@@ -67,4 +67,8 @@ public class commentsService {
 	public List<commentsVO> getCommentName(Integer targetID) {
 		return dao.getCommentName(targetID);
 	}
+	
+	public List<commentsVO> getCommentByUser(Integer userID) {
+		return dao.getCommentByUser(userID);
+	}
 }
