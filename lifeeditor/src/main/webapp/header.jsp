@@ -27,13 +27,14 @@ body {
 		justify-content: space-between;
 		background-color: #ffffff;
 		border-bottom: solid 1px rgba(160, 160, 160, 0.3);
-		height: 3.5em;
+		height: 3.7em;
 		left: 0;
-		line-height: 3.5em;
+		line-height: 3.8em;
 		position: fixed;
 		top: 0;
 		width: 100%;
 		z-index: 10000;
+		padding-top:5px;
 	}
     
     a:hover {
@@ -257,14 +258,14 @@ body {
 			<ul>
 				<c:if test="${! empty LoginOK }">
 					   <a href="UserPage"><img  id="UserPicture" src="${ctx}/GetUserPicture?id=${LoginOK.userID}" ></a>
-					   <li id="UserName" style="float:left;font-size:15px;weight:bold;"><a href="" style="text-indent:0em;">${LoginOK.lastName} ${LoginOK.firstName}</a></li>
+					   <li id="UserName" style="float:left;font-size:15px;weight:bold;"><a href="UserPage" style="text-indent:0em;">${LoginOK.lastName} ${LoginOK.firstName}</a></li>
 			    </c:if>
 														
 <%-- 													 	<c:if test="${! empty LoginOK }"> --%>
 <%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
 <%-- 														</c:if>	 --%>
 			   <li>									
-					<a id="friend_icon" class="fa-user" href="${ctx}/updateUser.jsp" style="overflow:visible;text-indent:2em;width:2em;"></a>
+					<a id="friend_icon" class="fa-user" href="${ctx}/addfriend.jsp" style="overflow:visible;text-indent:2em;width:2em;"></a>
 			   </li>
 																	
 			   <li>
@@ -272,7 +273,7 @@ body {
 			   </li>
 			</ul>
 			<ul class="dropdown_area" id="dropdown">
-			    <li style="display:list-item;position:fixed;right:195px;top:50px;z-index: 10000;"><a href="">設定</a></li>
+			    <li style="display:list-item;position:fixed;right:195px;top:50px;z-index: 10000;"><a href="${ctx}/updateUser.jsp">設定</a></li>
 			    <li style="display: list-item;position:fixed;right:195px;top:100px;z-index: 10000;"><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a></li>
 			</ul>
 		</nav>

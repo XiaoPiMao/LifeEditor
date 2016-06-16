@@ -17,7 +17,7 @@
     <link href="singlecolor/css/animate.min.css" rel="stylesheet"> 
 	<link href="singlecolor/css/main.css" rel="stylesheet">
 	<link href="singlecolor/css/responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css" />
+<!--     <link rel="stylesheet" href="css/main.css" /> -->
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
 	    <script src="js/respond.min.js"></script>
@@ -155,7 +155,7 @@ $(document).ready(function(){
 <body>
 <!-- <div id="wrapper"> -->
 <!-- Header -->
-<jsp:include page="/include/HeaderTemp.jsp" />
+<jsp:include page="header.jsp"></jsp:include>
 
 <section id="blog" class="padding-top">
   <div class="container">

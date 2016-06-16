@@ -356,7 +356,7 @@ display: inline-block;
 <body>
 	<div id="wrapper">
 
-		<jsp:include page="/include/HeaderTemp.jsp" />
+		<jsp:include page="header.jsp"></jsp:include>
 		<!-- Main -->
 		<article class="article">
 			
