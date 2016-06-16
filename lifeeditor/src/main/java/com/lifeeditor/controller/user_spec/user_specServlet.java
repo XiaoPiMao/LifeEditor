@@ -354,7 +354,7 @@ public class user_specServlet extends HttpServlet {
 								 gender, birthdate, email,	 address, phone, genkiBarTol, 
 								 level, pictureUpdate, regTime, hotMan, suspendType);
 					}
-					String url = "/success.jsp";
+					String url = "/home.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); 
 					successView.forward(req, resp);
 					
