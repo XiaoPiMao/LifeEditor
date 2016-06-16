@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.FriendService;
+import com.lifeeditor.service.JsonService;
 import com.lifeeditor.service.user_specService;
 import com.lifeeditor.utility.DoBase64;
 import com.lifeeditor.utility.MyGson;
@@ -52,20 +53,9 @@ public class LoginServlet extends HttpServlet {
 				if (vo != null) {
 					System.out.println("帳號密碼吻合");				
 					session.setAttribute("LoginOK", vo); 																// OK, 將mb物件放入Session範圍內，識別字串為"LoginOK"，表示此使用者已經登入
-					Gson gson = new Gson();
-					JsonObject jFriends = new JsonObject();
-					JsonObject jFriend = null;
-					FriendService friendSvc = new FriendService();
-					List<user_specVO> friends = friendSvc.getFriendsByUserID(vo.getUserID());
-					for(user_specVO friend : friends) {
-						jFriend = new JsonObject();
-						jFriend.addProperty("firstName", friend.getFirstName());
-						jFriend.addProperty("lastName", friend.getLastName());
-						jFriend.addProperty("picture", DoBase64.encode(friend.getPicture()));
-						jFriends.add(friend.getUserID().toString(), jFriend);
-					}
-					session.setAttribute("jFriends", jFriends.toString());
 					session.setAttribute("jUser", MyGson.GSON.toJson(vo));
+					session.setAttribute("jFriends", JsonService.getFriends(vo.getUserID()));
+					
 				} else{
 	
 					System.out.println("帳號密碼不吻合");														// NG, userid與密碼的組合錯誤，放錯誤訊息"該帳號不存在或密碼錯誤"到 errorMsgMap 之內,,, 對應的識別字串為 "LoginError"

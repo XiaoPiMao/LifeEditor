@@ -31,6 +31,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
   </head>
   <style>
   .errorspan{
@@ -42,6 +43,7 @@
 
   <body data-spy="scroll" data-offset="0" data-target="#theMenu">
 	<!-- Menu -->
+
 	<nav class="menu" id="theMenu">
 		<div class="menu-wrap">
 			<h1 class="logo"><a href="index.jsp#home">Life Editor</a></h1>
@@ -189,12 +191,12 @@
     
 	<div style="font-size:20px;padding-top:10px">
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-		<div class="g-recaptcha" data-sitekey="6LfoPyETAAAAAG8hEQH-RAVNjAft9mX6uzK70CTD"></div>
+		<div class="g-recaptcha" data-sitekey="6LevuSITAAAAAIrjzYbDHse7oBVZjWFUVapy3sT_"></div>
 		<noscript>
 		  <div >
 		    <div style="width: 302px; height: 422px; position: relative;">
 		      <div style="width: 302px; height: 422px; position: absolute;">
-		        <iframe src="https://www.google.com/recaptcha/api/fallback?key=6LfoPyETAAAAAG8hEQH-RAVNjAft9mX6uzK70CTD"
+		        <iframe src="https://www.google.com/recaptcha/api/fallback?key=6LevuSITAAAAAIrjzYbDHse7oBVZjWFUVapy3sT_"
 		                frameborder="0" scrolling="no"
 		                style="width: 302px; height:422px; border-style: none;">
 		        </iframe>
@@ -403,37 +405,37 @@
 					  <div class="carousel-inner">
 					    <div class="item active mb centered">
 					      <h3>Fled Tee</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t1.jpg" width="80"></p>
 					    </div>
 
 					    <div class="item mb centered">
 					      <h3>Jones Wang</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t2.jpg" width="80"></p>
 					    </div>
 
 					    <div class="item mb centered">
 					      <h3>Amy Chen</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t3.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>Shin Da Tsai</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t4.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>Tzu Hao Kuan</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t5.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>YANG,JING-JUN</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t6.jpg" width="80"></p>
 					    </div>
 
