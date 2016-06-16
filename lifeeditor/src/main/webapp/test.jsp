@@ -70,9 +70,10 @@
 <script>
     var jTypes = JSON.parse('${jTypes}');
     var jUser = JSON.parse('${jUser}');
+    var jAchs = JSON.parse('${jAchs}');
     var data = JSON.parse('${targets}');
-    console.log(jUser);
-    
+    console.log(jAchs);
+   
     var catogoryNum = new Object();
     $.each(jTypes,function() {
     	catogoryNum[this.typeName] = 0 ;

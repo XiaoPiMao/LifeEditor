@@ -37,6 +37,7 @@
 <!-- Wrapper -->
 <div id="wrapper">
 
+
 	<jsp:include page="header.jsp"></jsp:include>
 
 
@@ -203,12 +204,13 @@
 		<article class="mini-post">
 		  <div id="hotmans">
 		  <c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
-		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a></div>
+		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a> <br></div>
 		    <header style="margin-bottom:40px;padding:2px;">
 			   <a href="#" class="author" ><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
 			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
 			   <h4><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
 			   <h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
+			   <div class="fb-share-button" data-href="http://lifeeditor.cloudapp.net/lifeeditor/home.jsp" data-layout="button" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank"">分享</a></div> 
 			</header>
 			
 		  </c:forEach>
@@ -323,6 +325,22 @@
             FB.logout(function(response) {
             });
         }
+        function share() {   
+    		FB.ui(
+    	    {
+    	      method: 'share',
+    	      href: 'http://localhost:8080/lifeeditor/index.jsp',
+    	    },
+    	    // callback
+    	    function(response) {
+    	      if (response && !response.error_message) {
+    	        alert('分享成功!');
+    	      } else {
+    	        // alert('Error while posting.');
+    	      }
+    	    }
+    	  )
+    	};
         </script>
 <!-- 			</script> -->
 	</body>

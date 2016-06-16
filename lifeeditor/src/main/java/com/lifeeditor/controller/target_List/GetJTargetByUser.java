@@ -12,11 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.*;
+import com.lifeeditor.model.ach_list.ach_listVO;
+import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.comments.commentsVO;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.Target_List_Service;
+import com.lifeeditor.service.ach_listService;
 import com.lifeeditor.service.commentsService;
 
 
@@ -70,6 +73,20 @@ public class GetJTargetByUser extends HttpServlet {
 			
 		}
 		request.setAttribute("liveComments", jsonArray.toString());
+		
+		ach_listService ach_listSvc = new ach_listService();
+		List<ach_listVO> achLists = ach_listSvc.getAchName(userID);
+		jsonArray = new JsonArray();
+		for(ach_listVO achList : achLists) {
+			AchievementVO ach = achList.getAchievementVO();
+			jsonObj = new JsonObject();
+			jsonObj.addProperty("achID", ach.getAchID());
+			jsonObj.addProperty("achName", ach.getAchName());
+			jsonObj.addProperty("achDesc", ach.getAchDesc());
+			jsonArray.add(jsonObj);
+			System.out.println(jsonArray.toString());
+		}
+		request.setAttribute("jAchs", jsonArray.toString());
 		
 		request.getRequestDispatcher("/test.jsp").forward(request, response);
 	}
