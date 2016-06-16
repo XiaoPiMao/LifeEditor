@@ -82,8 +82,21 @@
     
     
 $(document).ready(function(){
+	    var AchList = "<h3>我 的 榮 耀</h3>";
+	    $.each(jAchs,function(){
+	    	AchList += 
+	    	'<div>' +
+            '<img style="border-radius:10%;height:55px;width:55px;" src="${ctx}/getAchPic?achID='+ this.achID + '" title="' + this.achDesc + '">' +
+            '</div>'+
+            '<div>'+
+            '<h4>'+ this.achName +
+            '</h4>'+
+            '</div>'
+	    });
+	    $('.sidebar-item.popular').html(AchList);
+	
     	liveComments = JSON.parse('${liveComments}');
-    	console.log(liveComments);
+    	//console.log(liveComments);
     	var lastComment ="<h3>最 新 留 言</h3>";
     	$.each(liveComments,function(){
     		lastComment += 
@@ -98,8 +111,8 @@ $(document).ready(function(){
             '</div>' 
     	})
     	$('.sidebar-item.recent').html(lastComment);
-    	var str = "";
     	
+    	var str = "";
     	$('.carousel').carousel({
     	      interval: 6000
     	    })
@@ -164,7 +177,6 @@ $(document).ready(function(){
         <div class="col-md-3 col-sm-5" >
             <div class="sidebar blog-sidebar" style="margin-right:50px;">
                 <div class="sidebar-item  recent">
-                    
 <!--                       <div class="media"> -->
 <!--                          <div class="pull-left"> -->
 <!--                              <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" title="123"></a> -->
@@ -185,15 +197,13 @@ $(document).ready(function(){
                         </div>
 
                         <div class="sidebar-item popular">
-                            <h3>我 的 榮 耀</h3>
-                            <ul class="gallery">
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular2.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular3.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular4.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular5.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li>
-                            </ul>
+<!--                             <h3>我 的 榮 耀</h3> -->
+<!--                             <ul class="gallery"> -->
+<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li> -->
+<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular2.jpg" alt=""></a></li> -->
+<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular3.jpg" alt=""></a></li> -->
+                                
+<!--                             </ul> -->
                         </div>
                     </div>
                 </div>
