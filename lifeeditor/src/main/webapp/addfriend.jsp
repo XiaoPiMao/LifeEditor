@@ -389,6 +389,9 @@
 // //data-content 設定資料內容
 </script>
 <body>
+
+<jsp:include page="header.jsp"></jsp:include>
+
 <center>
 	<div class="jumbotron" style="width:1000px">
 			<div class="page-header">
