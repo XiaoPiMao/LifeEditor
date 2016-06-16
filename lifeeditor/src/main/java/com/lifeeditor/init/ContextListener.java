@@ -34,7 +34,6 @@ public class ContextListener implements ServletContextListener {
 		context.setAttribute("types", types);//類別
 		context.setAttribute("jTypes", MyGson.GSON.toJson(types));//類別Json
 		context.setAttribute("secs", MyGson.GSON.toJson(getSecMap()));//項目
-		
 	}
 	public void contextDestroyed(ServletContextEvent e) {
 		context.log("系統正常關閉");
