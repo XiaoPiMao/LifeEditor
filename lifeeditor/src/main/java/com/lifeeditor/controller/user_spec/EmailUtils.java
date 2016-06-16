@@ -24,7 +24,7 @@ public class EmailUtils {
 	static int port = 587;
       
     private static final String FROM = "eeit85@gmail.com";
-    private static final String password = "JAVAgroup";
+    private static final String password = "zkezddofmzqqnzrm";
   
     /** 
      * 注册成功后,向用户发送帐户激活链接的邮件 
