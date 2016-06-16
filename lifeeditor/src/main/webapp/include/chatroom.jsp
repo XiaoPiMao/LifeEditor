@@ -18,6 +18,7 @@
             background-color : #F1F2F3;
             border : 1px solid #CCCCCC;
             cursor : pointer;
+            z-index:100000;
         }
         
         .chatroomOff label {
@@ -95,7 +96,7 @@
             height: 330px;
             border-left : 1px solid #CCCCCC;
             border-right : 1px solid #CCCCCC;
-            
+            z-index : 100000;
         }
         div.chatTittle {
             
@@ -186,9 +187,32 @@
         var chatNum = 0;
 
         $(function () {
+        	jFriends = '${jFriends}';
+        	var friendsHtml = "";
+        	if(jFriends.length != 0) {
+        		jFriends = JSON.parse(jFriends);
+        		$.each(jFriends,function(id,friend) {
+        			if(friend.firstName.charAt(0).match('[A-z]') ) {
+        				friendsHtml += 
+        					'<div id="'+ id + '" class="friend">' +
+        	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
+        	            		'<label>' + friend.firstName + '&nbsp;' + friend.lastName + '</label>' + 
+        	            		'<div class="online"></div>' +
+        	        		'</div>';
+        			}else {
+        				friendsHtml +=
+        					'<div id="' + id + '" class="friend">' +
+	    	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
+	    	            		'<label>' + friend.lastName + friend.firstName + '</label>' + 
+	    	            		'<div class="online"></div>' +
+	    	        		'</div>';
+        			}
+        			
+        		})//end each
+        		$('#friends').html(friendsHtml);
+        	}
             $('body').on("keyup", ".textInput",function (e) {
                 if (e.which == 13) {
-                    alert($(e.target).val());
                 }
                    
             });
@@ -238,14 +262,14 @@
         function printFace(obj) {
             obj.className = "chatMenuON";
             var chatMenu = obj.parentNode;
-            chatMenu.parentNode.style.zIndex = "10";
+            chatMenu.parentNode.style.zIndex = "200000";
             chatMenu.innerHTML += "<div id='faces'><img class='face' src='${ctx}/images/chatroom/smile.png' /><img class='face' src='${ctx}/images/chatroom/angry.png' /><img class='face' src='${ctx}/images/chatroom/scare.png' /></div>";
 
         }
 
         function delFace() {
             var div_faces = document.getElementById("faces");
-            div_faces.parentNode.parentNode.style.zIndex = "0";
+            div_faces.parentNode.parentNode.style.zIndex = "100000";
             div_faces.parentNode.removeChild(div_faces);
             var imgChatMenu = document.querySelectorAll("img.chatMenuON")[0];
             imgChatMenu.className = "chatMenu"
@@ -279,60 +303,44 @@
     </script>
 </head>
 <body id="body">
-   <!--
-    <div id="top">
-        <button id="logout">登出</button>
-    </div>
-    <label>fafasf</label>
-    <div id="friends">
-        <div id="1" class="friend" style="border:1px solid black;">
-            <img src="#" />
-            <label style="padding:10px;display:inline-block;border:1px solid black;">小明</label>
-            <img src="#" style="float:right;"/>
-        </div>
-        <div id="2" class="friend">阿華</div>
-        <div id="3" class="friend">胖虎</div>
-        <div id="4" class="friend">小夫</div>
-    </div>-->
-
     <div id="chatroom" class="chatroomOff"><label>聊天室</label></div>
    
      <div id="friends" class="off">
-        <div id="1" class="friend">
-            <img src="#"/>
-            <label>小明</label>
-            <div class="online"></div>
-        </div>
+<!--         <div id="1" class="friend"> -->
+<!--             <img src="#"/> -->
+<!--             <label>小明</label> -->
+<!--             <div class="online"></div> -->
+<!--         </div> -->
 
-        <div id="2" class="friend">
-            <img src="#"/>
-            <label>阿華</label>
-            <div class="online"></div>
-        </div>
+<!--         <div id="2" class="friend"> -->
+<!--             <img src="#"/> -->
+<!--             <label>阿華</label> -->
+<!--             <div class="online"></div> -->
+<!--         </div> -->
 
-        <div id="3" class="friend">
-            <img src="#"/>
-            <label>胖虎</label>
-            <div class="online"></div>
-        </div>
+<!--         <div id="3" class="friend"> -->
+<!--             <img src="#"/> -->
+<!--             <label>胖虎</label> -->
+<!--             <div class="online"></div> -->
+<!--         </div> -->
 
-        <div id="4" class="friend">
-            <img src="#"/>
-            <label>哆啦A夢</label>
-            <div class="online"></div>
-        </div>
+<!--         <div id="4" class="friend"> -->
+<!--             <img src="#"/> -->
+<!--             <label>哆啦A夢</label> -->
+<!--             <div class="online"></div> -->
+<!--         </div> -->
 
-        <div id="5" class="friend">
-            <img src="#"/>
-            <label>Stephen Curry</label>
-            <div class="online"></div>
-        </div>
+<!--         <div id="5" class="friend"> -->
+<!--             <img src="#"/> -->
+<!--             <label>Stephen Curry</label> -->
+<!--             <div class="online"></div> -->
+<!--         </div> -->
 
-        <div id="6" class="friend">
-            <img src="#"/>
-            <label>泰山</label>
-            <div class="online"></div>
-        </div>
+<!--         <div id="6" class="friend"> -->
+<!--             <img src="#"/> -->
+<!--             <label>泰山</label> -->
+<!--             <div class="online"></div> -->
+<!--         </div> -->
     </div>
 
     <div id="chats"></div>

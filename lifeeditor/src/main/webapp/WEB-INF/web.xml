@@ -2,12 +2,7 @@
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" version="3.1">
   <display-name>Archetype Created Web Application</display-name>
   <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
     <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <resource-ref>
     <description>DB Connection</description>
@@ -120,7 +115,7 @@
     <servlet-name>ach_list</servlet-name>
     <url-pattern>/ach_list/ach_list.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>getAchPic</servlet-name>
     <servlet-class>com.lifeeditor.controller.ach_list.getAchPic</servlet-class>
   </servlet>
@@ -129,8 +124,19 @@
     <url-pattern>/ach_list/getAchPic.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/Login.java</url-pattern>
+
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>manager</servlet-name>
+  	<jsp-file>/manager/Backstage</jsp-file>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>manager</servlet-name>
+  	<url-pattern>/manager</url-pattern>
   </servlet-mapping>
 
     <error-page>
@@ -178,3 +184,4 @@
 	            <location>/errorPage.html</location>
 	</error-page>
 </web-app>
+

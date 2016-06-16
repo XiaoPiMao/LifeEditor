@@ -192,6 +192,32 @@ display: inline-block;
 	//	console.log(secs[1][0].secName);
 	$(document).ready(
 			   function() {
+					var frag = $(new DocumentFragment());
+					$.each(types, function(i, type) {
+						var div = $("<div></div>");
+						//<img id="type1" class="type" src="type.typePic" alt="typeName">
+//	 					if (type.typeName != "自訂") {
+							var img = $("<img>").attr("id", type.typeID).addClass(
+									"type").attr("src",
+									"getTypePic?typeID=" + type.typeID).attr(
+									"alt", type.typeName);
+//	 					} 
+//	 					else {
+//	 						var img = $("<img>").attr("src",
+//	 								"data:image/png;base64," + type.typePic).attr(
+//	 								"alt", type.typeName).css({
+//	 							width : "120px",
+//	 							height : "120px",
+//	 							padding : "5px",
+//	 							float : "left",
+//	 							margin : "0 10px 10px 10px"
+//	 						});
+//	 					}
+						div.append(img);
+						frag.append(div);
+					})
+					$(".type_list").append(frag);
+					
 				   document.getElementById('button').onclick = (function() {
 					    document.getElementsByTagName('span')[0].innerHTML = 'GO';
 					    return false;
@@ -228,31 +254,7 @@ display: inline-block;
 						$("#errorMsg").text("");
 					})
 				
-				var frag = $(new DocumentFragment());
-				$.each(types, function(i, type) {
-					var div = $("<div></div>");
-					//<img id="type1" class="type" src="type.typePic" alt="typeName">
-// 					if (type.typeName != "自訂") {
-						var img = $("<img>").attr("id", type.typeID).addClass(
-								"type").attr("src",
-								"data:image/png;base64," + type.typePic).attr(
-								"alt", type.typeName);
-// 					} 
-// 					else {
-// 						var img = $("<img>").attr("src",
-// 								"data:image/png;base64," + type.typePic).attr(
-// 								"alt", type.typeName).css({
-// 							width : "120px",
-// 							height : "120px",
-// 							padding : "5px",
-// 							float : "left",
-// 							margin : "0 10px 10px 10px"
-// 						});
-// 					}
-					div.append(img);
-					frag.append(div);
-				})
-				$(".type_list").append(frag);
+			
 				$(".type").draggable({
 					helper : "clone",
 					revert : "invalid"
@@ -277,8 +279,7 @@ display: inline-block;
 									var s = $("<img>").attr("id", sec.secID)
 											.attr(
 													"src",
-													"data:image/png;base64,"
-															+ sec.secPic).attr(
+													"getSecPic?secID=" + sec.secID).attr(
 													"title", sec.secName)
 											.addClass("secPic");
 									$(s).draggable({
@@ -355,47 +356,7 @@ display: inline-block;
 <body>
 	<div id="wrapper">
 
-		<!-- Header -->
-		<header id="header">
-			<h1>
-				<a href="home.jsp">Life Editor</a>
-			</h1>
-			<nav class="links">
-				<ul>
-					<li><a href="setgoal.jsp">目標</a></li>
-					<li><a href="#">行事曆</a></li>
-					<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
-					<li><a href="#">關於我</a></li>
-				</ul>
-			</nav>
-<nav class="main">
-			<ul>
-				<c:choose>
-					<c:when test="${ ! empty FbPicture }">
-					   <img src="${FbPicture}" style="border-radius:50%;height:40px;width:40px;"></img>
-					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
-					</c:when>
-				    <c:when test="${! empty LoginOK }">
-					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
-					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
-					</c:when>
-				</c:choose>
-														
-<%-- 													 	<c:if test="${! empty LoginOK }"> --%>
-<%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
-<%-- 														</c:if>	 --%>
-													
-			   <li class="">
-					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
-			   </li>
-																	
-			   <li class="menu">
-					<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
-					<a id="modal_trigger2" href="#modal" class="">登出</a>
-			   </li>
-			</ul>
-		</nav>
-</header>
+		<jsp:include page="/include/HeaderTemp.jsp" />
 		<!-- Main -->
 		<article class="article">
 			
