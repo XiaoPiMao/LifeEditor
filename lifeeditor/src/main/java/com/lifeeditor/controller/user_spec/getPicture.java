@@ -30,7 +30,7 @@ public class getPicture extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		try {
-		user_specVO user_specVO = (com.lifeeditor.model.user_spec.user_specVO) req.getSession().getAttribute("user_specVO");
+		user_specVO user_specVO = (com.lifeeditor.model.user_spec.user_specVO) req.getSession().getAttribute("LoginOK");
 		OutputStream os = null;		
 		Blob b = user_specVO.getPicture();
 		long size;

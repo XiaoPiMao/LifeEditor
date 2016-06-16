@@ -247,7 +247,7 @@ public class user_specServlet extends HttpServlet {
 				req.setAttribute("errorMsgs", errorMsgs);
 
 				try {
-					user_specVO user_specVO = (com.lifeeditor.model.user_spec.user_specVO) req.getSession().getAttribute("user_specVO");
+					user_specVO user_specVO = (com.lifeeditor.model.user_spec.user_specVO) req.getSession().getAttribute("LoginOK");
 					
 					Integer userID = user_specVO.getUserID();
 					String account = user_specVO.getAccount();
