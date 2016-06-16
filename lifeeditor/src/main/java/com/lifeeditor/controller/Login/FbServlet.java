@@ -74,7 +74,7 @@ public class FbServlet extends HttpServlet {
 				
 				mfio.addUser(email, pswd, lastname, firstname, gender, null,
 						email, null, null, b);
-				session.setAttribute("FbPicture",url); 
+				session.setAttribute("FLoginOK","fb"); 
 				session.setAttribute("LoginOK", vo);
 			}else{
 				System.out.println("已取得帳號密碼");															// 如果變數vo的值不等於 null,表示帳密吻合，資料庫含有account搭配password的紀錄

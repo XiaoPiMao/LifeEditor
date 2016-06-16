@@ -30,7 +30,7 @@ public class TypeListJNDIDAO implements TypeListDAO_interface{
 		}
 	}
 	
-	private static final String GET_ALL_STMT = "SELECT * FROM type_list";
+	private static final String GET_ALL_STMT = "SELECT typeID,typeName FROM type_list";
 
 	
 	
@@ -49,7 +49,6 @@ public class TypeListJNDIDAO implements TypeListDAO_interface{
 				 type = new TypeListVO();
 				 type.setTypeID(rs.getInt("typeID"));
 				 type.setTypeName(rs.getString("typeName"));
-				 type.setTypePic(rs.getBlob("typePic"));
 				 if(first) {
 					 first = false;
 					 tempType = type;
