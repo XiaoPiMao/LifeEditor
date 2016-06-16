@@ -115,7 +115,7 @@
     <servlet-name>ach_list</servlet-name>
     <url-pattern>/ach_list/ach_list.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>getAchPic</servlet-name>
     <servlet-class>com.lifeeditor.controller.ach_list.getAchPic</servlet-class>
   </servlet>
@@ -124,8 +124,10 @@
     <url-pattern>/ach_list/getAchPic.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/Login.java</url-pattern>
+
   </servlet-mapping>
   
   <servlet>
@@ -182,3 +184,4 @@
 	            <location>/errorPage.html</location>
 	</error-page>
 </web-app>
+
