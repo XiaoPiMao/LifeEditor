@@ -237,9 +237,7 @@ body {
 
 		}
 </style>
-<script src="js/jquery.min.js"></script>
-<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
-<script src="js/main.js"></script>
+
 
 </head>
 
@@ -249,10 +247,10 @@ body {
 	<h1><a href="home.jsp">Life Editor</a></h1>
 		<nav class="links">
 			<ul>
-				<li><a href="setgoal.jsp">目標</a></li>
-				<li><a href="#">行事曆</a></li>
+				<li><a href="${ctx}/setgoal.jsp">目標</a></li>
+				<li><a href="${ctx}/fullCalendar.jsp">行事曆</a></li>
 				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
-				<li><a href="#">挑戰任務</a></li>
+				<li><a href="${ctx}/apply_challenge.jsp">挑戰任務</a></li>
 			</ul>
 		</nav>
 		<nav class="main">
@@ -274,8 +272,8 @@ body {
 			   </li>
 			</ul>
 			<ul class="dropdown_area" id="dropdown">
-			    <li style="display:list-item;position:relative;left:178px;"><a href="">設定</a></li>
-			    <li style="display: list-item;position:relative;left:178px;"><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a></li>
+			    <li style="display:list-item;position:fixed;right:195px;top:50px;z-index: 10000;"><a href="">設定</a></li>
+			    <li style="display: list-item;position:fixed;right:195px;top:100px;z-index: 10000;"><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a></li>
 			</ul>
 		</nav>
 </header>
