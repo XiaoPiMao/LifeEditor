@@ -50,6 +50,10 @@ public class Target_List_Service {
 		return dao.findByUserID(userID);
 	}
 	
+	public List<TargetVO> pageFindByUserID(Integer userID) {
+		return dao.pageFindByUserID(userID);
+	}
+	
 	public Target_ListVO findByTargetID(Integer targetID){
 		return dao.findByTargetID(targetID);
 	}

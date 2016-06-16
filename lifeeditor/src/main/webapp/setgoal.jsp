@@ -192,6 +192,32 @@ display: inline-block;
 	//	console.log(secs[1][0].secName);
 	$(document).ready(
 			   function() {
+					var frag = $(new DocumentFragment());
+					$.each(types, function(i, type) {
+						var div = $("<div></div>");
+						//<img id="type1" class="type" src="type.typePic" alt="typeName">
+//	 					if (type.typeName != "自訂") {
+							var img = $("<img>").attr("id", type.typeID).addClass(
+									"type").attr("src",
+									"getTypePic?typeID=" + type.typeID).attr(
+									"alt", type.typeName);
+//	 					} 
+//	 					else {
+//	 						var img = $("<img>").attr("src",
+//	 								"data:image/png;base64," + type.typePic).attr(
+//	 								"alt", type.typeName).css({
+//	 							width : "120px",
+//	 							height : "120px",
+//	 							padding : "5px",
+//	 							float : "left",
+//	 							margin : "0 10px 10px 10px"
+//	 						});
+//	 					}
+						div.append(img);
+						frag.append(div);
+					})
+					$(".type_list").append(frag);
+					
 				   document.getElementById('button').onclick = (function() {
 					    document.getElementsByTagName('span')[0].innerHTML = 'GO';
 					    return false;
@@ -228,31 +254,7 @@ display: inline-block;
 						$("#errorMsg").text("");
 					})
 				
-				var frag = $(new DocumentFragment());
-				$.each(types, function(i, type) {
-					var div = $("<div></div>");
-					//<img id="type1" class="type" src="type.typePic" alt="typeName">
-// 					if (type.typeName != "自訂") {
-						var img = $("<img>").attr("id", type.typeID).addClass(
-								"type").attr("src",
-								"data:image/png;base64," + type.typePic).attr(
-								"alt", type.typeName);
-// 					} 
-// 					else {
-// 						var img = $("<img>").attr("src",
-// 								"data:image/png;base64," + type.typePic).attr(
-// 								"alt", type.typeName).css({
-// 							width : "120px",
-// 							height : "120px",
-// 							padding : "5px",
-// 							float : "left",
-// 							margin : "0 10px 10px 10px"
-// 						});
-// 					}
-					div.append(img);
-					frag.append(div);
-				})
-				$(".type_list").append(frag);
+			
 				$(".type").draggable({
 					helper : "clone",
 					revert : "invalid"
@@ -277,8 +279,7 @@ display: inline-block;
 									var s = $("<img>").attr("id", sec.secID)
 											.attr(
 													"src",
-													"data:image/png;base64,"
-															+ sec.secPic).attr(
+													"getSecPic?secID=" + sec.secID).attr(
 													"title", sec.secName)
 											.addClass("secPic");
 									$(s).draggable({
@@ -344,7 +345,7 @@ display: inline-block;
 	 					'opacity':'0',
 						//'width':'50px',
 						//'height':'50px'
-					},2500,function(){location.href='test.jsp';}
+					},2500,function(){location.href='${ctx}/UserPage';}
 					);
 				};		
 				
@@ -354,6 +355,7 @@ display: inline-block;
 </head>
 <body>
 	<div id="wrapper">
+
 
 		<!-- Header -->
 		<header id="header">
@@ -391,6 +393,9 @@ display: inline-block;
 											</ul>
 			</nav>
 		</header>
+
+		<jsp:include page="/include/HeaderTemp.jsp" />
+
 		<!-- Main -->
 		<article class="article">
 			

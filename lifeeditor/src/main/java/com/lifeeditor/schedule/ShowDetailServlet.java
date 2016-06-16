@@ -32,11 +32,11 @@ public class ShowDetailServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		String id = request.getParameter("id");
-		System.out.println("ID :" + id);
+
 		response.setContentType("application/json");
 		PrintWriter out = response.getWriter();
 		try {
-			List<scheduleVO> getDetail = new scheduleDAO().getScheduleFromUser("1");
+			List<scheduleVO> getDetail = new scheduleDAO().getScheduleFromUser(id);
 			String getJson = new DataToGson().changeDataToGson(getDetail);
 			out.write(getJson);
 		} catch (SQLException e) {
