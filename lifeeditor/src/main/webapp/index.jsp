@@ -31,6 +31,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
   </head>
   <style>
   .errorspan{
@@ -42,6 +43,7 @@
 
   <body data-spy="scroll" data-offset="0" data-target="#theMenu">
 	<!-- Menu -->
+
 	<nav class="menu" id="theMenu">
 		<div class="menu-wrap">
 			<h1 class="logo"><a href="index.jsp#home">Life Editor</a></h1>
