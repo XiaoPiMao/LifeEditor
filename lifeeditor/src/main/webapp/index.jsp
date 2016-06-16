@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -68,7 +69,7 @@
 				<div class="col-md-6 col-md-offset-3">
 					<div><h1>Life Editor</h1>		
 					<a id="modal_trigger" href="#modal" class="btn">註冊 /登入</a>		
-					<!----------------------------------------------------- 	Login start --------------------------------------------------->
+<!----------------------------------------------------- 	Login start --------------------------------------------------->
 <!--     <div class="container"> -->
 	<div id="modal" class="popupContainer" style="display:none;">
 		<header class="popupHeader">
@@ -96,15 +97,18 @@
 			<div class="user_login" style="margin:auto;">
 				<form id="form-id" Action="Login.java" method="POST">
 					<label>帳號</label>
-					<input type="text" name="account" size="10">					
+					 <input  type="text" name="account" size="10"  value="${sessionScope.account}">				
 					<br />
 					<label>密碼</label>
-					<input type="password" name="pswd" size="10">
+					   <input  type="password" name="pswd"  size="10"   value="${sessionScope.pswd}">
 					<small><Font id="ErrorMsg" color='red' size="-1"></Font></small>
 					<br />
 					<div class="checkbox">
-						<input id="remember" type="checkbox" />
-						<label for="remember">記住這個帳號</label>
+					 
+						 <input type="checkbox" name="rememberMe" value="true"
+					       <c:if test='${sessionScope.rememberMe == true}' > checked='checked'  </c:if>  /> 
+					
+						<label for="rememberMe">記住這個帳號</label>
 					</div>
 					<div class="action_btns">
 						<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> 上一頁</a></div>
@@ -399,37 +403,37 @@
 					  <div class="carousel-inner">
 					    <div class="item active mb centered">
 					      <h3>Fled Tee</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t1.jpg" width="80"></p>
 					    </div>
 
 					    <div class="item mb centered">
 					      <h3>Jones Wang</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t2.jpg" width="80"></p>
 					    </div>
 
 					    <div class="item mb centered">
 					      <h3>Amy Chen</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t3.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>Shin Da Tsai</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t4.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>Tzu Hao Kuan</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t5.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>YANG,JING-JUN</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t6.jpg" width="80"></p>
 					    </div>
 

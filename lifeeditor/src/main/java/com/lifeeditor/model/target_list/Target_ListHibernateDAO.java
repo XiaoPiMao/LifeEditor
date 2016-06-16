@@ -1,6 +1,16 @@
 package com.lifeeditor.model.target_list;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -9,22 +19,39 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.lifeeditor.model.achievement.AchievementVO;
+import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.target.TargetVO;
+import com.lifeeditor.model.type_list.TypeListVO;
 import com.lifeeditor.model.user_spec.user_specDAO_interface;
 import com.lifeeditor.model.user_spec.user_specVO;
+import com.lifeeditor.utility.GlobalValues;
 
 @Transactional(readOnly = true)
 public class Target_ListHibernateDAO implements Target_ListDAO_interface{
-
+	private static DataSource ds = null;
 	private static final String GET_ALL_BY_USER = "from Target_ListVO order by userID";
 	private static final String GET_ALL_BY_TARGET = "from Target_ListVO order by targetID";
 	private static final String GET_ALL_BY_ID = "from Target_ListVO order by targetListID";
+	private static final String PAGE_FIND_BY_USERID = 
+			"SELECT tt.*,s.typeName,s.secName " + 
+			"FROM (SELECT t.targetID,t.trgName,t.typeID,t.sectionID,t.difficulty,t.intention,t.privacy,t.genkiBar,t.achID,t.priority,t.trgType,t.status,t.timeStart,t.timeFinish,t.doneTime "+
+					"FROM target t JOIN (SELECT targetID FROM target_list WHERE userID = ?)tl ON t.targetID = tl.targetID)tt "+
+			"JOIN (SELECT s.secID,s.secName,ty.typeName FROM sec_list s JOIN type_list ty ON s.typeID = ty.typeID)s ON tt.sectionID = s.secID "+
+			"ORDER BY tt.targetID DESC";
 		
 	private HibernateTemplate hibernateTemplate;    
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
         this.hibernateTemplate = hibernateTemplate;
     }
-	
+    static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup(GlobalValues.DS_LOOKUP);
+		} catch (NamingException ne) {
+			ne.printStackTrace();
+		}
+	}
 
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
@@ -106,6 +133,70 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 		return list;
 	}
 	
+	@Override
+	public List<TargetVO> pageFindByUserID(Integer userID) {
+		Connection conn = null;
+		List<TargetVO> list = new ArrayList<>();
+		TargetVO trg = null;
+		SecListVO sec = null;
+		TypeListVO type = null;
+		AchievementVO ach = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(PAGE_FIND_BY_USERID);
+			pstmt.setInt(1, userID);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				trg = new TargetVO();
+				type = new TypeListVO();
+				sec = new SecListVO();
+				ach = new AchievementVO();
+				
+				trg.setTargetID(rs.getInt("targetID"));
+				trg.setTrgName(rs.getString("trgName"));
+				
+				type.setTypeID(rs.getInt("typeID"));
+				type.setTypeName(rs.getString("typeName"));
+				trg.setTypeVO(type);
+				
+				sec.setSecID(rs.getInt("sectionID"));
+				sec.setSecName(rs.getString("secName"));
+				trg.setSectionVO(sec);
+				
+				trg.setDifficulty(rs.getInt("difficulty"));
+				trg.setIntention(rs.getNString("intention"));
+				trg.setPrivacy(rs.getInt("privacy"));
+				trg.setGenkiBar(rs.getInt("genkiBar"));
+				
+				ach.setAchID(rs.getInt("achID"));
+				trg.setAchVO(ach);
+				
+				trg.setPriority(rs.getInt("priority"));
+				trg.setTrgType(rs.getInt("trgType"));
+				trg.setStatus(rs.getInt("status"));
+				trg.setTimeStart(rs.getDate("timeStart"));
+				trg.setTimeFinish(rs.getDate("timeFinish"));
+				trg.setDoneTime(rs.getDate("doneTime"));
+				
+				list.add(trg);
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+				}
+		}
+	
+		return list;
+	}
+
+	
 	
 	
 	public static void main(String[] args) {
@@ -168,6 +259,8 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 //		
 	}
 
+
+	
 
 
 

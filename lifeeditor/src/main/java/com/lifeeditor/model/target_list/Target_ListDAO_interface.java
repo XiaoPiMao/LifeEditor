@@ -15,5 +15,5 @@ public interface Target_ListDAO_interface {
 	public List<Target_ListVO> getAllByUser();
 	public List<Target_ListVO> getAllByTarget();
 	public List<Target_ListVO> getAll();
-
+	public List<TargetVO> pageFindByUserID(Integer userID);
 }

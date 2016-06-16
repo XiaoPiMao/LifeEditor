@@ -1,8 +1,5 @@
 package com.lifeeditor.model.target_spec;
 
-import java.sql.Blob;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 import com.google.gson.annotations.Expose;
 import com.lifeeditor.model.target.TargetVO;
@@ -13,8 +10,14 @@ public class Target_specVO implements java.io.Serializable{
 	private Integer trgSpecID; 
 	private user_specVO userVO;
 	private TargetVO targetVO;
+	private Integer UserID;
+	private Integer TargetID;
+
 	@Expose
 	private String trgNote;
+	private String trgPicPath;
+	
+	
 	@Expose
 	private String TrgPicPath;
 	public Integer getTrgSpecID() {
@@ -42,11 +45,24 @@ public class Target_specVO implements java.io.Serializable{
 		this.trgNote = trgNote;
 	}
 	public String getTrgPicPath() {
-		return TrgPicPath;
+		return trgPicPath;
 	}
 	public void setTrgPicPath(String trgPicPath) {
-		TrgPicPath = trgPicPath;
+		this.trgPicPath = trgPicPath;
 	}
+	public Integer getTargetID() {
+		return TargetID;
+	}
+	public void setTargetID(Integer targetID) {
+		TargetID = targetID;
+	}
+	public Integer getUserID() {
+		return UserID;
+	}
+	public void setUserID(Integer userID) {
+		UserID = userID;
+	}
+
 	
 	
 	

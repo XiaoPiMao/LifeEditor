@@ -12,13 +12,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.*;
+import com.lifeeditor.model.comments.commentsVO;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.Target_List_Service;
+import com.lifeeditor.service.commentsService;
 
 
-@WebServlet("/GetJTargetByUser")
+@WebServlet("/UserPage")
 public class GetJTargetByUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,13 +33,13 @@ public class GetJTargetByUser extends HttpServlet {
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Target_List_Service trgListSvc = new Target_List_Service();
 		user_specVO user = (user_specVO)request.getSession().getAttribute("LoginOK");
+		Integer userID = user.getUserID();
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
-		List<Target_ListVO> list = trgListSvc.findByUserID(user.getUserID());
+		List<TargetVO> list = trgListSvc.pageFindByUserID(userID);
 		JsonArray jsonArray = new JsonArray();
 		JsonObject jsonObj = null;
-		for(Target_ListVO trgList : list) {
+		for(TargetVO trg  : list) {
 			jsonObj = new JsonObject();
-			TargetVO trg = trgList.getTrgVO();
 			JsonObject JTrg = gson.toJsonTree(trg).getAsJsonObject();
 			jsonObj.addProperty("typeID", trg.getTypeVO().getTypeID());
 			jsonObj.addProperty("typeName", trg.getTypeVO().getTypeName());
@@ -51,10 +53,25 @@ public class GetJTargetByUser extends HttpServlet {
 			}
 			jsonArray.add(jsonObj);
 		}
+		request.setAttribute("targets", jsonArray.toString());
 		
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("application/json");
-		response.getWriter().write(jsonArray.toString());
+		jsonArray = new JsonArray();
+		commentsService cmtSvc = new commentsService();
+		List<commentsVO> comments = cmtSvc.getCommentByUser(userID);
+		for(commentsVO comment : comments) {
+			jsonObj = new JsonObject();
+			jsonObj.addProperty("targetID", comment.getTargetID());
+			user_specVO gUser = comment.getUser_specVO();
+			jsonObj.addProperty("userID", gUser.getUserID());
+			jsonObj.addProperty("firstName", gUser.getFirstName());
+			jsonObj.addProperty("lastName", gUser.getLastName());
+			jsonObj.addProperty("comment", comment.getComment());
+			jsonArray.add(jsonObj);
+			
+		}
+		request.setAttribute("liveComments", jsonArray.toString());
+		
+		request.getRequestDispatcher("/test.jsp").forward(request, response);
 	}
 
 }

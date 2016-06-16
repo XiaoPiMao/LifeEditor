@@ -148,7 +148,7 @@ font-style: italic;
 
 
 <div align="center" style="display:none" >
-<b>哈囉~ ${LoginOK.lastName}${LoginOK.firstName} 歡迎你來報名參加有趣的挑戰任務喔!</b>
+<b>哈囉~ ${LoginOK.lastName}${LoginOK.firstName} 歡迎你來報名參加有興趣的挑戰喔!</b>
 <%-- <b>登入者ID: ${LoginOK.userID}, 帳號: ${LoginOK.account}</b> --%>
 
 

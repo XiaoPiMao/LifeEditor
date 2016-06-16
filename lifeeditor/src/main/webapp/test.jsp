@@ -17,7 +17,7 @@
     <link href="singlecolor/css/animate.min.css" rel="stylesheet"> 
 	<link href="singlecolor/css/main.css" rel="stylesheet">
 	<link href="singlecolor/css/responsive.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="css/main.css" />
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
 	    <script src="js/respond.min.js"></script>
@@ -27,124 +27,202 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="singlecolor/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="singlecolor/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="singlecolor/images/ico/apple-touch-icon-57-precomposed.png">
+    <style>
+		.user-icon{
+		border-radius:50%;
+		}
+		
+		.mini-post#img{
+    width:100px;
+    height:100px;
+    border-radius: 50%;
+}
+
+
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    width: 40px;
+    height: 40px;
+    margin-top: -20px;
+    font-size: 60px;
+    font-weight: 100;
+    line-height: 30px;
+    color: #fff;
+    text-align: center;
+    border: 3px solid #fff;
+    -webkit-border-radius: 23px;
+    -moz-border-radius: 23px;
+    border-radius: 23px;
+    opacity: .5;
+    filter: alpha(opacity=50);
+}
+
+.carousel-control.right {
+  right: 15px;
+}
+		</style>
+<script src="js/jquery.min.js"></script>
+<script src="js/skel.min.js"></script>
+<script src="js/util.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="js/main.js"></script>
+<script>
+    var jTypes = JSON.parse('${jTypes}');
+    var jUser = JSON.parse('${jUser}');
+    var data = JSON.parse('${targets}');
+    console.log(jUser);
     
-    <script>
-    $.getJSON('Target_ListVO',{'targetListID':id},function(datas){
-	
-		$.each(datas,function(i,data){
-			console.log(data);
-			//<tbody><tr><td>
-// 			var cell1 = $("<td></td>").text(product.ProductID);
-// 			var cell2 = $("<td></td>").text(product.ProductName);
-// 			var cell3 = $("<td></td>").text(product.UnitPrice);
-// 			var cell4 = $("<td></td>").text(product.UnitsInStock);
-			
-// 			var row = $("<tr></tr>").append([cell1,cell2,cell3,cell4]);
-			
-// 			$('#productTable>tbody').append(row);
+    var catogoryNum = new Object();
+    $.each(jTypes,function() {
+    	catogoryNum[this.typeName] = 0 ;
+    })
+    
+    
+    
+$(document).ready(function(){
+    	liveComments = JSON.parse('${liveComments}');
+    	console.log(liveComments);
+    	var lastComment ="<h3>最 新 留 言</h3>";
+    	$.each(liveComments,function(){
+    		lastComment += 
+            '<div class="media">' +
+               '<div class="pull-left">' +
+                   '<a href="#"><img style="border-radius:50%;height:55px;width:55px;" src="${ctx}/GetUserPicture?id=' + this.userID +'"></a>' +
+               '</div>' +
+             '<div class="media-body">' +
+                  '<h4><a href="#">' +  this.comment + '</a></h4>' +
+                   '<p>'+ this.lastName + ' ' + this.firstName + '</p>' +
+              '</div>' +
+            '</div>' 
+    	})
+    	$('.sidebar-item.recent').html(lastComment);
+    	var str = "";
+    	
+    	$('.carousel').carousel({
+    	      interval: 6000
+    	    })
+
+		$.each(data,function(){
+			var num = Math.floor(Math.random() * 3 + 1);
+			catogoryNum[this.typeName]++;
+			str += '<div class="col-md-12 col-sm-12">' +
+			        '<div class="carousel slide" id="myCarousel">'+
+			        '<div class="carousel-inner">' +
+			        '<div class="item active">' +
+		            '<div class="single-blog two-column">' +
+		            '<h2 class="post-title bold"><a href="blogdetails.html"> 目 標 : ' + this.trgName +'</a></h2>' +
+	                '<h3 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h3>' +
+	                '<p> 初衷 : '+ this.intention + '</p>'+
+		            '<div class="post-thumb">' +
+		                '<a href="blogdetails.html"><img src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt=""></a>'+
+		                '<div class="post-overlay">' +
+		                    '<span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>' +
+		                '</div>' +
+		            '</div>' +
+		            '<div class="post-content overflow">' +
+		                '<div class="post-bottom overflow">'+
+		                    '<ul class="nav navbar-nav post-nav">'+
+		                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
+		                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
+		                        '<li><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
+		                    '</ul>'+
+		                '</div>'+
+		            '</div>'+
+		        '</div>'+
+		        '</div>'+   //item
+		        '</div>'+   //carousel-inner
+		        '<div class="control-box">' +                            
+            '<a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>' +
+            '<a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>' +
+            '</div>' +     //control-box
+		       '</div>'+   //#myCarousel 
+		    '</div>'
+  
 		});
+		var spans = document.querySelectorAll('.pull-right');
+		var i = 0;
+		$.each(catogoryNum,function(name,value) {
+			$(spans[i]).text("(" + value + ")");
+			i++;
+		})
+		$(".col-md-9.col-sm-7").append( $("<div></div>").addClass("row").html(str) );
+	})
+
 	
-// 	})
     </script>
 </head>
 <body>
+<!-- <div id="wrapper"> -->
+<!-- Header -->
+<header id="header" style="padding:0px;">
+	<h1><a href="home.jsp">Life Editor</a></h1>
+		<nav class="links">
+			<ul>
+				<li><a href="setgoal.jsp">目標</a></li>
+				<li><a href="#">行事曆</a></li>
+				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
+				<li><a href="#">關於我</a></li>
+			</ul>
+		</nav>
+		<nav class="main">
+			<ul>
+				<c:choose>
+					<c:when test="${ ! empty FbPicture }">
+					   <img src="${FbPicture}" style="border-radius:50%;height:40px;width:40px;"></img>
+					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
+					</c:when>
+				    <c:when test="${! empty LoginOK }">
+					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
+					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
+					</c:when>
+				</c:choose>
+														
+<%-- 													 	<c:if test="${! empty LoginOK }"> --%>
+<%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
+<%-- 														</c:if>	 --%>
+													
+			   <li class="">
+					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
+			   </li>
+																	
+			   <li class="menu">
+					<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
+					<a id="modal_trigger2" href="#modal" class="">登出</a>
+			   </li>
+			</ul>
+		</nav>
+</header>
 
-
-    <section id="page-breadcrumb">
-        <div class="vertical-center sun">
-             <div class="container">
-                <div class="row">
-                    <div class="action">
-                        <div class="col-sm-2">
-                            <h1 class="title">Blog</h1>
-                            <p>Blog with right sidebar</p>
-                        </div>
-                        <div class="col-sm-10">
-                        <div class="col-sm-3">
-						<ul class="nav navbar-nav navbar-left">
-							<li><a href="test.jsp">目標</a></li>
-							<li><a href="test.jsp">朋友</a></li>
-							<li><a href="test.jsp">關於我</a></li>
-							<div class="search" >
-								<form role="form">
-									<i class="fa fa-search"></i>
-									<div class="field-toggle">
-										<input type="text" class="search-form" autocomplete="off"
-											placeholder="Search">
-									</div>
-								</form>
-							</div>
-						</ul>
-						</div>
-						</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-   </section>
-    <!--/#action-->
-
-    <section id="blog" class="padding-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 col-sm-5">
-                    <div class="sidebar blog-sidebar">
-                        <div class="sidebar-item  recent">
-                            <h3>Comments</h3>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" alt=""></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4>
-                                    <p>posted on  07 March 2014</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img src="singlecolor/images/portfolio/project2.jpg" alt=""></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4>
-                                    <p>posted on  07 March 2014</p>
-                                </div>
-                            </div>
-                            <div class="media">
-                                <div class="pull-left">
-                                    <a href="#"><img src="singlecolor/images/portfolio/project3.jpg" alt=""></a>
-                                </div>
-                                <div class="media-body">
-                                    <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4>
-                                    <p>posted on  07 March 2014</p>
-                                </div>
-                            </div>
-                        </div>
+<section id="blog" class="padding-top">
+  <div class="container">
+    <div class="row">
+        <div class="col-md-3 col-sm-5" >
+            <div class="sidebar blog-sidebar" style="margin-right:50px;">
+                <div class="sidebar-item  recent">
+                    
+<!--                       <div class="media"> -->
+<!--                          <div class="pull-left"> -->
+<!--                              <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" title="123"></a> -->
+<!--                          </div> -->
+<!--                        <div class="media-body"> -->
+<!--                             <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4> -->
+<!--                              <p>posted on  07 March 2014</p> -->
+<!--                         </div> -->
+<!--                       </div> -->
+                 </div>
                         <div class="sidebar-item categories">
-                            <h3>Categories</h3>
+                            <h3>目 標 類 別</h3>
                             <ul class="nav navbar-stacked">
-                                <li><a href="#">Lorem ipsum<span class="pull-right">(1)</span></a></li>
-                                <li class="active"><a href="#">Dolor sit amet<span class="pull-right">(8)</span></a></li>
-                                <li><a href="#">Adipisicing elit<span class="pull-right">(4)</span></a></li>
-                                <li><a href="#">Sed do<span class="pull-right">(9)</span></a></li>
-                                <li><a href="#">Eiusmod<span class="pull-right">(3)</span></a></li>
-                                <li><a href="#">Mockup<span class="pull-right">(4)</span></a></li>
-                                <li><a href="#">Ut enim ad minim <span class="pull-right">(2)</span></a></li>
-                                <li><a href="#">Veniam, quis nostrud <span class="pull-right">(8)</span></a></li>
+                            <c:forEach var="type" items="${types}">
+                                <li><a href="#">${type.typeName}<span class="pull-right">(0)</span></a></li>
+                            </c:forEach>
                             </ul>
                         </div>
-                        <div class="sidebar-item tag-cloud">
-                            <h3>Tag Cloud</h3>
-                            <ul class="nav nav-pills">
-                                <li><a href="#">Corporate</a></li>
-                                <li><a href="#">Joomla</a></li>
-                                <li><a href="#">Abstract</a></li>
-                                <li><a href="#">Creative</a></li>
-                                <li><a href="#">Business</a></li>
-                                <li><a href="#">Product</a></li>
-                            </ul>
-                        </div>
+
                         <div class="sidebar-item popular">
-                            <h3>Latest Photos</h3>
+                            <h3>我 的 榮 耀</h3>
                             <ul class="gallery">
                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li>
                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular2.jpg" alt=""></a></li>
@@ -156,108 +234,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-9 col-sm-7">
-                    <div class="row">
-                         <div class="col-md-12 col-sm-12">
-                            <div class="single-blog two-column">
-                            
-                                <div class="post-thumb">
-                                    <a href="test1.jsp"><img src="" class="img-responsive" alt="123456"></a>
-                                    <div class="post-overlay">
-                                        <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
-                                    </div>
-                                </div>
-                             
-                                <div class="post-content overflow">
-                                    <h2 class="post-title bold"><a href="blogdetails.html">Advanced business cards design</a></h2>
-                                    <h3 class="post-author"><a href="#">Posted by micron News</a></h3>
-                                    <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                    <a href="#" class="read-more">View More</a>
-                                    <div class="post-bottom overflow">
-                                        <ul class="nav navbar-nav post-nav">
-                                            <li><a href="#"><i class="fa fa-tag"></i>Creative</a></li>
-                                            <li><a href="#"><i class="fa fa-heart"></i>32 Love</a></li>
-                                            <li><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12">
-                            <div class="single-blog two-column">
-                                <div class="post-thumb">
-                                    <a href="blogdetails.html"><img src="singlecolor/images/blog/8.jpg" class="img-responsive" alt=""></a>
-                                    <div class="post-overlay">
-                                        <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
-                                    </div>
-                                </div>
-                                <div class="post-content overflow">
-                                    <h2 class="post-title bold"><a href="blogdetails.html">Advanced business cards design</a></h2>
-                                    <h3 class="post-author"><a href="#">Posted by micron News</a></h3>
-                                    <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                    <a href="#" class="read-more">View More</a>
-                                    <div class="post-bottom overflow">
-                                        <ul class="nav navbar-nav post-nav">
-                                            <li><a href="#"><i class="fa fa-tag"></i>Creative</a></li>
-                                            <li><a href="#"><i class="fa fa-heart"></i>32 Love</a></li>
-                                            <li><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12 col-sm-12">
-                            <div class="single-blog two-column">
-                                <div class="post-thumb">
-                                    <a href="blogdetails.html"><img src="singlecolor/images/blog/9.jpg" class="img-responsive" alt=""></a>
-                                    <div class="post-overlay">
-                                        <span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>
-                                    </div>
-                                </div>
-                                <div class="post-content overflow">
-                                    <h2 class="post-title bold"><a href="blogdetails.html">Advanced business cards design</a></h2>
-                                    <h3 class="post-author"><a href="#">Posted by micron News</a></h3>
-                                    <p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber [...]</p>
-                                    <a href="#" class="read-more">View More</a>
-                                    <div class="post-bottom overflow">
-                                        <ul class="nav navbar-nav post-nav">
-                                            <li><a href="#"><i class="fa fa-tag"></i>Creative</a></li>
-                                            <li><a href="#"><i class="fa fa-heart"></i>32 Love</a></li>
-                                            <li><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="blog-pagination">
-                        <ul class="pagination">
-                          <li><a href="#">left</a></li>
-                          <li><a href="#">1</a></li>
-                          <li><a href="#">2</a></li>
-                          <li class="active"><a href="#">3</a></li>
-                          <li><a href="#">4</a></li>
-                          <li><a href="#">5</a></li>
-                          <li><a href="#">6</a></li>
-                          <li><a href="#">7</a></li>
-                          <li><a href="#">8</a></li>
-                          <li><a href="#">9</a></li>
-                          <li><a href="#">right</a></li>
-                        </ul>
-                    </div>
-                 </div>
+                <div class="col-md-9 col-sm-7"></div>
             </div>
         </div>
     </section>
+<!--    	</div>  -->
     <!--/#blog-->
 
-    <footer id="footer">
+    <footer id="footer" >
         <div class="container">
             <div class="row">
                 <div class="col-sm-12 text-center bottom-separator">
                     <img src="singlecolor/images/home/under.png" class="img-responsive inline" alt="">
                 </div>
-                <div class="col-md-4 col-sm-6">
+                <div class="col-md-4 col-sm-6" style="display:none;">
                     <div class="testimonial bottom">
                         <h2>Testimonial</h2>
                         <div class="media">
@@ -280,7 +270,7 @@
                         </div>   
                     </div> 
                 </div>
-                <div class="col-md-3 col-sm-6">
+                <div class="col-md-3 col-sm-6" style="display:none;">
                     <div class="contact-info bottom">
                         <h2>Contacts</h2>
                         <address>
@@ -298,7 +288,7 @@
                         </address>
                     </div>
                 </div>
-                <div class="col-md-4 col-sm-12">
+                <div class="col-md-4 col-sm-12" style="display:none;">
                     <div class="contact-form bottom">
                         <h2>Send a message</h2>
                         <form id="main-contact-form" name="contact-form" method="post" action="sendemail.php">
@@ -319,20 +309,50 @@
                 </div>
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">
-                        <p>&copy; Your Company 2014. All Rights Reserved.</p>
-                        <p>Crafted by <a target="_blank" href="http://designscrazed.org/">Allie</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
     <!--/#footer-->
-
-
-    <script type="text/javascript" src="singlecolor/js/jquery.js"></script>
+   
+			
+      <script type="text/javascript" src="singlecolor/js/jquery.js"></script>
     <script type="text/javascript" src="singlecolor/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="singlecolor/js/lightbox.min.js"></script>
     <script type="text/javascript" src="singlecolor/js/wow.min.js"></script>
     <script type="text/javascript" src="singlecolor/js/main.js"></script> 
+<script>
+        window.fbAsyncInit = function() {
+                FB.init({
+               	appId : '236995580009135',
+                status: true,
+                cookie: true,
+                xfbml: true,
+                version : 'v2.6' 
+            });
+        };
+
+
+        (function(d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id))
+						return;
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//connect.facebook.net/zh_TW/sdk.js";
+					fjs.parentNode.insertBefore(js, fjs);
+			}(document, 'script', 'facebook-jssdk'));
+
+        function logout() {
+            FB.logout(function(response) {
+            });
+        }
+
+
+        </script>
+<!-- </script> -->
+
+    
 </body>
 </html>

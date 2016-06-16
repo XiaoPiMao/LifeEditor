@@ -540,24 +540,28 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			
 			while(rs.next()) {
 				TrgVO = new TargetVO();
-//				TypeListVO typeListVO = new TypeListVO();
-//				SecListVO secListVO = new SecListVO();
-				
+
 				TrgVO.setTargetID(rs.getInt("targetID"));
 				TrgVO.setTrgName(rs.getString("trgName"));
-//				typeListVO.setTypeID(rs.getInt("typeID"));
-//				TrgVO.setTypeVO(typeListVO);
-//				secListVO.setSecID(rs.getInt("secID"));
-//				TrgVO.setSectionVO(secListVO);
 				
-				TrgVO.setTypeVO(new TypeListService().getOneUser(rs.getInt("typeID")));
-				TrgVO.setSectionVO(new SecListService().getOneUser(rs.getInt("sectionID")));  
+				TypeListVO type = new TypeListVO();
+				type.setTypeID(rs.getInt("typeID"));
+				TrgVO.setTypeVO(type);
+				
+				SecListVO sec = new SecListVO();
+				sec.setSecID(rs.getInt("sectionID"));
+				TrgVO.setSectionVO(sec);  
 				
 				TrgVO.setDifficulty(rs.getInt("difficulty"));
 				TrgVO.setIntention(rs.getString("intention"));
 				TrgVO.setPrivacy(rs.getInt("privacy"));
 				TrgVO.setGenkiBar(rs.getInt("genkiBar"));
-				TrgVO.setAchVO(achSvc.getOneAchmt(rs.getInt("achID")));
+				
+				AchievementVO  achVO = new AchievementVO();
+				achVO = achSvc.getOneAchmt(rs.getInt("achID"));
+				achVO.setRewardPic(null);
+				TrgVO.setAchVO(achVO);
+				
 				TrgVO.setPriority(rs.getInt("priority"));
 				TrgVO.setRemindTimes(rs.getInt("remindTimes"));
 				TrgVO.setTrgType(rs.getInt("trgType"));

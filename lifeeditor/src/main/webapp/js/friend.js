@@ -250,7 +250,7 @@ $(document).ready(function(){
 	} 
 	});
 	$('#btn2').click(function(){
-		console.log("click");
+
 		$.ajax({
 				type:"POST",
 				dataType:"json",
@@ -316,6 +316,8 @@ $(document).ready(function(){
 						
 						userImage.setAttribute("alt",Name);
 						userImage.setAttribute("src",Picture);
+						userImage.setAttribute("width",72);
+						userImage.setAttribute("height",72);
 						userImage.setAttribute("class","img-thumbnail");
 						
 						userImgA.appendChild(userImage); //圖片

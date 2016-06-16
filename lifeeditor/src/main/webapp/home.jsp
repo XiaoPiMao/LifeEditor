@@ -12,27 +12,38 @@
 		<link rel="stylesheet" href="css/main.css" />
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
-		<style>
-				
-		.mini-post#img{
-    width:100px;
-    height:100px;
+<style>
+
+
+#hotmanicon{
+    width:60px;
+    height:60px;
     border-radius: 50%;
+    margin:0px 5px 50px 5px;
+    left:0px;
 }
-		</style>
+
+#hotmanPic{
+    width:360px;
+    height:240px;
+    margin:20px 5px 0px 5px;
+}
+
+</style>
 	</head>
 	<body>
-		<!-- Wrapper -->
-			<div id="wrapper">
+<!-- Wrapper -->
+<div id="wrapper">
 
-	<!-- Header -->
+
+<!-- Header -->
 <header id="header">
 	<h1><a href="home.jsp">Life Editor</a></h1>
 		<nav class="links">
 			<ul>
 				<li><a href="setgoal.jsp">目標</a></li>
 				<li><a href="#">行事曆</a></li>
-				<li><a href="http://localhost:8080/lifeeditor/addfriend.jsp">朋友</a></li>
+				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
 				<li><a href="#">關於我</a></li>
 			</ul>
 		</nav>
@@ -40,11 +51,11 @@
 			<ul>
 				<c:choose>
 					<c:when test="${ ! empty FbPicture }">
-					   <img src="${FbPicture}" style="border-radius:50%;"></img>
+					   <img src="${FbPicture}" style="border-radius:50%;height:40px;width:40px;"></img>
 					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
 					</c:when>
 				    <c:when test="${! empty LoginOK }">
-					   <img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;">
+					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
 					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
 					</c:when>
 				</c:choose>
@@ -53,27 +64,29 @@
 <%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
 <%-- 														</c:if>	 --%>
 													
-					<li class="">
+			   <li class="">
 					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
-					</li>
+			   </li>
 																	
-					<li class="menu">
-						<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
-						<a id="modal_trigger2" href="#modal" class="">登出</a>
-					</li>
-
+			   <li class="menu">
+					<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
+					<a id="modal_trigger2" href="#modal" class="">登出</a>
+			   </li>
 			</ul>
-							 </nav>
-					</header>
+		</nav>
+</header>
+
+
 
 				<!-- Menu -->
 					<section id="menu">
+
 						<!-- Search -->
-<!-- 							<section> -->
-<!-- 								<form class="search" method="get" action="#"> -->
-<!-- 									<input type="text" name="query" placeholder="Search" /> -->
-<!-- 								</form> -->
-<!-- 							</section> -->
+							<section>
+								<form class="search" method="get" action="#">
+									<input type="text" name="query" placeholder="Search" />
+								</form>
+							</section>
 
 						<!-- Links -->
 							<section>
@@ -207,98 +220,100 @@
 
 					</div>
 
-				<!-- Sidebar -->
-					<section id="sidebar">
+<!-- Sidebar -->
+<section id="sidebar" style="margin-right:50px;">
 
 						<!-- Intro -->
-							<section id="intro">
+<!-- 							<section id="intro"> -->
 <!-- 								<a href="#" class="logo"><img src="images/logo.jpg" alt="" /></a> -->
-								<header>
-									<h2>Life Editor</h2>
+<!-- 								<header> -->
+<!-- 									<h2>Life Editor</h2> -->
 <!-- 									<p>Another fine responsive site template by <a href="http://html5up.net">HTML5 UP</a></p> -->
-								</header>
-							</section>
+<!-- 								</header> -->
+<!-- 							</section> -->
 
-						<!-- Mini Posts -->
-							<section>
-								<div class="mini-posts">
-                                   <h2>熱門人物</h2>
-									<!-- Mini Post -->
-										<article class="mini-post">
-										<c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
-											<header>
-											<a href="#" class="author"><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span><img src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
-												<h4><a href="#" style="font-size:12px">${Target_specVO.targetVO.trgName}</a></h4>
-												<h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
-												
-											    
-											</header>
-											<a href="#" class="image"><img id="img" src='${Target_specVO.trgPicPath}'/></a>
-											</c:forEach>
-										</article>
+<!-- Mini Posts -->
+<section>
+   <div class="mini-posts" style="width:400px;">
+     <h2>熱門人物</h2>
+		<!-- Mini Post -->
+		<article class="mini-post">
+		  <div id="hotmans">
+		  <c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
+		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a></div>
+		    <header style="margin-bottom:40px;padding:2px;">
+			   <a href="#" class="author" ><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
+			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
+			   <h4><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
+			   <h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
+			</header>
+			
+		  </c:forEach>
+		  </div>
+		</article>
 
-								</div>
-							</section>
+	</div>
+</section>
 
-						<!-- Posts List -->
-							<section>
-								<ul class="posts">
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Lorem ipsum fermentum ut nisl vitae</a></h3>
-												<time class="published" datetime="2015-10-20">October 20, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Convallis maximus nisl mattis nunc id lorem</a></h3>
-												<time class="published" datetime="2015-10-15">October 15, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Euismod amet placerat vivamus porttitor</a></h3>
-												<time class="published" datetime="2015-10-10">October 10, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic10.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Magna enim accumsan tortor cursus ultricies</a></h3>
-												<time class="published" datetime="2015-10-08">October 8, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic11.jpg" alt="" /></a>
-										</article>
-									</li>
-									<li>
-										<article>
-											<header>
-												<h3><a href="#">Congue ullam corper lorem ipsum dolor</a></h3>
-												<time class="published" datetime="2015-10-06">October 7, 2015</time>
-											</header>
-											<a href="#" class="image"><img src="images/pic12.jpg" alt="" /></a>
-										</article>
-									</li>
-								</ul>
-							</section>
+<!-- Posts List -->
+<!-- <section> -->
+<!-- 	<ul class="posts"> -->
+<!-- 		<li> -->
+<!-- 			<article> -->
+<!-- 				<header> -->
+<!-- 					<h3><a href="#">Lorem ipsum fermentum ut nisl vitae</a></h3> -->
+<!-- 					<time class="published" datetime="2015-10-20">October 20, 2015</time> -->
+<!-- 				</header> -->
+<!-- 			    <a href="#" class="image"><img src="images/pic08.jpg" alt="" /></a> -->
+<!-- 			</article> -->
+<!-- 		</li> -->
+<!-- 									<li> -->
+<!-- 										<article> -->
+<!-- 											<header> -->
+<!-- 												<h3><a href="#">Convallis maximus nisl mattis nunc id lorem</a></h3> -->
+<!-- 												<time class="published" datetime="2015-10-15">October 15, 2015</time> -->
+<!-- 											</header> -->
+<!-- 											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a> -->
+<!-- 										</article> -->
+<!-- 									</li> -->
+<!-- 									<li> -->
+<!-- 										<article> -->
+<!-- 											<header> -->
+<!-- 												<h3><a href="#">Euismod amet placerat vivamus porttitor</a></h3> -->
+<!-- 												<time class="published" datetime="2015-10-10">October 10, 2015</time> -->
+<!-- 											</header> -->
+<!-- 											<a href="#" class="image"><img src="images/pic10.jpg" alt="" /></a> -->
+<!-- 										</article> -->
+<!-- 									</li> -->
+<!-- 									<li> -->
+<!-- 										<article> -->
+<!-- 											<header> -->
+<!-- 												<h3><a href="#">Magna enim accumsan tortor cursus ultricies</a></h3> -->
+<!-- 												<time class="published" datetime="2015-10-08">October 8, 2015</time> -->
+<!-- 											</header> -->
+<!-- 											<a href="#" class="image"><img src="images/pic11.jpg" alt="" /></a> -->
+<!-- 										</article> -->
+<!-- 									</li> -->
+<!-- 									<li> -->
+<!-- 										<article> -->
+<!-- 											<header> -->
+<!-- 												<h3><a href="#">Congue ullam corper lorem ipsum dolor</a></h3> -->
+<!-- 												<time class="published" datetime="2015-10-06">October 7, 2015</time> -->
+<!-- 											</header> -->
+<!-- 											<a href="#" class="image"><img src="images/pic12.jpg" alt="" /></a> -->
+<!-- 										</article> -->
+<!-- 									</li> -->
+<!-- 								</ul> -->
+<!-- </section> -->
 
-						<!-- About -->
-							<section class="blurb">
-								<h2>About</h2>
-								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p>
-								<ul class="actions">
-									<li><a href="#" class="button">Learn More</a></li>
-								</ul>
-							</section>
+<!-- About -->
+<!-- <section class="blurb"> -->
+<!-- 								<h2>About</h2> -->
+<!-- 								<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod amet placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at phasellus sed ultricies.</p> -->
+<!-- 								<ul class="actions"> -->
+<!-- 									<li><a href="#" class="button">Learn More</a></li> -->
+<!-- 								</ul> -->
+<!-- </section> -->
 
 						<!-- Footer -->
 							<section id="footer">
@@ -321,7 +336,7 @@
 			<script src="js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 			<script src="js/main.js"></script>
-       <!-- <script> -->		
+<!-- 			<script> -->		
 <script>
         window.fbAsyncInit = function() {
                 FB.init({
@@ -346,6 +361,7 @@
             });
         }
         </script>
-<!-- </script> -->
+<!-- 			</script> -->
 	</body>
+
 </html>

@@ -425,31 +425,7 @@
 				</div>
 
 			<!-- 每頁不同的內容到這裡結束 -->
-		</div>
-		<div class="twPc-div">
-    		<a class="twPc-bg twPc-block"></a>
-    		<div class="twPc-button">
-            <!-- Twitter Button | you can get from: https://about.twitter.com/tr/resources/buttons#follow -->
-            <input type="button" class="btn btn-info" value="解除朋友關係">
-            <!-- Twitter Button -->   
 		</div>		
-		<div>	
-		<a title="Mert Salih Kaplan" href="https://twitter.com/mertskaplan" class="twPc-avatarLink">
-			<img alt="Mert Salih Kaplan" src="https://pbs.twimg.com/profile_images/378800000352678934/34f9e192635975bf42e534434e2b6273_bigger.jpeg" class="twPc-avatarImg">
-			
-		</a>
-
-		<div class="twPc-divUser">
-			<div class="twPc-divName">
-				<a >Mert S. Kaplan</a>
-			</div>
-			<span>
-				<a >@<span>mertskaplan</span></a>
-			</span>
-		</div>
-
-	</div>
-</div>			
 </center>
 
 </body>

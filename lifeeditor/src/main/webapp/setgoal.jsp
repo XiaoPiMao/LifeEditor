@@ -14,7 +14,6 @@
 <!-- <script src="js/validate.js"></script> -->
 
 <style>
-
 .background{
 position:fixed;
 left:0px;
@@ -26,7 +25,6 @@ opacity:0.5;
 z-index:5555555;
 display:none; 
 }
-
 .close {
 background: none repeat scroll 0 0 #606061;
 border-radius: 15px;
@@ -39,11 +37,9 @@ float:right;
 margin:3px 6px 0px 0px;
 text-align: center;
 }
-
 .close:hover {
 background: none repeat scroll 0 0 #00D9FF;
 }
-
 #rocket {
     display: none;
     width : 800px; 
@@ -52,13 +48,11 @@ background: none repeat scroll 0 0 #00D9FF;
 	top: 90vh;
 	z-index:9999999;
 }
-
 .article {
 	margin: auto;
 	width: 1200px;
 	text-align: center;
 }
-
 .type {
 	width: 120px;
 	height: 120px;
@@ -66,7 +60,6 @@ background: none repeat scroll 0 0 #00D9FF;
  	float: left; 
 	margin: 0 10px 10px 10px;
 }
-
 #set {
 	width: 890px;
 	height: auto;
@@ -75,13 +68,11 @@ background: none repeat scroll 0 0 #00D9FF;
 	margin: 180px 150px 50px 150px;
 /* 	text-align: center; */
 }
-
 .goal {
 	width: 120px;
 	height: 120px;
 	margin: 20px 10px 10px 40px;
 }
-
 .sec_list {
  	display: none; 
  	z-index: 2; 
@@ -94,7 +85,6 @@ background: none repeat scroll 0 0 #00D9FF;
 	border-color: #66ffff;
 	border-width: 3px;
 }
-
 .sec_list img{
 cursor:pointer;
 }
@@ -102,7 +92,6 @@ cursor:pointer;
 margin: 65px 5px 50px 55px;
 left: 200px;
 }
-
 .secPic {
 	width: 65px;
 	height: 65px;
@@ -110,7 +99,6 @@ left: 200px;
 	float: left;
 	text-align: center;
 }
-
 #myForm {
     display: none;   
 	z-index: 2;
@@ -122,13 +110,10 @@ left: 200px;
 	border-color: #66ffff;
 	background-color: white;
 }
-
 .form-group{
     margin:20px 0px 10px 0px;
  
 }
-
-
 @font-face {
     font-family: 'Pacifico';
     font-style: normal;
@@ -138,7 +123,6 @@ left: 200px;
 /* body { */
 /*     text-align: center; */
 /* } */
-
 #button {
     display: inline-block;
     margin-top: 20%;
@@ -158,7 +142,6 @@ left: 200px;
     position:relative;
     left:15px;
 }
-
 #button span {
     display: inline-block;
     padding: 20px 30px;
@@ -181,20 +164,17 @@ left: 200px;
     -o-transition: background-color .2s ease-in-out, -o-transform .1s ease-in-out;
     transition: background-color .2s ease-in-out, transform .1s ease-in-out;
 }
-
 #button:hover span {
 display: inline-block;
     background-color: #ec6a9c;
     text-shadow: 0 -1px 1px rgba(175, 49, 95, .9), 0 0 5px rgba(255, 255, 255, .8);
 }
-
 #button:active, #button:focus {
 display: inline-block;
     -webkit-box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
     -moz-box-shadow: 0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
     box-shadow:    0 8px 0 #c5376d, 0 12px 10px rgba(0, 0, 0, .3);
 }
-
 #button:active span {
 display: inline-block;
     -webkit-transform: translate(0, 4px);
@@ -205,22 +185,17 @@ display: inline-block;
 </style>
 
 <script>
-
-
-
 	var types = JSON.parse('${jTypes}');
 	var secs = JSON.parse('${secs}');
 	// 	console.log('${jTypes}');
 	//	console.log('${secs}');
 	//	console.log(secs[1][0].secName);
-
 	$(document).ready(
 			   function() {
 				   document.getElementById('button').onclick = (function() {
 					    document.getElementsByTagName('span')[0].innerHTML = 'GO';
 					    return false;
 					});
-
 				   $('#circle3').click(function(){
 						var form = $('#myForm')
 						var data = form.serializeArray();
@@ -252,7 +227,6 @@ display: inline-block;
 						document.getElementById("myForm").reset();
 						$("#errorMsg").text("");
 					})
-
 				
 				var frag = $(new DocumentFragment());
 				$.each(types, function(i, type) {
@@ -279,12 +253,10 @@ display: inline-block;
 					frag.append(div);
 				})
 				$(".type_list").append(frag);
-
 				$(".type").draggable({
 					helper : "clone",
 					revert : "invalid"
 				});
-
 				$(".goal:first").droppable(
 						{
 							accept : ".type",
@@ -309,7 +281,6 @@ display: inline-block;
 															+ sec.secPic).attr(
 													"title", sec.secName)
 											.addClass("secPic");
-
 									$(s).draggable({
 										helper : "clone",
 										revert : "invalid"
@@ -357,14 +328,12 @@ display: inline-block;
 										$("#circle3").fadeIn("slow");
 										
 										$("#myForm").fadeIn("slow");
-
 									});
 								});
 								
 								$("#secs").fadeIn("slow");
 							}} //else end
 						});
-
 				function go(){
 					$('.background').show();
 					$('.background').html('<audio autoplay src="sound/rocket.mp3" ></audio>');
@@ -375,7 +344,7 @@ display: inline-block;
 	 					'opacity':'0',
 						//'width':'50px',
 						//'height':'50px'
-					},2500,function(){location.href='test.jsp';}
+					},2500,function(){location.href='${ctx}/UserPage';}
 					);
 				};		
 				
@@ -395,45 +364,44 @@ display: inline-block;
 				<ul>
 					<li><a href="setgoal.jsp">目標</a></li>
 					<li><a href="#">行事曆</a></li>
-					<li><a href="#">朋友</a></li>
+					<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
 					<li><a href="#">關於我</a></li>
 				</ul>
 			</nav>
-			<nav class="main">
-											<ul>
-											<c:choose>
-										    	<c:when test="${ ! empty FbPicture }">
-										    			<img src="${FbPicture}"></img>
-												</c:when>
-											<c:otherwise>
-												<img height='40px' width='30px' src="HomeGetPicture">
-											</c:otherwise> 
-									</c:choose>
-								  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>    
-
-
-												<li class="search">
-													<a class="fa-search" href="#search">Search</a>
-													<form id="search" method="get" action="#">
-														<input type="text" name="query" placeholder="Search" />
-													</form>
-												</li>
-
-												<li class="menu">
-													<a class="fa-bars" href="#menu">Menu</a>
-												</li>
-											</ul>
-			</nav>
-		</header>
+<nav class="main">
+			<ul>
+				<c:choose>
+					<c:when test="${ ! empty FbPicture }">
+					   <img src="${FbPicture}" style="border-radius:50%;height:40px;width:40px;"></img>
+					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
+					</c:when>
+				    <c:when test="${! empty LoginOK }">
+					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
+					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
+					</c:when>
+				</c:choose>
+														
+<%-- 													 	<c:if test="${! empty LoginOK }"> --%>
+<%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
+<%-- 														</c:if>	 --%>
+													
+			   <li class="">
+					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
+			   </li>
+																	
+			   <li class="menu">
+					<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
+					<a id="modal_trigger2" href="#modal" class="">登出</a>
+			   </li>
+			</ul>
+		</nav>
+</header>
 		<!-- Main -->
 		<article class="article">
-
 			
-
 			<div class="type_list"
 				style="text-align: center; margin: 10px 10px 50px 100px;">
 			</div>
-
 <!------------ set goal ------------>
 			<div class="row" id="set">
 <!------------ step ------>
@@ -500,8 +468,5 @@ display: inline-block;
 		<div class="background"></div>
 		<img src="images/start.png" id="rocket">
 	</div>
-
-
 </body>
-
 </html>

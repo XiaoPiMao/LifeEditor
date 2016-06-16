@@ -129,7 +129,55 @@
     <url-pattern>/ach_list/getAchPic.do</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
+
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/Login.java</url-pattern>
+
   </servlet-mapping>
+
+    <error-page>
+            <error-code>400</error-code>
+            <location>/errorPage.html</location>
+	</error-page>
+	<error-page>
+	            <error-code>403</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>
+	<error-page>
+	            <error-code>404</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>
+	<error-page>
+	            <error-code>405</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>
+	<error-page>
+	            <error-code>406</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>
+	<error-page>
+	            <error-code>408</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>
+	<error-page>
+	            <error-code>409</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>
+	<error-page>
+	            <error-code>410</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>  
+	<error-page>
+	            <error-code>500</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>
+	<error-page>
+	            <error-code>501</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>
+	<error-page>
+	            <error-code>505</error-code>
+	            <location>/errorPage.html</location>
+	</error-page>
 </web-app>
+
