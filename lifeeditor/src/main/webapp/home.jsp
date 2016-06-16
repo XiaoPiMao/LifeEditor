@@ -52,10 +52,10 @@
 		<nav class="main">
 			<ul>
 				<c:choose>
-					<c:when test="${ ! empty FbPicture }">
-					   <img src="${FbPicture}" style="border-radius:50%;"></img>
-					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
-					</c:when>
+<%-- 					<c:when test="${ ! empty FbPicture }"> --%>
+<%-- 					   <img src="${FbPicture}" style="border-radius:50%;"></img> --%>
+<%-- 					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li> --%>
+<%-- 					</c:when> --%>
 				    <c:when test="${! empty LoginOK }">
 					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
 					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
@@ -242,12 +242,13 @@
 		<article class="mini-post">
 		  <div id="hotmans">
 		  <c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
-		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a></div>
+		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a> <br></div>
 		    <header style="margin-bottom:40px;padding:2px;">
 			   <a href="#" class="author" ><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
 			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
 			   <h4><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
 			   <h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
+			   <div class="fb-share-button" data-href="http://lifeeditor.cloudapp.net/lifeeditor/home.jsp" data-layout="button" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank"">分享</a></div> 
 			</header>
 			
 		  </c:forEach>
@@ -362,6 +363,22 @@
             FB.logout(function(response) {
             });
         }
+        function share() {   
+    		FB.ui(
+    	    {
+    	      method: 'share',
+    	      href: 'http://localhost:8080/lifeeditor/index.jsp',
+    	    },
+    	    // callback
+    	    function(response) {
+    	      if (response && !response.error_message) {
+    	        alert('分享成功!');
+    	      } else {
+    	        // alert('Error while posting.');
+    	      }
+    	    }
+    	  )
+    	};
         </script>
 <!-- 			</script> -->
 	</body>
