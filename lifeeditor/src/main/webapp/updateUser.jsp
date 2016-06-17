@@ -32,6 +32,11 @@ float: right;;
 }
 </style>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
+<br>
+<br>
+<br>
+<br>
 <div id="div1" class="container-fluid">
 	<div class="row">
 		<div class="col-md-6">
