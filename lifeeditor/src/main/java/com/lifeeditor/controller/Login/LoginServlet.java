@@ -57,7 +57,6 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("LoginOK", vo); 																// OK, 將mb物件放入Session範圍內，識別字串為"LoginOK"，表示此使用者已經登入
 					session.setAttribute("jUser", MyGson.GSON.toJson(vo));
 					session.setAttribute("jFriends", JsonService.getFriends(vo.getUserID()));
-
 					
 				} else{
 	
