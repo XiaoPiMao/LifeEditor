@@ -60,6 +60,17 @@ public class loginService extends HttpServlet {
 			session.setAttribute("backPhoto", photo64);
 			session.setAttribute("backVO", backVO);
 
+			
+		      try {                                                        
+		          String location = (String) session.getAttribute("location");
+		          if (location != null) {
+		            session.removeAttribute("location");  
+		            response.sendRedirect(location);            
+		            return;
+		          }
+		        }catch (Exception ignored) { }
+			
+			
 			response.sendRedirect(request.getServletContext().getContextPath() + "/manager/report.jsp");
 			return;
 

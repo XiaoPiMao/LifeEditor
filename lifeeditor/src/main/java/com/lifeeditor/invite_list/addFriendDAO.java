@@ -80,7 +80,7 @@ public class addFriendDAO {
 	}
 	public List<user_listVO> selectFriend(Integer user) throws SQLException{
 		
-		String queryString = "select userID,account,lastName+firstName as name,picture from user_spec where userID  not in " +
+		String queryString = "select userID,account,lastName+firstName as name from user_spec where userID  not in " +
 							 "(select receiver from invite_list  where inviter = '"+user+"' or receiver='"+user+"')";
 		
 		List<user_listVO> getall = new ArrayList<user_listVO>();
@@ -95,11 +95,7 @@ public class addFriendDAO {
 					userData.setUserid(rs.getInt(1));
 					userData.setAccount(rs.getString(2));
 					userData.setName(rs.getString(3));			
-					InputStream in = rs.getBinaryStream(4);			
-	
-					byte[] data = IOUtils.toByteArray(in);
-					String photo =  DatatypeConverter.printBase64Binary(data);
-					userData.setPicture(photo);
+
 					getall.add(userData); 
 				}
 			}
@@ -116,7 +112,7 @@ public class addFriendDAO {
 	
 	public List<user_listVO> checkMyFriend(Integer user) throws SQLException, IOException{
 		
-		String queryString = "select inviter,account,(lastName+firstName) as name,picture from invite_list " + 
+		String queryString = "select inviter,account,(lastName+firstName) as name from invite_list " + 
 							 "inner join user_spec on invite_list.inviter = user_spec.userID " +
 							 "where receiver = "+user+" and accepted = 0";
 		List<user_listVO> getall = new ArrayList<user_listVO>();
@@ -130,10 +126,7 @@ public class addFriendDAO {
 				friend.setUserid(rs.getInt(1));
 				friend.setAccount(rs.getString(2));
 				friend.setName(rs.getString(3));
-				InputStream in = rs.getBinaryStream(4);
-				byte[] data = IOUtils.toByteArray(in);
-				String photo = DatatypeConverter.printBase64Binary(data);
-				friend.setPicture(photo);
+
 				getall.add(friend);
 			}
 			
@@ -216,7 +209,7 @@ public class addFriendDAO {
 	
 	public List<user_listVO> showMyFriend(Integer data) throws IOException{
 		
-		String queryString = "select userID,account,lastName+firstName as name,picture from user_spec where userID in (select friendID from friend where userID = '"+data+"')";
+		String queryString = "select userID,account,lastName+firstName as name from user_spec where userID in (select friendID from friend where userID = '"+data+"')";
 		List<user_listVO> getall = new ArrayList<user_listVO>();
 		try{
 			conn = ds.getConnection();
@@ -228,10 +221,6 @@ public class addFriendDAO {
 				user.setUserid(rs.getInt(1));
 				user.setAccount(rs.getString(2));
 				user.setName(rs.getString(3));
-				InputStream in = rs.getBinaryStream(4);
-				byte[] piv = IOUtils.toByteArray(in);
-				String photo = DatatypeConverter.printBase64Binary(piv);
-				user.setPicture(photo);
 				
 				getall.add(user);
 				
@@ -239,6 +228,14 @@ public class addFriendDAO {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}finally{
+			try {
+				conn.close();
+				psmt.close();
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			
 		}
 		

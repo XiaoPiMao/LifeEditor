@@ -33,7 +33,6 @@
 </style>
 	</head>
 	<body>
-	
 <!-- Wrapper -->
 <div id="wrapper">
 
