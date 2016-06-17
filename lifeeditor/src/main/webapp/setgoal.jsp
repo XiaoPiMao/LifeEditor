@@ -357,44 +357,8 @@ display: inline-block;
 	<div id="wrapper">
 
 
-		<!-- Header -->
-		<header id="header">
-			<h1>
-				<a href="home.jsp">Life Editor</a>
-			</h1>
-			<nav class="links">
-				<ul>
-					<li><a href="setgoal.jsp">目標</a></li>
-					<li><a href="#">行事曆</a></li>
-					<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
-					<li><a href="#">關於我</a></li>
-				</ul>
-			</nav>
-			<nav class="main">
-											<ul>
-											<c:choose>
-										    	<c:when test="${ ! empty FbPicture }">
-										    			<img src="${FbPicture}"></img>
-												</c:when>
-											<c:otherwise>
-												<img height='40px' width='30px' src="HomeGetPicture">
-											</c:otherwise> 
-									</c:choose>
-								  <a href="<c:url value='/logout_index.jsp' />" "   onclick="javascript:logout();"> 登出 </a>    
-												<li class="search">
-													<a class="fa-search" href="#search">Search</a>
-													<form id="search" method="get" action="#">
-														<input type="text" name="query" placeholder="Search" />
-													</form>
-												</li>
-												<li class="menu">
-													<a class="fa-bars" href="#menu">Menu</a>
-												</li>
-											</ul>
-			</nav>
-		</header>
+		<jsp:include page="header.jsp"></jsp:include>
 
-		<jsp:include page="/include/HeaderTemp.jsp" />
 
 		<!-- Main -->
 		<article class="article">

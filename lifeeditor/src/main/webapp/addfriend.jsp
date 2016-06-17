@@ -156,7 +156,9 @@
      transition: color 0.15s ease-in-out 0s; 
  } 
 </style>
-<script src="${ctx }/js/addFriend/jQuery-2.2.0.min.js"></script>	
+<script src="js/jquery.min.js"></script>
+<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+<script src="js/main.js"></script>
 <script type="text/javascript" src="${ctx }/js/friend.js">
 
 // 	function getData() { //創建Session 所有此帳號的好友清單
@@ -389,6 +391,9 @@
 // //data-content 設定資料內容
 </script>
 <body>
+
+<jsp:include page="header.jsp"></jsp:include>
+
 <center>
 	<div class="jumbotron" style="width:1000px">
 			<div class="page-header">

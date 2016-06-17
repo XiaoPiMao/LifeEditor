@@ -163,6 +163,9 @@ $(document).ready(function() {
 	</script>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
+<br>
+<br>
 	<div id='calendar'></div>
 <!-- Modal -->
 <div class="modal fade" id="myModal">
