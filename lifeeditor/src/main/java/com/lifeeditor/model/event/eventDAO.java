@@ -49,21 +49,13 @@ public  class eventDAO implements eventDAO_interface {
              
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-			System.out.println("1");
 			pstmt.setInt(1, eventVO.getTypeID());
-			System.out.println("2");
 			pstmt.setInt(2, eventVO.getSecID());
-			System.out.println("3");
 			pstmt.setString(3, eventVO.getEventName());
-			System.out.println("4");
 			pstmt.setBlob(4, eventVO.getEventPic());
-			System.out.println("5");
 			pstmt.setString(5, eventVO.getOrgAddr());
-			System.out.println("6");
 			pstmt.setString(6, eventVO.getOrgName());
-			System.out.println("7");
 			pstmt.setTimestamp(7, eventVO.getEventTime());
-			System.out.println("8");
 			pstmt.setString(8, eventVO.getEventDesc());
 
 			pstmt.executeUpdate();
