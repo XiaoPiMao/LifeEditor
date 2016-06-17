@@ -70,7 +70,7 @@ width:120px;
 }
 
 #AchPic:hover{
-border:10px outset #e6c300;
+border:3px outset #e6c300;
 }
 
 #photoBook{
@@ -78,7 +78,7 @@ margin:0px 20px 40px 20px;
 padding-bottom:10px;
 }
 
-#photoBook:hover{border:3px outset #E3E3E3;}
+#photoBook:hover{border:10px outset #E3E3E3;}
 
 #photoItem{
 padding:20px 10px 10px 10px;
