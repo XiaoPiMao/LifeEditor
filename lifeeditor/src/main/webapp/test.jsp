@@ -12,7 +12,6 @@
     <meta name="author" content="">
     <title>使用者小天地</title>
     <link href="singlecolor/css/bootstrap.min.css" rel="stylesheet">
-    <link href="singlecolor/css/font-awesome.min.css" rel="stylesheet">
     <link href="singlecolor/css/lightbox.css" rel="stylesheet"> 
     <link href="singlecolor/css/animate.min.css" rel="stylesheet"> 
 	<link href="singlecolor/css/main.css" rel="stylesheet">
@@ -26,6 +25,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="singlecolor/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="singlecolor/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="singlecolor/images/ico/apple-touch-icon-57-precomposed.png">
+    <link rel="stylesheet" href="css/popup.css" type="text/css"/>
+    
     <style>
 	.user-icon{
 	border-radius:50%;
@@ -84,31 +85,49 @@ padding-bottom:10px;
 padding:20px 10px 10px 10px;
 }
 
+#fa-angle-down{
+font-size:24px;color:#cccccc;margin-right:10px;
+float:right;
+}
+
 </style>
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
 <script src="js/util.js"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="js/main.js"></script>
+<script type="text/javascript" src="js/popup.js"></script>      
+<script>
+
+$(function(){
+	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
+		$('.Editor').slideToggle('fast');		
+	});
+});
+
+$(function(){
+	$('.col-md-9.col-sm-7').on("click","#Comments",function(){
+		$('#AllComments').slideToggle('fast');		
+	});
+});
+</script>
 <script>
     var jTypes = JSON.parse('${jTypes}');
     var jUser = JSON.parse('${jUser}');
     var jAchs = JSON.parse('${jAchs}');
     var data = JSON.parse('${targets}');
-    console.log(jAchs);
+    //console.log(jAchs);
    
     var catogoryNum = new Object();
     $.each(jTypes,function() {
     	catogoryNum[this.typeName] = 0 ;
     })
     
-    
-    
 $(document).ready(function(){
 	    var AchList = "<h3 style='font-weight: bold;'>我 的 榮 耀</h3>";
 	    $.each(jAchs,function(){
 	    	AchList += 
-	    	'<div style="border-style:groove;border-color:#ffe44d;border-radius:10%;text-align:center;margin:15px 0 15px 0;">' +
+	    	'<div style="border-style:ridge;border-color:#ffe44d;border-radius:10%;text-align:center;margin:15px 0 15px 0;">' +
 	    	'<div>' +
             '<img id="AchPic" style="" src="${ctx}/getAchPic?achID='+ this.achID + '" title="' + this.achDesc + '">' +
             '</div>'+
@@ -147,7 +166,11 @@ $(document).ready(function(){
 			        '<div class="carousel-inner">' +
 			        '<div id="photoItem" class="item active">' +
 		            '<div class="single-blog two-column">' +
-		            '<h2 class="post-title bold"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
+		            '<table style="float:right;margin-top:20px;"><th><a id="faangledown" class="fa fa-angle-down" style="position:fixed;top:20px;left:800px;"></a></th>' +
+		            '<tr id="Editor1" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>上傳心得</td></tr>' +
+		            '<tr id="Editor2" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>送出審核</td></tr>' +
+		            '</table>'+
+		            '<h2 class="post-title bold" style="width:500px;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
 	                '<h4 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h4>' +
 	                '<p> 初衷 : '+ this.intention + '</p>'+
 		            '<div class="post-thumb">' +
@@ -160,10 +183,33 @@ $(document).ready(function(){
 		                    '<ul class="nav navbar-nav post-nav">'+
 		                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
 		                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
-		                        '<li><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
+		                        '<li id="Comments"><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
 		                    '</ul>'+
 		                '</div>'+
 		            '</div>'+
+		            '<div class="row">' +
+		            '<div class="col-md-2 col-sm-2 hidden-xs">' +
+		            '<figure class="thumbnail">' +
+		            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
+		            '<figcaption class="text-center">username</figcaption>' +
+		            '</figure>' +
+		            '</div>' +
+		            '<div class="col-md-10 col-sm-10">' +
+		            '<div class="panel panel-default arrow left">' +
+		            '<div class="panel-body">' +
+		            '<header class="text-left">' +
+		            '<div class="comment-user"><i class="fa fa-user"></i> username</div>' +
+		            '<time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>' +
+		            '</header>' +
+		            '<div class="comment-post">' +
+		            '<p>Lrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' +
+                    '</div>' +
+                    '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+		            '</div>' +   //comment end 
 		        '</div>'+
 		        '</div>'+   //item
 		        '</div>'+   //carousel-inner
@@ -182,6 +228,8 @@ $(document).ready(function(){
 			i++;
 		})
 		$(".col-md-9.col-sm-7").append( $("<div></div>").addClass("row").html(str) );
+		
+		$("#Editor1").click(popup);
 	})
 
 	
