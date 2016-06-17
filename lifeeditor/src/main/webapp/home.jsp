@@ -53,41 +53,24 @@
 							</section>
 
 						<!-- Links -->
-							<section>
-								<ul class="links">
-									<li>
-										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
-										</a>
-									</li>
-								</ul>
-							</section>
+<!-- 							<section> -->
+<!-- 								<ul class="links"> -->
+<!-- 									<li> -->
+<!-- 										<a href="#"> -->
+<!-- 											<h3>Lorem ipsum</h3> -->
+<!-- 											<p>Feugiat tempus veroeros dolor</p> -->
+<!-- 										</a> -->
+<!-- 									</li> -->
+									
+<!-- 								</ul> -->
+<!-- 							</section> -->
 
 						<!-- Actions -->
-							<section>
-								<ul class="actions vertical">
-									<li><a href="#" class="button big fit">登出</a></li>
-								</ul>
-							</section>
+<!-- 							<section> -->
+<!-- 								<ul class="actions vertical"> -->
+<!-- 									<li><a href="#" class="button big fit">登出</a></li> -->
+<!-- 								</ul> -->
+<!-- 							</section> -->
 
 					</section>
 
@@ -206,9 +189,9 @@
 		  <c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
 		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a> <br></div>
 		    <header style="margin-bottom:40px;padding:2px;">
-			   <a href="#" class="author" ><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
+			   <a href="#" class="author" ><span style="font-size:16px;">${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
 			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
-			   <h4><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
+			   <h4 style=""><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
 			   <h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
 			   <div class="fb-share-button" data-href="http://lifeeditor.cloudapp.net/lifeeditor/home.jsp" data-layout="button" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank"">分享</a></div> 
 			</header>
@@ -241,33 +224,7 @@
 <!-- 											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a> -->
 <!-- 										</article> -->
 <!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<article> -->
-<!-- 											<header> -->
-<!-- 												<h3><a href="#">Euismod amet placerat vivamus porttitor</a></h3> -->
-<!-- 												<time class="published" datetime="2015-10-10">October 10, 2015</time> -->
-<!-- 											</header> -->
-<!-- 											<a href="#" class="image"><img src="images/pic10.jpg" alt="" /></a> -->
-<!-- 										</article> -->
-<!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<article> -->
-<!-- 											<header> -->
-<!-- 												<h3><a href="#">Magna enim accumsan tortor cursus ultricies</a></h3> -->
-<!-- 												<time class="published" datetime="2015-10-08">October 8, 2015</time> -->
-<!-- 											</header> -->
-<!-- 											<a href="#" class="image"><img src="images/pic11.jpg" alt="" /></a> -->
-<!-- 										</article> -->
-<!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<article> -->
-<!-- 											<header> -->
-<!-- 												<h3><a href="#">Congue ullam corper lorem ipsum dolor</a></h3> -->
-<!-- 												<time class="published" datetime="2015-10-06">October 7, 2015</time> -->
-<!-- 											</header> -->
-<!-- 											<a href="#" class="image"><img src="images/pic12.jpg" alt="" /></a> -->
-<!-- 										</article> -->
-<!-- 									</li> -->
+<!-- 								
 <!-- 								</ul> -->
 <!-- </section> -->
 

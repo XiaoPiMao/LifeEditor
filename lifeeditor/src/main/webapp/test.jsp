@@ -27,15 +27,16 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="singlecolor/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="singlecolor/images/ico/apple-touch-icon-57-precomposed.png">
     <style>
-		.user-icon{
-		border-radius:50%;
-		}
+	.user-icon{
+	border-radius:50%;
+	}
 		
-		.mini-post#img{
+    .mini-post#img{
     width:100px;
     height:100px;
     border-radius: 50%;
-}
+    }
+
 
 
 .carousel-control {
@@ -47,7 +48,6 @@
     margin-top: -20px;
     font-size: 60px;
     font-weight: 100;
-    line-height: 30px;
     color: #fff;
     text-align: center;
     border: 3px solid #fff;
@@ -61,7 +61,30 @@
 .carousel-control.right {
   right: 15px;
 }
-		</style>
+
+#AchPic{
+border-radius:5%;
+padding-top:10px;
+height:90px;
+width:120px;
+}
+
+#AchPic:hover{
+border:10px outset #e6c300;
+}
+
+#photoBook{
+margin:0px 20px 40px 20px;
+padding-bottom:10px;
+}
+
+#photoBook:hover{border:3px outset #E3E3E3;}
+
+#photoItem{
+padding:20px 10px 10px 10px;
+}
+
+</style>
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
 <script src="js/util.js"></script>
@@ -82,22 +105,21 @@
     
     
 $(document).ready(function(){
-	    var AchList = "<h3>我 的 榮 耀</h3>";
+	    var AchList = "<h3 style='font-weight: bold;'>我 的 榮 耀</h3>";
 	    $.each(jAchs,function(){
 	    	AchList += 
+	    	'<div style="border-style:groove;border-color:#ffe44d;border-radius:10%;text-align:center;margin:15px 0 15px 0;">' +
 	    	'<div>' +
-            '<img style="border-radius:10%;height:55px;width:55px;" src="${ctx}/getAchPic?achID='+ this.achID + '" title="' + this.achDesc + '">' +
+            '<img id="AchPic" style="" src="${ctx}/getAchPic?achID='+ this.achID + '" title="' + this.achDesc + '">' +
             '</div>'+
-            '<div>'+
-            '<h4>'+ this.achName +
-            '</h4>'+
+            '<div><h4>'+ this.achName + '</h4></div>'+
             '</div>'
 	    });
 	    $('.sidebar-item.popular').html(AchList);
 	
     	liveComments = JSON.parse('${liveComments}');
     	//console.log(liveComments);
-    	var lastComment ="<h3>最 新 留 言</h3>";
+    	var lastComment ="<h3 style='font-weight: bold;'>最 新 留 言</h3>";
     	$.each(liveComments,function(){
     		lastComment += 
             '<div class="media">' +
@@ -120,18 +142,17 @@ $(document).ready(function(){
 		$.each(data,function(){
 			var num = Math.floor(Math.random() * 3 + 1);
 			catogoryNum[this.typeName]++;
-			str += '<div class="col-md-12 col-sm-12">' +
+			str += '<div id="photoBook" class="col-md-12 col-sm-12" >' +
 			        '<div class="carousel slide" id="myCarousel">'+
 			        '<div class="carousel-inner">' +
-			        '<div class="item active">' +
+			        '<div id="photoItem" class="item active">' +
 		            '<div class="single-blog two-column">' +
-		            '<h2 class="post-title bold"><a href="blogdetails.html"> 目 標 : ' + this.trgName +'</a></h2>' +
-	                '<h3 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h3>' +
+		            '<h2 class="post-title bold"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
+	                '<h4 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h4>' +
 	                '<p> 初衷 : '+ this.intention + '</p>'+
 		            '<div class="post-thumb">' +
-		                '<a href="blogdetails.html"><img src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt=""></a>'+
+		                '<img style="width:920px;height:470px;" src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt="">'+
 		                '<div class="post-overlay">' +
-		                    '<span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>' +
 		                '</div>' +
 		            '</div>' +
 		            '<div class="post-content overflow">' +
@@ -175,20 +196,16 @@ $(document).ready(function(){
   <div class="container">
     <div class="row">
         <div class="col-md-3 col-sm-5" >
-            <div class="sidebar blog-sidebar" style="margin-right:50px;">
+            <div class="sidebar blog-sidebar" style="margin:30px 50px 0 0;">
                 <div class="sidebar-item  recent">
 <!--                       <div class="media"> -->
 <!--                          <div class="pull-left"> -->
 <!--                              <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" title="123"></a> -->
 <!--                          </div> -->
-<!--                        <div class="media-body"> -->
-<!--                             <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4> -->
-<!--                              <p>posted on  07 March 2014</p> -->
-<!--                         </div> -->
 <!--                       </div> -->
                  </div>
                         <div class="sidebar-item categories">
-                            <h3>目 標 類 別</h3>
+                            <h3 style='font-weight: bold;'>目 標 類 別</h3>
                             <ul class="nav navbar-stacked">
                             <c:forEach var="type" items="${types}">
                                 <li><a href="#">${type.typeName}<span class="pull-right">(0)</span></a></li>
@@ -202,7 +219,6 @@ $(document).ready(function(){
 <!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li> -->
 <!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular2.jpg" alt=""></a></li> -->
 <!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular3.jpg" alt=""></a></li> -->
-                                
 <!--                             </ul> -->
                         </div>
                     </div>

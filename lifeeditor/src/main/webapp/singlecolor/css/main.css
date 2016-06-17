@@ -121,7 +121,7 @@
   }
 
   .padding-top{
-    padding-top: 90px;
+    padding-top: 55px;
   }
 
   .padding-right{
@@ -1550,7 +1550,7 @@ Blog Default
 }
 
 .post-content{
-  padding: 20px 0;
+  padding: 10px 0;
 }
 
 .timeline-date .btn-common{
@@ -1641,7 +1641,7 @@ Blog with right sidebar
 
 .single-blog .post-bottom{
   border-bottom: 1px solid #eeeeee;
-  padding-top: 10px;
+  padding-top: 2px;
   padding-bottom: 10px;
 }
 
