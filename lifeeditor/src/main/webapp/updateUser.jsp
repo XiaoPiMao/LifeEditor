@@ -32,15 +32,20 @@ float: right;;
 }
 </style>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
+<br>
+<br>
+<br>
+<br>
 <div id="div1" class="container-fluid">
 	<div class="row">
 		<div class="col-md-6">
 		<div>
-		<img width="300px" src="getPicture.do" >
+		<img width="300px" src="HomeGetPicture" >
 		</div>
 		<div style="font-size:16pt" class="form-group">
 		<label>帳號</label>
-		<p>${user_specVO.account}</p>
+		<p>${LoginOK.account}</p>
 		</div>
 		
 		
@@ -52,14 +57,14 @@ float: right;;
 		
 </div>
 		<div class="col-md-6">
-	<FORM METHOD="post" ACTION="user_spec.do" name="form1" enctype="multipart/form-data">
+	<FORM METHOD="post" ACTION="user_specServlet" name="form1" enctype="multipart/form-data">
 	<div class="form-group">
 		<label for="exampleInputlastName">姓氏</label>
-		<input type="TEXT" class="form-control" id="exampleInputlastName" name="lastName" value="${user_specVO.lastName}" size="22"><span>&nbsp&nbsp&nbsp${errorMsgs.errorlastName}</span>
+		<input type="TEXT" class="form-control" id="exampleInputlastName" name="lastName" value="${LoginOK.lastName}" size="22"><span>&nbsp&nbsp&nbsp${errorMsgs.errorlastName}</span>
 	</div>
 	<div class="form-group">
 		<label for="exampleInputfirstName">姓名</label>
-		<input type="TEXT" class="form-control" id="exampleInputfirstName" name="firstName" value="${user_specVO.firstName}" size="22" /><span>&nbsp&nbsp&nbsp${errorMsgs.errorfirstName}</span>
+		<input type="TEXT" class="form-control" id="exampleInputfirstName" name="firstName" value="${LoginOK.firstName}" size="22" /><span>&nbsp&nbsp&nbsp${errorMsgs.errorfirstName}</span>
 	</div>
 	<div class="form-group">
 		<label for="exampleInputgender">性別</label><br>
@@ -69,19 +74,19 @@ float: right;;
 	</div>
 	<div class="form-group">
 		<label for="exampleInputbirthdate">生日</label>
-		<input type="date" class="form-control" id="exampleInputbirthdate" name="birthdate" value="${user_specVO.birthdate}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.errorbirthdate}</span>
+		<input type="date" class="form-control" id="exampleInputbirthdate" name="birthdate" value="${LoginOK.birthdate}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.errorbirthdate}</span>
 	</div>
 	<div class="form-group">
 		<label for="exampleInputemail">電子信箱</label>
-		<input type="TEXT" class="form-control" id="exampleInputemail" name="email" value="${user_specVO.email}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.erroremail}</span>
+		<input type="TEXT" class="form-control" id="exampleInputemail" name="email" value="${LoginOK.email}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.erroremail}</span>
 	</div>
 	<div class="form-group">
 		<label for="exampleInputaddress">住址</label>
-		<input type="TEXT" class="form-control" id="exampleInputaddress" name="address" value="${user_specVO.address}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.erroraddress}</span>
+		<input type="TEXT" class="form-control" id="exampleInputaddress" name="address" value="${LoginOK.address}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.erroraddress}</span>
 	</div>
 	<div class="form-group">
 		<label  for="exampleInputphone">電話號碼</label>
-		<input type="TEXT"  class="form-control" id="exampleInputphone" name="phone" value="${user_specVO.phone}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.errorphone}</span>
+		<input type="TEXT"  class="form-control" id="exampleInputphone" name="phone" value="${LoginOK.phone}" size="22"  /><span>&nbsp&nbsp&nbsp${errorMsgs.errorphone}</span>
 	</div>
 	<div class="form-group">
 		<label for="exampleInputpicture">更新大頭貼</label>

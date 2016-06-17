@@ -32,7 +32,7 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 	}
 	
 	
-	private static final String BY_TYPEID_STMT = "SELECT secID,secName,secPic FROM sec_list WHERE typeID = ?";
+	private static final String BY_TYPEID_STMT = "SELECT secID,secName FROM sec_list WHERE typeID = ?";
 
 	
 	@Override
@@ -52,7 +52,6 @@ public class SecListJNDIDAO implements SecListDAO_interface{
 				sec = new SecListVO();
 				sec.setSecID(rs.getInt("secID"));
 				sec.setSecName(rs.getString("secName"));
-				sec.setSecPic(rs.getBlob("secPic"));
 				if(first) {
 					tempSec = sec;
 					first = false;

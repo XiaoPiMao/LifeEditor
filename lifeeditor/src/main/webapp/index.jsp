@@ -31,6 +31,7 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    
   </head>
   <style>
   .errorspan{
@@ -42,6 +43,7 @@
 
   <body data-spy="scroll" data-offset="0" data-target="#theMenu">
 	<!-- Menu -->
+
 	<nav class="menu" id="theMenu">
 		<div class="menu-wrap">
 			<h1 class="logo"><a href="index.jsp#home">Life Editor</a></h1>
@@ -84,7 +86,7 @@
 					<div class="fb-login-button" scope="email" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="true" onlogin="checkLoginState();" ></div>
 <!-- 						<fb:login-button scope="public_profile,email" onlogin="checkLoginState();" ></fb:login-button> -->
 						<span class="icon"><i class="fa fa-facebook"></i></span>
-						<span class="icon_title">使用Facebook帳號</span>		
+						<span class="icon_title" >使用Facebook帳號快速登入</span>		
 <!-- 					</a> -->
 				</div>
 				<div class="action_btns">
@@ -103,13 +105,11 @@
 					   <input  type="password" name="pswd"  size="10"   value="${sessionScope.pswd}">
 					<small><Font id="ErrorMsg" color='red' size="-1"></Font></small>
 					<br />
-					<div class="checkbox">
-					 
+					
 						 <input type="checkbox" name="rememberMe" value="true"
 					       <c:if test='${sessionScope.rememberMe == true}' > checked='checked'  </c:if>  /> 
+						 <label for="rememberMe">記住這個帳號</label>
 					
-						<label for="rememberMe">記住這個帳號</label>
-					</div>
 					<div class="action_btns">
 						<div class="one_half"><a href="#" class="btn back_btn"><i class="fa fa-angle-double-left"></i> 上一頁</a></div>
 						<div class="one_half last"><a href="#" class="btn btn_red"  onclick="LoginAjax();">登入</a></div>
@@ -189,12 +189,12 @@
     
 	<div style="font-size:20px;padding-top:10px">
 	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-		<div class="g-recaptcha" data-sitekey="6LfoPyETAAAAAG8hEQH-RAVNjAft9mX6uzK70CTD"></div>
+		<div class="g-recaptcha" data-sitekey="6LevuSITAAAAAIrjzYbDHse7oBVZjWFUVapy3sT_"></div>
 		<noscript>
 		  <div >
 		    <div style="width: 302px; height: 422px; position: relative;">
 		      <div style="width: 302px; height: 422px; position: absolute;">
-		        <iframe src="https://www.google.com/recaptcha/api/fallback?key=6LfoPyETAAAAAG8hEQH-RAVNjAft9mX6uzK70CTD"
+		        <iframe src="https://www.google.com/recaptcha/api/fallback?key=6LevuSITAAAAAIrjzYbDHse7oBVZjWFUVapy3sT_"
 		                frameborder="0" scrolling="no"
 		                style="width: 302px; height:422px; border-style: none;">
 		        </iframe>
@@ -251,7 +251,8 @@
 						<p style="Font-family:Microsoft JhengHei;font-size: 20px;">今年，你完成了哪些目標?<br>下一個十年，你會在哪裡?<br>一個又一個的目標計畫...<br>一本又一本的行事曆...<br>如今都到哪裡去了?<br>完成了哪些目標呢?</p>
 					</div>
 					<div class="col-md-6">
-					<br>
+					<br><button onclick="share()">點此分享</button> 
+<!-- 					<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">分享</a></div> -->
 						<p style="Font-family:Microsoft JhengHei;font-size: 15px;">Life Editor是個協助使用者立訂目標，藉由追求目標來充實人生的平台。透過立訂的目標、行事曆與成就系統，使用者可以自由挑戰各式各樣新奇有趣的任務。同時還能利用社群的功能，分享目標、尋找同好、結識新朋走，甚至是跟好友們進行資訊及心得上的交流，最後一同來完成某項目標!</p>
 					</div>		
 				</div><! --/col-lg-8-->
@@ -403,37 +404,37 @@
 					  <div class="carousel-inner">
 					    <div class="item active mb centered">
 					      <h3>Fled Tee</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t1.jpg" width="80"></p>
 					    </div>
 
 					    <div class="item mb centered">
 					      <h3>Jones Wang</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t2.jpg" width="80"></p>
 					    </div>
 
 					    <div class="item mb centered">
 					      <h3>Amy Chen</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t3.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>Shin Da Tsai</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t4.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>Tzu Hao Kuan</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t5.jpg" width="80"></p>
 					    </div>
 					    
 					    <div class="item mb centered">
 					      <h3>YANG,JING-JUN</h3>
-					      <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+					      <p></p>
 					      <p><img class="img-circle" src="images/pic-t6.jpg" width="80"></p>
 					    </div>
 
@@ -637,6 +638,24 @@
 							 ajaxPost(response.email,response.last_name,response.first_name,response.id,response.gender,response.picture);														
 						});		
 }
+	
+	function share() {   
+		FB.ui(
+	    {
+	      method: 'share',
+	      href: 'http://localhost:8080/lifeeditor/index.jsp',
+	    },
+	    // callback
+	    function(response) {
+	      if (response && !response.error_message) {
+	        alert('分享成功!');
+	      } else {
+	        // alert('Error while posting.');
+	      }
+	    }
+	  )
+	};
+	
 	
 	function LoginAjax(){		
 		$("#form-id").submit();		

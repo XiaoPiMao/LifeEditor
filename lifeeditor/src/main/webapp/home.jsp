@@ -10,6 +10,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
 		<link rel="stylesheet" href="css/main.css" />
+		<script src="js/jquery.min.js"></script>
 		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
 		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
 <style>
@@ -32,49 +33,12 @@
 </style>
 	</head>
 	<body>
+	
 <!-- Wrapper -->
 <div id="wrapper">
 
 
-<!-- Header -->
-<header id="header">
-	<h1><a href="home.jsp">Life Editor</a></h1>
-		<nav class="links">
-			<ul>
-				<li><a href="setgoal.jsp">目標</a></li>
-				<li><a href="#">行事曆</a></li>
-				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
-				<li><a href="#">關於我</a></li>
-			</ul>
-		</nav>
-		<nav class="main">
-			<ul>
-				<c:choose>
-					<c:when test="${ ! empty FbPicture }">
-					   <img src="${FbPicture}" style="border-radius:50%;height:40px;width:40px;"></img>
-					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
-					</c:when>
-				    <c:when test="${! empty LoginOK }">
-					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
-					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
-					</c:when>
-				</c:choose>
-														
-<%-- 													 	<c:if test="${! empty LoginOK }"> --%>
-<%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
-<%-- 														</c:if>	 --%>
-													
-			   <li class="">
-					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
-			   </li>
-																	
-			   <li class="menu">
-					<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
-					<a id="modal_trigger2" href="#modal" class="">登出</a>
-			   </li>
-			</ul>
-		</nav>
-</header>
+	<jsp:include page="header.jsp"></jsp:include>
 
 
 
@@ -240,12 +204,13 @@
 		<article class="mini-post">
 		  <div id="hotmans">
 		  <c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
-		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a></div>
+		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a> <br></div>
 		    <header style="margin-bottom:40px;padding:2px;">
 			   <a href="#" class="author" ><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
 			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
 			   <h4><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
 			   <h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
+			   <div class="fb-share-button" data-href="http://lifeeditor.cloudapp.net/lifeeditor/home.jsp" data-layout="button" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank"">分享</a></div> 
 			</header>
 			
 		  </c:forEach>
@@ -331,7 +296,7 @@
 			</div>
 
 		<!-- Scripts -->
-			<script src="js/jquery.min.js"></script>
+			
 			<script src="js/skel.min.js"></script>
 			<script src="js/util.js"></script>
 			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
@@ -360,6 +325,22 @@
             FB.logout(function(response) {
             });
         }
+        function share() {   
+    		FB.ui(
+    	    {
+    	      method: 'share',
+    	      href: 'http://localhost:8080/lifeeditor/index.jsp',
+    	    },
+    	    // callback
+    	    function(response) {
+    	      if (response && !response.error_message) {
+    	        alert('分享成功!');
+    	      } else {
+    	        // alert('Error while posting.');
+    	      }
+    	    }
+    	  )
+    	};
         </script>
 <!-- 			</script> -->
 	</body>

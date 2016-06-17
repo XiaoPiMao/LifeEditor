@@ -144,6 +144,9 @@ font-style: italic;
 
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
+<br>
+<br>
 <h1>挑戰任務</h1>
 
 

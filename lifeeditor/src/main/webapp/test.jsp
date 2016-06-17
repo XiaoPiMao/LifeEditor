@@ -17,12 +17,11 @@
     <link href="singlecolor/css/animate.min.css" rel="stylesheet"> 
 	<link href="singlecolor/css/main.css" rel="stylesheet">
 	<link href="singlecolor/css/responsive.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css" />
+<!--     <link rel="stylesheet" href="css/main.css" /> -->
     <!--[if lt IE 9]>
 	    <script src="js/html5shiv.js"></script>
 	    <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="singlecolor/images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="singlecolor/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="singlecolor/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="singlecolor/images/ico/apple-touch-icon-72-precomposed.png">
@@ -71,8 +70,10 @@
 <script>
     var jTypes = JSON.parse('${jTypes}');
     var jUser = JSON.parse('${jUser}');
-    console.log(jUser);
-    
+    var jAchs = JSON.parse('${jAchs}');
+    var data = JSON.parse('${targets}');
+    console.log(jAchs);
+   
     var catogoryNum = new Object();
     $.each(jTypes,function() {
     	catogoryNum[this.typeName] = 0 ;
@@ -81,16 +82,43 @@
     
     
 $(document).ready(function(){
+	    var AchList = "<h3>我 的 榮 耀</h3>";
+	    $.each(jAchs,function(){
+	    	AchList += 
+	    	'<div>' +
+            '<img style="border-radius:10%;height:55px;width:55px;" src="${ctx}/getAchPic?achID='+ this.achID + '" title="' + this.achDesc + '">' +
+            '</div>'+
+            '<div>'+
+            '<h4>'+ this.achName +
+            '</h4>'+
+            '</div>'
+	    });
+	    $('.sidebar-item.popular').html(AchList);
+	
     	liveComments = JSON.parse('${liveComments}');
-    	console.log(liveComments);
-    	data = JSON.parse('${targets}');
-    	var str = "";
+    	//console.log(liveComments);
+    	var lastComment ="<h3>最 新 留 言</h3>";
+    	$.each(liveComments,function(){
+    		lastComment += 
+            '<div class="media">' +
+               '<div class="pull-left">' +
+                   '<a href="#"><img style="border-radius:50%;height:55px;width:55px;" src="${ctx}/GetUserPicture?id=' + this.userID +'"></a>' +
+               '</div>' +
+             '<div class="media-body">' +
+                  '<h4><a href="#">' +  this.comment + '</a></h4>' +
+                   '<p>'+ this.lastName + ' ' + this.firstName + '</p>' +
+              '</div>' +
+            '</div>' 
+    	})
+    	$('.sidebar-item.recent').html(lastComment);
     	
+    	var str = "";
     	$('.carousel').carousel({
     	      interval: 6000
     	    })
-    	    
+
 		$.each(data,function(){
+			var num = Math.floor(Math.random() * 3 + 1);
 			catogoryNum[this.typeName]++;
 			str += '<div class="col-md-12 col-sm-12">' +
 			        '<div class="carousel slide" id="myCarousel">'+
@@ -101,7 +129,7 @@ $(document).ready(function(){
 	                '<h3 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h3>' +
 	                '<p> 初衷 : '+ this.intention + '</p>'+
 		            '<div class="post-thumb">' +
-		                '<a href="blogdetails.html"><img src="singlecolor/images/blog/8.jpg" class="img-responsive" alt=""></a>'+
+		                '<a href="blogdetails.html"><img src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt=""></a>'+
 		                '<div class="post-overlay">' +
 		                    '<span class="uppercase"><a href="#">14 <br><small>Feb</small></a></span>' +
 		                '</div>' +
@@ -132,7 +160,7 @@ $(document).ready(function(){
 			$(spans[i]).text("(" + value + ")");
 			i++;
 		})
-		$("[class = 'col-md-9 col-sm-7']").append( $("<div></div>").addClass("row").html(str) );
+		$(".col-md-9.col-sm-7").append( $("<div></div>").addClass("row").html(str) );
 	})
 
 	
@@ -141,44 +169,7 @@ $(document).ready(function(){
 <body>
 <!-- <div id="wrapper"> -->
 <!-- Header -->
-<header id="header" style="padding:0px;">
-	<h1><a href="home.jsp">Life Editor</a></h1>
-		<nav class="links">
-			<ul>
-				<li><a href="setgoal.jsp">目標</a></li>
-				<li><a href="#">行事曆</a></li>
-				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
-				<li><a href="#">關於我</a></li>
-			</ul>
-		</nav>
-		<nav class="main">
-			<ul>
-				<c:choose>
-					<c:when test="${ ! empty FbPicture }">
-					   <img src="${FbPicture}" style="border-radius:50%;height:40px;width:40px;"></img>
-					   <li><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();" style="overflow:visible;">登出</a></li>
-					</c:when>
-				    <c:when test="${! empty LoginOK }">
-					   <a href="UserPage"><img  src="HomeGetPicture" style="border-radius:50%;height:40px;width:40px;"></a>
-					   <li><a href="<c:url value='/logout_index.jsp'/>"  onclick="javascript:logout();" style="overflow:visible;text-indent:0em;width:2em;">登出</a></li> 
-					</c:when>
-				</c:choose>
-														
-<%-- 													 	<c:if test="${! empty LoginOK }"> --%>
-<%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
-<%-- 														</c:if>	 --%>
-													
-			   <li class="">
-					<a class="fa-user" href="#" style="overflow:visible;text-indent:2em;width:2em;"></a>
-			   </li>
-																	
-			   <li class="menu">
-					<a class=" fa-chevron-down" href="#" style="overflow:visible;text-indent:0em;width:2em;"></a>
-					<a id="modal_trigger2" href="#modal" class="">登出</a>
-			   </li>
-			</ul>
-		</nav>
-</header>
+<jsp:include page="header.jsp"></jsp:include>
 
 <section id="blog" class="padding-top">
   <div class="container">
@@ -186,16 +177,15 @@ $(document).ready(function(){
         <div class="col-md-3 col-sm-5" >
             <div class="sidebar blog-sidebar" style="margin-right:50px;">
                 <div class="sidebar-item  recent">
-                    <h3>最 新 留 言</h3>
-                      <div class="media">
-                         <div class="pull-left">
-                             <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" alt=""></a>
-                         </div>
-                       <div class="media-body">
-                            <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4>
-                             <p>posted on  07 March 2014</p>
-                        </div>
-                      </div>
+<!--                       <div class="media"> -->
+<!--                          <div class="pull-left"> -->
+<!--                              <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" title="123"></a> -->
+<!--                          </div> -->
+<!--                        <div class="media-body"> -->
+<!--                             <h4><a href="#">Lorem ipsum dolor sit amet consectetur adipisicing elit,</a></h4> -->
+<!--                              <p>posted on  07 March 2014</p> -->
+<!--                         </div> -->
+<!--                       </div> -->
                  </div>
                         <div class="sidebar-item categories">
                             <h3>目 標 類 別</h3>
@@ -207,15 +197,13 @@ $(document).ready(function(){
                         </div>
 
                         <div class="sidebar-item popular">
-                            <h3>Latest Photos</h3>
-                            <ul class="gallery">
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular2.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular3.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular4.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular5.jpg" alt=""></a></li>
-                                <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li>
-                            </ul>
+<!--                             <h3>我 的 榮 耀</h3> -->
+<!--                             <ul class="gallery"> -->
+<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li> -->
+<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular2.jpg" alt=""></a></li> -->
+<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular3.jpg" alt=""></a></li> -->
+                                
+<!--                             </ul> -->
                         </div>
                     </div>
                 </div>

@@ -37,8 +37,8 @@ public class FriendDAO implements FriendDAO_interface{
 	
 	@Override
 	public List<user_specVO> findFriendsByUserID(Integer userID) {
-		String query = "select f.friendID,u.firstName,u.lastName,u.picture from user_spec u" + 
-				" join (select friendID from friend where userid = 75) f" + 
+		String query = "select f.friendID,u.firstName,u.lastName from user_spec u" + 
+				" join (select friendID from friend where userid = ?) f" + 
 				" on u.userID = f.friendID"; 
 		Connection conn = null;
 		
@@ -46,6 +46,7 @@ public class FriendDAO implements FriendDAO_interface{
 		try {
 			conn = ds.getConnection();
 			PreparedStatement psmt = conn.prepareStatement(query);
+			psmt.setInt(1, userID);
 			ResultSet rs = psmt.executeQuery();
 			user_specVO friend = null;
 			while(rs.next()) {
@@ -53,7 +54,6 @@ public class FriendDAO implements FriendDAO_interface{
 				friend.setUserID(rs.getInt("friendID"));
 				friend.setFirstName(rs.getNString("firstName"));
 				friend.setLastName(rs.getNString("lastName"));
-				friend.setPicture(rs.getBlob("picture"));
 				friends.add(friend);
 			}
 		}catch(SQLException e) {

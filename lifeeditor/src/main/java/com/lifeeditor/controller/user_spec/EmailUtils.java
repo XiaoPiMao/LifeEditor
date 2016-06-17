@@ -24,7 +24,7 @@ public class EmailUtils {
 	static int port = 587;
       
     private static final String FROM = "eeit85@gmail.com";
-    private static final String password = "JAVAgroup";
+    private static final String password = "zkezddofmzqqnzrm";
   
     /** 
      * 注册成功后,向用户发送帐户激活链接的邮件 
@@ -39,7 +39,7 @@ public class EmailUtils {
             message.setSentDate(new Date());  
             message.setFrom(new InternetAddress(FROM));  
             message.setRecipient(RecipientType.TO, new InternetAddress(user_specVO.getEmail()));  
-            message.setContent("<a href='http://localhost:8080/lifeeditor/RegisteredServlet'>點此完成驗證</a>","text/html;charset=utf-8");  
+            message.setContent("<a href='http://lifeeditor.cloudapp.net/lifeeditor/RegisteredServlet'>點此完成驗證</a>","text/html;charset=utf-8");  
             // 发送邮件
             Transport transport = session.getTransport("smtp");
             transport.connect(host, port, FROM, password);

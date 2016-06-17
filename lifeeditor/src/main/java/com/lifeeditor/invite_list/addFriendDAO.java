@@ -81,7 +81,7 @@ public class addFriendDAO {
 	public List<user_listVO> selectFriend(Integer user) throws SQLException{
 		
 		String queryString = "select userID,account,lastName+firstName as name,picture from user_spec where userID  not in " +
-							 "(select inviter from invite_list  where inviter = '"+user+"' or receiver='"+user+"')";
+							 "(select receiver from invite_list  where inviter = '"+user+"' or receiver='"+user+"')";
 		
 		List<user_listVO> getall = new ArrayList<user_listVO>();
 		try{
