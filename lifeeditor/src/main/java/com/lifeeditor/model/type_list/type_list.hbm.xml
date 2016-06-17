@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.lifeeditor.model.type_list.TypeListVO" table="type_list" >
+        
+        <id name="typeID" column="typeID">
+            <generator class="identity"/>
+        </id>
+        
+        <property name="typeName" column="typeName" />
+        <property name="typePic" column="typePic" />
+                
+               
+    </class>
+</hibernate-mapping>
+
