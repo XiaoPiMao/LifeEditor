@@ -8,6 +8,7 @@
 
 <title>Header Template</title>
 <link rel="stylesheet" href="${ctx}/css/font-awesome.min.css" />
+<link rel="stylesheet" href="${ctx}/css/chatroom.css" />
 
 <style>
 
@@ -243,6 +244,7 @@ body {
 </head>
 
 <body>
+<jsp:include page="/include/chatroom.jsp" />
 <!-- Header -->
 <header id="header">
 	<h1><a href="home.jsp">Life Editor</a></h1>
