@@ -251,7 +251,8 @@
 						<p style="Font-family:Microsoft JhengHei;font-size: 20px;">今年，你完成了哪些目標?<br>下一個十年，你會在哪裡?<br>一個又一個的目標計畫...<br>一本又一本的行事曆...<br>如今都到哪裡去了?<br>完成了哪些目標呢?</p>
 					</div>
 					<div class="col-md-6">
-					<br><button onclick="share()">點此分享</button> 
+					<br>
+<!-- 					<button onclick="share()">點此分享</button>  -->
 <!-- 					<div class="fb-share-button" data-href="https://developers.facebook.com/docs/plugins/" data-layout="button" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">分享</a></div> -->
 						<p style="Font-family:Microsoft JhengHei;font-size: 15px;">Life Editor是個協助使用者立訂目標，藉由追求目標來充實人生的平台。透過立訂的目標、行事曆與成就系統，使用者可以自由挑戰各式各樣新奇有趣的任務。同時還能利用社群的功能，分享目標、尋找同好、結識新朋走，甚至是跟好友們進行資訊及心得上的交流，最後一同來完成某項目標!</p>
 					</div>		
