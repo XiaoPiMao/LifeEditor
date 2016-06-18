@@ -107,6 +107,7 @@ public class GetJTargetByUser extends HttpServlet {
 			if(i == 0) {
 				jsonArray.add(jObj_trgSpec);
 				tempTrgID = trgID;
+				continue;
 			}
 			
 			if(tempTrgID != trgID) {
