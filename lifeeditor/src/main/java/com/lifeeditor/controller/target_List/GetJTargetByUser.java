@@ -94,14 +94,20 @@ public class GetJTargetByUser extends HttpServlet {
 		TargetSpecService trgSpecSvc = new TargetSpecService();
 		List<Target_specVO> trgSpecs = trgSpecSvc.getByUser(userID);
 		jsonObj = new JsonObject();
+		jsonArray = new JsonArray();
 		Integer tempTrgID = 0;
 		int length = trgSpecs.size();
 		for(int i = 0;i < length;i++) {
 			Target_specVO trgSpec = trgSpecs.get(i);
 			JsonObject jObj_trgSpec = new JsonObject();
-			jObj_trgSpec.addProperty("trgNote", trgSpec.getTrgNote());
+			jObj_trgSpec.addProperty("trgNote", trgSpec.getTrgNote().replaceAll("\"", "\\\\\""));
 			jObj_trgSpec.addProperty("picPath", trgSpec.getTrgPicPath().replace('\\', '/'));
 			int trgID = trgSpec.getTargetID();
+			
+			if(i == 0) {
+				jsonArray.add(jObj_trgSpec);
+				tempTrgID = trgID;
+			}
 			
 			if(tempTrgID != trgID) {
 				jsonObj.add(tempTrgID.toString(), jsonArray);

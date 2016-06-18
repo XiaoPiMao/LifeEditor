@@ -117,7 +117,8 @@ $(function(){
     var jUser = JSON.parse('${jUser}');
     var jAchs = JSON.parse('${jAchs}');
     var data = JSON.parse('${targets}');
-    //console.log(jAchs);
+    var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
+    console.log(jSpecs);
    
     var catogoryNum = new Object();
     $.each(jTypes,function() {
