@@ -90,33 +90,18 @@ font-size:24px;color:#cccccc;margin-right:10px;
 float:right;
 }
 
-.caption {
-    height: 140px;
+.span8{
+    height:auto;
     width:820px;
-    margin:0px 0px 0px 0px;
+    margin:5px 0px 0px 0px;
     padding: 0px;
     box-sizing:border-box;
     -moz-box-sizing:border-box;
     -webkit-box-sizing:border-box;
-    flaot:left;
-}
-.caption .span4, .caption .span8 {
     padding: 0px 20px;
 }
-.caption .span4 {
-    border-right: 1px dotted #CCCCCC;
-}
-.caption h3 {
-    color: #a83b3b;
-    line-height: 0.5rem;
-    margin: 0 0 10px;
-    text-transform: uppercase;
-    }
-    .caption p {
-        font-size: 16px;
-        line-height: 1.6rem;
-        color: #a83b3b;
-        }
+
+
 </style>
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
@@ -205,7 +190,7 @@ $(document).ready(function(){
 		            '</table>'+
 		            '<h2 class="post-title bold" style="width:500px;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
 	                '<h4 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h4>' +
-	                '<p> 初衷 : '+ this.intention + '</p>'+
+	                '<p> 初 衷 : '+ this.intention + '</p>'+
 	                '</div>';  //photoHeader-End
 //--------------------------------------------------------------------------------------------------------//	                
 	                if(!jSpecs[this.targetID]) {
@@ -224,7 +209,7 @@ $(document).ready(function(){
 		    	            str +=  '<div class="post-thumb">' +   //photo-Start
 			    		                '<img style="width:920px;height:470px;" src="${ctx}/' + this.picPath + '">'+
 			    		            '</div>' +   //photo-End
-			                    	'<div class="span8"><p>' + this.trgNote +'</p>' + '</div>' +
+			                    	'<div class="span8"><p>' + this.trgNote +'</p></div>' +
 			                        '</div>' +   //item active-End
 			            		    '<div class="control-box">' +                            
 			                			'<a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>' +
@@ -241,12 +226,12 @@ $(document).ready(function(){
 	                    '<ul class="nav navbar-nav post-nav">'+
 	                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
 	                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
-	                        '<li id="Comments"><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
+	                        '<li id="Comments"><a><i class="fa fa-comments"></i>3 Comments</a></li>'+
 	                    '</ul>'+
 	                '</div>'+
 	            '</div>'+ 
 	            
-	            '<div class="row">' +    //comments-Start
+	            '<div id="AllComments" class="row" style="display:none;">' +    //comments-Start
 	            '<div class="col-md-2 col-sm-2 hidden-xs">' +   //comment-left-Start
 	            '<figure class="thumbnail">' +    
 	            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
@@ -263,7 +248,7 @@ $(document).ready(function(){
 	            '<div class="comment-post">' +
 	            '<p>Lrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' +
                 '</div>' +
-                '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>' +
+                '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>reply</a></p>' +
                 '</div>' +   
                 '</div>' +
                 '</div>' +   //comment-right-End
