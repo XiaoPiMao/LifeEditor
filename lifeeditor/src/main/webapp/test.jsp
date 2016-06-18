@@ -113,7 +113,7 @@ float:right;
     text-transform: uppercase;
     }
     .caption p {
-        font-size: 14px;
+        font-size: 16px;
         line-height: 1.6rem;
         color: #a83b3b;
         }
@@ -130,11 +130,13 @@ $(function(){
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
 		$('.Editor').slideToggle('fast');		
 	});
-});
 
-$(function(){
 	$('.col-md-9.col-sm-7').on("click","#Comments",function(){
 		$('#AllComments').slideToggle('fast');		
+	});
+	
+	$('.col-md-9.col-sm-7').on("carousel",'#myCarousel',function(){
+		 interval: 1000;
 	});
 });
 
@@ -204,59 +206,69 @@ $(document).ready(function(){
 		            '<h2 class="post-title bold" style="width:500px;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
 	                '<h4 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h4>' +
 	                '<p> 初衷 : '+ this.intention + '</p>'+
-	                '</div>' +  //photoHeader-End
+	                '</div>';  //photoHeader-End
+//--------------------------------------------------------------------------------------------------------//	                
+	                if(!jSpecs[this.targetID]) {
+		                str +='<div class="post-thumb">' +   //photo-Start
+		                	  '<img style="width:920px;height:470px;" src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt="">'+
+		               	 	  '<div class="post-overlay">' +
+		                	  '</div>' +
+		            	    '</div>' ;   //photo-End
+	                }else {
+	                	$.each(t = jSpecs[this.targetID],function(i,spec){
+	    	                str += '<div class="carousel slide" id="myCarousel">' +    //Carousel-Start
+		    	                		'<div class="carousel-inner">' +  
+		    	                  		'<div class="item';
+		    	            if(i == 0) {str += ' active">';}
+		    	            else { str += '">'}
+		    	            str +=  '<div class="post-thumb">' +   //photo-Start
+			    		                '<img style="width:920px;height:470px;" src="${ctx}/' + this.picPath + '">'+
+			    		            '</div>' +   //photo-End
+			                    	'<div class="span8"><p>' + this.trgNote +'</p>' + '</div>' +
+			                        '</div>' +   //item active-End
+			            		    '<div class="control-box">' +                            
+			                			'<a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>' +
+			                			'<a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>' +
+			                		'</div>' +     //control-box-End  
+			                		'</div>' +  //carousel-innerEnd
+		                		'</div>' ;    //#myCarousel-End
+	                	})
+	                }
 	                
-	                '<div class="carousel slide" id="myCarousel">' +    //Carousel-Start
-	                '<div class="carousel-inner">' +  
-		            '<div class="post-thumb">' +   //photo-Start
-		                '<img style="width:920px;height:470px;" src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt="">'+
-		                '<div class="post-overlay">' +
-		                '</div>' +
-		            '</div>' +   //photo-End
-		            '<div class="caption">' +  //spec
-                	'<div class="span8"><p>'+ jSpecs[this.targetID][0] + '</p> ' +
-                	'</div>' +
-                    '</div>' +   //spec-End
-		            
-		            '<div class="post-content overflow">' +      //Icon
-		                '<div class="post-bottom overflow">'+   
-		                    '<ul class="nav navbar-nav post-nav">'+
-		                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
-		                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
-		                        '<li id="Comments"><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
-		                    '</ul>'+
-		                '</div>'+
-		            '</div>'+ 
-		            
-		            '<div class="row">' +    //comments-Start
-		            '<div class="col-md-2 col-sm-2 hidden-xs">' +   //comment-left-Start
-		            '<figure class="thumbnail">' +    
-		            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
-		            '<figcaption class="text-center">username</figcaption>' +
-		            '</figure>' +   
-		            '</div>' +   //comment-left-End
-		            '<div class="col-md-10 col-sm-10">' +   //comment-right
-		            '<div class="panel panel-default arrow left">' +
-		            '<div class="panel-body">' +
-		            '<header class="text-left">' +
-		            '<div class="comment-user"><i class="fa fa-user"></i> username</div>' +
-		            '<time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>' +
-		            '</header>' +
-		            '<div class="comment-post">' +
-		            '<p>Lrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' +
-                    '</div>' +
-                    '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>' +
-                    '</div>' +   
-                    '</div>' +
-                    '</div>' +   //comment-right-End
-                    '</div>' +   //comments-End
-                    '</div>' +   //carousel-inner-End
-		    '<div class="control-box">' +                            
-            '<a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>' +
-            '<a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>' +
-            '</div>' +     //control-box-End  
-            '</div>' +     //#myCarousel-End
-            
+//--------------------------------------------------------------------------------------------------------//            		
+            str  +='<div class="post-content overflow">' +      //Icon
+	                '<div class="post-bottom overflow">'+   
+	                    '<ul class="nav navbar-nav post-nav">'+
+	                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
+	                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
+	                        '<li id="Comments"><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
+	                    '</ul>'+
+	                '</div>'+
+	            '</div>'+ 
+	            
+	            '<div class="row">' +    //comments-Start
+	            '<div class="col-md-2 col-sm-2 hidden-xs">' +   //comment-left-Start
+	            '<figure class="thumbnail">' +    
+	            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
+	            '<figcaption class="text-center">username</figcaption>' +
+	            '</figure>' +   
+	            '</div>' +   //comment-left-End
+	            '<div class="col-md-10 col-sm-10">' +   //comment-right
+	            '<div class="panel panel-default arrow left">' +
+	            '<div class="panel-body">' +
+	            '<header class="text-left">' +
+	            '<div class="comment-user"><i class="fa fa-user"></i> username</div>' +
+	            '<time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>' +
+	            '</header>' +
+	            '<div class="comment-post">' +
+	            '<p>Lrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' +
+                '</div>' +
+                '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>' +
+                '</div>' +   
+                '</div>' +
+                '</div>' +   //comment-right-End
+                '</div>' +   //comments-End
+                '</div>' +   //carousel-inner-End
             '</div>' +    //photoItem-End  
 		    '</div>' // The End
   
@@ -271,7 +283,9 @@ $(document).ready(function(){
 		
 		$("#Editor1").click(popup);
 	})
-
+    
+	
+	
 	
     </script>
 </head>
