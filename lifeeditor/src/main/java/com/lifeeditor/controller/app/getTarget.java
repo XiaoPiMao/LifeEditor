@@ -2,9 +2,6 @@ package com.lifeeditor.controller.app;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,48 +12,43 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.target_list.Target_ListVO;
-import com.lifeeditor.model.user_spec.user_specVO;
-import com.lifeeditor.service.Target_List_Service;
-import com.lifeeditor.service.user_specService;
+import com.lifeeditor.service.TargetService;
 
 
-@WebServlet("/getTargetLists")
-public class getTargetLists extends HttpServlet {
+@WebServlet("/getTarget")
+public class getTarget extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     
-    public getTargetLists() {
+    public getTarget() {
         super();
-       
+        
     }
 
 	
-	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		Integer targetID = new Integer(req.getParameter("targetID"));
 		
+		TargetService trgSvc = new TargetService();
 		
-		String account = req.getParameter("account");
-		String pswd = req.getParameter("pswd");
+		TargetVO targetVO = new TargetVO();
 		
-		user_specService userSvc = new user_specService();
-		user_specVO user_specVO = userSvc.checkIDPassword(account, pswd);
+		targetVO = trgSvc.getOneTrg(targetID);
 		
-		Target_List_Service targetListSvc = new Target_List_Service();
-		
-		List<Target_ListVO> targetList = targetListSvc.findByUserID(user_specVO.getUserID());
-			
 		JsonArray jsonArray = new JsonArray();
 		JsonObject jsonObj ;
-		for(Target_ListVO vo : targetList ){
+		
 			jsonObj = new JsonObject();
-			jsonObj.addProperty("targetID", vo.getTrgVO().getTargetID());
-			jsonObj.addProperty("trgName",vo.getTrgVO().getTrgName());
-			jsonObj.addProperty("timeStart", vo.getTrgVO().getTimeStart().toString());
-			jsonObj.addProperty("timeFinish",vo.getTrgVO().getTimeFinish().toString());
+			jsonObj.addProperty("targetID", targetVO.getTargetID());
+			jsonObj.addProperty("trgName",targetVO.getTrgName());
+			jsonObj.addProperty("typeName", targetVO.getTypeVO().getTypeName());
+			jsonObj.addProperty("secName",targetVO.getSectionVO().getSecName());
+			jsonObj.addProperty("intention",targetVO.getIntention());
 			jsonArray.add(jsonObj);
 			
-		}
+		
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
 		
@@ -65,6 +57,7 @@ public class getTargetLists extends HttpServlet {
 //		System.out.println(gson.toJson(targetLists));
 //		os.write(gson.toJson(targetLists));
 		os.println(jsonArray.toString());
+		
 		
 	}
 
