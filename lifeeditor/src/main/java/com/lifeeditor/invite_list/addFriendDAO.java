@@ -1,5 +1,6 @@
 package com.lifeeditor.invite_list;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -245,7 +246,7 @@ public class addFriendDAO {
 	public void deleteFriend(String user,String inviter){
 		
 		String deleteString = "delete friend where (userID = '"+user+"'  and friendID = '"+inviter+"') or (userID = '"+inviter+"'  and friendID = '"+user+"')";
-		
+	
 		try{
 			conn = ds.getConnection();
 			psmt = conn.prepareStatement(deleteString);
@@ -264,4 +265,6 @@ public class addFriendDAO {
 		}
 		
 	}
+	
+
 }

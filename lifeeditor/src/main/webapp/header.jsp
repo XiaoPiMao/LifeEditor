@@ -9,7 +9,11 @@
 <title>Header Template</title>
 <link rel="stylesheet" href="${ctx}/css/font-awesome.min.css" />
 <link rel="stylesheet" href="${ctx}/css/chatroom.css" />
-
+<%-- <link rel="stylesheet" href="${ctx }/css/addFriend/bootstrap.min.css"> --%>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+<link rel="stylesheet" href="${ctx }/css/addFriend/AdminLTE.min.css">
+<link rel="stylesheet" href="${ctx }/css/addFriend/skin-blue.min.css">
+<!-- <script src="js/jquery.min.js"></script> -->
 <style>
 
 
@@ -238,6 +242,22 @@ body {
 				}
 
 		}
+		
+		 /* Dropdown Content (Hidden by Default) */ 
+		 .ChkFriend { 		 		 	 
+		     display: none; 
+		     background-color: #f9f9f9; 
+		     min-width: 160px; 
+		     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 	     
+			 align:center;
+			 position: absolute;
+			 padding:10px;
+			 z-index: 100001;
+			 width:250px;
+			 font-size:10px;
+			 right:0px;
+			 top:52px;
+		 } 
 </style>
 
 
@@ -249,14 +269,24 @@ body {
 <header id="header">
 	<h1><a href="home.jsp">Life Editor</a></h1>
 		<nav class="links">
-			<ul>
+			<ul style="width:1000px;">
 				<li><a href="${ctx}/setgoal.jsp">目標</a></li>
 				<li><a href="${ctx}/fullCalendar.jsp">行事曆</a></li>
 				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
-				<li><a href="${ctx}/apply_challenge.jsp">挑戰任務</a></li>
+				<li><a href="${ctx}/apply_challenge.jsp">挑戰任務</a></li>				
+				<li>
+					<!--  <form name="myData" >
+						<div class="form-group">
+							<input type="text" placeholder="搜尋您的好友?" class="form-control" id="txtSearch" name="keyword" class="fa fa-search" style="width:400px;height:30px"/>
+						</div>
+					</form>-->
+				</li>									
 			</ul>
+				
+		
 		</nav>
-		<nav class="main">
+		
+		<nav class="main">	
 			<ul>
 				<c:if test="${! empty LoginOK }">
 					   <a href="UserPage"><img  id="UserPicture" src="${ctx}/GetUserPicture?id=${LoginOK.userID}" ></a>
@@ -267,25 +297,251 @@ body {
 <%-- 																  <a href="<c:url value='/logout_index.jsp'/>"    onclick="javascript:logout();">登出</a>     --%>
 <%-- 														</c:if>	 --%>
 			   <li>									
-					<a id="friend_icon" class="fa-user" href="${ctx}/addfriend.jsp" style="overflow:visible;text-indent:2em;width:2em;"></a>
+					<a id="friend_icon" class="fa-user" data-toggle="dropdown"  style="overflow:visible;text-indent:2em;width:2em;cursor: pointer;"></a>
+					
 			   </li>
 																	
 			   <li>
 					<a id="dropdown_icon" class=" fa-chevron-down"  style="overflow:visible;text-indent:0em;width:2em;"></a>
 			   </li>
 			</ul>
+			
 			<ul class="dropdown_area" id="dropdown">
 			    <li style="display:list-item;position:fixed;right:195px;top:50px;z-index: 10000;"><a href="${ctx}/updateUser.jsp">設定</a></li>
 			    <li style="display: list-item;position:fixed;right:195px;top:100px;z-index: 10000;"><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a></li>
 			</ul>
-		</nav>
+		</nav>				
 </header>
+		<div id="divContent" class="ChkFriend ">
+		</div>	
 <script>
 $(function(){
 	$('#dropdown').hide();
 	$('#dropdown_icon').click(function(){
       $('#dropdown').slideToggle('fast');		
 	});
+	
+	
+// 	var testValue =""//全裕變數 
+// 	var txt = document.getElementById("txtSearch"); //抓取TextBox值
+// 	$("#txtSearch").keyup(function(e) { //如果Keyup時	
+// 		if(txt.value == "" ){ //判斷是否為空
+// 			var show = document.getElementById("div1");
+// 			show.style.display = "block";			    
+//     		if (show.childNodes.length > 0) { //先刪除舊有資料
+//     	 		show.removeChild(show.childNodes[0]);
+//     		}//End if
+//     		testValue = "";
+// 		}else{
+// 		if(txt.value.trim() != testValue || txt.value.trim().match(/[^a-z^A-Z^0-9]/g)){ //判斷不是空值且是中英數字
+// 			$.ajax({
+// 				  type:"POST",
+// 				  dataType: 'json',
+// 				  url: '/lifeeditor/com.lifeeditor.invite_list/getDataFromDB',
+// 				  data: {'txt':txt.value.trim()},
+// 				  success: function selectData(result){				  
+// 					  		var show = document.getElementById("div1"); //顯示的Div
+// 					  		show.style.display = "block";			    
+// 				    		if (show.childNodes.length > 0) { //先刪除舊有資料
+// 				    	 		show.removeChild(show.childNodes[0]);
+// 				    		}//End if	
+// 				    		var eleDiv = document.createElement("div");
+// 				 			eleDiv.className = "list-group";
+				 			
+// 				 			for (var j = 0, max = result.length; j < max; j++) { //取出所有資料
+				 				
+// 				 			var table = document.createElement('table'); //table放性名跟按鈕
+// 				 			var tr1 = document.createElement('tr');
+// 				 			var td1 = document.createElement('td');
+// 				 			var tr2 = document.createElement('tr');
+// 				 			var td2 = document.createElement('td');
+				 			
+// 				 			var span = document.createElement('span');
+// //				 			var picture = 'data:image/jpeg;base64,'+ result[j].Picture; //Base64轉img
+// 							var txtBtn = document.createTextNode(result[j].Name); 
+// 							var eleImg = document.createElement("img");
+// 							var eleBtn = document.createElement("button"); 
+// 							var addFriendbtn = document.createElement("button");
+// 							var t = document.createTextNode("加為好友");
+// 							var user = result[j].Userid;
+												
+// 							addFriendbtn.appendChild(t); 
+// 							span.style.fontSize = "20px";
+// 							span.appendChild(txtBtn);
+							
+							
+// 							eleImg.setAttribute("src",'/lifeeditor/GetUserPicture?id='+result[j].Userid);
+// 							eleImg.setAttribute("width",60);
+// 							eleImg.setAttribute("height",60);
+// 						    eleImg.className = "img-thumbnail"
+// 						    eleImg.style.float="left";
+						    
+// 							eleBtn.className = "list-group-item"; 
+// 							eleBtn.setAttribute("type", "button"); 
+							
+// 							addFriendbtn.className = "btn btn-primary";
+// 							addFriendbtn.setAttribute("type","button");
+
+// 							addFriendbtn.setAttribute("value",user);
+							
+// 							addFriendbtn.addEventListener('click',function(){ //綁定一個click事件傳值新增好友	
+// 								this.firstChild.nodeValue = "已送出邀請";
+// 								test(this.value);
+// 							}, true);
+							
+// 							table.appendChild(tr1).appendChild(td1).appendChild(span);
+// 							table.appendChild(tr2).appendChild(td2).appendChild(addFriendbtn);
+// 							table.style.float="left";
+							
+// 							eleBtn.appendChild(eleImg);
+// 							eleBtn.appendChild(table);
+
+// 							eleDiv.appendChild(eleBtn);		
+// 							}
+// 				 			show.appendChild(eleDiv);
+				 			
+				 					 				 			
+// 				     } //End for
+// 			   }); //End Success
+// 			testValue = txt.value;
+			
+// 	   }else { 
+		   
+// 			var show = document.getElementById("div1");
+// 	     	show.style.display = "block";
+// 	    		if (show.childNodes.length > 0) {
+// 	    	 		show.removeChild(show.childNodes[0]);	    	 	
+// 	    		}
+
+//   	   };//End if
+// 	};
+// 	}); //End keyup
+	function deleteFriend(value,status){
+		 $.ajax({
+			 	type:"POST",
+			 	dataType:"text",
+			 	url: '/lifeeditor/com.lifeeditor.invite_list/ChkInviterServlet',
+			 	data: {'id':value,'status':status},	
+				success: function (){
+					
+				}
+		 });
+	 }
+	 function addInviter(value,status){
+		 $.ajax({
+				type:"POST",
+				dataType:"text",
+				url: '/lifeeditor/com.lifeeditor.invite_list/ChkInviterServlet',
+				data: {'id':value,'status':status},	
+				success: function (){
+					
+				}
+			});
+	 }
+	 
+	var count = 2; //控制按鈕 check的
+	$('#friend_icon').click(function(){
+		  if(count % 2 == 0){ //記數判斷		 		  
+			$.ajax({
+				type:"POST",
+				dataType:"json",
+				url: '/lifeeditor/com.lifeeditor.invite_list/checkFriendServlet',
+				success: function (data){
+					var myDiv = document.getElementById("divContent");
+					//var myDiv = document.createElement("div");
+					myDiv.style.display = "block";
+					
+					if (myDiv.childNodes.length > 0) { //先刪除舊有資料
+		    			myDiv.removeChild(myDiv.childNodes[0]);								
+		    		}//End if	
+					var txt1 = document.createTextNode("好友確認");
+		 			var txth3 = document.createElement("H4");
+		 			txth3.setAttribute("class","text-warning");
+		 			txth3.appendChild(txt1);
+		 			myDiv.appendChild(txth3);
+					var myTable = document.createElement("table");
+								
+					for(var i = 0;i<data.length;i++){
+						
+						var myImg = document.createElement("img");
+						var myName = document.createElement("a");
+						var myChkTureBtn = document.createElement("button");
+						var myChkFalseBtn = document.createElement("button");
+						var chkTure = document.createTextNode("接受邀請");
+						var chkFalse = document.createTextNode("拒絕邀請");
+						
+						var tr1 = document.createElement("tr");
+						var td1 = document.createElement("td");
+						var td2 = document.createElement("td");
+						var td3 = document.createElement("td");
+						var td4 = document.createElement("td");
+
+						var name = document.createTextNode(data[i].Name);
+						
+						
+						myImg.setAttribute("src",'/lifeeditor/GetUserPicture?id='+data[i].Userid);  //照片設置
+						myImg.setAttribute("width",30);
+						myImg.setAttribute("height",30);
+						myImg.setAttribute("class","img-circle");
+						myImg.style.float="left";          //照片設置結束.....
+						
+						
+						myChkTureBtn.appendChild(chkTure);
+						myChkTureBtn.setAttribute("type","button");
+						myChkTureBtn.setAttribute("value",data[i].Userid);
+						myChkTureBtn.setAttribute("id",data[i].Userid);
+						myChkTureBtn.className = "btn btn-primary btn-sm";
+						myChkTureBtn.addEventListener('click',function(){ //綁定一個click事件傳值新增好友	
+							this.firstChild.nodeValue = "成為好友";
+							addInviter(this.value,"makeFriend");
+						}, true);
+						
+						myChkFalseBtn.appendChild(chkFalse);
+						myChkFalseBtn.setAttribute("type","button");
+						myChkFalseBtn.setAttribute("value",data[i].Userid);
+						myChkFalseBtn.setAttribute("id",data[i].Userid);
+						myChkFalseBtn.className = "btn btn-danger btn-sm";
+						myChkFalseBtn.addEventListener('click',function(){ //綁定一個click事件傳值新增好友	
+							var parent = this.parentNode;
+							if(window.confirm('確定拒絕?')){						
+							deleteInviter(this.value,"delete");
+							parent.parentNode.style.display = "none";
+							}else{}
+							//test(this.value);
+						}, true);
+						
+						
+						td1.appendChild(myImg);
+						tr1.appendChild(td1);
+						
+						myName.appendChild(name);
+						td2.appendChild(myName);
+						tr1.appendChild(td2);
+						
+						td3.appendChild(myChkTureBtn);
+						tr1.appendChild(td3);
+						
+						td4.appendChild(myChkFalseBtn);
+						tr1.appendChild(td4);
+						myTable.appendChild(tr1);
+		 			
+						myDiv.appendChild(myTable);
+						
+						
+					}
+
+				}
+			});
+			count = count + 1; //控制開關
+		}else{
+			var myDiv = document.getElementById("divContent");
+			if (myDiv.childNodes.length > 0) { //先刪除舊有資料
+				myDiv.removeChild(myDiv.childNodes[0]);
+			}//End if	
+			myDiv.style.display = "none";
+			count = count + 1; //控制開關
+		} 
+		});
 });
 </script>		
 <script>

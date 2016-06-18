@@ -1,4 +1,3 @@
-
 	function getData() { //創建Session 所有此帳號的好友清單
 //		 $.get("/lifeeditor/com.lifeeditor.invite_list/getUserFriendServlet");
 	 } 
@@ -84,7 +83,7 @@ $(document).ready(function(){
 				 			var td2 = document.createElement('td');
 				 			
 				 			var span = document.createElement('span');
-				 			var picture = 'data:image/jpeg;base64,'+ result[j].Picture; //Base64轉img
+//				 			var picture = 'data:image/jpeg;base64,'+ result[j].Picture; //Base64轉img
 							var txtBtn = document.createTextNode(result[j].Name); 
 							var eleImg = document.createElement("img");
 							var eleBtn = document.createElement("button"); 
@@ -97,7 +96,7 @@ $(document).ready(function(){
 							span.appendChild(txtBtn);
 							
 							
-							eleImg.setAttribute("src",picture);
+							eleImg.setAttribute("src",'/lifeeditor/GetUserPicture?id='+result[j].Userid);
 							eleImg.setAttribute("width",60);
 							eleImg.setAttribute("height",60);
 						    eleImg.className = "img-thumbnail"
@@ -152,7 +151,7 @@ $(document).ready(function(){
 // 		 document.getElementById("txtSearch").value = "";		 
 // 	 });
 	$('#btn1').click(function(){
-	  if(count % 2 == 0){ //記數判斷
+	  if(count % 2 == 0){ //記數判斷	  
 		$.ajax({
 			type:"POST",
 			dataType:"json",
@@ -185,11 +184,11 @@ $(document).ready(function(){
 					var td3 = document.createElement("td");
 					var td4 = document.createElement("td");
 					
-					var picture = 'data:image/jpeg;base64,'+ data[i].Picture;
+//					var picture = 'data:image/jpeg;base64,'+ data[i].Picture;
 					var name = document.createTextNode(data[i].Name);
 					
 					
-					myImg.setAttribute("src",picture);  //照片設置
+					myImg.setAttribute("src",'/lifeeditor/GetUserPicture?id='+data[i].Userid);  //照片設置
 					myImg.setAttribute("width",30);
 					myImg.setAttribute("height",30);
 					myImg.setAttribute("class","img-circle");
@@ -283,17 +282,6 @@ $(document).ready(function(){
 						
 						var Name = document.createTextNode(data[i].Name); //姓名
 						
-						//var Picture = 'data:image/jpeg;base64,'+ data[i].Picture;//照片
-						
-						var Picture = function(){
-							$.ajax({
-								type:"POST",
-								dataType:"text",
-								data:{"id":data[i].Userid},
-								url:'/lifeeditor/com.lifeeditor.invite_list/showFriendPictureServlet',
-								success:function(){}
-							});
-						}
 						
 						userTitleA.setAttribute("class","twPc-bg twPc-block");
 						userTitleDiv.setAttribute("class","twPc-div");
@@ -324,8 +312,8 @@ $(document).ready(function(){
 						userImgA.setAttribute("href","*");
 						userImgA.setAttribute("title",Name);
 						
-						userImauserImage.setAttribute("src",Picture);ge.setAttribute("alt",Name);
-						
+						userImage.setAttribute("alt",Name);
+						userImage.setAttribute("src",'/lifeeditor/GetUserPicture?id='+data[i].Userid);
 						userImage.setAttribute("width",72);
 						userImage.setAttribute("height",72);
 						userImage.setAttribute("class","img-thumbnail");
