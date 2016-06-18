@@ -79,8 +79,13 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	public  static final String SHOW_ALL_CHALLENGE_NAME_FROM_USER = "SELECT trgName FROM target INNER JOIN target_list "+
 	"ON target.targetID = target_list.targetID where userID = ? and trgType = 2 and timeFinish >= GETDATE()";
 
-	private static final String GET_RANDOM_TARGET = "SELECT TOP 1 t.trgName FROM ( SELECT DISTINCT trgName  FROM target where trgType=3 and trgName like ?) t ORDER BY NEWID()";
-
+	private static final String GET_RANDOM_TARGET = "select top 1 * from (SELECT targetID, trgName, typeName, secName, " +
+			 "intention, timeStart FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN type_list ON" +
+             " sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID where trgType =3 and timeFinish >= GETDATE()) t ORDER BY NEWID() ";
+	
+	private static final String SEARCH_TARGET = "SELECT targetID, trgName, typeName, secName, intention, "
+			+ "timeStart FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN "
+			+ "type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID where trgType =3 and trgName like ?";
 	
 	
 	@SuppressWarnings("resource")
@@ -714,10 +719,10 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 
 	
 	@Override
-	public List<TargetVO> getRandomKeyWordSearch(String keyword) {
+	public List<TargetVO> getFromKeyWordSearch(String keyword) {
 		
 		List<TargetVO> list = new ArrayList<TargetVO>();
-		TargetVO TrgVO = null;
+
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -725,14 +730,26 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_RANDOM_TARGET);
+			pstmt = con.prepareStatement(SEARCH_TARGET);
 			pstmt.setString(1, "%" + keyword + "%");
 			rs = pstmt.executeQuery();
+			TargetVO Trg = null;
+			TypeListVO type = null;
+			SecListVO sec = null;
 			
 			while(rs.next()) {
-				TrgVO = new TargetVO();
-				TrgVO.setTrgName(rs.getString("trgName"));
-				list.add(TrgVO);					
+				Trg = new TargetVO();
+				type = new TypeListVO();
+				sec = new SecListVO();
+				Trg.setTargetID(rs.getInt("targetID"));
+				Trg.setTrgName(rs.getString("trgName"));
+				type.setTypeName(rs.getString("typeName"));
+				Trg.setTypeVO(type);
+				sec.setSecName(rs.getString("secName"));
+				Trg.setSectionVO(sec);  
+				Trg.setIntention(rs.getString("intention"));
+				Trg.setTimeFinish(rs.getDate("timeStart"));
+				list.add(Trg);					
 			}	
 		
 			
@@ -764,6 +781,71 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 		return list;
 	}
 
+	
+	
+	@Override
+	public List<TargetVO> getRandomTarget() {
+		
+		List<TargetVO> list = new ArrayList<TargetVO>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_RANDOM_TARGET);
+			rs = pstmt.executeQuery();
+			TargetVO Trg = null;
+			TypeListVO type = null;
+			SecListVO sec = null;
+			while(rs.next()) {
+				Trg = new TargetVO();
+				type = new TypeListVO();
+				sec = new SecListVO();
+				Trg.setTargetID(rs.getInt("targetID"));
+				Trg.setTrgName(rs.getString("trgName"));
+				type.setTypeName(rs.getString("typeName"));
+				Trg.setTypeVO(type);
+				sec.setSecName(rs.getString("secName"));
+				Trg.setSectionVO(sec);  
+				Trg.setIntention(rs.getString("intention"));
+				Trg.setTimeFinish(rs.getDate("timeStart"));
+				list.add(Trg);
+				
+				
+			}	
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("發生錯誤" + e.getMessage());
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+	
+	
 
 	
 	@Override
@@ -818,6 +900,7 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 		return list;
 	}
+
 
 
 

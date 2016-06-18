@@ -135,9 +135,14 @@ public class TargetService {
 		return dao.countRateOfTargetName(keyword);
 	}
 	
-	public List<TargetVO> getRabdomKeyWordSearch(String keyword){
-		return dao.getRandomKeyWordSearch(keyword);
+	public List<TargetVO> getFromKeyWordSearch(String keyword){
+		return dao.getFromKeyWordSearch(keyword);
 	}
+	
+	public List<TargetVO> getRandomTarget(){
+		return dao.getRandomTarget();
+	}
+	
 	
 	public List<TargetVO> getAllChallengeNameFromUser(Integer userID){
 		return dao.getAllChallengeNameFromUser(userID);

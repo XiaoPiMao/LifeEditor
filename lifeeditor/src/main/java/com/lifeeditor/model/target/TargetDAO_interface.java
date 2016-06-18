@@ -15,7 +15,8 @@ public interface TargetDAO_interface {
 	public List<TargetVO> findByKeyword(String keyword);
 	public int countNumsOfTargetName(String keyword);
 	public int countRateOfTargetName(String keyword);
-	public List<TargetVO> getRandomKeyWordSearch(String keyword);
+	public List<TargetVO> getFromKeyWordSearch(String keyword);
+	public List<TargetVO> getRandomTarget();
 	public List<TargetVO> getAllChallengeNameFromUser(Integer userID);
 
 }
