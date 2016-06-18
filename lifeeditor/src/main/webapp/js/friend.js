@@ -249,7 +249,7 @@ $(document).ready(function(){
 		count = count + 1; //控制開關
 	} 
 	});
-	$('#btn2').click(function(){
+	$('#btn2').click(function(){ //顯示好友
 
 		$.ajax({
 				type:"POST",
@@ -283,7 +283,17 @@ $(document).ready(function(){
 						
 						var Name = document.createTextNode(data[i].Name); //姓名
 						
-						var Picture = 'data:image/jpeg;base64,'+ data[i].Picture;//照片
+						//var Picture = 'data:image/jpeg;base64,'+ data[i].Picture;//照片
+						
+						var Picture = function(){
+							$.ajax({
+								type:"POST",
+								dataType:"text",
+								data:{"id":data[i].Userid},
+								url:'/lifeeditor/com.lifeeditor.invite_list/showFriendPictureServlet',
+								success:function(){}
+							});
+						}
 						
 						userTitleA.setAttribute("class","twPc-bg twPc-block");
 						userTitleDiv.setAttribute("class","twPc-div");
@@ -314,8 +324,8 @@ $(document).ready(function(){
 						userImgA.setAttribute("href","*");
 						userImgA.setAttribute("title",Name);
 						
-						userImage.setAttribute("alt",Name);
-						userImage.setAttribute("src",Picture);
+						userImauserImage.setAttribute("src",Picture);ge.setAttribute("alt",Name);
+						
 						userImage.setAttribute("width",72);
 						userImage.setAttribute("height",72);
 						userImage.setAttribute("class","img-thumbnail");

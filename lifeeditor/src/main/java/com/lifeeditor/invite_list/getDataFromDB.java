@@ -53,7 +53,7 @@ public class getDataFromDB extends HttpServlet {
 					mySelectValue.setUserid(data.get(i).getUserid());
 					mySelectValue.setAccount(data.get(i).getAccount());
 					mySelectValue.setName(data.get(i).getName());
-					mySelectValue.setPicture(data.get(i).getPicture());
+
 					EndData.add(mySelectValue); //裝貨櫃
 				}
 			}

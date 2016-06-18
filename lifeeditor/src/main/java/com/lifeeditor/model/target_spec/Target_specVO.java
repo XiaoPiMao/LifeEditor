@@ -11,7 +11,7 @@ public class Target_specVO implements java.io.Serializable{
 	private user_specVO userVO;
 	private TargetVO targetVO;
 	private Integer UserID;
-	private Integer TargetID;
+	private Integer targetID;
 
 	@Expose
 	private String trgNote;
@@ -51,10 +51,10 @@ public class Target_specVO implements java.io.Serializable{
 		this.trgPicPath = trgPicPath;
 	}
 	public Integer getTargetID() {
-		return TargetID;
+		return targetID;
 	}
 	public void setTargetID(Integer targetID) {
-		TargetID = targetID;
+		this.targetID = targetID;
 	}
 	public Integer getUserID() {
 		return UserID;

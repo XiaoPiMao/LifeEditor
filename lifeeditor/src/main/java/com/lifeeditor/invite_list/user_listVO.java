@@ -5,7 +5,7 @@ public class user_listVO { //好友所需要VO
 	private Integer userid;
 	private String account;
 	private String name;
-	private String picture;
+
 	public Integer getUserid() {
 		return userid;
 	}
@@ -23,13 +23,6 @@ public class user_listVO { //好友所需要VO
 	}
 	public void setName(String name) {
 		this.name = name;
-	}
-	public String getPicture() {
-		return picture;
-	}
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-	
+	}	
 	
 }
