@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="${ctx}/manager/js/jquery.dataTables.min.js"></script>
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+
 <script type="text/javascript">
 
 
@@ -194,6 +194,8 @@ font-style: italic;
 </div>
 
 </body>
+<script src="${ctx}/js/jquery-ui.min.js"></script>
+<script src="${ctx}/js/jquery.dataTables.min.js"></script>
 <script>
 //***************套用特殊的alert樣式 *************//
 
@@ -216,36 +218,36 @@ window.alert = function(message){
 $(function(){        
 
 	//***************所有的官方挑戰 (trgType=1的)*************//
-var oc;
-var ut;
+var oc = JSON.parse('${oc}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
+var ut = JSON.parse('${ut}');
 
-$.ajax({
-	url : "${ctx}/userAddTargetServlet",
-	dataType : "json",
-	data : {
-		"action" : "showAllOfficial"
-	},
-	success : function(data) {
-		oc = data;
-		console.log(data);
+// $.ajax({
+// 	url : "${ctx}/userAddTargetServlet",
+// 	dataType : "json",
+// 	data : {
+// 		"action" : "showAllOfficial"
+// 	},
+// 	success : function(data) {
+// 		oc = data;
+// 		console.log(data);
 		
-		//***************顯示目前使用者所選過，與官方挑戰同名(trgType=2)的任務名稱~*************
+// 		//***************顯示目前使用者所選過，與官方挑戰同名(trgType=2)的任務名稱~*************
 
-		$.ajax({
-			url : "${ctx}/userAddTargetServlet",
-			dataType : "json",
-			data : {
-				"action" : "showAllChallengeName"
-			},
-			success : function(data) {
-				ut = data;
-				console.log(data);
-				addTable();
-			}
-		});
+// 		$.ajax({
+// 			url : "${ctx}/userAddTargetServlet",
+// 			dataType : "json",
+// 			data : {
+// 				"action" : "showAllChallengeName"
+// 			},
+// 			success : function(data) {
+// 				ut = data;
+// 				console.log(data);
+// 				addTable();
+// 			}
+// 		});
 
-	}
-});
+// 	}
+// });
 
 
 
@@ -273,31 +275,31 @@ var s2 = {
 				officialTrg = official.trgName;
 				//*********************************************************************
 //				***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**				
-				$.ajax({
-					"type":"get",
-					"url":"${ctx}/userAddTargetServlet",
-					"async": false,
-					"data":{"action":"countNames", "keyword": officialTrg},
-					"success":function(data){
-						numberResult = data;	
-					}
-				});
-//					**********************************************				
-//					***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**	
+// 				$.ajax({
+// 					"type":"get",
+// 					"url":"${ctx}/userAddTargetServlet",
+// 					"async": false,
+// 					"data":{"action":"countNames", "keyword": officialTrg},
+// 					"success":function(data){
+// 						numberResult = data;	
+// 					}
+// 				});
+// //					**********************************************				
+// //					***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**	
 
-				if(numberResult !=0 ){
-					$.ajax({
-						"type":"get",
-						"url":"${ctx}/userAddTargetServlet",
-						"async": false,
-						"data":{"action":"rateNames", "keyword": officialTrg},
-						"success":function(data){
-							rateResult = data;	
-						}
-					});
+// 				if(numberResult !=0 ){
+// 					$.ajax({
+// 						"type":"get",
+// 						"url":"${ctx}/userAddTargetServlet",
+// 						"async": false,
+// 						"data":{"action":"rateNames", "keyword": officialTrg},
+// 						"success":function(data){
+// 							rateResult = data;	
+// 						}
+// 					});
 					
 					
-				}
+// 				}
 				
 				
 				
@@ -332,8 +334,8 @@ var s2 = {
 						case 5 : difficulty = "嚴酷";break;
 					}
 					tr.append($("<td></td>").text(difficulty).addClass("send"));
-					tr.append($("<td></td>").text(numberResult + " 人").addClass("send"));
-					tr.append($("<td></td>").text(rateResult + "%").addClass("send"));
+					tr.append($("<td></td>").text(official.countNames + " 人").addClass("send"));
+					tr.append($("<td></td>").text(official.rateNames + "%").addClass("send"));
 					tr.append($("<td></td>").text(official.timeFinish).addClass("send"));
 				}
 				else {
@@ -353,8 +355,8 @@ var s2 = {
 						case 5 : difficulty = "嚴酷";break;
 					}
 					tr.append($("<td></td>").text(difficulty));
-					tr.append($("<td></td>").text(numberResult + " 人"));
-					tr.append($("<td></td>").text(rateResult + "%"));
+					tr.append($("<td></td>").text(official.countNames + " 人"));
+					tr.append($("<td></td>").text(official.rateNames + "%"));
 					tr.append($("<td></td>").text(official.timeFinish));
 			
 				}
@@ -392,6 +394,8 @@ var s2 = {
 				$('#example').DataTable();
 		}
 		
+		addTable();
+		
 });
 
 
@@ -401,4 +405,5 @@ var s2 = {
 
 	
 </script>
+
 </html>
