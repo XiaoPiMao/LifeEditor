@@ -293,14 +293,7 @@ body {
 				<li><a href="${ctx}/setgoal.jsp">目標</a></li>
 				<li><a href="${ctx}/fullCalendar.jsp">行事曆</a></li>
 				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
-				<li><a href="${ctx}/ShowChallenge">挑戰任務</a></li>				
-				<li>
-					<!--  <form name="myData" >
-						<div class="form-group">
-							<input type="text" placeholder="搜尋您的好友?" class="form-control" id="txtSearch" name="keyword" class="fa fa-search" style="width:400px;height:30px"/>
-						</div>
-					</form>-->
-				</li>									
+				<li><a href="${ctx}/ShowChallenge">挑戰任務</a></li>													
 			</ul>
 				
 		
