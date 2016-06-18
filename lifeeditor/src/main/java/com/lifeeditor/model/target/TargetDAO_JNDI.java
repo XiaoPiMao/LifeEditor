@@ -79,6 +79,10 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	public  static final String SHOW_ALL_CHALLENGE_NAME_FROM_USER = "SELECT trgName FROM target INNER JOIN target_list "+
 	"ON target.targetID = target_list.targetID where userID = ? and trgType = 2 and timeFinish >= GETDATE()";
 
+	private static final String GET_RANDOM_TARGET = "SELECT TOP 1 t.trgName FROM ( SELECT DISTINCT trgName  FROM target where trgType=3 and trgName like ?) t ORDER BY NEWID()";
+
+	
+	
 	@SuppressWarnings("resource")
 	@Override
 	public int insert(TargetVO TrgVO) {
@@ -709,7 +713,58 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	}
 
 	
-	
+	@Override
+	public List<TargetVO> getRandomKeyWordSearch(String keyword) {
+		
+		List<TargetVO> list = new ArrayList<TargetVO>();
+		TargetVO TrgVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_RANDOM_TARGET);
+			pstmt.setString(1, "%" + keyword + "%");
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				TrgVO = new TargetVO();
+				TrgVO.setTrgName(rs.getString("trgName"));
+				list.add(TrgVO);					
+			}	
+		
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("發生錯誤" + e.getMessage());
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
+
 	
 	@Override
 	public List<TargetVO> getAllChallengeNameFromUser(Integer userID) {
