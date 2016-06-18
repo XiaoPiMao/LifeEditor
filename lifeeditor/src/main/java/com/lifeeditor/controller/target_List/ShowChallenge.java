@@ -34,22 +34,28 @@ public class ShowChallenge extends HttpServlet {
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		TargetService trgSrvc = null;
+		TargetService trgSrvc = new TargetService();
 		List<TargetVO> list = null; 
 		JsonArray jArray = new JsonArray();
 		JsonObject jObj = null;
 		trgSrvc= new TargetService();
 		list=  trgSrvc.getAllofficial();
-		for(int i = 8 ; i <= 8; i++) {
-			jArray.add(MyGson.GSON.toJsonTree(list.get(i)).getAsJsonObject());
+		
+		
+	
+		for(TargetVO target : list) {
+			jObj = MyGson.GSON.toJsonTree(target).getAsJsonObject();
+			int countNames =  trgSrvc.countNumsOfTargetName(target.getTrgName());
+			jObj.addProperty("countNames", countNames);
+			if(countNames > 0) {
+				int rateNames =  trgSrvc.countRateOfTargetName(target.getTrgName());
+				jObj.addProperty("rateNames", rateNames);
+			}else {
+				jObj.addProperty("rateNames", 0);
+			}
+			jArray.add(jObj);
 		}
-//		for(TargetVO target : list) {
-//			jObj = MyGson.GSON.toJsonTree(target).getAsJsonObject();
-//			jArray.add(jObj);
-//		}
-		//jArray.add(MyGson.GSON.toJsonTree(list.get(0)).getAsJsonObject());
-		//String jsonStr1 = MyGson.GSON.toJson(list);
-		req.setAttribute("oc", jArray.toString());
+		req.setAttribute("oc", jArray.toString().replaceAll("\"", "\\\\\""));
 		
 
 /***************************3.登入時自動抓出該會員先前接過的挑戰***************************************/			

@@ -36,7 +36,7 @@ public class ChkInviterServlet extends HttpServlet {
 		
 		addFriendDAO chkInviter = new addFriendDAO();
 		
-		if(getStatus.equals("delete")){		
+		if(getStatus.equals("delete")){	
 			chkInviter.deleteInviter(userID, getInviter);
 		}else if(getStatus.equals("makeFriend")){
 			chkInviter.addFriendFromInviter(userID, getInviter);

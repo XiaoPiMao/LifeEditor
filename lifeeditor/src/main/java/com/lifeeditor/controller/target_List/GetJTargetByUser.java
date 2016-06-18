@@ -101,12 +101,13 @@ public class GetJTargetByUser extends HttpServlet {
 			Target_specVO trgSpec = trgSpecs.get(i);
 			JsonObject jObj_trgSpec = new JsonObject();
 			jObj_trgSpec.addProperty("trgNote", trgSpec.getTrgNote().replaceAll("\"", "\\\\\""));
-			jObj_trgSpec.addProperty("picPath", trgSpec.getTrgPicPath().replace('\\', '/'));
+			jObj_trgSpec.addProperty("picPath", trgSpec.getTrgPicPath());
 			int trgID = trgSpec.getTargetID();
 			
 			if(i == 0) {
 				jsonArray.add(jObj_trgSpec);
 				tempTrgID = trgID;
+				continue;
 			}
 			
 			if(tempTrgID != trgID) {
