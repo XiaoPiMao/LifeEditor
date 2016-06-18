@@ -217,7 +217,7 @@ public class Target_specServlet extends HttpServlet {
 			Integer TargetID =new Integer(req.getParameter("input_trgetID"));		;
 			String UserTarget_desc = req.getParameter("input_target_Note");		
 			//這邊將要insert的路徑做設定
-	        String trgPicPath="\\images\\"+UserID.toString()+TargetID.toString()+time+".jpg";
+	        String trgPicPath="/images/trgSpecs/"+UserID.toString()+TargetID.toString()+time+".jpg";
 	        
 	        String Path=req.getServletContext().getRealPath(trgPicPath);
 	        Part filePart = req.getPart("insert_targetPic");
