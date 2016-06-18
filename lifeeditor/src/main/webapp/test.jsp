@@ -110,6 +110,7 @@ $(function(){
 		$('#AllComments').slideToggle('fast');		
 	});
 });
+
 </script>
 <script>
     var jTypes = JSON.parse('${jTypes}');
@@ -166,7 +167,7 @@ $(document).ready(function(){
 			        '<div class="carousel-inner">' +
 			        '<div id="photoItem" class="item active">' +
 		            '<div class="single-blog two-column">' +
-		            '<table style="float:right;margin-top:20px;"><th><a id="faangledown" class="fa fa-angle-down" style="position:fixed;top:20px;left:800px;"></a></th>' +
+		            '<table style="position:fixed;margin-top:20px;z-index:99999;right:0;"><th><a id="faangledown" class="fa fa-angle-down" style="position:fixed;top:20px;left:800px;"></a></th>' +
 		            '<tr id="Editor1" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>上傳心得</td></tr>' +
 		            '<tr id="Editor2" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>送出審核</td></tr>' +
 		            '</table>'+
