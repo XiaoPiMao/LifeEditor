@@ -52,10 +52,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="#" class="btn btn-default btn-flat">個人資訊</a>
                 </div>
                 <div class="pull-right">
-                  <a href="${ctx }/manager/Backstage.jsp" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="${ctx }/logoutServiceDB" class="btn btn-default btn-flat">登出</a>
                 </div>
               </li>
             </ul>

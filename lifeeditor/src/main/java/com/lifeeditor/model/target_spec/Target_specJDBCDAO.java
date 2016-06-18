@@ -48,6 +48,7 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 
 	private static final String DELETE =
 		      "DELETE FROM target_spec where userID = ?";
+	private static final String GET_BY_USER = "SELECT targetID,trgNote,trgPicPath FROM target_spec where userID = ? ORDER BY targetID,trgspecID DESC";
 
 
 
@@ -690,6 +691,31 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 				}
 			}
 		}
+		return list;
+	}
+	
+	@Override
+	public List<Target_specVO> getByUser(Integer userID) {
+		List<Target_specVO> list = new ArrayList<>();
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(GET_BY_USER);
+			pstmt.setInt(1, userID);
+			ResultSet rs = pstmt.executeQuery();
+			Target_specVO trgSpec = null;
+			while(rs.next()) {
+				trgSpec = new Target_specVO();
+				trgSpec.setTargetID(rs.getInt("targetID"));
+				trgSpec.setTrgNote(rs.getNString("trgNote"));
+				trgSpec.setTrgPicPath(rs.getString("trgPicPath"));
+				list.add(trgSpec);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("SQLException");
+		}
+		
 		return list;
 	}
 

@@ -100,4 +100,8 @@ public class TargetSpecService {
 		return dao.getAllTrgSpec();
 	}
 	
+	public List<Target_specVO> getByUser(Integer userID) {
+		return dao.getByUser(userID);
+	}
+	
 }

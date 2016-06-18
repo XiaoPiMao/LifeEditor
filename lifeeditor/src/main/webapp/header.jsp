@@ -8,6 +8,7 @@
 
 <title>Header Template</title>
 <link rel="stylesheet" href="${ctx}/css/font-awesome.min.css" />
+<link rel="stylesheet" href="${ctx}/css/chatroom.css" />
 
 <style>
 
@@ -243,6 +244,7 @@ body {
 </head>
 
 <body>
+<jsp:include page="/include/chatroom.jsp" />
 <!-- Header -->
 <header id="header">
 	<h1><a href="home.jsp">Life Editor</a></h1>
@@ -272,7 +274,7 @@ body {
 					<a id="dropdown_icon" class=" fa-chevron-down"  style="overflow:visible;text-indent:0em;width:2em;"></a>
 			   </li>
 			</ul>
-			<ul class="dropdown_area" id="dropdown">
+			<ul class="dropdown_area" id="dropdown" style="display:none;">
 			    <li style="display:list-item;position:fixed;right:195px;top:50px;z-index: 10000;"><a href="${ctx}/updateUser.jsp">設定</a></li>
 			    <li style="display: list-item;position:fixed;right:195px;top:100px;z-index: 10000;"><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a></li>
 			</ul>
@@ -280,7 +282,6 @@ body {
 </header>
 <script>
 $(function(){
-	$('#dropdown').hide();
 	$('#dropdown_icon').click(function(){
       $('#dropdown').slideToggle('fast');		
 	});

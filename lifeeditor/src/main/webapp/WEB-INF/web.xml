@@ -179,4 +179,21 @@
     <error-code>505</error-code>
     <location>/errorPage.html</location>
   </error-page>
+
+  <filter>
+    <filter-name>BackstageloginFilter</filter-name>
+    <filter-class>com.lifeeditor.filter.BackstageFilter</filter-class>
+      
+  </filter>
+  <filter-mapping>
+    <filter-name>BackstageloginFilter</filter-name>
+    <url-pattern>/manager/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+
 </web-app>
+

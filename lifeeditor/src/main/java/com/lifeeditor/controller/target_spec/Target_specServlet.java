@@ -213,8 +213,7 @@ public class Target_specServlet extends HttpServlet {
 			//以下為取得表單要insert的值
 		   long time=System.currentTimeMillis();
 		    
-			Integer UserID = 1;
-					//user.getUserID();
+			Integer UserID = user.getUserID();
 			Integer TargetID =new Integer(req.getParameter("input_trgetID"));		;
 			String UserTarget_desc = req.getParameter("input_target_Note");		
 			//這邊將要insert的路徑做設定

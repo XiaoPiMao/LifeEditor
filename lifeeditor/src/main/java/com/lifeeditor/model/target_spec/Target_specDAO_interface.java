@@ -16,6 +16,6 @@ public interface Target_specDAO_interface {
 	public Target_specVO updateNote(Target_specVO target_specVO);
 	public Target_specVO findByPrimaryKey(Integer trgSpecID);
 	public List<Target_specVO> getAllTrgSpec();
-    
+	public List<Target_specVO> getByUser(Integer userID);
 
 }

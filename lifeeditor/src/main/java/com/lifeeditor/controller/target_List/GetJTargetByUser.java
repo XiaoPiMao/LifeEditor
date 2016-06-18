@@ -17,7 +17,9 @@ import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.comments.commentsVO;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.target_list.Target_ListVO;
+import com.lifeeditor.model.target_spec.Target_specVO;
 import com.lifeeditor.model.user_spec.user_specVO;
+import com.lifeeditor.service.TargetSpecService;
 import com.lifeeditor.service.Target_List_Service;
 import com.lifeeditor.service.ach_listService;
 import com.lifeeditor.service.commentsService;
@@ -41,6 +43,7 @@ public class GetJTargetByUser extends HttpServlet {
 		List<TargetVO> list = trgListSvc.pageFindByUserID(userID);
 		JsonArray jsonArray = new JsonArray();
 		JsonObject jsonObj = null;
+		JsonParser jsonParser = new JsonParser();
 		for(TargetVO trg  : list) {
 			jsonObj = new JsonObject();
 			JsonObject JTrg = gson.toJsonTree(trg).getAsJsonObject();
@@ -87,6 +90,34 @@ public class GetJTargetByUser extends HttpServlet {
 			System.out.println(jsonArray.toString());
 		}
 		request.setAttribute("jAchs", jsonArray.toString());
+		
+		TargetSpecService trgSpecSvc = new TargetSpecService();
+		List<Target_specVO> trgSpecs = trgSpecSvc.getByUser(userID);
+		jsonObj = new JsonObject();
+		Integer tempTrgID = 0;
+		int length = trgSpecs.size();
+		for(int i = 0;i < length;i++) {
+			Target_specVO trgSpec = trgSpecs.get(i);
+			JsonObject jObj_trgSpec = new JsonObject();
+			jObj_trgSpec.addProperty("trgNote", trgSpec.getTrgNote());
+			jObj_trgSpec.addProperty("picPath", trgSpec.getTrgPicPath().replace('\\', '/'));
+			int trgID = trgSpec.getTargetID();
+			
+			if(tempTrgID != trgID) {
+				jsonObj.add(tempTrgID.toString(), jsonArray);
+				jsonArray = new JsonArray();
+				jsonArray.add(jObj_trgSpec);
+				tempTrgID = trgID;
+			}else {
+				jsonArray.add(jObj_trgSpec);
+			}
+			if(i == length - 1) {
+				jsonObj.add(tempTrgID.toString(), jsonArray);
+				break;
+			}
+		}
+		request.setAttribute("jSpecs", jsonObj.toString());
+		
 		
 		request.getRequestDispatcher("/test.jsp").forward(request, response);
 	}

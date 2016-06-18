@@ -28,19 +28,21 @@ public class showFriendServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		response.setContentType("text/json");
 		HttpSession session = request.getSession();
 		user_specVO user = (user_specVO) session.getAttribute("LoginOK");
 		Integer userID = user.getUserID();
-		List<user_listVO> showFriend = new addFriendDAO().showMyFriend(userID);
+		List<user_listVO> showFriend = new addFriendDAO().showMyFriend(74);
 		
 		if(showFriend != null){
+			
 			String DataFromJson = new DataToGson().changeDataToGson(showFriend);
 			PrintWriter pw = response.getWriter();
 			pw.write(DataFromJson);
-
+			
 		}
 	}
 
