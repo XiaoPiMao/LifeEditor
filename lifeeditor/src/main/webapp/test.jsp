@@ -101,6 +101,10 @@ float:right;
     padding: 0px 20px;
 }
 
+.Editor tr:hover{
+background-color:#99ffff;
+font-color:white;
+}
 
 </style>
 <script src="js/jquery.min.js"></script>
@@ -113,11 +117,11 @@ float:right;
 
 $(function(){
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
-		$('.Editor').slideToggle('fast');		
+		$(this).parents('#photoHeader').find('table').slideToggle('fast');		
 	});
 
-	$('.col-md-9.col-sm-7').on("click","#Comments",function(){
-		$('#AllComments').slideToggle('fast');		
+	$('.col-md-9.col-sm-7').on("click",".comments",function(){
+		$(this).parents('.single-blog.two-column').find('.allComments').slideToggle('fast');		
 	});
 	
 	$('.col-md-9.col-sm-7').on("click",'.carousel-control.left',function(){
@@ -162,8 +166,8 @@ $(function(){
     var jAchs = JSON.parse('${jAchs}');
     var data = JSON.parse('${targets}');
     var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
-    console.log(jSpecs);
-    console.log(data );
+    //console.log(jSpecs);
+    //console.log(data );
    
     var catogoryNum = new Object();
     $.each(jTypes,function() {
@@ -213,12 +217,13 @@ $(document).ready(function(){
 			
 		            '<div id="photoItem" class="single-blog two-column">' +   //photoItem
 		            
-		            '<div id="photoHeader">' +  //photoHeader-Start
-		            '<table style="position:fixed;margin-top:520px;z-index:99999;right:0;"><th><a id="faangledown" class="fa fa-angle-down" style="position:fixed;top:20px;left:800px;"></a></th>' +
-		            '<tr id="Editor1" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>上傳心得</td></tr>' +
-		            '<tr id="Editor2" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>送出審核</td></tr>' +
+		            '<div id="photoHeader" style="position:relative;">' +  //photoHeader-Start
+		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">' +
+		            '<tr id="Editor1"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;"><td><a>上傳心得</a></td></tr>' +
+		            '<tr id="Editor2"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;"><td><a>送出審核</a></td></tr>' +
 		            '</table>'+
-		            '<h2 class="post-title bold" style="width:500px;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
+		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
+		            '<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>' +
 	                '<h4 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h4>' +
 	                '<p> 初 衷 : '+ this.intention + '</p>'+
 	                '</div>';  //photoHeader-End
@@ -256,12 +261,12 @@ $(document).ready(function(){
 	                    '<ul class="nav navbar-nav post-nav">'+
 	                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
 	                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
-	                        '<li id="Comments"><a><i class="fa fa-comments"></i>3 Comments</a></li>'+
+	                        '<li class="comments"><a><i class="fa fa-comments"></i>3 Comments</a></li>'+
 	                    '</ul>'+
 	                '</div>'+
 	            '</div>'+ 
 	            
-	            '<div id="AllComments" class="row" style="display:none;">' +    //comments-Start
+	            '<div class="row allComments" style="display:none;">' +    //comments-Start
 	            '<div class="col-md-2 col-sm-2 hidden-xs">' +   //comment-left-Start
 	            '<figure class="thumbnail">' +    
 	            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
