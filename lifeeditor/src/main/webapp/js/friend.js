@@ -248,116 +248,117 @@ $(document).ready(function(){
 //		count = count + 1; //控制開關
 //	} 
 //	});
-	$('#btn2').click(function(){ //顯示好友
-
-		$.ajax({
-				type:"POST",
-				dataType:"json",
-				url: '/lifeeditor/com.lifeeditor.invite_list/showFriendServlet',
-				success: function (data){
-					
-					var showFriend1 = document.getElementById("td1");
-					var showFriend2 = document.getElementById("td2");
-					
-					for(var i = showFriend1.childNodes.length - 1; i >= 0; i--){
-						showFriend1.removeChild(showFriend1.childNodes[i]);
-					}
-					for(var i = showFriend2.childNodes.length - 1; i >= 0; i--){
-						showFriend2.removeChild(showFriend2.childNodes[i]);
-					}					
+//	$('#btn2').click(function(){ //顯示好友
+//
+//		
+//	});
+	$.ajax({
+		type:"POST",
+		dataType:"json",
+		url: '/lifeeditor/com.lifeeditor.invite_list/showFriendServlet',
+		success: function (data){
 			
-					for(var i = 0 ; i < data.length;i++){
-						
-						var myDiv = document.createElement("div"); //包名片的Div
-						var userTitleDiv = document.createElement("div");//名片title
-						var userTitleA = document.createElement("a");//名片title a
-						var userImgA = document.createElement("a");
-						var userImage = document.createElement("img");
-						var userBodyDiv = document.createElement("div");
-						var userNameDiv = document.createElement("div");
-						var userNameA = document.createElement("a");
-						var userIDspan = document.createElement("span");
-						var userIDA = document.createElement("a");
-						var userIDAspan = document.createElement("span");
-						
-						var Name = document.createTextNode(data[i].Name); //姓名
-						
-						
-						userTitleA.setAttribute("class","twPc-bg twPc-block");
-						userTitleDiv.setAttribute("class","twPc-div");
-						
-						var unFriendBtnDiv = document.createElement("div");
-						unFriendBtnDiv.setAttribute("class","twPc-button");
-						
-						var unFriendBtn = document.createElement("button");
-						//unFriendBtn.setAttribute("class","btn btn-info");
-						unFriendBtn.setAttribute("value",data[i].Userid);
-						var unFriendText = document.createElement("img");
-						unFriendText.setAttribute("src","images/deleteFriend.jpg");
-						unFriendBtn.addEventListener('click',function(){ //綁定一個click事件傳值新增好友			
-							if(window.confirm('確定刪除?')){	
-							deleteInviter(this.value,"delete");
-							deleteFriend(this.value,"deleteFriend");
-							this.parentNode.parentNode.parentNode.style.display="none";
-							}else{}
-						}, true);
-						
-						unFriendBtn.appendChild(unFriendText);
-						unFriendBtnDiv.appendChild(unFriendBtn);
-						
-						userTitleDiv.appendChild(userTitleA); //黑框
-						userTitleDiv.appendChild(unFriendBtnDiv);
-						
-						userImgA.setAttribute("class","twPc-avatarLink");
-						userImgA.setAttribute("href","*");
-						userImgA.setAttribute("title",Name);
-						
-						userImage.setAttribute("alt",Name);
-						userImage.setAttribute("src",'/lifeeditor/GetUserPicture?id='+data[i].Userid);
-						userImage.setAttribute("width",72);
-						userImage.setAttribute("height",72);
-						userImage.setAttribute("class","img-thumbnail");
-						
-						userImgA.appendChild(userImage); //圖片
-						
-						var controlDiv = document.createElement("div");
-						
-						controlDiv.setAttribute("class","twPc-divUser");
-						controlDiv.appendChild(userImgA);
-						
-						userBodyDiv.setAttribute("class","twPc-divUser");
-						userNameDiv.setAttribute("class","twPc-divName");
-						userNameA.setAttribute("href","*");
-											
-						userNameA.appendChild(Name);
-						userNameDiv.appendChild(userNameA);
-						userBodyDiv.appendChild(userNameDiv);
-						
-						userIDA.setAttribute("href","*");				
-						var BodyAccount = document.createTextNode(data[i].Account);
-						userIDAspan.appendChild(BodyAccount);
-						userIDA.appendChild(userIDAspan); //ID標籤
-						var Endspan = document.createElement("span");
-						Endspan.appendChild(userIDA);
-						userBodyDiv.appendChild(Endspan);
-						
-						userTitleDiv.appendChild(userImgA);
-						userTitleDiv.appendChild(userBodyDiv);
+			var showFriend1 = document.getElementById("td1");
+			var showFriend2 = document.getElementById("td2");
+			
+			for(var i = showFriend1.childNodes.length - 1; i >= 0; i--){
+				showFriend1.removeChild(showFriend1.childNodes[i]);
+			}
+			for(var i = showFriend2.childNodes.length - 1; i >= 0; i--){
+				showFriend2.removeChild(showFriend2.childNodes[i]);
+			}					
+	
+			for(var i = 0 ; i < data.length;i++){
+				
+				var myDiv = document.createElement("div"); //包名片的Div
+				var userTitleDiv = document.createElement("div");//名片title
+				var userTitleA = document.createElement("a");//名片title a
+				var userImgA = document.createElement("a");
+				var userImage = document.createElement("img");
+				var userBodyDiv = document.createElement("div");
+				var userNameDiv = document.createElement("div");
+				var userNameA = document.createElement("a");
+				var userIDspan = document.createElement("span");
+				var userIDA = document.createElement("a");
+				var userIDAspan = document.createElement("span");
+				
+				var Name = document.createTextNode(data[i].Name); //姓名
+				
+				
+				userTitleA.setAttribute("class","twPc-bg twPc-block");
+				userTitleDiv.setAttribute("class","twPc-div");
+				
+				var unFriendBtnDiv = document.createElement("div");
+				unFriendBtnDiv.setAttribute("class","twPc-button");
+				
+				var unFriendBtn = document.createElement("button");
+				//unFriendBtn.setAttribute("class","btn btn-info");
+				unFriendBtn.setAttribute("value",data[i].Userid);
+				var unFriendText = document.createElement("img");
+				unFriendText.setAttribute("src","images/deleteFriend.jpg");
+				unFriendBtn.addEventListener('click',function(){ //綁定一個click事件傳值新增好友			
+					if(window.confirm('確定刪除?')){	
+					deleteInviter(this.value,"delete");
+					deleteFriend(this.value,"deleteFriend");
+					this.parentNode.parentNode.parentNode.style.display="none";
+					}else{}
+				}, true);
+				
+				unFriendBtn.appendChild(unFriendText);
+				unFriendBtnDiv.appendChild(unFriendBtn);
+				
+				userTitleDiv.appendChild(userTitleA); //黑框
+				userTitleDiv.appendChild(unFriendBtnDiv);
+				
+				userImgA.setAttribute("class","twPc-avatarLink");
+				userImgA.setAttribute("href","*");
+				userImgA.setAttribute("title",Name);
+				
+				userImage.setAttribute("alt",Name);
+				userImage.setAttribute("src",'/lifeeditor/GetUserPicture?id='+data[i].Userid);
+				userImage.setAttribute("width",72);
+				userImage.setAttribute("height",72);
+				userImage.setAttribute("class","img-thumbnail");
+				
+				userImgA.appendChild(userImage); //圖片
+				
+				var controlDiv = document.createElement("div");
+				
+				controlDiv.setAttribute("class","twPc-divUser");
+				controlDiv.appendChild(userImgA);
+				
+				userBodyDiv.setAttribute("class","twPc-divUser");
+				userNameDiv.setAttribute("class","twPc-divName");
+				userNameA.setAttribute("href","*");
+									
+				userNameA.appendChild(Name);
+				userNameDiv.appendChild(userNameA);
+				userBodyDiv.appendChild(userNameDiv);
+				
+				userIDA.setAttribute("href","*");				
+				var BodyAccount = document.createTextNode(data[i].Account);
+				userIDAspan.appendChild(BodyAccount);
+				userIDA.appendChild(userIDAspan); //ID標籤
+				var Endspan = document.createElement("span");
+				Endspan.appendChild(userIDA);
+				userBodyDiv.appendChild(Endspan);
+				
+				userTitleDiv.appendChild(userImgA);
+				userTitleDiv.appendChild(userBodyDiv);
 
-						
-						myDiv.appendChild(userTitleDiv);
+				
+				myDiv.appendChild(userTitleDiv);
 
-						
-						if(i % 2 == 1){
-							showFriend1.appendChild(myDiv);
-						}else if(i % 2 == 0 || i ==0){
-							showFriend2.appendChild(myDiv);
-						}
-
-					}
-					
+				
+				if(i % 2 == 1){
+					showFriend1.appendChild(myDiv);
+				}else if(i % 2 == 0 || i ==0){
+					showFriend2.appendChild(myDiv);
 				}
-			});
+
+			}
+			
+		}
 	});
 }); //End ready					
 

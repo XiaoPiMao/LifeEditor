@@ -69,6 +69,7 @@
      border-radius: 6px; 
      height: 200px; 
      max-width: 340px; // orginal twitter width: 290px; 
+     margin:0px auto;  
  } 
  .twPc-bg { 
      background-color:#F0F0F0;  
@@ -155,6 +156,11 @@
      text-transform: uppercase; 
      transition: color 0.15s ease-in-out 0s; 
  } 
+ #div1{
+ 	position: absolute;
+ 	z-index: 100001;
+ 	width:1000px;
+ }
 </style>
 <script src="js/jquery.min.js"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
@@ -169,31 +175,22 @@
 <jsp:include page="header.jsp"></jsp:include>
 
 <center>
-	<div class="jumbotron" style="width:1000px">
+	<div class="jumbotron" style="width:1000px;color:#AAAAAA;">
 			<div class="page-header">
-				<h3>
-					好友 <small>功能</small>
-				</h3>
-<!-- 						<div class="dropdown" style="float:left"> -->
-<%-- 		  				<button id="btn1" type="button" data-toggle="dropdown"><img src="${ctx }/images/addfri.jpg"> --%>
-<!-- 		  				</button> -->
-<!-- 		  				<div id="divContent" class="dropdown-content" style="width:200px;font-size:10px" > -->
-<!-- 						</div> -->
-							
-<!-- 						</div> 		       			  		    			   -->
+
 			</div>
 			<!-- 每頁不同的內容從這裡開始 -->
 			
 			<form name="myData" >
 				<div class="form-group">
-					<input type="text" class="form-control" id="txtSearch"
-						name="keyword"   >
-				</div>
+					<input type="text" class="form-control" placeholder="搜尋您的好友?" id="txtSearch" name="keyword">
+					<div id="div1"></div>	
+				</div>			
 			</form>
-				<div id="div1"></div>
-				<button id="btn2" type="button"  >顯示好友</button>
+				
+<!-- 				<button id="btn2" type="button">顯示好友</button> -->
 				<div id="div2" class="well" >
-					<table >
+					<table>
 						<tr>
 							<td id="td1" style="vertical-align:top;width:500px;">
 							</td>

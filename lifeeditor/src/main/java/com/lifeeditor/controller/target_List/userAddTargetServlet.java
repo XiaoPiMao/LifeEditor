@@ -74,9 +74,7 @@ public class userAddTargetServlet extends HttpServlet {
 						
 				trgSrvc= new TargetService();
 				list=  trgSrvc.getAllofficial();
-				
-				
-				
+	
 				
 				jsonStr = MyGson.GSON.toJson(list);
 				os = res.getWriter();

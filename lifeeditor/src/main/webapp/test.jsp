@@ -157,9 +157,38 @@ $(function(){
 			}
 		}
 	});
+	
+	haveFaces = false;
+    chatNum = 0;
+	jFriends = '${jFriends}';
+	var friendsHtml = "";
+	if(jFriends.length != 0) {
+		jFriends = JSON.parse(jFriends);
+		$.each(jFriends,function(id,friend) {
+			if(friend.firstName.charAt(0).match('[A-z]') ) {
+				friendsHtml += 
+					'<div id="'+ id + '" class="friend">' +
+	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
+	            		'<label>' + friend.firstName + '&nbsp;' + friend.lastName + '</label>' + 
+	            		'<div class="online"></div>' +
+	        		'</div>';
+			}else {
+				friendsHtml +=
+					'<div id="' + id + '" class="friend">' +
+	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
+	            		'<label>' + friend.lastName + friend.firstName + '</label>' + 
+	            		'<div class="online"></div>' +
+	        		'</div>';
+			}
+			
+		})//end each
+		$('#friends').html(friendsHtml);
+	}
+	 
 });
 
 </script>
+<script src="${ctx}/js/chatroom.js"></script>
 <script>
     var jTypes = JSON.parse('${jTypes}');
     var jUser = JSON.parse('${jUser}');

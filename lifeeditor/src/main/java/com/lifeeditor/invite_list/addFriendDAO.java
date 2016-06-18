@@ -82,8 +82,8 @@ public class addFriendDAO {
 	public List<user_listVO> selectFriend(Integer user) throws SQLException{
 		
 		String queryString = "select userID,account,lastName+firstName as name from user_spec where userID  not in " +
-							 "(select receiver from invite_list  where inviter = '"+user+"' or receiver='"+user+"')";
-		System.out.println(queryString);
+							 "(select friendID from friend where userID = "+user+")";
+		
 		List<user_listVO> getall = new ArrayList<user_listVO>();
 		try{
 			conn = ds.getConnection();
