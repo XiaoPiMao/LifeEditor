@@ -174,13 +174,13 @@
 				<h3>
 					好友 <small>功能</small>
 				</h3>
-						<div class="dropdown" style="float:left">
-		  				<button id="btn1" type="button" data-toggle="dropdown"><img src="${ctx }/images/addfri.jpg">
-		  				</button>
-		  				<div id="divContent" class="dropdown-content" style="width:200px;font-size:10px" >
-						</div>
+<!-- 						<div class="dropdown" style="float:left"> -->
+<%-- 		  				<button id="btn1" type="button" data-toggle="dropdown"><img src="${ctx }/images/addfri.jpg"> --%>
+<!-- 		  				</button> -->
+<!-- 		  				<div id="divContent" class="dropdown-content" style="width:200px;font-size:10px" > -->
+<!-- 						</div> -->
 							
-						</div> 		       			  		    			  
+<!-- 						</div> 		       			  		    			   -->
 			</div>
 			<!-- 每頁不同的內容從這裡開始 -->
 			

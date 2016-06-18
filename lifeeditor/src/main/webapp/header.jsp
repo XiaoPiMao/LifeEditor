@@ -10,10 +10,10 @@
 <link rel="stylesheet" href="${ctx}/css/font-awesome.min.css" />
 <link rel="stylesheet" href="${ctx}/css/chatroom.css" />
 <%-- <link rel="stylesheet" href="${ctx }/css/addFriend/bootstrap.min.css"> --%>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
-<link rel="stylesheet" href="${ctx }/css/addFriend/AdminLTE.min.css">
-<link rel="stylesheet" href="${ctx }/css/addFriend/skin-blue.min.css">
-<script src="js/jquery.min.js"></script>
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> -->
+<%-- <link rel="stylesheet" href="${ctx }/css/addFriend/AdminLTE.min.css"> --%>
+<%-- <link rel="stylesheet" href="${ctx }/css/addFriend/skin-blue.min.css"> --%>
+<!-- <script src="js/jquery.min.js"></script> -->
 <style>
 
 
@@ -257,19 +257,21 @@ body {
 			 right:0px;
 			 width:300px;
 			 top:64px;
+			 vertical-align:middle;
 		 } 
 		 #myTable{
-		 	 width:auto;
-		 	 height:auto;
-		 	 margin:10px;
+		 	 width:300px;
 		 }
 		 #myTableTr{
 		 	width:auto;
 		 	height:auto;
 		 }
-		 #myChkTureBtn{
+		 .myChkTureBtn{
 		 	width:80px;
 		 	height:20px;
+		 	cursor: pointer;
+		 	border: 1px solid #DDDDDD;
+		 	text-align:center;
 		 }
 		 #ChkFriTd{
 		 	width:auto;
@@ -291,7 +293,7 @@ body {
 				<li><a href="${ctx}/setgoal.jsp">目標</a></li>
 				<li><a href="${ctx}/fullCalendar.jsp">行事曆</a></li>
 				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
-				<li><a href="${ctx}/apply_challenge.jsp">挑戰任務</a></li>				
+				<li><a href="${ctx}/ShowChallenge">挑戰任務</a></li>				
 				<li>
 					<!--  <form name="myData" >
 						<div class="form-group">
@@ -337,6 +339,7 @@ $(function(){
 	$('#dropdown_icon').click(function(){
       $('#dropdown').slideToggle('fast');		
 	});
+	
 
 	function deleteFriend(value,status){
 		 $.ajax({
@@ -360,7 +363,17 @@ $(function(){
 				}
 			});
 	 }
-	 
+	 function deleteInviter(value,status){
+		 $.ajax({
+				type:"POST",
+				dataType:"text",
+				url: '/lifeeditor/com.lifeeditor.invite_list/ChkInviterServlet',
+				data: {'id':value,'status':status},	
+				success: function (){
+					
+				}
+			});
+	 }
 	var count = 2; //控制按鈕 check的
 	$('#friend_icon').click(function(){
 		  if(count % 2 == 0){ //記數判斷		 		  
@@ -415,8 +428,9 @@ $(function(){
 						
 						myChkTureBtn.appendChild(chkTure);
 						myChkTureBtn.setAttribute("type","button");
-						myChkTureBtn.setAttribute("value",data[i].Userid);
-						myChkTureBtn.setAttribute("id","myChkTureBtn");
+						myChkTureBtn.setAttribute("value",data[i].Userid);						
+						myChkTureBtn.setAttribute("id",data[i].Userid);
+						myChkTureBtn.setAttribute("class","btn btn-primary btn-sm");
 						myChkTureBtn.addEventListener('click',function(){ //綁定一個click事件傳值新增好友	
 							this.firstChild.nodeValue = "成為好友";
 							addInviter(this.value,"makeFriend");
@@ -426,10 +440,10 @@ $(function(){
 						myChkFalseBtn.setAttribute("type","button");
 						myChkFalseBtn.setAttribute("value",data[i].Userid);
 						myChkFalseBtn.setAttribute("id",data[i].Userid);
-						myChkFalseBtn.setAttribute("id","myChkTureBtn");
+						myChkFalseBtn.setAttribute("class","btn btn-danger btn-sm");
 						myChkFalseBtn.addEventListener('click',function(){ //綁定一個click事件傳值新增好友	
 							var parent = this.parentNode;
-							if(window.confirm('確定拒絕?')){						
+							if(window.confirm('確定拒絕?')){	
 							deleteInviter(this.value,"delete");
 							parent.parentNode.style.display = "none";
 							}else{}
@@ -451,11 +465,9 @@ $(function(){
 						tr1.appendChild(td4);
 						myTable.appendChild(tr1);
 		 			
-						myDiv.appendChild(myTable);
-						
+						myDiv.appendChild(myTable);					
 						
 					}
-
 				}
 			});
 			count = count + 1; //控制開關
@@ -471,6 +483,7 @@ $(function(){
 });
 </script>		
 <script>
+		
         window.fbAsyncInit = function() {
                 FB.init({
                	appId : '236995580009135',

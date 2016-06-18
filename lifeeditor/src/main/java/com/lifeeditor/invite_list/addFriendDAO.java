@@ -83,7 +83,7 @@ public class addFriendDAO {
 		
 		String queryString = "select userID,account,lastName+firstName as name from user_spec where userID  not in " +
 							 "(select receiver from invite_list  where inviter = '"+user+"' or receiver='"+user+"')";
-		
+		System.out.println(queryString);
 		List<user_listVO> getall = new ArrayList<user_listVO>();
 		try{
 			conn = ds.getConnection();
@@ -145,6 +145,7 @@ public class addFriendDAO {
 		
 		//String deleteString = "delete invite_list where inviter='"+inviter+"' and receiver = '"+user+"'";
 		String deleteString = "delete invite_list where (inviter = '"+user+"' and receiver = '"+inviter+"') or (inviter = '"+inviter+"' and receiver = '"+user+"')";
+		//System.out.println(deleteString);
 		try{
 			conn = ds.getConnection();
 			psmt = conn.prepareStatement(deleteString);
@@ -246,7 +247,7 @@ public class addFriendDAO {
 	public void deleteFriend(String user,String inviter){
 		
 		String deleteString = "delete friend where (userID = '"+user+"'  and friendID = '"+inviter+"') or (userID = '"+inviter+"'  and friendID = '"+user+"')";
-	
+
 		try{
 			conn = ds.getConnection();
 			psmt = conn.prepareStatement(deleteString);
