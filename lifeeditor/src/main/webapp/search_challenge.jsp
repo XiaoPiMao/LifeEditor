@@ -16,6 +16,78 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
 
+
+var tr;
+var numberResult;
+var rateResult;
+var officialTrg;
+$(document).ready(function(){
+	
+	//*******************滑鼠點擊時，跳出的對話方塊。*****************		
+	$( "#dialog" ).dialog({
+	      autoOpen: false,
+	      resizable: false,
+	      modal: true,
+	      show: {
+	        effect: "fade",
+	        duration: 400
+	      },
+	      buttons: {
+	          "確定送出": function() {
+  	  
+	            $( this ).dialog( "close" );
+	            
+	     	    $(tr).find("td").toggleClass( "highlight" );	  
+  	 			$(tr).find("#apply").prop('value', '報名送出')
+  		 	    $(tr).find("#apply").prop('disabled', true);
+  	 			$(tr).find("#apply").css('color','red');
+  	 			$('#applylist>p').html("已加入新的挑戰~!&nbsp;&nbsp;" + $(tr).find('td:eq(0)').text());
+ 				$('#applylist').fadeTo(1000,0.6);
+ 				
+ 				$.post("userAddTargetServlet",{"targetID":tr.id, "action":"insert"},function(data){
+		  			officialTrg = $(tr).find("td:eq(0)").text();
+
+
+	 				$.ajax({
+						"type":"get",
+						"url":"${ctx}/userAddTargetServlet",
+						"data":{"action":"countNames", "keyword": officialTrg},
+						"success":function(data){
+							numberResult = data;
+							$.ajax({
+								"type":"get",
+								"url":"${ctx}/userAddTargetServlet",
+								"data":{"action":"rateNames", "keyword": officialTrg},
+								"success":function(data){
+									rateResult = data;
+									$(tr).find("td:eq(6)").text(numberResult + " 人");
+									$(tr).find("td:eq(7)").text(rateResult + "%");
+									alert("新的挑戰已新增至您的目標清單。");
+								}
+							});
+						}
+					});
+	 				
+		  		});
+ 				
+ 				
+//					**********************************************				
+//					***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**	
+
+				
+	          },
+	          
+          Cancel: function() {
+            $( this ).dialog( "close" );
+            console.log("Cancel");
+	          }
+	        },
+	    }); 
+	
+
+    
+});
+
 </script>
 
 <style>
@@ -87,6 +159,18 @@ color: blue;
         </tfoot>
     </table>
    </form> 
+</div>
+
+<!-- *******************按下送出任務時，會淡出的提示訊息***************** -->
+
+<div id="applylist" style="display:none">
+<p></p>
+</div>
+
+<!-- *******************對話方塊中的文字，預設為隱藏。***************** -->
+
+<div id="dialog" title="是否確認送出?">
+  <p>一旦確認承接後，便無法在此頁面取消這項挑戰! 您是否確定要接受這項挑戰?</p>
 </div>
 
 
