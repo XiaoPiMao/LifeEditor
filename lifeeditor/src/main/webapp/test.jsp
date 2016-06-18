@@ -60,7 +60,7 @@
 }
 
 .carousel-control.right {
-  right: 15px;
+  right: 20px;
 }
 
 #AchPic{
@@ -90,6 +90,33 @@ font-size:24px;color:#cccccc;margin-right:10px;
 float:right;
 }
 
+.caption {
+    height: 140px;
+    width:820px;
+    margin:0px 0px 0px 0px;
+    padding: 0px;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    flaot:left;
+}
+.caption .span4, .caption .span8 {
+    padding: 0px 20px;
+}
+.caption .span4 {
+    border-right: 1px dotted #CCCCCC;
+}
+.caption h3 {
+    color: #a83b3b;
+    line-height: 0.5rem;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    }
+    .caption p {
+        font-size: 14px;
+        line-height: 1.6rem;
+        color: #a83b3b;
+        }
 </style>
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
@@ -119,6 +146,7 @@ $(function(){
     var data = JSON.parse('${targets}');
     var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
     console.log(jSpecs);
+    console.log(data );
    
     var catogoryNum = new Object();
     $.each(jTypes,function() {
@@ -126,6 +154,9 @@ $(function(){
     })
     
 $(document).ready(function(){
+
+	
+	
 	    var AchList = "<h3 style='font-weight: bold;'>我 的 榮 耀</h3>";
 	    $.each(jAchs,function(){
 	    	AchList += 
@@ -156,47 +187,55 @@ $(document).ready(function(){
     	$('.sidebar-item.recent').html(lastComment);
     	
     	var str = "";
-    	$('.carousel').carousel({
-    	      interval: 6000
-    	    })
+    	
 
 		$.each(data,function(){
 			var num = Math.floor(Math.random() * 3 + 1);
 			catogoryNum[this.typeName]++;
 			str += '<div id="photoBook" class="col-md-12 col-sm-12" >' +
-			        '<div class="carousel slide" id="myCarousel">'+
-			        '<div class="carousel-inner">' +
-			        '<div id="photoItem" class="item active">' +
-		            '<div class="single-blog two-column">' +
-		            '<table style="position:fixed;margin-top:20px;z-index:99999;right:0;"><th><a id="faangledown" class="fa fa-angle-down" style="position:fixed;top:20px;left:800px;"></a></th>' +
+			
+		            '<div id="photoItem" class="single-blog two-column">' +   //photoItem
+		            
+		            '<div id="photoHeader">' +  //photoHeader-Start
+		            '<table style="position:fixed;margin-top:520px;z-index:99999;right:0;"><th><a id="faangledown" class="fa fa-angle-down" style="position:fixed;top:20px;left:800px;"></a></th>' +
 		            '<tr id="Editor1" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>上傳心得</td></tr>' +
 		            '<tr id="Editor2" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>送出審核</td></tr>' +
 		            '</table>'+
 		            '<h2 class="post-title bold" style="width:500px;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
 	                '<h4 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h4>' +
 	                '<p> 初衷 : '+ this.intention + '</p>'+
-		            '<div class="post-thumb">' +
+	                '</div>' +  //photoHeader-End
+	                
+	                '<div class="carousel slide" id="myCarousel">' +    //Carousel-Start
+	                '<div class="carousel-inner">' +  
+		            '<div class="post-thumb">' +   //photo-Start
 		                '<img style="width:920px;height:470px;" src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt="">'+
 		                '<div class="post-overlay">' +
 		                '</div>' +
-		            '</div>' +
-		            '<div class="post-content overflow">' +
-		                '<div class="post-bottom overflow">'+
+		            '</div>' +   //photo-End
+		            '<div class="caption">' +  //spec
+                	'<div class="span8"><p>'+ jSpecs[this.targetID][0] + '</p> ' +
+                	'</div>' +
+                    '</div>' +   //spec-End
+		            
+		            '<div class="post-content overflow">' +      //Icon
+		                '<div class="post-bottom overflow">'+   
 		                    '<ul class="nav navbar-nav post-nav">'+
 		                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
 		                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
 		                        '<li id="Comments"><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
 		                    '</ul>'+
 		                '</div>'+
-		            '</div>'+
-		            '<div class="row">' +
-		            '<div class="col-md-2 col-sm-2 hidden-xs">' +
-		            '<figure class="thumbnail">' +
+		            '</div>'+ 
+		            
+		            '<div class="row">' +    //comments-Start
+		            '<div class="col-md-2 col-sm-2 hidden-xs">' +   //comment-left-Start
+		            '<figure class="thumbnail">' +    
 		            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
 		            '<figcaption class="text-center">username</figcaption>' +
-		            '</figure>' +
-		            '</div>' +
-		            '<div class="col-md-10 col-sm-10">' +
+		            '</figure>' +   
+		            '</div>' +   //comment-left-End
+		            '<div class="col-md-10 col-sm-10">' +   //comment-right
 		            '<div class="panel panel-default arrow left">' +
 		            '<div class="panel-body">' +
 		            '<header class="text-left">' +
@@ -207,20 +246,19 @@ $(document).ready(function(){
 		            '<p>Lrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' +
                     '</div>' +
                     '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>' +
-                '</div>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-		            '</div>' +   //comment end 
-		        '</div>'+
-		        '</div>'+   //item
-		        '</div>'+   //carousel-inner
-		        '<div class="control-box">' +                            
+                    '</div>' +   
+                    '</div>' +
+                    '</div>' +   //comment-right-End
+                    '</div>' +   //comments-End
+                    '</div>' +   //carousel-inner-End
+		    '<div class="control-box">' +                            
             '<a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>' +
             '<a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>' +
-            '</div>' +     //control-box
-		       '</div>'+   //#myCarousel 
-		    '</div>'
+            '</div>' +     //control-box-End  
+            '</div>' +     //#myCarousel-End
+            
+            '</div>' +    //photoItem-End  
+		    '</div>' // The End
   
 		});
 		var spans = document.querySelectorAll('.pull-right');
