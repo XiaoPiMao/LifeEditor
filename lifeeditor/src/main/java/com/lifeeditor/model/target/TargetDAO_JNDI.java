@@ -329,15 +329,15 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			AchievementService achSvc = new AchievementService();
 		
 			if(rs.next()) {
-				TypeListVO typeListVO= new TypeListVO();
-				SecListVO secListVO= new SecListVO();
+				
+				
+				TypeListService typeSvc = new TypeListService();
+				SecListService secSvc = new SecListService();
 				
 				TrgVO.setTargetID(rs.getInt("targetID"));
 				TrgVO.setTrgName(rs.getString("trgName"));
-				typeListVO.setTypeID(rs.getInt("typeID"));
-				TrgVO.setTypeVO(typeListVO);
-				secListVO.setSecID(rs.getInt("sectionID"));
-				TrgVO.setSectionVO(secListVO);
+				TrgVO.setTypeVO(typeSvc.getOneUser(rs.getInt("typeID")));
+				TrgVO.setSectionVO(secSvc.getOneUser(rs.getInt("sectionID")));
 				TrgVO.setDifficulty(rs.getInt("difficulty"));
 				TrgVO.setIntention(rs.getString("intention"));
 				TrgVO.setPrivacy(rs.getInt("privacy"));

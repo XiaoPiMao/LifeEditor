@@ -179,6 +179,7 @@
     <error-code>505</error-code>
     <location>/errorPage.html</location>
   </error-page>
+
   <filter>
     <filter-name>BackstageloginFilter</filter-name>
     <filter-class>com.lifeeditor.filter.BackstageFilter</filter-class>
@@ -195,3 +196,4 @@
   </filter-mapping>
 
 </web-app>
+
