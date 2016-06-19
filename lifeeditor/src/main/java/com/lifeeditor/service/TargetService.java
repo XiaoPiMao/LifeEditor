@@ -127,6 +127,17 @@ public class TargetService {
 		return;
 	}
 	
+	public void takeTrg(Integer targetID,Integer userID){
+		
+		TargetVO TrgVO = dao.findByPrimaryKey(targetID);
+		TrgVO.setTrgType(3);
+		targetID= dao.insert(TrgVO);
+		new Target_List_Service().addTrgList(userID, targetID);
+        
+		return;
+	}
+	
+	
 	public int countNumsOfTargetName(String keyword){
 		return dao.countNumsOfTargetName(keyword);	
 	}

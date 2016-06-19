@@ -41,7 +41,7 @@ public class userAddTargetServlet extends HttpServlet {
 		String jsonStr = null;
 		PrintWriter os = null;
 		
-		/***************************1.新增資料***************************************/	
+		/***************************1-A.從官方挑戰承接目標copy下來用***************************************/	
 		
 		 if("insert".equals(action)){ // 來自user_challenge.jsp的新增請求
 					
@@ -55,6 +55,24 @@ public class userAddTargetServlet extends HttpServlet {
 				System.out.println(targetID);
 				trgSrvc= new TargetService();
 				trgSrvc.copyTrg(targetID, userID);
+				
+				return;
+		 }
+		 
+			/***************************1-B.從搜尋獲隨機目標找到的目標take下來用***************************************/	
+			
+		 if("insertTake".equals(action)){ // 來自user_challenge.jsp的新增請求
+					
+				//String LoginOK = req.getParameter("LoginOK");
+				user_specVO user = (user_specVO) req.getSession().getAttribute("LoginOK");
+				Integer userID = user.getUserID();
+							
+				//Integer userID = Integer.parseInt(req.getParameter("userID"));
+				
+				Integer targetID = Integer.parseInt(req.getParameter("targetID"));	
+				System.out.println(targetID);
+				trgSrvc= new TargetService();
+				trgSrvc.takeTrg(targetID, userID);
 				
 				return;
 		 }
