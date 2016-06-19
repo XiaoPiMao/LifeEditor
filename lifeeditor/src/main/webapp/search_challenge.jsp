@@ -141,6 +141,7 @@ font-style: italic;
 <table id="example" class="display" cellspacing="0" width=auto>
 			<thead>
 				<tr>
+					<th width="130px">任務原創者</th>
 					<th width="50px">選取</th>
 					<th width="130px">挑戰名稱</th>
 					<th width="60px">類別</th>
@@ -228,7 +229,7 @@ $(function(){
 			var tr = $(this).parents('tr');
 		    console.log("點擊的任務ID是: " +  tr.attr("id") + " 名稱是: " + tr.attr("name") ); //印出點，選時候所取得的任務ID值
 		    $('#targetName').val(tr.attr("name"));
-		    $('#targetIntention').val(tr.find("td:eq(4)").text());
+		    $('#targetIntention').val(tr.find("td:eq(5)").text());
 			$( "#dialog" ).dialog( "open" );
 
 		}   
@@ -303,6 +304,7 @@ function log( message ) {
         		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
 	   			trgID = $(tr).attr("id");
 	   			trgName = $(tr).attr("name");
+	   			tr.append($("<td></td>").text(("--")));
 				var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 				tr.append($("<td></td>").append(input));
         		var td = $("<td></td>").text(target.trgName);
@@ -346,6 +348,7 @@ function log( message ) {
 	   		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
 	   		trgID = $(tr).attr("id");
 	   		trgName = $(tr).attr("name");
+	   		tr.append($("<td></td>").text(("--")));
 	   		var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 	   		tr.append($("<td></td>").append(input));
 	   		var td = $("<td></td>").text(target.trgName);
