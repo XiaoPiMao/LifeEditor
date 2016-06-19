@@ -8,9 +8,35 @@
   
 	
     <script>
-       
+    var ws;
+    var jUser = JSON.parse('${jUser}');
+    
+
+    function connect() {
+        ws = new WebSocket("ws://" + document.location.host + "/chatroom/chat/" + jUser.userID);
+
+
+        ws.onmessage = function(event) {
+            console.log(event.data);
+            var message = JSON.parse(event.data);
+            console.log(message.msgSender + " : " + message.receiver + "content:" + message.content);
+        };
+    }
+    
+     function send() {
+        var content = document.getElementById("msg").value;
+        var to = document.getElementById("to").value;
+        var json = JSON.stringify({
+            "to":to,
+            "content":content
+        });
+
+        ws.send(json);
+        log.innerHTML += "Me : " + content + "\n";
+    }
 
         $(function () {
+        	connect();
         	haveFaces = false;
             chatNum = 0;
         	jFriends = '${jFriends}';
@@ -130,43 +156,7 @@
 <body id="body">
     <div id="chatroom" class="chatroomOff"><label>聊天室</label></div>
    
-     <div id="friends" class="off">
-<!--         <div id="1" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>小明</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="2" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>阿華</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="3" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>胖虎</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="4" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>哆啦A夢</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="5" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>Stephen Curry</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="6" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>泰山</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-    </div>
+     <div id="friends" class="off"></div>
 
     <div id="chats"></div>
 

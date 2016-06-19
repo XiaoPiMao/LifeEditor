@@ -150,13 +150,13 @@ font-style: italic;
 <h1>挑戰任務</h1>
 
 
-<div align="center" style="display:none" >
+<div align="center" style="display:none;margin-bottom:70px" >
 <b>哈囉~ ${LoginOK.lastName}${LoginOK.firstName} 歡迎你來報名參加有興趣的挑戰喔!</b>
 <%-- <b>登入者ID: ${LoginOK.userID}, 帳號: ${LoginOK.account}</b> --%>
 
 
 
-<table id="example" class="display" cellspacing="0" width=auto >
+<table id="example" class="display" cellspacing="0" width=auto>
 			<thead>
 				<tr>
 					<th width="130px">挑戰名稱</th>
@@ -177,8 +177,9 @@ font-style: italic;
 
         </tfoot>
     </table>
-    
 </div>
+
+
 
 
 <!-- *******************按下送出任務時，會淡出的提示訊息***************** -->
@@ -192,6 +193,7 @@ font-style: italic;
 <div id="dialog" title="是否確認送出?">
   <p>一旦確認承接後，便無法在此頁面取消這項挑戰! 您是否確定要接受這項挑戰?</p>
 </div>
+
 
 </body>
 <script src="${ctx}/js/jquery-ui.min.js"></script>
