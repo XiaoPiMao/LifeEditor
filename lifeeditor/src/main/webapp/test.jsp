@@ -46,21 +46,22 @@
     left: 15px;
     width: 40px;
     height: 40px;
-    margin-top: -20px;
+    margin-top: -10px;
     font-size: 60px;
     font-weight: 100;
     color: #fff;
     text-align: center;
-    border: 3px solid #fff;
     -webkit-border-radius: 23px;
     -moz-border-radius: 23px;
     border-radius: 23px;
     opacity: .5;
     filter: alpha(opacity=50);
+    cursor:pointer;
 }
 
 .carousel-control.right {
   right: 20px;
+  cursor:pointer;
 }
 
 #AchPic{
@@ -248,8 +249,8 @@ $(document).ready(function(){
 		            
 		            '<div id="photoHeader" style="position:relative;">' +  //photoHeader-Start
 		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">' +
-		            '<tr id="Editor1"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;"><td><a>上傳心得</a></td></tr>' +
-		            '<tr id="Editor2"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;"><td><a>送出審核</a></td></tr>' +
+		            '<tr id="Editor1"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>' +
+		            '<tr id="Editor2"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>送出審核</a></td></tr>' +
 		            '</table>'+
 		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
 		            '<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>' +

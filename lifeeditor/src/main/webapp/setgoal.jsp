@@ -62,6 +62,7 @@ background: none repeat scroll 0 0 #00D9FF;
 	padding: 5px;
  	float: left; 
 	margin: 0 10px 10px 10px;
+	cursor:move;
 }
 #set {
 	width: 890px;
