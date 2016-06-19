@@ -136,6 +136,17 @@ public class TargetService {
         
 		return;
 	}
+	public void takeTrg2(Integer targetID,String trgName,String intention,Integer userID){
+		
+		TargetVO TrgVO = dao.findByPrimaryKey(targetID);
+		TrgVO.setTrgType(3);
+		TrgVO.setTrgName(trgName);
+		TrgVO.setIntention(intention);
+		targetID= dao.insert(TrgVO);
+		new Target_List_Service().addTrgList(userID, targetID);
+        
+		return;
+	}
 	
 	
 	public int countNumsOfTargetName(String keyword){
@@ -150,7 +161,7 @@ public class TargetService {
 		return dao.getFromKeyWordSearch(keyword);
 	}
 	
-	public List<TargetVO> getRandomTarget(){
+	public TargetVO getRandomTarget(){
 		return dao.getRandomTarget();
 	}
 	

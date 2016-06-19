@@ -784,22 +784,24 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 	
 	@Override
-	public List<TargetVO> getRandomTarget() {
+	public TargetVO getRandomTarget() {
 		
-		List<TargetVO> list = new ArrayList<TargetVO>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		TargetVO Trg = null;
+		TypeListVO type = null;
+		SecListVO sec = null;
 		
 try {
 			
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_RANDOM_TARGET);
 			rs = pstmt.executeQuery();
-			TargetVO Trg = null;
-			TypeListVO type = null;
-			SecListVO sec = null;
-			while(rs.next()) {
+			
+			
+			if(rs.next()) {
+				
 				Trg = new TargetVO();
 				type = new TypeListVO();
 				sec = new SecListVO();
@@ -811,9 +813,7 @@ try {
 				Trg.setSectionVO(sec);  
 				Trg.setIntention(rs.getString("intention"));
 				Trg.setTimeFinish(rs.getDate("timeStart"));
-				list.add(Trg);
-				
-				
+			
 			}	
 			
 		} catch (SQLException e) {
@@ -841,7 +841,7 @@ try {
 				}
 			}
 		}
-		return list;
+		return Trg;
 	}
 
 	
