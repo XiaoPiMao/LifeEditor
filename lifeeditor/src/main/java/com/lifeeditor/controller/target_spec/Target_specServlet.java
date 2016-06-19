@@ -219,8 +219,8 @@ public class Target_specServlet extends HttpServlet {
 			
 			//這邊將要insert的路徑做設定
 	        String trgPicPath="/images/trgSpecs/"+UserID.toString()+TargetID.toString()+time+".jpg";
-	        String Path = "D:/life_editor/repository/lifeeditor/src/main/webapp"+ trgPicPath;
-	        //String Path=req.getServletContext().getRealPath(trgPicPath);
+	        //String Path = "D:/life_editor/repository/lifeeditor/src/main/webapp"+ trgPicPath;
+	        String Path=req.getServletContext().getRealPath(trgPicPath);
 	       
 	        
 	        

@@ -28,6 +28,22 @@
     <link rel="stylesheet" href="css/popup.css" type="text/css"/>
     
     <style>
+    .close {
+background: none repeat scroll 0 0 #606061;
+border-radius: 15px;
+color: #FFFFFF;
+font-weight: bold;
+position: relative;
+height:30px;
+width: 30px;
+float:right;
+margin:3px 6px 0px 0px;
+text-align: center;
+}
+.close:hover {
+background: none repeat scroll 0 0 #00D9FF;
+}
+    
 	.user-icon{
 	border-radius:50%;
 	}
@@ -175,13 +191,31 @@ overflow:hidden;
 $(function(){
 	//post
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
-		$(this).parents('#photoHeader').find('table').slideToggle('fast');	
-		$( "#Editor1" ).click(function() {
-	    	$('input[type="hidden"]').val($(this).parents('#photoHeader').attr("name"));
-	    	$('.background').show();
-	    	$("#inputSpec").fadeIn("slow");
-	    });
-	    
+		$(this).parents('#photoHeader').find('table').slideToggle('fast');
+	});
+	
+	$('.col-md-9.col-sm-7').on("click",".Editor",function(){
+		$('input[type="hidden"]').val($(this).parents('#photoHeader').attr("name"));
+    	$('.background').show();
+    	$("#inputSpec").fadeIn("slow");
+    	$('.Editor').hide();
+    	
+    	
+	});
+	
+
+	$('#closeBtn').click(function(){
+		$('.background').hide();
+		$('#inputSpec').hide();
+	})
+	
+    $('#postBtn').click(function(){
+    	$('#inputSpec').hide();
+    	$('.background').hide();
+    });
+	
+		
+		
 	    function preview(input) {
 			 
 		    if (input.files && input.files[0]) {
@@ -216,8 +250,8 @@ $(function(){
 				},
 			});
 			
-		})
-	});
+		})// postBtn
+	
 
 	//Comments
 	$('.col-md-9.col-sm-7').on("click",".comments",function(){
@@ -298,6 +332,7 @@ $(function(){
     var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
     //console.log(jSpecs);
     //console.log(data );
+    console.log(data);
    
     var catogoryNum = new Object();
     $.each(jTypes,function() {
@@ -349,12 +384,29 @@ $(document).ready(function(){
 		            
 		            '<div id="photoHeader" name="' + this.targetID + '" style="position:relative;">' +  //photoHeader-Start
 		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">' +
-		            '<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>' +
-		            '<tr id="Editor2" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>送出審核</a></td></tr>' +
+		           
+		            '<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>';
+ 					
+		            if(this.trgType == 3) {
+ 						str += '<tr id="compltTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>完成目標</a></td></tr>';
+		            }else {
+		            	str += '<tr id="checkTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>送出審核</a></td></tr>';
+		            }
+		            
+		            str +=
 		            '</table>'+
 		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
-		            '<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>' +
-	                '<h4 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h4>' +
+		            '<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
+		            
+		            if(this.status == 1){
+		            	str += '<h4 class="post-author">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '完 成 : ' + this.timeFinish + '</h4>';
+		            }else if(this.status ==2){
+		            	str += '<h4 class="post-author" style="color:red;">審 核 中</h4>';
+		            }else {
+		            	str += '<h4 class="post-author">' + '完 成 : ' + this.doneTime +'</h4>';
+		            }
+		            
+		            str +=
 	                '<p> 初 衷 : '+ this.intention + '</p>'+
 	                '</div>';  //photoHeader-End
 //--------------------------------------------------------------------------------------------------------//	                
@@ -442,6 +494,7 @@ $(document).ready(function(){
 <jsp:include page="header.jsp"></jsp:include>
 
 <div id="inputSpec" style="position:fixed;z-index:1000000001;left:calc(50vw - 300px);top:50px;display:none;width:auto;height:auto;background-color:white;border-radius:2%;">
+    <div id="closeBtn" class="close">X</div>
     <form style="padding:20px 20px 20px 20px;" ENCTYPE="multipart/form-data" method="POST" action="Target_specServlet.do" role="form">
 		 <input type="hidden" name="input_trgetID" value="" />
 		 <div >
@@ -454,10 +507,9 @@ $(document).ready(function(){
 		<br /> 
 		 <div>
          <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:150px;height:90px;float:right;">
-         <input value="送出審合" type="button" id="checkBtn" style="font-size:20px;display:none;font-family:Microsoft JhengHei;border-radius:10%;width:150px;height:90px;float:right;">
-         
 	     </div>
 	</form>
+	
 </div>
 
 <section id="blog" class="padding-top">
