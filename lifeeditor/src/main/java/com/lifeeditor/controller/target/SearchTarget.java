@@ -2,6 +2,7 @@ package com.lifeeditor.controller.target;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.lifeeditor.model.target.TargetVO;
+import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.TargetService;
 import com.lifeeditor.utility.MyGson;
@@ -38,6 +40,8 @@ public class SearchTarget extends HttpServlet {
 		TargetService trgSrvc= new TargetService();
 		Gson gson = new GsonBuilder().create();
 		List<TargetVO> list = null;
+		List<Target_ListVO> trg_list = null;
+		Target_ListVO listVO = null;
 		TargetVO trgVO = null;
 		String jsonStr = null;
 		PrintWriter os = null;
@@ -46,8 +50,7 @@ public class SearchTarget extends HttpServlet {
 		Integer userID = user.getUserID();
 
 		System.out.println(userID);	
-		
-		
+
 		
 		/*********************1.從keyword搜尋任務名稱****************************/
 		
@@ -58,9 +61,9 @@ public class SearchTarget extends HttpServlet {
 			String keyword = req.getParameter("keyword");
 				
 			trgSrvc =  new TargetService();
-			list =  trgSrvc.getFromKeyWordSearch(keyword);
+			trg_list =  trgSrvc.getFromKeyWordSearch(keyword);
 
-			jsonStr = MyGson.GSON.toJson(list);
+			jsonStr = MyGson.GSON.toJson(trg_list);
 			os = res.getWriter();
 			os.print(jsonStr);
 			
@@ -77,10 +80,10 @@ public class SearchTarget extends HttpServlet {
 			res.setContentType("application/json");
 	
 			trgSrvc =  new TargetService();
-			trgVO =  trgSrvc.getRandomTarget();
+			listVO =  trgSrvc.getRandomTarget();
 
 			gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
-			jsonStr = gson.toJson(trgVO);
+			jsonStr = gson.toJson(listVO);
 			os = res.getWriter();
 			os.print(jsonStr);
 			
