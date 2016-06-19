@@ -16,9 +16,12 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.sec_list.SecListVO;
+import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.type_list.TypeListVO;
+import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.AchievementService;
 import com.lifeeditor.service.SecListService;
+import com.lifeeditor.service.Target_List_Service;
 import com.lifeeditor.service.TypeListService;
 
 
@@ -86,6 +89,13 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	private static final String SEARCH_TARGET = "SELECT targetID, trgName, typeName, secName, intention, "
 			+ "timeStart FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN "
 			+ "type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID where trgType =3 and trgName like ?";
+	
+	private static final String SEARCH_TARGET_ADVANCE = "SELECT user_spec.lastName, user_spec.firstName, user_spec.userID, target.trgName, target.intention, sec_list.secName, type_list.typeName, target.timeStart"+
+	" FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN "+
+	" target_list ON target.targetID = target_list.targetID INNER JOIN "+
+	" type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID INNER JOIN "+
+	"user_spec ON target_list.userID = user_spec.userID  where trgType =3 and trgName like ?";
+	
 	
 	
 	@SuppressWarnings("resource")
@@ -736,17 +746,26 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			TargetVO Trg = null;
 			TypeListVO type = null;
 			SecListVO sec = null;
+//			user_specVO user = null;
+//			Target_ListVO trgList = null;
 			
 			while(rs.next()) {
 				Trg = new TargetVO();
 				type = new TypeListVO();
 				sec = new SecListVO();
-				Trg.setTargetID(rs.getInt("targetID"));
-				Trg.setTrgName(rs.getString("trgName"));
+//				user = new user_specVO();
+//				trgList = new Target_ListVO();
+//				user.setLastName(rs.getString("lastName"));
+//				user.setFirstName(rs.getString("firstName"));
+			
+				Trg.setTargetID(rs.getInt("targetID"));  
+				Trg.setTrgName(rs.getString("trgName")); 
+				
 				type.setTypeName(rs.getString("typeName"));
 				Trg.setTypeVO(type);
 				sec.setSecName(rs.getString("secName"));
-				Trg.setSectionVO(sec);  
+				Trg.setSectionVO(sec); 
+				
 				Trg.setIntention(rs.getString("intention"));
 				Trg.setTimeFinish(rs.getDate("timeStart"));
 				list.add(Trg);					

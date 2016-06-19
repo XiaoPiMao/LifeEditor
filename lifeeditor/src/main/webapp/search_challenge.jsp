@@ -120,12 +120,18 @@ font-style: italic;
 
 </head>
 <body>
-<h1><img src="images/magnifier.gif" style="height:35px;">任務搜尋</h1>
+<jsp:include page="header.jsp"></jsp:include>
+<br>
+<br>
+<br>
+<h1><img src="images/magnifier.gif" style="height:35px;">搜尋任務</h1>
 
 
 <!-- <img src="images/ajax-loader.gif" id="img1"> -->
 
 <div align="center">
+<br>
+<br>
 <b>哈囉~ ${LoginOK.firstName} ，本頁面除了可以關鍵字搜尋現有的目標、也可以靠隨機的方式來產生新目標喔!</b>
 <br />
 <br />
@@ -135,12 +141,14 @@ font-style: italic;
 <table id="toptable" class="display" cellspacing="20" width=auto>
 <tr><td>	任務搜尋: <input id="tag1" type="text" name="trgName" onkeypress="if (event.keyCode==13){ event.preventDefault();}" ></td>
 <td>隨機搜尋一筆:&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/guestion.gif" style="height:25px;">
+
 <input id="tag2" type="button" value="隨機搜尋"></td><tr>
 </table>
 
 <table id="example" class="display" cellspacing="0" width=auto>
 			<thead>
 				<tr>
+					<th width="130px">任務原創者</th>
 					<th width="50px">選取</th>
 					<th width="130px">挑戰名稱</th>
 					<th width="60px">類別</th>
@@ -228,7 +236,7 @@ $(function(){
 			var tr = $(this).parents('tr');
 		    console.log("點擊的任務ID是: " +  tr.attr("id") + " 名稱是: " + tr.attr("name") ); //印出點，選時候所取得的任務ID值
 		    $('#targetName').val(tr.attr("name"));
-		    $('#targetIntention').val(tr.find("td:eq(4)").text());
+		    $('#targetIntention').val(tr.find("td:eq(5)").text());
 			$( "#dialog" ).dialog( "open" );
 
 		}   
@@ -303,6 +311,7 @@ function log( message ) {
         		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
 	   			trgID = $(tr).attr("id");
 	   			trgName = $(tr).attr("name");
+	   			tr.append($("<td></td>").text(("--")));
 				var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 				tr.append($("<td></td>").append(input));
         		var td = $("<td></td>").text(target.trgName);
@@ -346,6 +355,7 @@ function log( message ) {
 	   		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
 	   		trgID = $(tr).attr("id");
 	   		trgName = $(tr).attr("name");
+	   		tr.append($("<td></td>").text(("--")));
 	   		var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 	   		tr.append($("<td></td>").append(input));
 	   		var td = $("<td></td>").text(target.trgName);
