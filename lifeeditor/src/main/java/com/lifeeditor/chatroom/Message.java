@@ -1,40 +1,38 @@
 package com.lifeeditor.chatroom;
 
-/**
- * Created by Arip Hidayat on 21/02/2016.
- */
 public class Message {
 
-    private String from;
-    private String to;
+    private String Type;
+	private Integer msgSender;
+    private Integer msgReceiver;
     private String content;
+	public String getType() {
+		return Type;
+	}
+	public void setType(String type) {
+		Type = type;
+	}
+	public Integer getMsgSender() {
+		return msgSender;
+	}
+	public void setMsgSender(Integer msgSender) {
+		this.msgSender = msgSender;
+	}
+	public Integer getMsgReceiver() {
+		return msgReceiver;
+	}
+	public void setMsgReceiver(Integer msgReceiver) {
+		this.msgReceiver = msgReceiver;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+    
+    
+	
 
-    @Override
-    public String toString() {
-        return super.toString();
-    }
-
-    public String getFrom() {
-        return from;
-    }
-
-    public void setFrom(String from) {
-        this.from = from;
-    }
-
-    public String getTo() {
-        return to;
-    }
-
-    public void setTo(String to) {
-        this.to = to;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
+    
 }

@@ -27,7 +27,14 @@ public class BackstageFilter implements Filter {
 		HttpSession session = req.getSession();
 		// 【從 session 判斷此user是否登入過】
 		Object account = session.getAttribute("backVO");
-		if (account == null  && !req.getServletPath().equals("/manager/Backstage.jsp")) {
+		String path = req.getServletPath();
+		int start = path.lastIndexOf('.')+1;
+		if(start == 0) {
+			chain.doFilter(request,response);
+			return;
+		}
+		String type = path.substring(start, path.length());
+		if (account == null  && type.equals("jsp") && !path.equals("/manager/Backstage.jsp")) {
 			//	
 			session.setAttribute("location", req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/manager/Backstage.jsp");

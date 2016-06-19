@@ -90,33 +90,22 @@ font-size:24px;color:#cccccc;margin-right:10px;
 float:right;
 }
 
-.caption {
-    height: 140px;
+.span8{
+    height:auto;
     width:820px;
-    margin:0px 0px 0px 0px;
+    margin:5px 0px 0px 0px;
     padding: 0px;
     box-sizing:border-box;
     -moz-box-sizing:border-box;
     -webkit-box-sizing:border-box;
-    flaot:left;
-}
-.caption .span4, .caption .span8 {
     padding: 0px 20px;
 }
-.caption .span4 {
-    border-right: 1px dotted #CCCCCC;
+
+.Editor tr:hover{
+background-color:#99ffff;
+font-color:white;
 }
-.caption h3 {
-    color: #a83b3b;
-    line-height: 0.5rem;
-    margin: 0 0 10px;
-    text-transform: uppercase;
-    }
-    .caption p {
-        font-size: 16px;
-        line-height: 1.6rem;
-        color: #a83b3b;
-        }
+
 </style>
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
@@ -128,11 +117,11 @@ float:right;
 
 $(function(){
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
-		$('.Editor').slideToggle('fast');		
+		$(this).parents('#photoHeader').find('table').slideToggle('fast');		
 	});
 
-	$('.col-md-9.col-sm-7').on("click","#Comments",function(){
-		$('#AllComments').slideToggle('fast');		
+	$('.col-md-9.col-sm-7').on("click",".comments",function(){
+		$(this).parents('.single-blog.two-column').find('.allComments').slideToggle('fast');		
 	});
 	
 	$('.col-md-9.col-sm-7').on("click",'.carousel-control.left',function(){
@@ -206,8 +195,8 @@ $(function(){
     var jAchs = JSON.parse('${jAchs}');
     var data = JSON.parse('${targets}');
     var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
-    console.log(jSpecs);
-    console.log(data );
+    //console.log(jSpecs);
+    //console.log(data );
    
     var catogoryNum = new Object();
     $.each(jTypes,function() {
@@ -257,14 +246,15 @@ $(document).ready(function(){
 			
 		            '<div id="photoItem" class="single-blog two-column">' +   //photoItem
 		            
-		            '<div id="photoHeader">' +  //photoHeader-Start
-		            '<table style="position:fixed;margin-top:520px;z-index:99999;right:0;"><th><a id="faangledown" class="fa fa-angle-down" style="position:fixed;top:20px;left:800px;"></a></th>' +
-		            '<tr id="Editor1" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>上傳心得</td></tr>' +
-		            '<tr id="Editor2" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>送出審核</td></tr>' +
+		            '<div id="photoHeader" style="position:relative;">' +  //photoHeader-Start
+		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">' +
+		            '<tr id="Editor1"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;"><td><a>上傳心得</a></td></tr>' +
+		            '<tr id="Editor2"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;"><td><a>送出審核</a></td></tr>' +
 		            '</table>'+
-		            '<h2 class="post-title bold" style="width:500px;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
+		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
+		            '<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>' +
 	                '<h4 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h4>' +
-	                '<p> 初衷 : '+ this.intention + '</p>'+
+	                '<p> 初 衷 : '+ this.intention + '</p>'+
 	                '</div>';  //photoHeader-End
 //--------------------------------------------------------------------------------------------------------//	                
 	                if(!jSpecs[this.targetID]) {
@@ -283,7 +273,7 @@ $(document).ready(function(){
 		    	            str +=  '<div class="post-thumb">' +   //photo-Start
 			    		                '<img style="width:920px;height:470px;" src="${ctx}/' + this.picPath + '">'+
 			    		            '</div>' +   //photo-End
-			                    	'<div class="span8"><p>' + this.trgNote +'</p>' + '</div>' +
+			                    	'<div class="span8"><p>' + this.trgNote +'</p></div>' +
 			                        '</div>' +   //item active-End
 			            		    '<div class="control-box">' +                            
 			                			'<a data-slide="prev"  class="carousel-control left">‹</a>' +
@@ -300,12 +290,12 @@ $(document).ready(function(){
 	                    '<ul class="nav navbar-nav post-nav">'+
 	                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
 	                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
-	                        '<li id="Comments"><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
+	                        '<li class="comments"><a><i class="fa fa-comments"></i>3 Comments</a></li>'+
 	                    '</ul>'+
 	                '</div>'+
 	            '</div>'+ 
 	            
-	            '<div class="row">' +    //comments-Start
+	            '<div class="row allComments" style="display:none;">' +    //comments-Start
 	            '<div class="col-md-2 col-sm-2 hidden-xs">' +   //comment-left-Start
 	            '<figure class="thumbnail">' +    
 	            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
@@ -322,7 +312,7 @@ $(document).ready(function(){
 	            '<div class="comment-post">' +
 	            '<p>Lrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' +
                 '</div>' +
-                '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>' +
+                '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>reply</a></p>' +
                 '</div>' +   
                 '</div>' +
                 '</div>' +   //comment-right-End
