@@ -107,6 +107,62 @@ background-color:#99ffff;
 font-color:white;
 }
 
+.background{
+position:fixed;
+left:0px;
+top:0px;
+width:100vw;
+height:100vh;
+background-color:black;
+z-index:1000000000;
+opacity:0.5;
+display:none; 
+}
+
+input[type="file"] {
+	padding: 5px 15px;
+	border: 2px #00008b solid;
+	cursor: auto -webkit-border-radius: 5px;
+	border-radius: 5px;
+	font-family:Microsoft JhengHei;
+}
+
+input[type="text"] {
+	padding: 5px 15px;
+	border: 2px #00008b solid;
+	cursor: auto -webkit-border-radius: 5px;
+	border-radius: 5px;
+	font-family:Microsoft JhengHei;
+}
+
+textarea {
+	padding: 5px 15px;
+	border: 2px #00008b solid;
+	cursor: auto -webkit-border-radius: 5px;
+	border-radius: 5px;
+	width: 600px;
+	font-family:Microsoft JhengHei;
+	margin:10px 0 10px 0;
+}
+
+label{
+font-family:Microsoft JhengHei;
+font-size:22px;
+
+}
+.camera{
+background-image: url("images/Flat-Camera-Icon.png");
+width:60px;
+height:60px;
+}
+
+.camera input{
+display:block;
+opacity:0;
+width:60px;
+height:60px;
+overflow:hidden;
+}
 </style>
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
@@ -117,14 +173,58 @@ font-color:white;
 <script>
 
 $(function(){
+	//post
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
-		$(this).parents('#photoHeader').find('table').slideToggle('fast');		
+		$(this).parents('#photoHeader').find('table').slideToggle('fast');	
+		$( "#Editor1" ).click(function() {
+	    	$('input[type="hidden"]').val($(this).parents('#photoHeader').attr("name"));
+	    	$('.background').show();
+	    	$("#inputSpec").fadeIn("slow");
+	    });
+	    
+	    function preview(input) {
+			 
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('.preview').attr('src', e.target.result);
+		        }
+
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		
+		$("body").on("change", "input[name='insert_targetPic']", function (){
+		    preview(this);
+		})
+		
+		$("#postBtn").click(function(){
+			
+			var myForm = document.querySelector("#inputSpec>form");
+			var postData = new FormData(myForm);
+			postData.append("action","Target_Spec_insert");
+			 $.ajax(
+			{
+				url : "target_Spec/Target_specServlet.do",
+				type: "POST",
+				data : postData,
+	       		processData: false,
+				contentType: false,
+	            success:function(data) 
+	            {
+				},
+			});
+			
+		})
 	});
 
+	//Comments
 	$('.col-md-9.col-sm-7').on("click",".comments",function(){
 		$(this).parents('.single-blog.two-column').find('.allComments').slideToggle('fast');		
 	});
 	
+	//photoBook
 	$('.col-md-9.col-sm-7').on("click",'.carousel-control.left',function(){
 		
 		var slides = $(this).parents('.single-blog.two-column').find('.carousel.slide');
@@ -247,10 +347,10 @@ $(document).ready(function(){
 			
 		            '<div id="photoItem" class="single-blog two-column">' +   //photoItem
 		            
-		            '<div id="photoHeader" style="position:relative;">' +  //photoHeader-Start
+		            '<div id="photoHeader" name="' + this.targetID + '" style="position:relative;">' +  //photoHeader-Start
 		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">' +
-		            '<tr id="Editor1"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>' +
-		            '<tr id="Editor2"  style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>送出審核</a></td></tr>' +
+		            '<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>' +
+		            '<tr id="Editor2" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>送出審核</a></td></tr>' +
 		            '</table>'+
 		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
 		            '<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>' +
@@ -272,7 +372,7 @@ $(document).ready(function(){
 		    	            if(i == 0) {str += ' active">';}
 		    	            else { str += '">'}
 		    	            str +=  '<div class="post-thumb">' +   //photo-Start
-			    		                '<img style="width:920px;height:470px;" src="${ctx}/' + this.picPath + '">'+
+			    		                '<img style="width:920px;height:470px;" src="${ctx}' + this.picPath + '">'+
 			    		            '</div>' +   //photo-End
 			                    	'<div class="span8"><p>' + this.trgNote +'</p></div>' +
 			                        '</div>' +   //item active-End
@@ -334,15 +434,31 @@ $(document).ready(function(){
 		$("#Editor1").click(popup);
 	})
     
-	
-	
-	
     </script>
 </head>
 <body>
 <!-- <div id="wrapper"> -->
 <!-- Header -->
 <jsp:include page="header.jsp"></jsp:include>
+
+<div id="inputSpec" style="position:fixed;z-index:1000000001;left:calc(50vw - 300px);top:50px;display:none;width:auto;height:auto;background-color:white;border-radius:2%;">
+    <form style="padding:20px 20px 20px 20px;" ENCTYPE="multipart/form-data" method="POST" action="Target_specServlet.do" role="form">
+		 <input type="hidden" name="input_trgetID" value="" />
+		 <div >
+         <img class="preview" style="width: 580px; height: 380px;">
+         <div class="size"></div>
+         </div>	
+		<textarea cols="60" rows="5" name="input_target_Note"></textarea>
+		<br /> 
+		    <div class="camera"><input type="file" name="insert_targetPic" /></div>
+		<br /> 
+		 <div>
+         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:150px;height:90px;float:right;">
+         <input value="送出審合" type="button" id="checkBtn" style="font-size:20px;display:none;font-family:Microsoft JhengHei;border-radius:10%;width:150px;height:90px;float:right;">
+         
+	     </div>
+	</form>
+</div>
 
 <section id="blog" class="padding-top">
   <div class="container">
@@ -369,8 +485,6 @@ $(document).ready(function(){
 <!--                             <h3>我 的 榮 耀</h3> -->
 <!--                             <ul class="gallery"> -->
 <!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li> -->
-<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular2.jpg" alt=""></a></li> -->
-<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular3.jpg" alt=""></a></li> -->
 <!--                             </ul> -->
                         </div>
                     </div>
@@ -494,6 +608,6 @@ $(document).ready(function(){
         </script>
 <!-- </script> -->
 
-    
+    <div class="background"></div>
 </body>
 </html>
