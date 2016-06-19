@@ -25,7 +25,7 @@ public class commentsDAO implements commentsDAO_interface{
 														" (SELECT TOP 5 c.targetID,c.userID,c.comment FROM comments c"+
 																" JOIN(SELECT targetID FROM target_list WHERE userID = ?)ut ON"+
 																" c.targetID = ut.targetID"+
-																" ORDER BY c.commentID) v" +
+																" ORDER BY c.commentID DESC) v" +
 															" ON u.userID = v.userID";
 	private static DataSource ds = null;
 	static {
