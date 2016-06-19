@@ -174,7 +174,9 @@ font-style: italic;
 <!-- *******************對話方塊中的文字，預設為隱藏。***************** -->
 
 <div id="dialog" title="是否確認送出?">
-  <p>一旦確認承接後，便無法在此頁面取消這項挑戰! 您是否確定要接受這項挑戰?</p>
+  <p>一旦確認送出後，便無法在此頁面移除這項任務! 您是否確定要送出這項任務?</p>
+  任務名稱: <input id="targetName" type="text" onkeypress="if (event.keyCode==13){ event.preventDefault();}" ></br>
+  初衷: <textarea id="targetIntention" type="text" onkeypress="if (event.keyCode==13){ event.preventDefault();}" ></textarea></br>
 </div>
 
 </body>
@@ -226,8 +228,11 @@ $(function(){
 		 function callDialog () {	
 				if($(this).find('td').hasClass("send") || $(this).find('td').hasClass("highlight")) {
 					return;
-				} 	
-		    console.log("點擊的任務ID是: " +  trgID + " 名稱是: " + trgName ); //印出點，選時候所取得的任務ID值
+				}
+			var tr = $(this).parents('tr');
+		    console.log("點擊的任務ID是: " +  tr.attr("id") + " 名稱是: " + tr.attr("name") ); //印出點，選時候所取得的任務ID值
+		    $('#targetName').val(tr.attr("name"));
+		    $('#targetIntention').val(tr.find("td:eq(4)").text());
 			$( "#dialog" ).dialog( "open" );
 
 		}   
@@ -338,8 +343,8 @@ function log( message ) {
     		
 	    	$.each(targets, function(i,target){
 	    		$('table>tbody').on('click','.btn-danger',function(){
-	   	 		 $(this).parents("tr").remove();
-	   		})       		
+	   	 		 	$(this).parents("tr").remove();
+	   			})       		
 			
 	   		var frg = $(new DocumentFragment());
 	   		var applied = false;
