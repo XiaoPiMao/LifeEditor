@@ -120,12 +120,18 @@ font-style: italic;
 
 </head>
 <body>
-<h1><img src="images/magnifier.gif" style="height:35px;">任務搜尋</h1>
+<jsp:include page="header.jsp"></jsp:include>
+<br>
+<br>
+<br>
+<h1><img src="images/magnifier.gif" style="height:35px;">搜尋任務</h1>
 
 
 <!-- <img src="images/ajax-loader.gif" id="img1"> -->
 
 <div align="center">
+<br>
+<br>
 <b>哈囉~ ${LoginOK.firstName} ，本頁面除了可以關鍵字搜尋現有的目標、也可以靠隨機的方式來產生新目標喔!</b>
 <br />
 <br />
@@ -135,6 +141,7 @@ font-style: italic;
 <table id="toptable" class="display" cellspacing="20" width=auto>
 <tr><td>	任務搜尋: <input id="tag1" type="text" name="trgName" onkeypress="if (event.keyCode==13){ event.preventDefault();}" ></td>
 <td>隨機搜尋一筆:&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/guestion.gif" style="height:25px;">
+
 <input id="tag2" type="button" value="隨機搜尋"></td><tr>
 </table>
 
