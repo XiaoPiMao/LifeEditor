@@ -185,7 +185,7 @@ public class Target_specServlet extends HttpServlet {
 		//前面需在寫一支servlet做判斷，判斷是否為已審核
 		//能進入都為修改無關係的
 	if ("Target_Spec_insert".equals(action)) {
-
+		
 		List<String> errorMsgs = new LinkedList<String>();
 
 		req.setAttribute("errorMsgs", errorMsgs);
@@ -202,25 +202,30 @@ public class Target_specServlet extends HttpServlet {
 			TargetVO TargetVO=new TargetVO();
 
 //			user_specVO user_specVO=new user_specVO();
-		    int targettypevalue=2;
+		    
 		    		//TargetVO.getTrgType();
 	                         
 
 		    TargetSpecService Target_specSvc = new TargetSpecService();
 		     String url = "/target_Spec/ok.jsp";
 
-		     RequestDispatcher successView = req.getRequestDispatcher(url);
+		    // RequestDispatcher successView = req.getRequestDispatcher(url);
 			//以下為取得表單要insert的值
 		   long time=System.currentTimeMillis();
 		    
 			Integer UserID = user.getUserID();
-			Integer TargetID =new Integer(req.getParameter("input_trgetID"));		;
-			String UserTarget_desc = req.getParameter("input_target_Note");		
+			Integer TargetID =new Integer(req.getParameter("input_trgetID"));
+			String UserTarget_desc = req.getParameter("input_target_Note");	
+			
 			//這邊將要insert的路徑做設定
 	        String trgPicPath="/images/trgSpecs/"+UserID.toString()+TargetID.toString()+time+".jpg";
-	        String Path = "D:/life_editor/repository"+ trgPicPath;
+	        String Path = "D:/life_editor/repository/lifeeditor/src/main/webapp"+ trgPicPath;
 	        //String Path=req.getServletContext().getRealPath(trgPicPath);
+	       
+	        
+	        
 	        Part filePart = req.getPart("insert_targetPic");
+	        
 	        File file1=new File(Path);//存入檔案的路徑
 	        FileOutputStream fos1 = new FileOutputStream(file1);
 	        InputStream in = filePart.getInputStream();
@@ -229,22 +234,25 @@ public class Target_specServlet extends HttpServlet {
 	 				Blob Pic = new SerialBlob(b);
 	 				Pic.getBytes(1, (int) Pic.length());
 	 				fos1.write(Pic.getBytes(1, (int) Pic.length()),0,(int) Pic.length());
+	 		
+	 		Target_specSvc.addTargetSpec(UserID,TargetID,UserTarget_desc,trgPicPath);
 			//targettype為1官方方便管理.2玩官方3.為自定
 			//ststus1不需審核.2未審核.3已審核
-			if(targettypevalue==2){
-			 
-		       TargetspecVO = Target_specSvc.addTargetSpec_changeStatus(UserID,TargetID,UserTarget_desc,trgPicPath);
-
-		 		req.setAttribute("TargetspecVO", TargetspecVO);
-
-				successView.forward(req, res);     
-
-			}else{
-					TargetspecVO = Target_specSvc.addTargetSpec(UserID,TargetID,UserTarget_desc,trgPicPath);
-					req.setAttribute("TargetspecVO", TargetspecVO);
-					successView.forward(req, res);     
-				
-			}
+//	 		int targettypevalue=2;
+//	 		if(targettypevalue==2){
+//			 
+//		       TargetspecVO = Target_specSvc.addTargetSpec_changeStatus(UserID,TargetID,UserTarget_desc,trgPicPath);
+//
+//		 		req.setAttribute("TargetspecVO", TargetspecVO);
+//
+//				successView.forward(req, res);     
+//
+//			}else{
+//					TargetspecVO = Target_specSvc.addTargetSpec(UserID,TargetID,UserTarget_desc,trgPicPath);
+//					req.setAttribute("TargetspecVO", TargetspecVO);
+//					successView.forward(req, res);     
+//				
+//			}
 		} catch (Exception e) {
 			// 出現錯誤後要跳轉的頁面
 			errorMsgs.add(e.getMessage());
