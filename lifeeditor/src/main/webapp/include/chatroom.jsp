@@ -13,8 +13,8 @@
     
 
     function connect() {
-        ws = new WebSocket("ws://" + document.location.host + "/chatroom/chat/" + jUser.userID);
-
+        ws = new WebSocket("ws://" + document.location.host + "/lifeeditor/chat/" + jUser.userID);
+		alert(connect);
 
         ws.onmessage = function(event) {
             console.log(event.data);
@@ -23,7 +23,7 @@
         };
     }
     
-     function send() {
+     function send(json) {
         var content = document.getElementById("msg").value;
         var to = document.getElementById("to").value;
         var json = JSON.stringify({
@@ -32,7 +32,7 @@
         });
 
         ws.send(json);
-        log.innerHTML += "Me : " + content + "\n";
+        
     }
 
         $(function () {
@@ -65,6 +65,15 @@
         	}
             $('body').on("keyup", ".textInput",function (e) {
                 if (e.which == 13) {
+                	var msgReceiver = $(this).parents('.chat').attr("id").substring(4); 
+                	var json = JSON.stringify ({
+                		type : "txt",
+                		msgSender : jUser.userID,
+                		msgReceiver : msgReceiver,
+                		content : $(this).val()
+                	})
+                	$(this).val("");
+                	ws.send(json);
                 }
                    
             });

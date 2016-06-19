@@ -2,15 +2,15 @@ package com.lifeeditor.chatroom;
 
 public class Message {
 
-    private String Type;
+    private String type;
 	private Integer msgSender;
     private Integer msgReceiver;
     private String content;
 	public String getType() {
-		return Type;
+		return type;
 	}
 	public void setType(String type) {
-		Type = type;
+		this.type = type;
 	}
 	public Integer getMsgSender() {
 		return msgSender;
@@ -30,6 +30,7 @@ public class Message {
 	public void setContent(String content) {
 		this.content = content;
 	}
+	
     
     
 	

@@ -24,10 +24,11 @@ public class ChatEndpoint {
     
     private Integer userID;
 
-    private static Map<Integer,HashSet<Session>> onlinePool = new HashMap<Integer,HashSet<Session>>();
+    public static Map<Integer,HashSet<Session>> onlinePool = new HashMap<Integer,HashSet<Session>>();
 
     @OnOpen
     public void onOpen(Session session, @PathParam("userID") Integer userID) throws IOException, EncodeException {
+    	System.out.println(1232);
         log.info(userID + " connected!");
         this.userID = userID;
         onlinePool.get(userID).add(session);
@@ -52,12 +53,18 @@ public class ChatEndpoint {
 
 
     private static void sendMessage(Message message){
-        Integer MsgReceiver = message.getMsgReceiver();
-        Set<Session> sessionSet = onlinePool.get(MsgReceiver);
+        Integer msgReceiver = message.getMsgReceiver();
+        Integer msgSender = message.getMsgSender();
+        send(onlinePool.get(msgReceiver),message);
+        send(onlinePool.get(msgSender),message);
+    }
+    
+    private static void send(Set<Session> sessionSet,Message message) {
     	if(sessionSet != null) {
-		
+    		
 			for(Session s : sessionSet) {
 				try {
+					System.out.println("send");
 					s.getBasicRemote().sendObject(message);
 				}catch(Exception e) {
 	    			System.out.println("傳訊息錯誤");
