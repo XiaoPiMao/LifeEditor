@@ -16,7 +16,8 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script type="text/javascript">
 
-
+var trgID;
+var trgName;
 var tr;
 var numberResult;
 var rateResult;
@@ -38,41 +39,20 @@ $(document).ready(function(){
 	            $( this ).dialog( "close" );
 	            
 	     	    $(tr).find("td").toggleClass( "highlight" );	  
-  	 			$(tr).find("#apply").prop('value', '報名送出')
+  	 			$(tr).find("#apply").prop('value', '已加入')
   		 	    $(tr).find("#apply").prop('disabled', true);
   	 			$(tr).find("#apply").css('color','red');
-  	 			$('#applylist>p').html("已加入新的挑戰~!&nbsp;&nbsp;" + $(tr).find('td:eq(0)').text());
+  	 			$('#applylist>p').html("已加入新的任務~!&nbsp;&nbsp;" + trgName);
  				$('#applylist').fadeTo(1000,0.6);
  				
- 				$.post("userAddTargetServlet",{"targetID":tr.id, "action":"insert"},function(data){
-		  			officialTrg = $(tr).find("td:eq(0)").text();
-
-
-	 				$.ajax({
-						"type":"get",
-						"url":"${ctx}/userAddTargetServlet",
-						"data":{"action":"countNames", "keyword": officialTrg},
-						"success":function(data){
-							numberResult = data;
-							$.ajax({
-								"type":"get",
-								"url":"${ctx}/userAddTargetServlet",
-								"data":{"action":"rateNames", "keyword": officialTrg},
-								"success":function(data){
-									rateResult = data;
-									$(tr).find("td:eq(6)").text(numberResult + " 人");
-									$(tr).find("td:eq(7)").text(rateResult + "%");
-									alert("新的挑戰已新增至您的目標清單。");
-								}
-							});
-						}
-					});
-	 				
+ 				$.post("userAddTargetServlet",{"targetID":trgID, "action":"insertTake"},function(data){
+		  	
+		  			alert("新的挑戰已新增至您的目標清單。");
+		
 		  		});
- 				
- 				
+ 								
 //					**********************************************				
-//					***ajax*比對名子來當作參數，再拿名子參數給servlet來算出數量**	
+
 
 				
 	          },
@@ -106,12 +86,38 @@ background-color:#c1ff80;
 color: blue; 
  }
  
+.send {
+background-color:#ffffe6; 
+color: gray; 
+font-style: italic;
+ } 
+ 
+  #applylist {
+  position: fixed;
+  left: 50px;
+  top: 5px;
+  opacity:0.6;
+  
+    background: #dad;
+    font-weight: bold;
+    font-size: 16px;
+  }	 
+ 
+  .alert
+{
+    font-size: 1.3em;
+    padding: 1em;
+    text-align: center;
+    white-space: nowrap;
+    width: auto;
+    word-wrap: normal;
+} 
+ 
   #img1 {
   position: fixed;
   left: 950px;
   top: 50px;
 
-  
   }		
 </style>
 
@@ -121,22 +127,20 @@ color: blue;
 <h1><img src="images/magnifier.gif" style="height:35px;">任務搜尋</h1>
 
 
-<img src="images/ajax-loader.gif" id="img1">
+<!-- <img src="images/ajax-loader.gif" id="img1"> -->
 
 <div align="center">
-<b>哈囉~ ${LoginOK.lastName}${LoginOK.firstName} ，本頁面除了可以搜尋現有的目標、也可以用隨機的方式來產生新目標喔!</b>
+<b>哈囉~ ${LoginOK.firstName} ，本頁面除了可以關鍵字搜尋現有的目標、也可以靠隨機的方式來產生新目標喔!</b>
 <br />
 <br />
  <form id="myForm" action="${ctx}/SearchTarget">
-<b>	任務搜尋: <input id="tag1" type="text" name="trgName" onkeypress="if (event.keyCode==13){ event.preventDefault();}" ></b>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<b>
-隨機搜尋一筆:&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/guestion.gif" style="height:25px;">
-<input id="tag2" type="button" value="隨機搜尋"></b>
-<br />
-<br />
 
 
+<table id="toptable" class="display" cellspacing="20" width=auto>
+<tr><td>	任務搜尋: <input id="tag1" type="text" name="trgName" onkeypress="if (event.keyCode==13){ event.preventDefault();}" ></td>
+<td>隨機搜尋一筆:&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/guestion.gif" style="height:25px;">
+<input id="tag2" type="button" value="隨機搜尋"></td><tr>
+</table>
 
 <table id="example" class="display" cellspacing="0" width=auto>
 			<thead>
@@ -173,7 +177,6 @@ color: blue;
   <p>一旦確認承接後，便無法在此頁面取消這項挑戰! 您是否確定要接受這項挑戰?</p>
 </div>
 
-
 </body>
 <script>
 
@@ -187,7 +190,7 @@ $(function(){
 			'padding' : '10px',
 			'text-align' : 'center',
 			'font-weight':'normal',
-			'border' : '1px solid red'  };
+			'border' : '1px solid gray'  };
 	var s2 = {
 			'color' : '#336600',
 			'background-color' : '#d9ffb3',
@@ -206,13 +209,55 @@ $(function(){
 			$(this).css(s1);
 		};
 		
+		
+		$('td').css(s1);
+		$('#toptable').on("mouseover",'td',over).on("mouseout",'td',out);
+		function over() {
+			$(this).css(s2);
+		};
+		function out() {
+			$(this).css(s1);
+		};
+		
+
+		//*******************滑鼠點擊時，觸發該列。*****************	
+		
+		 $('#example').on("click","#apply",callDialog);
+		 function callDialog () {	
+				if($(this).find('td').hasClass("send") || $(this).find('td').hasClass("highlight")) {
+					return;
+				} 	
+		    console.log("點擊的任務ID是: " +  trgID + " 名稱是: " + trgName ); //印出點，選時候所取得的任務ID值
+			$( "#dialog" ).dialog( "open" );
+
+		}   
+	    
+		
+		
+		
 
 	});
 	
+	
+//***************套用特殊的alert樣式 *************//
+
+window.alert = function(message){
+    $(document.createElement('div'))
+        .attr({title: '送出成功', 'class': 'alert'})
+        .html(message)
+        .dialog({
+            buttons: {OK: function(){$(this).dialog('close');}},
+            close: function(){$(this).remove();},
+            draggable: true,
+            modal: true,
+            resizable: false,
+            width: 'auto'
+        });
+};	
 //*****************Loading畫面*******************	
-			$('#img1').hide();
-			$("#img1").fadeToggle("slow");
-			$("#img1").fadeToggle(10000);
+// 			$('#img1').hide();
+// 			$("#img1").fadeToggle("slow");
+// 			$("#img1").fadeToggle(10000);
 
 			
 //*****************autocomplete*******************			
@@ -256,8 +301,10 @@ function log( message ) {
         		var frg = $(new DocumentFragment());
 				var applied = false;
 				var ut;
-				var tr = $("<tr></tr>").attr({"id":target.targetID, "align":"center", "valign":"middle"})
-        	
+		   		tr = $("<tr></tr>").attr({"id":target.targetID, "name":target.trgName, "align":"center", "valign":"middle"})
+        		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
+	   			trgID = $(tr).attr("id");
+	   			trgName = $(tr).attr("name");
 				var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 				tr.append($("<td></td>").append(input));
         		var td = $("<td></td>").text(target.trgName);
@@ -265,7 +312,7 @@ function log( message ) {
 				tr.append($("<td></td>").text(target.typeVO.typeName));
 				tr.append($("<td></td>").text(target.sectionVO.secName));
 				tr.append($("<td></td>").text(target.intention));
-				tr.append("<td><a href='#' class='btn btn-danger'>刪除</a></td>");
+				tr.append("<td><a href='#' class='btn btn-danger'>移除</a></td>");
 				frg.append(tr);			  
 		
 				$('#example>tbody').append(frg);
@@ -283,8 +330,7 @@ function log( message ) {
     });	
 	
 	
-    
-    
+   
   //*****************按下隨機生產鈕*******************		
   
     $('#tag2').click(function() {
@@ -294,11 +340,14 @@ function log( message ) {
 	    		$('table>tbody').on('click','.btn-danger',function(){
 	   	 		 $(this).parents("tr").remove();
 	   		})       		
-
+			
 	   		var frg = $(new DocumentFragment());
 	   		var applied = false;
 	   		var ut;
-	   		var tr = $("<tr></tr>").attr({"id":target.targetID, "align":"center", "valign":"middle"})
+	   		tr = $("<tr></tr>").attr({"id":target.targetID, "name":target.trgName, "align":"center", "valign":"middle"})
+	   		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
+	   		trgID = $(tr).attr("id");
+	   		trgName = $(tr).attr("name");
 	   		var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 	   		tr.append($("<td></td>").append(input));
 	   		var td = $("<td></td>").text(target.trgName);
@@ -306,7 +355,7 @@ function log( message ) {
 	   		tr.append($("<td></td>").text(target.typeVO.typeName));
 	   		tr.append($("<td></td>").text(target.sectionVO.secName));
 	   		tr.append($("<td></td>").text(target.intention));
-	   		tr.append("<td><a href='#' class='btn btn-danger'>刪除</a></td>");
+	   		tr.append("<td><a href='#' class='btn btn-danger'>移除</a></td>");
 	   		frg.append(tr);			  
 	
 	   		$('#example>tbody').append(frg);
