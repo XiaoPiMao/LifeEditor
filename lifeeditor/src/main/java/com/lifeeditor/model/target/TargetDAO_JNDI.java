@@ -85,12 +85,18 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	private static final String GET_RANDOM_TARGET = "select top 1 * from (SELECT targetID, trgName, typeName, secName, " +
 			 "intention, timeStart FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN type_list ON" +
              " sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID where trgType =3 and timeFinish >= GETDATE()) t ORDER BY NEWID() ";
+		
+	private static final String GET_RANDOM_TARGET_ADVANCE = "select top 1 * from ( SELECT user_spec.lastName, user_spec.firstName, user_spec.userID, target.targetID, target.trgName, "+
+			 " target.intention, sec_list.secName, type_list.typeName, target.timeStart FROM sec_list INNER JOIN target " +
+			 " ON sec_list.secID = target.sectionID INNER JOIN target_list ON target.targetID = target_list.targetID INNER JOIN " +
+			 " type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID INNER JOIN " +
+			 " user_spec ON target_list.userID = user_spec.userID  where trgType =3 )  t ORDER BY NEWID() " ;
 	
 	private static final String SEARCH_TARGET = "SELECT targetID, trgName, typeName, secName, intention, "
 			+ "timeStart FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN "
 			+ "type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID where trgType =3 and trgName like ?";
 	
-	private static final String SEARCH_TARGET_ADVANCE = "SELECT user_spec.lastName, user_spec.firstName, user_spec.userID, target.trgName, target.intention, sec_list.secName, type_list.typeName, target.timeStart"+
+	private static final String SEARCH_TARGET_ADVANCE = "SELECT user_spec.lastName, user_spec.firstName, user_spec.userID, target.targetID , target.trgName, target.intention, sec_list.secName, type_list.typeName, target.timeStart"+
 	" FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN "+
 	" target_list ON target.targetID = target_list.targetID INNER JOIN "+
 	" type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID INNER JOIN "+
@@ -729,9 +735,9 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 
 	
 	@Override
-	public List<TargetVO> getFromKeyWordSearch(String keyword) {
+	public List<Target_ListVO> getFromKeyWordSearch(String keyword) {
 		
-		List<TargetVO> list = new ArrayList<TargetVO>();
+		List<Target_ListVO> list = new ArrayList<Target_ListVO>();
 
 		
 		Connection con = null;
@@ -740,23 +746,23 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 		
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(SEARCH_TARGET);
+			pstmt = con.prepareStatement(SEARCH_TARGET_ADVANCE);
 			pstmt.setString(1, "%" + keyword + "%");
 			rs = pstmt.executeQuery();
 			TargetVO Trg = null;
 			TypeListVO type = null;
 			SecListVO sec = null;
-//			user_specVO user = null;
-//			Target_ListVO trgList = null;
+			user_specVO user = null;
+			Target_ListVO trgList = null;
 			
 			while(rs.next()) {
 				Trg = new TargetVO();
 				type = new TypeListVO();
 				sec = new SecListVO();
-//				user = new user_specVO();
-//				trgList = new Target_ListVO();
-//				user.setLastName(rs.getString("lastName"));
-//				user.setFirstName(rs.getString("firstName"));
+				user = new user_specVO();
+				trgList = new Target_ListVO();
+				user.setLastName(rs.getString("lastName"));
+				user.setFirstName(rs.getString("firstName"));
 			
 				Trg.setTargetID(rs.getInt("targetID"));  
 				Trg.setTrgName(rs.getString("trgName")); 
@@ -768,7 +774,10 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 				
 				Trg.setIntention(rs.getString("intention"));
 				Trg.setTimeFinish(rs.getDate("timeStart"));
-				list.add(Trg);					
+				
+				trgList.setUserVO(user);
+				trgList.setTrgVO(Trg);			
+				list.add(trgList);					
 			}	
 		
 			
@@ -803,35 +812,61 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 	
 	@Override
-	public TargetVO getRandomTarget() {
+	public Target_ListVO getRandomTarget() {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		TargetVO Trg = null;
 		TypeListVO type = null;
+		Target_ListVO trgList = null;
 		SecListVO sec = null;
+		user_specVO user = null;
 		
 try {
 			
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(GET_RANDOM_TARGET);
+			pstmt = con.prepareStatement(GET_RANDOM_TARGET_ADVANCE);
 			rs = pstmt.executeQuery();
 			
 			
 			if(rs.next()) {
 				
+//				Trg = new TargetVO();
+//				type = new TypeListVO();
+//				sec = new SecListVO();
+//				Trg.setTargetID(rs.getInt("targetID"));
+//				Trg.setTrgName(rs.getString("trgName"));
+//				type.setTypeName(rs.getString("typeName"));
+//				Trg.setTypeVO(type);
+//				sec.setSecName(rs.getString("secName"));
+//				Trg.setSectionVO(sec);  
+//				Trg.setIntention(rs.getString("intention"));
+//				Trg.setTimeFinish(rs.getDate("timeStart"));
+				
+				
 				Trg = new TargetVO();
 				type = new TypeListVO();
 				sec = new SecListVO();
-				Trg.setTargetID(rs.getInt("targetID"));
-				Trg.setTrgName(rs.getString("trgName"));
+				user = new user_specVO();
+				trgList = new Target_ListVO();
+				user.setLastName(rs.getString("lastName"));
+				user.setFirstName(rs.getString("firstName"));
+			
+				Trg.setTargetID(rs.getInt("targetID"));  
+				Trg.setTrgName(rs.getString("trgName")); 
+				
 				type.setTypeName(rs.getString("typeName"));
 				Trg.setTypeVO(type);
 				sec.setSecName(rs.getString("secName"));
-				Trg.setSectionVO(sec);  
+				Trg.setSectionVO(sec); 
+				
 				Trg.setIntention(rs.getString("intention"));
 				Trg.setTimeFinish(rs.getDate("timeStart"));
+				
+				trgList.setUserVO(user);
+				trgList.setTrgVO(Trg);			
+					
 			
 			}	
 			
@@ -860,7 +895,7 @@ try {
 				}
 			}
 		}
-		return Trg;
+		return trgList;
 	}
 
 	

@@ -44,14 +44,12 @@ $(document).ready(function(){
   	 			$(tr).find("#apply").css('color','red');
   	 			$('#applylist>p').html("已加入新的任務~!&nbsp;&nbsp;" + trgName);
  				$('#applylist').fadeTo(1000,0.6);
- 				
+ 						
  				$.post("userAddTargetServlet",{"targetID":trgID,"trgName":$('#targetName').val(),"intention":$('#targetIntention').val(), "action":"insertTake"},function(data){
  					
 		  			alert("新的挑戰已新增至您的目標清單。");
 		
-		  		});
- 								
-//					**********************************************				
+		  		});								
 			
 	          },
 	          
@@ -233,7 +231,7 @@ $(function(){
 				if($(this).find('td').hasClass("send") || $(this).find('td').hasClass("highlight")) {
 					return;
 				}
-			var tr = $(this).parents('tr');
+			tr = $(this).parents('tr');
 		    console.log("點擊的任務ID是: " +  tr.attr("id") + " 名稱是: " + tr.attr("name") ); //印出點，選時候所取得的任務ID值
 		    $('#targetName').val(tr.attr("name"));
 		    $('#targetIntention').val(tr.find("td:eq(5)").text());
@@ -285,8 +283,8 @@ function log( message ) {
 	        	targets = JSON.parse(data);
 	        	console.log(data);
 				$.each(targets, function(index, target){
-					console.log(target.trgName);
-					res.push(target.trgName);		
+					console.log(target.trgVO.trgName);
+					res.push(target.trgVO.trgName);		
 				});
         	  }
 				response(res);			
@@ -296,8 +294,8 @@ function log( message ) {
       minLength: 1,
       select: function( event, ui ) {
         $.each(targets, function(i,target) {
-        	if(target.trgName == ui.item.label) {
-        		trgID = target.targetID;
+        	if(target.trgVO.trgName == ui.item.label) {
+        		trgID = target.trgVO.targetID;
 
 
 		   	$('table>tbody').on('click','.btn-danger',function(){
@@ -307,18 +305,18 @@ function log( message ) {
         		var frg = $(new DocumentFragment());
 				var applied = false;
 				var ut;
-		   		tr = $("<tr></tr>").attr({"id":target.targetID, "name":target.trgName, "align":"center", "valign":"middle"})
+		   		tr = $("<tr></tr>").attr({"id":target.trgVO.targetID, "name":target.trgVO.trgName, "align":"center", "valign":"middle"})
         		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
 	   			trgID = $(tr).attr("id");
 	   			trgName = $(tr).attr("name");
-	   			tr.append($("<td></td>").text(("--")));
+	   			tr.append($("<td></td>").text(target.userVO.lastName + target.userVO.firstName));
 				var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 				tr.append($("<td></td>").append(input));
-        		var td = $("<td></td>").text(target.trgName);
+        		var td = $("<td></td>").text(target.trgVO.trgName);
 				tr.append(td);	
-				tr.append($("<td></td>").text(target.typeVO.typeName));
-				tr.append($("<td></td>").text(target.sectionVO.secName));
-				tr.append($("<td></td>").text(target.intention));
+				tr.append($("<td></td>").text(target.trgVO.typeVO.typeName));
+				tr.append($("<td></td>").text(target.trgVO.sectionVO.secName));
+				tr.append($("<td></td>").text(target.trgVO.intention));
 				tr.append("<td><a href='#' class='btn btn-danger'>移除</a></td>");
 				frg.append(tr);			  
 		
@@ -351,18 +349,18 @@ function log( message ) {
 	   		var frg = $(new DocumentFragment());
 	   		var applied = false;
 	   		var ut;
-	   		tr = $("<tr></tr>").attr({"id":target.targetID, "name":target.trgName, "align":"center", "valign":"middle"})
+	   		tr = $("<tr></tr>").attr({"id":target.trgVO.targetID, "name":target.trgVO.trgName, "align":"center", "valign":"middle"})
 	   		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
 	   		trgID = $(tr).attr("id");
 	   		trgName = $(tr).attr("name");
-	   		tr.append($("<td></td>").text(("--")));
+	   		tr.append($("<td></td>").text(target.userVO.lastName + target.userVO.firstName));
 	   		var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 	   		tr.append($("<td></td>").append(input));
-	   		var td = $("<td></td>").text(target.trgName);
+	   		var td = $("<td></td>").text(target.trgVO.trgName);
 	   		tr.append(td);	
-	   		tr.append($("<td></td>").text(target.typeVO.typeName));
-	   		tr.append($("<td></td>").text(target.sectionVO.secName));
-	   		tr.append($("<td></td>").text(target.intention));
+	   		tr.append($("<td></td>").text(target.trgVO.typeVO.typeName));
+	   		tr.append($("<td></td>").text(target.trgVO.sectionVO.secName));
+	   		tr.append($("<td></td>").text(target.trgVO.intention));
 	   		tr.append("<td><a href='#' class='btn btn-danger'>移除</a></td>");
 	   		frg.append(tr);			  
 	

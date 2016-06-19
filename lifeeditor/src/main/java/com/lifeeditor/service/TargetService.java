@@ -1,10 +1,12 @@
 package com.lifeeditor.service;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.target.*;
+import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.type_list.TypeListVO;
 
 
@@ -142,6 +144,9 @@ public class TargetService {
 		TrgVO.setTrgType(3);
 		TrgVO.setTrgName(trgName);
 		TrgVO.setIntention(intention);
+		java.sql.Date ourJavaDateObject = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		TrgVO.setTimeStart(ourJavaDateObject);
+		TrgVO.setTrgType(3);
 		targetID= dao.insert(TrgVO);
 		new Target_List_Service().addTrgList(userID, targetID);
         
@@ -157,11 +162,11 @@ public class TargetService {
 		return dao.countRateOfTargetName(keyword);
 	}
 	
-	public List<TargetVO> getFromKeyWordSearch(String keyword){
+	public List<Target_ListVO> getFromKeyWordSearch(String keyword){
 		return dao.getFromKeyWordSearch(keyword);
 	}
 	
-	public TargetVO getRandomTarget(){
+	public Target_ListVO getRandomTarget(){
 		return dao.getRandomTarget();
 	}
 	
