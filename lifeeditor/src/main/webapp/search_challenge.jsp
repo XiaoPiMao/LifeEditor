@@ -45,27 +45,23 @@ $(document).ready(function(){
   	 			$('#applylist>p').html("已加入新的任務~!&nbsp;&nbsp;" + trgName);
  				$('#applylist').fadeTo(1000,0.6);
  				
- 				$.post("userAddTargetServlet",{"targetID":trgID, "action":"insertTake"},function(data){
-		  	
+ 				$.post("userAddTargetServlet",{"targetID":trgID,"trgName":$('#targetName').val(),"intention":$('#targetIntention').val(), "action":"insertTake"},function(data){
+ 					
 		  			alert("新的挑戰已新增至您的目標清單。");
 		
 		  		});
  								
 //					**********************************************				
-
-
-				
+			
 	          },
 	          
-          Cancel: function() {
+          	取消: function() {
             $( this ).dialog( "close" );
-            console.log("Cancel");
+            console.log("取消送出");
 	          }
 	        },
 	    }); 
-	
-
-    
+   
 });
 
 </script>
@@ -145,6 +141,7 @@ font-style: italic;
 <table id="example" class="display" cellspacing="0" width=auto>
 			<thead>
 				<tr>
+					<th width="130px">任務原創者</th>
 					<th width="50px">選取</th>
 					<th width="130px">挑戰名稱</th>
 					<th width="60px">類別</th>
@@ -175,8 +172,8 @@ font-style: italic;
 
 <div id="dialog" title="是否確認送出?">
   <p>一旦確認送出後，便無法在此頁面移除這項任務! 您是否確定要送出這項任務?</p>
-  任務名稱: <input id="targetName" type="text" onkeypress="if (event.keyCode==13){ event.preventDefault();}" ></br>
-  初衷: <textarea id="targetIntention" type="text" onkeypress="if (event.keyCode==13){ event.preventDefault();}" ></textarea></br>
+  任務名稱: <input id="targetName" type="text" onkeypress="if (event.keyCode==13){ event.preventDefault();}" ><br>
+  初衷: <textarea id="targetIntention"  onkeypress="if (event.keyCode==13){ event.preventDefault();}" ></textarea>
 </div>
 
 </body>
@@ -232,14 +229,11 @@ $(function(){
 			var tr = $(this).parents('tr');
 		    console.log("點擊的任務ID是: " +  tr.attr("id") + " 名稱是: " + tr.attr("name") ); //印出點，選時候所取得的任務ID值
 		    $('#targetName').val(tr.attr("name"));
-		    $('#targetIntention').val(tr.find("td:eq(4)").text());
+		    $('#targetIntention').val(tr.find("td:eq(5)").text());
 			$( "#dialog" ).dialog( "open" );
 
 		}   
-	    
-		
-		
-		
+	
 
 	});
 	
@@ -310,6 +304,7 @@ function log( message ) {
         		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
 	   			trgID = $(tr).attr("id");
 	   			trgName = $(tr).attr("name");
+	   			tr.append($("<td></td>").text(("--")));
 				var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 				tr.append($("<td></td>").append(input));
         		var td = $("<td></td>").text(target.trgName);
@@ -339,9 +334,9 @@ function log( message ) {
   //*****************按下隨機生產鈕*******************		
   
     $('#tag2').click(function() {
-    	$.getJSON('${ctx}/SearchTarget',{"action":"getRandomTarget"},function(targets){
+    	$.getJSON('${ctx}/SearchTarget',{"action":"getRandomTarget"},function(target){
     		
-	    	$.each(targets, function(i,target){
+	
 	    		$('table>tbody').on('click','.btn-danger',function(){
 	   	 		 	$(this).parents("tr").remove();
 	   			})       		
@@ -353,6 +348,7 @@ function log( message ) {
 	   		console.log("產生的任務ID是: " +  $(tr).attr("id") +" 名稱是: " + $(tr).attr("name"));
 	   		trgID = $(tr).attr("id");
 	   		trgName = $(tr).attr("name");
+	   		tr.append($("<td></td>").text(("--")));
 	   		var input = $("<input></input>").attr({"type":"button","value":"設定目標","id":"apply"});
 	   		tr.append($("<td></td>").append(input));
 	   		var td = $("<td></td>").text(target.trgName);
@@ -366,7 +362,7 @@ function log( message ) {
 	   		$('#example>tbody').append(frg);
 	   		$('div[align="center"]').css("display","block");	
 	    		
-    		});	
+    
     		
     	});
     	

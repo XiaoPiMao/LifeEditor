@@ -80,9 +80,9 @@ $(document).ready(function(){
 				
 	          },
 	          
-          Cancel: function() {
+                    取消: function() {
             $( this ).dialog( "close" );
-            console.log("Cancel");
+            console.log("已取消");
 	          }
 	        },
 	    }); 

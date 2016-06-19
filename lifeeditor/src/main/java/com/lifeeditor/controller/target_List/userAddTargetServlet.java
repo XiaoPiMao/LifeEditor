@@ -69,10 +69,12 @@ public class userAddTargetServlet extends HttpServlet {
 							
 				//Integer userID = Integer.parseInt(req.getParameter("userID"));
 				
-				Integer targetID = Integer.parseInt(req.getParameter("targetID"));	
+				Integer targetID = Integer.parseInt(req.getParameter("targetID"));
+				String trgName = req.getParameter("trgName");
+				String intention = req.getParameter("intention");
 				System.out.println(targetID);
 				trgSrvc= new TargetService();
-				trgSrvc.takeTrg(targetID, userID);
+				trgSrvc.takeTrg2(targetID, trgName, intention, userID);
 				
 				return;
 		 }

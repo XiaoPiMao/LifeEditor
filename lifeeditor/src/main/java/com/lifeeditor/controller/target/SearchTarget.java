@@ -38,6 +38,7 @@ public class SearchTarget extends HttpServlet {
 		TargetService trgSrvc= new TargetService();
 		Gson gson = new GsonBuilder().create();
 		List<TargetVO> list = null;
+		TargetVO trgVO = null;
 		String jsonStr = null;
 		PrintWriter os = null;
 		
@@ -76,10 +77,10 @@ public class SearchTarget extends HttpServlet {
 			res.setContentType("application/json");
 	
 			trgSrvc =  new TargetService();
-			list =  trgSrvc.getRandomTarget();
+			trgVO =  trgSrvc.getRandomTarget();
 
 			gson = new GsonBuilder().setDateFormat("MM/dd/yyyy").create();
-			jsonStr = gson.toJson(list);
+			jsonStr = gson.toJson(trgVO);
 			os = res.getWriter();
 			os.print(jsonStr);
 			
