@@ -43,7 +43,6 @@ public class GetJTargetByUser extends HttpServlet {
 		List<TargetVO> list = trgListSvc.pageFindByUserID(userID);
 		JsonArray jsonArray = new JsonArray();
 		JsonObject jsonObj = null;
-		JsonParser jsonParser = new JsonParser();
 		for(TargetVO trg  : list) {
 			jsonObj = new JsonObject();
 			JsonObject JTrg = gson.toJsonTree(trg).getAsJsonObject();
