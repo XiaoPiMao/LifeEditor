@@ -250,7 +250,7 @@ body {
 		     min-width: 160px; 
 		     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); 	     
 			 align:center;
-			 position: absolute;
+			 position: fixed;
 			 padding:10px;
 			 z-index: 100001;
 			 font-size:10px;
@@ -303,7 +303,7 @@ body {
 			<ul>
 				<c:if test="${! empty LoginOK }">
 					   <a href="UserPage"><img  id="UserPicture" src="${ctx}/GetUserPicture?id=${LoginOK.userID}" ></a>
-					   <li id="UserName" style="float:left;font-size:15px;weight:bold;"><a href="UserPage" style="text-indent:0em;">${LoginOK.lastName} ${LoginOK.firstName}</a></li>
+					   <li id="UserName" style="float:left;font-size:15px;weight:bold;"><a href="UserPage" style="text-indent:0em;width:auto;margin:5px">${LoginOK.lastName} ${LoginOK.firstName}</a></li>
 			    </c:if>
 														
 <%-- 													 	<c:if test="${! empty LoginOK }"> --%>
