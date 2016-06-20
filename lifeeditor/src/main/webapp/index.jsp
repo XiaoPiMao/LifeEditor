@@ -119,7 +119,7 @@
 						<div class="one_half last"><a href="#" class="btn btn_red"  onclick="LoginAjax();">登入</a></div>
 					</div>
 				</form>
-				<a href="updatePassword.jsp" class="forgot_password">忘記密碼</a>
+				<a href="XXXupdatePassword.jsp" class="forgot_password">忘記密碼</a>
 			</div>
 
 			<!-- Register Form -->

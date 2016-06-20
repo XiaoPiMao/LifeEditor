@@ -31,7 +31,7 @@ public class ForgotPwdServlet extends HttpServlet {
         if (vo == null) {  
         	System.out.println(vo);
             request.setAttribute("errorMsg", account + "不存在！" + email +"不存在！");  
-            request.getRequestDispatcher("/updatePassword.jsp").forward(request, response);  
+            request.getRequestDispatcher("/XXXupdatePassword.jsp").forward(request, response);  
             return;  
         }  
         System.out.println("ccc");
