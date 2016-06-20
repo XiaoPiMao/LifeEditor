@@ -15,6 +15,7 @@ import com.google.gson.*;
 import com.lifeeditor.model.ach_list.ach_listVO;
 import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.comments.commentsVO;
+import com.lifeeditor.model.genkiBar_list.genkiBar_listVO;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.target_spec.Target_specVO;
@@ -23,6 +24,7 @@ import com.lifeeditor.service.TargetSpecService;
 import com.lifeeditor.service.Target_List_Service;
 import com.lifeeditor.service.ach_listService;
 import com.lifeeditor.service.commentsService;
+import com.lifeeditor.service.genkiBar_listService;
 
 
 @WebServlet("/UserPage")
@@ -43,7 +45,6 @@ public class GetJTargetByUser extends HttpServlet {
 		List<TargetVO> list = trgListSvc.pageFindByUserID(userID);
 		JsonArray jsonArray = new JsonArray();
 		JsonObject jsonObj = null;
-		JsonParser jsonParser = new JsonParser();
 		for(TargetVO trg  : list) {
 			jsonObj = new JsonObject();
 			JsonObject JTrg = gson.toJsonTree(trg).getAsJsonObject();
@@ -87,7 +88,6 @@ public class GetJTargetByUser extends HttpServlet {
 			jsonObj.addProperty("achName", ach.getAchName());
 			jsonObj.addProperty("achDesc", ach.getAchDesc());
 			jsonArray.add(jsonObj);
-			System.out.println(jsonArray.toString());
 		}
 		request.setAttribute("jAchs", jsonArray.toString());
 		
@@ -124,6 +124,16 @@ public class GetJTargetByUser extends HttpServlet {
 			}
 		}
 		request.setAttribute("jSpecs", jsonObj.toString());
+		
+		
+		genkiBar_listService gblSvc = new genkiBar_listService();
+		List<genkiBar_listVO> genkis = gblSvc.haveGenki(userID, userID);
+		
+		jsonObj = new JsonObject();
+		for(genkiBar_listVO genki : genkis) {
+			jsonObj.addProperty(genki.getTargetID().toString(), true);
+		}
+		request.setAttribute("jHaveGenki", jsonObj.toString());
 		
 		
 		request.getRequestDispatcher("/test.jsp").forward(request, response);
