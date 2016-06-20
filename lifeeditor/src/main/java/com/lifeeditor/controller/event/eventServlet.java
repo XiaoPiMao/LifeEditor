@@ -15,6 +15,11 @@ import javax.sql.rowset.serial.SerialBlob;
 
 
 
+
+
+
+import com.google.gson.Gson;
+import com.lifeeditor.backstage.report.*;
 import com.lifeeditor.model.event.eventVO;
 import com.lifeeditor.service.eventService;
 
@@ -310,40 +315,14 @@ public class eventServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/manager/event/error.jsp");
 				failureView.forward(req, res);
-			}
+			}}
 		}
 	
 /***************************************************************************************************************
  以下將event的所有值取出，放入jsp頁面，以輪播的方式呈現
  * */
 	
-	if ("show_all_event".equals(action)) { 
-		
-		List<String> errorMsgs = new LinkedList<String>();
-
-		req.setAttribute("errorMsgs", errorMsgs);
-
-		try {
-			
-			
-			eventService eventSvc=new eventService();
-			List<eventVO>  list = eventSvc.getAll();
-			 for ( eventVO ev: list){            //使用for-each取值
-		            System.out.println(ev);
-		        }
-			req.setAttribute("List_eventVO", list);
-			String url = "/show_event_on_client.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-
-		} catch (Exception e) {
-			errorMsgs.add("顯示錯誤資訊" + e.getMessage());
-			RequestDispatcher failureView = req
-					.getRequestDispatcher("/manager/event/error.jsp");
-			failureView.forward(req, res);
-		}
-	}
-}
+	
 	
 	
 	

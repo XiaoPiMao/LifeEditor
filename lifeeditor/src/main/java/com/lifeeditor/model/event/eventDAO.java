@@ -1,5 +1,6 @@
 package com.lifeeditor.model.event;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.io.OutputStream;
 import java.sql.*;
@@ -31,6 +32,8 @@ public  class eventDAO implements eventDAO_interface {
 	private static final String GET_ID_STMT="SELECT @@IDENTITY as 'ID'";
 	private static final String GET_ALL_STMT =
 		      "SELECT eventID,typeID,secID,eventName,eventPic,orgAddr,orgName,eventTime,eventDesc FROM event order by eventID";
+	private static final String GET_ALL_ID =
+		      "SELECT eventID FROM event order by eventID";
 	private static final String GET_ONE_STMT =
 		      "SELECT eventID,typeID,secID,eventName,eventPic,orgAddr,orgName,eventTime,eventDesc FROM event where eventID = ?";
 	private static final String DELETE =
@@ -44,6 +47,9 @@ public  class eventDAO implements eventDAO_interface {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		PreparedStatement idpstmt=null;
+		
+		java.text.SimpleDateFormat simple = new java.text.SimpleDateFormat();
+		simple.applyPattern("yyyy-MM-dd");
 		int id=0;
 		try {System.out.println("insert");
              
@@ -207,6 +213,7 @@ public  class eventDAO implements eventDAO_interface {
 				eventVO.setEventPic(rs.getBlob("eventPic"));
 				eventVO.setOrgAddr(rs.getString("orgAddr"));
 				eventVO.setOrgName(rs.getString("orgName"));
+				
 				eventVO.setEventTime(rs.getTimestamp("eventTime"));
 				eventVO.setEventDesc(rs.getString("eventDesc"));
 				
@@ -305,9 +312,11 @@ public  class eventDAO implements eventDAO_interface {
 	}
 
 
+	
 	@Override
 	public OutputStream readBlob() {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
 }

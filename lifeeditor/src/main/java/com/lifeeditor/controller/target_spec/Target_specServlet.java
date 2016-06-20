@@ -220,6 +220,7 @@ public class Target_specServlet extends HttpServlet {
 	        String trgPicPath="\\images\\"+UserID.toString()+TargetID.toString()+time+".jpg";
 	        
 	        String Path=req.getServletContext().getRealPath(trgPicPath);
+	        System.out.println(Path);
 	        Part filePart = req.getPart("insert_targetPic");
 	        File file1=new File(Path);//存入檔案的路徑
 	        FileOutputStream fos1 = new FileOutputStream(file1);
