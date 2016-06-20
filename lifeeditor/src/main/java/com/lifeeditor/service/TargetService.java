@@ -100,9 +100,10 @@ public class TargetService {
 		return dao.findByPrimaryKey(targetID);
 	}
 	
-	public void updateTargetStatus(Integer status,Integer targetID){
+	public void updateTargetStatus(Integer status,Integer targetID,Date donetime){
 		TargetVO target =dao.findByPrimaryKey(targetID);
 		target.setStatus(status);
+		target.setDoneTime(donetime);
 		 dao.update(target);
 	}
 
