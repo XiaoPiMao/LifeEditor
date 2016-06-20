@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.lifeeditor.model.comments.commentsVO" table="comments" >
+        
+        <id name="commentID" column="commentID">
+            <generator class="identity"/>
+        </id>
+        
+        <property name="targetID" column="targetID" />
+        <property name="comment" column="comment" />
+        <many-to-one name="user_specVO" class="com.lifeeditor.model.user_spec.user_specVO" lazy="false">
+            <column name="userID" />
+        </many-to-one>
+            
+               
+    </class>
+</hibernate-mapping>
+
