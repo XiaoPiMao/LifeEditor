@@ -14,9 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import org.hibernate.Hibernate;
+
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.lifeeditor.model.achievement.AchievementVO;
+import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.service.AchievementService;
+import com.lifeeditor.service.TargetService;
+import com.lifeeditor.utility.MyGson;
 
 @WebServlet("/AchievementServlet")
 public class AchievementServlet extends HttpServlet {
@@ -38,6 +43,16 @@ public class AchievementServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
+		
+		TargetService trgSrvc= new TargetService();
+		Gson gson = new GsonBuilder().create();
+		List<AchievementVO> list = null;
+		String jsonStr = null;
+	
+		PrintWriter os = null;
+		
+		
+		
 		/*********************achievement.jsp頁面展示時，必走的程式****************************/
 		
 		if("autoComplete".equals(action)) { // 來自achievement.jsp的請求
@@ -46,10 +61,10 @@ public class AchievementServlet extends HttpServlet {
 			String keyword = req.getParameter("keyword");
 			
 			AchievementService achmtSrvc= new AchievementService();
-			List<AchievementVO> list = achmtSrvc.findKey(keyword);
+			list = achmtSrvc.findKey(keyword);
 			if(list.size() != 0) {
-				Gson gson = new Gson();
-				String jsonStr = gson.toJson(list);
+				gson = new Gson();
+				jsonStr = gson.toJson(list);
 				PrintWriter pos = resp.getWriter();
 				pos.print(jsonStr);
 			}
@@ -85,6 +100,23 @@ public class AchievementServlet extends HttpServlet {
 			 }
 			 
 		 }
+		 
+		 
+		 /*********************取得achievement****************************/
+			
+			if("getAchievement".equals(action)) { // 來自achievement.jsp的請求
+				resp.setCharacterEncoding("UTF-8");
+				resp.setContentType("application/json");
+				
+				AchievementService achmtSrvc= new AchievementService();
+				AchievementVO vo = achmtSrvc.getOneAchmt(new Integer(req.getParameter("achID")));
+				
+				jsonStr = MyGson.GSON.toJson(vo);
+				os = resp.getWriter();
+				os.print(jsonStr);
+				
+				return;
+			}
 
 			
 	}
