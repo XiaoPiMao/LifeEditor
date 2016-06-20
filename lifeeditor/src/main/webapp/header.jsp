@@ -277,9 +277,35 @@ body {
 		 	width:auto;
 		 	height:auto;
 		 }
-		 
+		 #dropdown{
+		 	
+		 }
 </style>
 
+<script>
+
+	$(document).ready(function(){
+		
+
+		
+		var lastName = '${LoginOK.lastName}';
+		var firstName = '${LoginOK.firstName}';
+		var firstChar = lastName.charAt(0)
+		var re = new RegExp("[a-zA-Z]");
+		if(re.test(firstChar)){
+// 			console.log(firstChar);
+// 			console.log("英文");
+// 			name = firstName + " " + lastName;
+			var name = document.createTextNode(firstName + " " + lastName);
+			var nameA = document.getElementById("showName");
+			nameA.appendChild(name);			
+		}else{
+			var name = document.createTextNode(lastName+firstName);
+			var nameA = document.getElementById("showName");
+			nameA.appendChild(name);
+		}
+	})
+</script>
 
 </head>
 
@@ -304,7 +330,7 @@ body {
 			<ul>
 				<c:if test="${! empty LoginOK }">
 					   <a href="UserPage"><img  id="UserPicture" src="${ctx}/GetUserPicture?id=${LoginOK.userID}" ></a>
-					   <li id="UserName" style="float:left;font-size:15px;weight:bold;"><a href="UserPage" style="text-indent:0em;width:auto;margin:5px">${LoginOK.lastName} ${LoginOK.firstName}</a></li>
+					   <li id="UserName" style="float:left;font-size:15px;weight:bold;"><a id="showName" href="UserPage" style="text-indent:0em;width:auto;margin:5px"></a></li>
 			    </c:if>
 														
 <%-- 													 	<c:if test="${! empty LoginOK }"> --%>
@@ -320,7 +346,7 @@ body {
 			   </li>
 			</ul>
 
-			<ul class="dropdown_area" id="dropdown" style="display:none;">
+			<ul class="dropdown_area" id="dropdown" style="display:none;background-color:#FFFFFF;width:200px;height:100px;box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);z-index:1000000;float:right;">
 			    <li style="display:list-item;position:fixed;right:195px;top:50px;z-index: 10000;"><a href="${ctx}/updateUser.jsp">設定</a></li>
 			    <li style="display: list-item;position:fixed;right:195px;top:100px;z-index: 10000;"><a href="<c:url value='/logout_index.jsp'/>" onclick="javascript:logout();">登出</a></li>
 			</ul>
