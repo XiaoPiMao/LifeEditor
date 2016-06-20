@@ -35,7 +35,7 @@ public class showFriendServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		user_specVO user = (user_specVO) session.getAttribute("LoginOK");
 		Integer userID = user.getUserID();
-		List<user_listVO> showFriend = new addFriendDAO().showMyFriend(74);
+		List<user_listVO> showFriend = new addFriendDAO().showMyFriend(userID);
 		
 		if(showFriend != null){
 			

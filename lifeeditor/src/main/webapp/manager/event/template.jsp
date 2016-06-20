@@ -87,7 +87,7 @@
 
       <!-- Sidebar Menu -->
       <c:set var="path" value="${pageContext.request.servletPath }" />
-      <ul class="sidebar-menu" style="margin-top:20px">
+      <ul class="sidebar-menu" style="margin-top:20px;font-size:16.5pt;font-family:微軟正黑體">
         <!-- Optionally, you can add icons to the links -->
         <li>
         	<a href="${ctx }/manager/report.jsp"><i class="fa fa-link"></i> 

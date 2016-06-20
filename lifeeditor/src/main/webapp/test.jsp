@@ -25,9 +25,25 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="singlecolor/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="singlecolor/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="singlecolor/images/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="stylesheet" href="css/popup.css" type="text/css"/>
+    
     
     <style>
+    .close {
+background: none repeat scroll 0 0 #606061;
+border-radius: 15px;
+color: #FFFFFF;
+font-weight: bold;
+position: relative;
+height:30px;
+width: 30px;
+float:right;
+margin:3px 6px 0px 0px;
+text-align: center;
+}
+.close:hover {
+background: none repeat scroll 0 0 #00D9FF;
+}
+    
 	.user-icon{
 	border-radius:50%;
 	}
@@ -46,21 +62,22 @@
     left: 15px;
     width: 40px;
     height: 40px;
-    margin-top: -20px;
+    margin-top: -10px;
     font-size: 60px;
     font-weight: 100;
     color: #fff;
     text-align: center;
-    border: 3px solid #fff;
     -webkit-border-radius: 23px;
     -moz-border-radius: 23px;
     border-radius: 23px;
     opacity: .5;
     filter: alpha(opacity=50);
+    cursor:pointer;
 }
 
 .carousel-control.right {
-  right: 15px;
+  right: 20px;
+  cursor:pointer;
 }
 
 #AchPic{
@@ -90,33 +107,310 @@ font-size:24px;color:#cccccc;margin-right:10px;
 float:right;
 }
 
+.span8{
+    height:auto;
+    width:820px;
+    margin:5px 0px 0px 0px;
+    padding: 0px;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    padding: 0px 20px;
+}
+
+.Editor tr:hover{
+background-color:#99ffff;
+font-color:white;
+}
+
+.background{
+position:fixed;
+left:0px;
+top:0px;
+width:100vw;
+height:100vh;
+background-color:black;
+z-index:1000000000;
+opacity:0.5;
+display:none; 
+}
+
+input[type="file"] {
+	padding: 5px 15px;
+	border: 2px #00008b solid;
+	cursor: auto -webkit-border-radius: 5px;
+	border-radius: 5px;
+	font-family:Microsoft JhengHei;
+}
+
+input[type="text"] {
+	padding: 5px 15px;
+	border: 2px #00008b solid;
+	cursor: auto -webkit-border-radius: 5px;
+	border-radius: 5px;
+	font-family:Microsoft JhengHei;
+}
+
+textarea {
+	padding: 5px 15px;
+	border: 2px #00008b solid;
+	cursor: auto -webkit-border-radius: 5px;
+	border-radius: 5px;
+	width: 600px;
+	font-family:Microsoft JhengHei;
+	margin:10px 0 10px 0;
+}
+
+label{
+font-family:Microsoft JhengHei;
+font-size:22px;
+
+}
+.camera{
+background-image: url("images/Flat-Camera-Icon.png");
+width:60px;
+height:60px;
+}
+
+.camera input{
+display:block;
+opacity:0;
+width:60px;
+height:60px;
+overflow:hidden;
+}
+
+.gray {
+	-webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+    filter: grayscale(100%);
+}
+
+.eyeContent {
+	background-color:black;
+	color:white;
+	line-height:1.7;
+	font-size:10pt;
+	padding-left:12px;
+	height:auto;
+	width:130px;
+	position:absolute;
+	bottom:70px;
+	left:240px;
+	z-index:1;
+}
 </style>
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
 <script src="js/util.js"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="js/main.js"></script>
-<script type="text/javascript" src="js/popup.js"></script>      
 <script>
-
+var jTypes = JSON.parse('${jTypes}');
+var jUser = JSON.parse('${jUser}');
+var jAchs = JSON.parse('${jAchs}');
+var data = JSON.parse('${targets}');
+var jHaveGenki = JSON.parse('${jHaveGenki}');
+var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
 $(function(){
+	//post
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
-		$('.Editor').slideToggle('fast');		
+		$(this).parents('#photoHeader').find('table').slideToggle('fast');
 	});
+	
+	$('.col-md-9.col-sm-7').on("click","#Editor1",function(){
+		$('input[type="hidden"]').val($(this).parents('#photoItem').attr("name"));
+    	$('.background').show();
+    	$("#inputSpec").fadeIn("slow");
+    	$('.Editor').hide();
+    	
+    	
+	});
+	$('.col-md-9.col-sm-7').on("mouseover",".eye",function(){
+		var str = "";
+		var photoitem =  $(this).parents('#photoItem');
+		$.getJSON("genkiBar",{action : "whoGenki",targetID :photoitem.attr("name")},
+			function(users){
+				$.each(users, function() {
+					str+=getComName(this.firstName,this.lastName) + '<br />';
+				})
+				if(str.length !=0)
+					str += ">>>>>>給予集氣";
+				photoitem.find('.eyeContent').html(str);
+				
+			}
+			
+		);
+		
+	});
+	
+	$('.col-md-9.col-sm-7').on("mouseout",".eye",function(){
+		 $(this).parents('#photoItem').find('.eyeContent').empty();
+		
+	});
+	
+	
+	$('.col-md-9.col-sm-7').on("click",".fa.fa-heart",function(){
+		var genki = $(this);
+		if(genki.hasClass('gray')) {
+			genki.removeClass('gray');
+			$.post("genkiBar",{action:"insert",targetID:$(this).parents('#photoItem').attr("name")});
+			
+			var label = genki.next('label');
+			var num = Number(label.text());
+			label.text(num+1);
+		}else {
+			genki.addClass('gray');
+			$.post("genkiBar",{action:"delete",targetID:$(this).parents('#photoItem').attr("name")});
+			
+			var label = genki.next('label');
+			var num = Number(label.text());
+			label.text(num-1);
+		}
+	});
+	
+	$('.col-md-9.col-sm-7').on("click",".compltTr",function(){
+		$.post("editTarget",{action:"complete",targetID:$(this).parents('#photoItem').attr("name")});
+	});
+	
+	$('.col-md-9.col-sm-7').on("click",".checkTr",function(){
+		$.post("editTarget",{action:"check",targetID:$(this).parents('#photoItem').attr("name")});
+	});
+	
+	
+
+	$('#closeBtn').click(function(){
+		$('.background').hide();
+		$('#inputSpec').hide();
+	})
+	
+    $('#postBtn').click(function(){
+    	$('#inputSpec').hide();
+    	$('.background').hide();
+    });
+	
+		
+		
+	    function preview(input) {
+			 
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('.preview').attr('src', e.target.result);
+		        }
+
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+		
+		$("body").on("change", "input[name='insert_targetPic']", function (){
+		    preview(this);
+		})
+		
+		$("#postBtn").click(function(){
+			
+			var myForm = document.querySelector("#inputSpec>form");
+			var postData = new FormData(myForm);
+			postData.append("action","Target_Spec_insert");
+			 $.ajax(
+			{
+				url : "target_Spec/Target_specServlet.do",
+				type: "POST",
+				data : postData,
+	       		processData: false,
+				contentType: false,
+	            success:function(data) 
+	            {
+				},
+			});
+			
+		})// postBtn
+	
+
+	//Comments
+	$('.col-md-9.col-sm-7').on("click",".comments",function(){
+		$(this).parents('.single-blog.two-column').find('.allComments').slideToggle('fast');		
+	});
+	
+	//photoBook
+	$('.col-md-9.col-sm-7').on("click",'.carousel-control.left',function(){
+		
+		var slides = $(this).parents('.single-blog.two-column').find('.carousel.slide');
+		for(var i = 0,len=slides.length;i < len;i++) {
+			var item = $(slides[i]).find('.item');
+			if(item.hasClass('active')) {
+				item.removeClass('active');
+				if(i == 0) {
+					$(slides[len - 1]).find('.item').addClass('active');
+				}else {
+					$(slides[i - 1]).find('.item').addClass('active');
+				}
+				break;
+			}
+		}
+		
+	});
+	
+	$('.col-md-9.col-sm-7').on("click",'.carousel-control.right',function(){
+		var slides = $(this).parents('.single-blog.two-column').find('.carousel.slide');
+		for(var i = 0,len=slides.length;i < len;i++) {
+			var item = $(slides[i]).find('.item');
+			if(item.hasClass('active')) {
+				item.removeClass('active');
+				if(i == len - 1) {
+					$(slides[0]).find('.item').addClass('active');
+				}else {
+					$(slides[i + 1]).find('.item').addClass('active');
+				}
+				break;
+			}
+		}
+	});
+	
+	haveFaces = false;
+    chatNum = 0;
+	jFriends = '${jFriends}';
+	var friendsHtml = "";
+	if(jFriends.length != 0) {
+		jFriends = JSON.parse(jFriends);
+		$.each(jFriends,function(id,friend) {
+			if(friend.firstName.charAt(0).match('[A-z]') ) {
+				friendsHtml += 
+					'<div id="'+ id + '" class="friend">' +
+	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
+	            		'<label>' + friend.firstName + '&nbsp;' + friend.lastName + '</label>' + 
+	            		'<div class="online"></div>' +
+	        		'</div>';
+			}else {
+				friendsHtml +=
+					'<div id="' + id + '" class="friend">' +
+	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
+	            		'<label>' + friend.lastName + friend.firstName + '</label>' + 
+	            		'<div class="online"></div>' +
+	        		'</div>';
+			}
+			
+		})//end each
+		$('#friends').html(friendsHtml);
+	}
+	 
 });
 
-$(function(){
-	$('.col-md-9.col-sm-7').on("click","#Comments",function(){
-		$('#AllComments').slideToggle('fast');		
-	});
-});
+function getComName(firstName,lastName) {
+	if(firstName.charAt(0).match('[A-z]')) {
+		return firstName + '&nbsp;' + lastName;
+	}else {
+		return lastName + firstName;
+	}
+}
+
 </script>
+<script src="${ctx}/js/chatroom.js"></script>
 <script>
-    var jTypes = JSON.parse('${jTypes}');
-    var jUser = JSON.parse('${jUser}');
-    var jAchs = JSON.parse('${jAchs}');
-    var data = JSON.parse('${targets}');
-    //console.log(jAchs);
+    
+    //console.log(jSpecs);
+    console.log(data );
+    console.log(jHaveGenki);
    
     var catogoryNum = new Object();
     $.each(jTypes,function() {
@@ -124,6 +418,9 @@ $(function(){
     })
     
 $(document).ready(function(){
+
+	
+	
 	    var AchList = "<h3 style='font-weight: bold;'>我 的 榮 耀</h3>";
 	    $.each(jAchs,function(){
 	    	AchList += 
@@ -154,71 +451,117 @@ $(document).ready(function(){
     	$('.sidebar-item.recent').html(lastComment);
     	
     	var str = "";
-    	$('.carousel').carousel({
-    	      interval: 6000
-    	    })
+    	
 
 		$.each(data,function(){
 			var num = Math.floor(Math.random() * 3 + 1);
 			catogoryNum[this.typeName]++;
 			str += '<div id="photoBook" class="col-md-12 col-sm-12" >' +
-			        '<div class="carousel slide" id="myCarousel">'+
-			        '<div class="carousel-inner">' +
-			        '<div id="photoItem" class="item active">' +
-		            '<div class="single-blog two-column">' +
-		            '<table style="float:right;margin-top:20px;"><th><a id="faangledown" class="fa fa-angle-down" style="position:fixed;top:20px;left:800px;"></a></th>' +
-		            '<tr id="Editor1" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>上傳心得</td></tr>' +
-		            '<tr id="Editor2" class="Editor" style="display:none;border:1px solid #cccccc;background-color:white;line-height: 40px;"><td>送出審核</td></tr>' +
+			
+		            '<div id="photoItem" class="single-blog two-column" name="' + this.targetID + '">' +   //photoItem
+		            
+		            '<div id="photoHeader"  style="position:relative;">' +  //photoHeader-Start
+		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">';
+		           
+		            if(this.status == 1) {
+		            	 str+='<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>';
+		            }
+		           
+ 					
+		            if(this.trgType == 3 && this.status==1) {
+ 						str += '<tr class="compltTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>完成目標</a></td></tr>';
+		            }else if(this.status==1){
+		            	str += '<tr class="checkTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>送出審核</a></td></tr>';
+		            }
+		            
+		            str +=
 		            '</table>'+
-		            '<h2 class="post-title bold" style="width:500px;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
-	                '<h4 class="post-author"><a href=' + location.href +'>'+ jUser.lastName + jUser.firstName +'</a></h4>' +
-	                '<p> 初衷 : '+ this.intention + '</p>'+
-		            '<div class="post-thumb">' +
-		                '<img style="width:920px;height:470px;" src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt="">'+
-		                '<div class="post-overlay">' +
-		                '</div>' +
-		            '</div>' +
-		            '<div class="post-content overflow">' +
-		                '<div class="post-bottom overflow">'+
-		                    '<ul class="nav navbar-nav post-nav">'+
-		                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
-		                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
-		                        '<li id="Comments"><a href="#"><i class="fa fa-comments"></i>3 Comments</a></li>'+
-		                    '</ul>'+
-		                '</div>'+
-		            '</div>'+
-		            '<div class="row">' +
-		            '<div class="col-md-2 col-sm-2 hidden-xs">' +
-		            '<figure class="thumbnail">' +
-		            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
-		            '<figcaption class="text-center">username</figcaption>' +
-		            '</figure>' +
-		            '</div>' +
-		            '<div class="col-md-10 col-sm-10">' +
-		            '<div class="panel panel-default arrow left">' +
-		            '<div class="panel-body">' +
-		            '<header class="text-left">' +
-		            '<div class="comment-user"><i class="fa fa-user"></i> username</div>' +
-		            '<time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>' +
-		            '</header>' +
-		            '<div class="comment-post">' +
-		            '<p>Lrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' +
-                    '</div>' +
-                    '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i> reply</a></p>' +
+		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+		            
+		            if(this.status == 1) {
+		            	str+='<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
+		            }
+		            
+		            if(this.status == 1){
+		            	str += '<h4 class="post-author">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '結束 : ' + this.timeFinish + '</h4>';
+		            }else if(this.status ==2){
+		            	str += '<h4 class="post-author" style="color:red;">審 核 中</h4>';
+		            }else {
+		            	str += '<h4 class="post-author">' + '完 成 : ' + this.doneTime +'</h4>';
+		            }
+		            
+		            str +=
+	                '<p> 初 衷 : '+ this.intention + '</p>'+
+	                '</div>';  //photoHeader-End
+//--------------------------------------------------------------------------------------------------------//	                
+	                if(!jSpecs[this.targetID]) {
+		                str +='<div class="post-thumb">' +   //photo-Start
+		                	  '<img style="width:920px;height:470px;" src="images/userPage/' + num + '.jpg"' + 'class="img-responsive" alt="">'+
+		               	 	  '<div class="post-overlay">' +
+		                	  '</div>' +
+		            	    '</div>' ;   //photo-End
+	                }else {
+	                	$.each(t = jSpecs[this.targetID],function(i,spec){
+	    	                str += '<div class="carousel slide" id="myCarousel">' +    //Carousel-Start
+		    	                		'<div class="carousel-inner">' +  
+		    	                  		'<div class="item';
+		    	            if(i == 0) {str += ' active">';}
+		    	            else { str += '">'}
+		    	            str +=  '<div class="post-thumb">' +   //photo-Start
+			    		                '<img style="width:920px;height:470px;" src="' + this.picPath + '">'+
+			    		            '</div>' +   //photo-End
+			                    	'<div class="span8"><p>' + this.trgNote +'</p></div>' +
+			                        '</div>' +   //item active-End
+			            		    '<div class="control-box">' +                            
+			                			'<a data-slide="prev"  class="carousel-control left">‹</a>' +
+			                			'<a data-slide="next"  class="carousel-control right">›</a>' +
+			                		'</div>' +     //control-box-End  
+			                		'</div>' +  //carousel-innerEnd
+		                		'</div>' ;    //#myCarousel-End
+	                	})
+	                }
+	        str += '<div class="eyeContent"></div>';
+//--------------------------------------------------------------------------------------------------------//            		
+            str  +='<div class="post-content overflow">' +      //Icon
+	                '<div class="post-bottom overflow">'+   
+	                    '<ul class="nav navbar-nav post-nav">'+
+	                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>';
+	                        if(jHaveGenki[this.targetID]) {
+	                        	str+='<li style="cursor:pointer"><a><i class="fa fa-heart"></i><label style="font-weight:300;font-size:18px;">'+ this.genkiBar + '</label></a></li>';
+	                        }else {
+	                        	str+='<li style="cursor:pointer"><a><i class="fa fa-heart gray"></i><label style="font-weight:300;font-size:18px;">'+ this.genkiBar + '</label></a></li>';
+	                        }
+		               str+='<li class="eye"><a><i class="fa fa-eye fa-lg" style="position:relative;top:3px"></i></a></i>'+
+		            	   '<li class="comments"><a><i class="fa fa-comments"></i> Comments</a></li>'+
+	                    '</ul>'+
+	                '</div>'+
+	            '</div>'+ 
+	            
+	            '<div class="row allComments" style="display:none;">' +    //comments-Start
+	            '<div class="col-md-2 col-sm-2 hidden-xs">' +   //comment-left-Start
+	            '<figure class="thumbnail">' +    
+	            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
+	            '<figcaption class="text-center">username</figcaption>' +
+	            '</figure>' +   
+	            '</div>' +   //comment-left-End
+	            '<div class="col-md-10 col-sm-10">' +   //comment-right
+	            '<div class="panel panel-default arrow left">' +
+	            '<div class="panel-body">' +
+	            '<header class="text-left">' +
+	            '<div class="comment-user"><i class="fa fa-user"></i> username</div>' +
+	            '<time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>' +
+	            '</header>' +
+	            '<div class="comment-post">' +
+	            '<p>Lrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' +
                 '</div>' +
-              '</div>' +
-            '</div>' +
-          '</div>' +
-		            '</div>' +   //comment end 
-		        '</div>'+
-		        '</div>'+   //item
-		        '</div>'+   //carousel-inner
-		        '<div class="control-box">' +                            
-            '<a data-slide="prev" href="#myCarousel" class="carousel-control left">‹</a>' +
-            '<a data-slide="next" href="#myCarousel" class="carousel-control right">›</a>' +
-            '</div>' +     //control-box
-		       '</div>'+   //#myCarousel 
-		    '</div>'
+                '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>reply</a></p>' +
+                '</div>' +   
+                '</div>' +
+                '</div>' +   //comment-right-End
+                '</div>' +   //comments-End
+                '</div>' +   //carousel-inner-End
+            '</div>' +    //photoItem-End  
+		    '</div>' // The End
   
 		});
 		var spans = document.querySelectorAll('.pull-right');
@@ -229,16 +572,33 @@ $(document).ready(function(){
 		})
 		$(".col-md-9.col-sm-7").append( $("<div></div>").addClass("row").html(str) );
 		
-		$("#Editor1").click(popup);
 	})
-
-	
+    
     </script>
 </head>
 <body>
 <!-- <div id="wrapper"> -->
 <!-- Header -->
 <jsp:include page="header.jsp"></jsp:include>
+
+<div id="inputSpec" style="position:fixed;z-index:1000000001;left:calc(50vw - 300px);top:50px;display:none;width:auto;height:auto;background-color:white;border-radius:2%;">
+    <div id="closeBtn" class="close">X</div>
+    <form style="padding:20px 20px 20px 20px;" ENCTYPE="multipart/form-data" method="POST" action="Target_specServlet.do" role="form">
+		 <input type="hidden" name="input_trgetID" value="" />
+		 <div >
+         <img class="preview" style="width: 580px; height: 380px;">
+         <div class="size"></div>
+         </div>	
+		<textarea cols="60" rows="5" name="input_target_Note"></textarea>
+		<br /> 
+		    <div class="camera"><input type="file" name="insert_targetPic" /></div>
+		<br /> 
+		 <div>
+         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:150px;height:90px;float:right;">
+	     </div>
+	</form>
+	
+</div>
 
 <section id="blog" class="padding-top">
   <div class="container">
@@ -265,8 +625,6 @@ $(document).ready(function(){
 <!--                             <h3>我 的 榮 耀</h3> -->
 <!--                             <ul class="gallery"> -->
 <!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular1.jpg" alt=""></a></li> -->
-<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular2.jpg" alt=""></a></li> -->
-<!--                                 <li><a href="#"><img src="singlecolor/images/portfolio/popular3.jpg" alt=""></a></li> -->
 <!--                             </ul> -->
                         </div>
                     </div>
@@ -390,6 +748,6 @@ $(document).ready(function(){
         </script>
 <!-- </script> -->
 
-    
+    <div class="background"></div>
 </body>
 </html>

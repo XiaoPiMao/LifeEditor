@@ -502,6 +502,39 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 		}
 		return target_specVO;
 	}
+	
+	@Override
+	public int addSpec(Target_specVO target_specVO) {
+		Connection conn = null;
+		int trgSpecID = 0;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(INSERT_STMT);
+			pstmt.setInt(1, target_specVO.getUserID());
+			pstmt.setInt(2, target_specVO.getTargetID());
+			pstmt.setString(3, target_specVO.getTrgNote());
+			pstmt.setString(4, target_specVO.getTrgPicPath());
+			pstmt.executeUpdate();
+			
+			
+			PreparedStatement pstmt2 = conn.prepareStatement(GET_ID_STMT);
+			ResultSet rs = pstmt2.executeQuery();
+			if(rs.next())
+				trgSpecID = rs.getInt(1);
+			
+		}catch(Exception e) {
+			System.out.println("SQL錯誤");
+		}finally {
+			if(conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out.println("SQL錯誤");
+				}
+		}
+		return trgSpecID;
+	}
+	
 
 	@Override
 	public int insert_will_change_status(Target_specVO target_specVO) {

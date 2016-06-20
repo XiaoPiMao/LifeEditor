@@ -19,10 +19,11 @@
             color:black;
             font-family : 新細明體;
             font-size : 10.5pt;
-            font-weight : bolder;
+            font-weight : 700;
             position : relative;
             left : 20px;
             top : 2px;
+            cursor : pointer;
         }
         .chatroomON {
            background-color : #425F9C;
