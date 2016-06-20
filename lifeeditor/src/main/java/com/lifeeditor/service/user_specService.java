@@ -95,7 +95,15 @@ public class user_specService {
 		 user.setHotMan(hotMan);
 		 dao.update(user);
 	}
-
+	public user_specVO findUserByNameAndEmail(String account, String email){
+		user_specVO vo = dao.findUserByNameAndEmail(account, email);
+		return vo;
+	}
+	public user_specVO findUserByAccount(String account){
+		user_specVO vo = dao.findByAccount(account);
+		return vo;
+	}
+	
 	public user_specVO checkIDPassword(String account, String pswd) {
 		System.out.println("checkIDPassword()");
 		//user_specDAO dao = new user_specDAO();

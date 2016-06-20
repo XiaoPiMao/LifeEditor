@@ -48,6 +48,27 @@ public class EmailUtils {
             e.printStackTrace();  
         }  
     }
+    
+    /** 
+     * 发送重设密码链接的邮件 
+     */  
+    public static void sendResetPasswordEmail(user_specVO user_specVO) {  
+    	System.out.println(user_specVO.getEmail());
+        Session session = getSession();
+        MimeMessage message = new MimeMessage(session);  
+        try {  
+            message.setSubject("找回您的密碼");  
+            message.setSentDate(new Date());  
+            message.setFrom(new InternetAddress(FROM));  
+            message.setRecipient(RecipientType.TO, new InternetAddress(user_specVO.getEmail()));  
+            message.setContent("請點選連結設定新密碼:<br/><a href='" + GenerateLinkUtils.generateResetPwdLink(user_specVO) +"'>點擊重設新密碼</a>","text/html;charset=utf-8");  
+            // 发送邮件  
+            Transport.send(message);  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }  
+    }  
+    
     public static Session getSession() {  
         Properties props = new Properties();  
         props.setProperty("mail.transport.protocol", "smtp");  

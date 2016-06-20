@@ -8,6 +8,8 @@ public interface user_specDAO_interface {
     public user_specVO findByPrimaryKey(Integer user_specID);
     public user_specVO findByAccount(String account);
     public List<user_specVO> getAll();
-    public List<user_specVO> getAllByHotMan();
+    public List<user_specVO> getAllByHotMan();   
+    public user_specVO findUserByNameAndEmail(String account, String Email);
+
 
 }

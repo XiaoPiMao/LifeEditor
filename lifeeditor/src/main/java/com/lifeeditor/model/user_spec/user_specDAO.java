@@ -1,6 +1,8 @@
 package com.lifeeditor.model.user_spec;
 
 import java.io.Serializable;
+import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
@@ -21,7 +23,13 @@ public class user_specDAO implements user_specDAO_interface{
 	private static final String GET_ALL_USER = "from user_specVO order by userID";
 	private static final String GET_ALL_HOTMAN = "from user_specVO order by hotMan";
 	
-
+	   private static user_specDAO instance = new user_specDAO();  
+	      
+	    private user_specDAO() {}  
+	      
+	    public static user_specDAO getInstance() {  
+	        return instance;  
+	    }  
 	
 	private HibernateTemplate hibernateTemplate;    
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
@@ -41,7 +49,29 @@ public class user_specDAO implements user_specDAO_interface{
 		hibernateTemplate.saveOrUpdate(user_specVO);
 		
 	}
-
+    
+	@Override 
+	 public user_specVO  findUserByNameAndEmail(String account,String email){
+		try {
+		
+		System.out.println("findUserByAccountAndEmail()");
+			List<user_specVO>  list = hibernateTemplate.find("FROM user_specVO u WHERE u.account=?  AND u.email= ? ", account ,email);
+			System.out.println(list.get(0));
+			if (list.size()>=0){
+				System.out.println("ininin");
+				user_specVO user_specVO = list.get(0);
+				return user_specVO;
+				}	
+			}catch (Exception e) {
+				System.out.println(account);
+				System.out.println(email);
+				e.printStackTrace();
+			}
+			return null;
+		}
+	
+	
+	
 	@Override
 	public user_specVO findByPrimaryKey(Integer user_specID) {
 		
@@ -54,6 +84,8 @@ public class user_specDAO implements user_specDAO_interface{
 		try {
 		System.out.println("findByAccount()");
 		List<user_specVO>  list = hibernateTemplate.find("FROM user_specVO u WHERE u.account = ?", account);
+		System.out.println("aaaaaaaaa");
+		System.out.println(account);
 		if (list.size()>=1){
 			user_specVO user_specVO = list.get(0);
 			return user_specVO;
@@ -77,6 +109,8 @@ public class user_specDAO implements user_specDAO_interface{
 		list = hibernateTemplate.find(GET_ALL_HOTMAN);
 		return list;
 	}
+	
+	
 	public static void main(String[] args) {
 
 		

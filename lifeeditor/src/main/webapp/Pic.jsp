@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-             <img height='100' width='80' src='eventPicServlet?id=35'>
+            жие\ <img height='100' width='80' src='eventPicServlet?id=35'>
 
 </body>
 </html>
