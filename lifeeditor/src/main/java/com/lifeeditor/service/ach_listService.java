@@ -31,19 +31,15 @@ public class ach_listService {
 		dao =(ach_list_interface) context.getBean("ach_listDAO");
 	}
 
-	public ach_listVO addAchList(Integer userID,Integer achID) {
-		
-		ach_listVO ach_listVO = new ach_listVO();
-		
+	public ach_listVO addAchList(Integer userID,Integer achID) {		
+		ach_listVO ach_listVO = new ach_listVO();		
 		user_specVO user_specVO = new user_specVO();
 		user_specVO.setUserID(userID);
 		ach_listVO.setUser_specVO(user_specVO);
         AchievementVO  AchievementVO = new AchievementVO();
         AchievementVO.setAchID(achID);
-        ach_listVO.setAchievementVO(AchievementVO);
-		
+        ach_listVO.setAchievementVO(AchievementVO);	
 		dao.insert(ach_listVO);
-
 		return ach_listVO;
 	}
 

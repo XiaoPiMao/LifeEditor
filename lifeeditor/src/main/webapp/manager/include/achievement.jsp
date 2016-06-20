@@ -91,11 +91,20 @@ div#selects {
 			<tr>
 				<td>
 					<div class="ui-widget">
-						挑戰名稱: <input id="tag1" type="text" name="trgName"> <br />
+						挑戰名稱: <input id="tag1" type="text" name="trgName"> 
+						
+					<select id="trgName" name="trgName" size="1" class="trophy">
+						<option value=""></option>
+						<c:forEach var="TargetVO" items="${targetSvc.allofficial}">
+							<option value="${TargetVO.targetID}">${TargetVO.trgName}</option>
+						</c:forEach>
+					</select>
 					</div>
+					<br />
 				</td>
 				<td><jsp:useBean id="AchmtSvc" scope="page"
-						class="com.lifeeditor.service.AchievementService" /> <!--**************實際上只需要用到這一行↓ ********************************-->
+						class="com.lifeeditor.service.AchievementService" /> 
+					<!--**************實際上只需要用到這一行↓ ********************************-->
 					<b>獎項名稱: </b> <input id="tag2" type="text" name="achName">
 					<!--*************這是暫時顯示有哪些選項的EL ↓ *****************************-->
 					<select id="achName" name="achName" size="1" class="trophy">
@@ -103,23 +112,15 @@ div#selects {
 						<c:forEach var="AchievementVO" items="${AchmtSvc.all}">
 							<option value="${AchievementVO.achID}">${AchievementVO.achName}</option>
 						</c:forEach>
-				</select> <br /></td>
+					</select> <br /></td>
 			</tr>
 			<tr>
 				<td><textarea id="textarea1" name="intention" form="myForm"
 						rows="3" cols="50">內容描述...</textarea></td>
 				<td rowspan="2">獎杯圖示:<br /> <br />
-					<div id="dropZone" ondragover="dragoverHandler(event)"
-						ondrop="dropHandler(event)">
-
-
-						<!-- 										<img height='100' width='100' -->
-						<!-- 										src='../ChallengeServlet?achID=1&action=showPic'  /> -->
-
-
-					</div> <br /> <br /> <br /> <br /> <br /> <br /> <input type="file"
-					id="file1" name="rewardPic" accept="image/*"
-					onchange="fileViewer()" /></td>
+					<div id="dropZone" ondragover="dragoverHandler(event)" vondrop="dropHandler(event)">
+					
+					</div> <br /> <br /> <br /> <br /> <br /> <br /> <input type="file" id="file1" name="rewardPic" accept="image/*" onchange="fileViewer()" /></td>
 			</tr>
 			<tr>
 				<td>類別: <select id="selType" name="typeID" form="myForm"
@@ -275,184 +276,236 @@ $(function(){
 			$(this).find("option")[0].remove();
 			firstChg = false;
 		}
-		//*************找出成就名稱所對應的敘述，放到textarea2**************
+		//*************找出成就名稱所對應的敘述，放到獎杯區*************
 		var sel = $('#achName>:selected');
 		var v = sel.val();
-		$.get("${ctx}/AchievementServlet",{"achID": v},function(desc){
-			$('#textarea2').val(desc);
-		} );
-		
-	});
+
+	$.getJSON('${ctx}/AchievementServlet', {
+				"action" : "getAchievement",
+				"achID" : v
+			}, function(target) {
+
+						$('#textarea2').val(target.achDesc);
+ 						$("#tag2").val(target.achName);
+ 						var eleImg = document.createElement("img");
+						eleImg.setAttribute("src",
+								"${ctx}/ChallengeServlet?action=showPic&achID="
+										+ v);
+						eleImg.setAttribute("class", "pictureDisplay");
+						$("#dropZone").empty();
+						$("#dropZone").append(eleImg);
+						judge();
+
+			})
+
+		});
 	
-	//*************jQuery Autocomplete-Remote JSONP Datasource**************
-	function log( message ) {
-		var targets;
-	      $( "<div>" ).text( message ).prependTo( "#log" );
-	      $( "#log" ).scrollTop( 0 );
-	}
-	 
-	    $( "#tag1" ).autocomplete({
-	      source: function( request, response ) {
-	        $.ajax({
-	          url: "${ctx}/ChallengeServlet",
-	          dataType: "text",
-	          data: {"action":"autoComplete","keyword": $("#tag1" ).val()},
-	          success: function( data ) {
-	        	  var res = new Array();
-	        	  if(data.length != 0) {
-		        	targets = JSON.parse(data);
-		        	console.log(data);
-					$.each(targets, function(index, target){
-						console.log(target.trgName);
-						res.push(target.trgName);		
-					});
-	        	  }
-					response(res);			
-	          }
-	        });
-	      },
-	      minLength: 1,
-	      select: function( event, ui ) {
-	        $.each(targets, function(i,target) {
-	        	if(target.trgName == ui.item.label) {
-	        		trgID = target.targetID;
-	        		achID = target.achVO.achID;
-	        		$("#textarea1").val(target.intention);
-	        		$("#from").val(target.timeStart);
-	        		$("#to").val(target.timeFinish);
-	        		$("#difficulty").val(target.difficulty);  
-	        		$("#tag2").val(target.achVO.achName);
-	        		$("#textarea2").val(target.achVO.achDesc);
-// 	        		$("#selType").val(target.typeID);
-	        		$("#selType").val(target.typeVO.typeID);
-//  	        	$("#selSec").val(target.sectionID);
-					optSec();
- 	        		$("#selSec").val(target.sectionVO.secID);
- 	        		var eleImg = document.createElement("img");
-					eleImg.setAttribute("src", "${ctx}/ChallengeServlet?action=showPic&achID=" + achID);  
-					eleImg.setAttribute("class", "pictureDisplay"); 
-					$("#dropZone").empty();
-					$("#dropZone").append(eleImg);
- 	        		judge();
-	        	}
-	        })
-	      },
-	      open: function() {
-	        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-	      },
-	      close: function() {
-	        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-	      }
-	    });
-	    
-	    $( "#tag2" ).autocomplete({
-		      source: function( request, response ) {
-		        $.ajax({
-		          url: "${ctx}/AchievementServlet",
-		          dataType: "text",
-		          data: {"action":"autoComplete","keyword": $("#tag2" ).val()},
-		          success: function( data ) {
-		        	  var res = new Array();
-		        	  if(data.length != 0) {
-			        	  achievements = JSON.parse(data);
-			        	  console.log(data);
-						  $.each(achievements, function(index, achievement){
-								console.log(achievement.achName);
-								res.push(achievement.achName);		
-						   });
-		        	  }
-						response(res);	
-		          }
-		        });
-		      },
-		      minLength: 1,
-		      select: function( event, ui ) {
-		        $.each(achievements, function(i,achievement) {
-		        	if(achievement.achName == ui.item.label) {
-		        	achID = achievement.achID;
-		        		$("#textarea2").val(achievement.achDesc);
- 	        		var eleImg = document.createElement("img");
-					eleImg.setAttribute("src", "${ctx}/ChallengeServlet?action=showPic&achID=" + achID);  
-					eleImg.setAttribute("class", "pictureDisplay"); 
-					$("#dropZone").empty();
-					$("#dropZone").append(eleImg);
-		        	judge();
-		        	}
-		        })
-		      },
-		      open: function() {
-		        $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
-		      },
-		      close: function() {
-		        $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
-		      }
-		    });
-	   	  
-	//*************資料完成後可送進資料庫的功能************** 
-	  //callback handler for form submit
-	    $("#myForm").submit(function(e)
-	    {
-	        var postData = new FormData(this);
-	        postData.append("action","insert");
-	        postData.append("achID",achID);
-	        var formURL = $(this).attr("action");
-//  	        alert(JSON.stringify(postData));
-	        
-	        $.ajax(
-	        {
-	            url : formURL,
-	            type: "POST",
-	            data : postData,
-	            processData: false,
-	            contentType: false,
-	            success:function(data) 
-	            {
-	                //data: return data from server
-        		window.location.href = "${ctx}/manager/achievement.jsp"
-	                alert("資料寫入成功");
-	            },
-// 	            error: function(jqXHR, textStatus, errorThrown) 
-// 	            {
-// 	                //if fails      
-// 	            }
-	        });
-	        e.preventDefault(); //STOP default action
-	        //e.unbind(); //unbind. to stop multiple form submit.
-	    });
-      
-	  //*************更新先前已經輸入過的資料**************
-		function updateForm() {
-		  	var myForm = document.querySelector("#myForm");
-			var postData = new FormData(myForm);
-			postData.append("action","update");
-			postData.append("targetID",trgID);
-			postData.append("achID",achID);
-			var formURL = $(myForm).attr("action");
-			 $.ajax(
-			{
+	//*************找出目標名稱所對應的敘述，放到目標區*************
+	$('#trgName').change(function(){
+	var seltrg = $('#trgName>:selected');
+	var trgv = seltrg.val();
+	
+	
+$.getJSON('${ctx}/userAddTargetServlet', {
+			"action" : "getTarget",
+			"targetID" : trgv
+		}, function(target) {
+
+
+				$("#tag1").val(target.trgName);
+				$("#textarea1").val(target.intention);
+				$("#from").val(target.timeStart);
+				$("#to").val(target.timeFinish);
+				$("#difficulty").val(target.difficulty);
+				$("#tag2").val(target.achVO.achName);
+				$("#selType").val(target.typeVO.typeID);
+				optSec();
+				$("#selSec").val(target.sectionVO.secID);
+		
+			});
+	});	
+
+		//*************jQuery Autocomplete-Remote JSONP Datasource**************
+		function log(message) {
+			var targets;
+			$("<div>").text(message).prependTo("#log");
+			$("#log").scrollTop(0);
+		}
+
+		$("#tag1").autocomplete(
+				{
+					source : function(request, response) {
+						$.ajax({
+							url : "${ctx}/ChallengeServlet",
+							dataType : "text",
+							data : {
+								"action" : "autoComplete",
+								"keyword" : $("#tag1").val()
+							},
+							success : function(data) {
+								var res = new Array();
+								if (data.length != 0) {
+									targets = JSON.parse(data);
+									console.log(data);
+									$.each(targets, function(index, target) {
+										console.log(target.trgName);
+										res.push(target.trgName);
+									});
+								}
+								response(res);
+							}
+						});
+					},
+					minLength : 1,
+					select : function(event, ui) {
+						$.each(targets, function(i, target) {
+							if (target.trgName == ui.item.label) {
+								trgID = target.targetID;
+								achID = target.achVO.achID;
+								$("#textarea1").val(target.intention);
+								$("#from").val(target.timeStart);
+								$("#to").val(target.timeFinish);
+								$("#difficulty").val(target.difficulty);
+								$("#tag2").val(target.achVO.achName);
+								$("#textarea2").val(target.achVO.achDesc);
+								// 	        		$("#selType").val(target.typeID);
+								$("#selType").val(target.typeVO.typeID);
+								//  	        	$("#selSec").val(target.sectionID);
+								optSec();
+								$("#selSec").val(target.sectionVO.secID);
+								var eleImg = document.createElement("img");
+								eleImg.setAttribute("src",
+										"${ctx}/ChallengeServlet?action=showPic&achID="
+												+ achID);
+								eleImg.setAttribute("class", "pictureDisplay");
+								$("#dropZone").empty();
+								$("#dropZone").append(eleImg);
+								judge();
+							}
+						})
+					},
+					open : function() {
+						$(this).removeClass("ui-corner-all").addClass(
+								"ui-corner-top");
+					},
+					close : function() {
+						$(this).removeClass("ui-corner-top").addClass(
+								"ui-corner-all");
+					}
+				});
+
+		$("#tag2").autocomplete(
+				{
+					source : function(request, response) {
+						$.ajax({
+							url : "${ctx}/AchievementServlet",
+							dataType : "text",
+							data : {
+								"action" : "autoComplete",
+								"keyword" : $("#tag2").val()
+							},
+							success : function(data) {
+								var res = new Array();
+								if (data.length != 0) {
+									achievements = JSON.parse(data);
+									console.log(data);
+									$.each(achievements, function(index,
+											achievement) {
+										console.log(achievement.achName);
+										res.push(achievement.achName);
+									});
+								}
+								response(res);
+							}
+						});
+					},
+					minLength : 1,
+					select : function(event, ui) {
+						$.each(achievements, function(i, achievement) {
+							if (achievement.achName == ui.item.label) {
+								achID = achievement.achID;
+								$("#textarea2").val(achievement.achDesc);
+								var eleImg = document.createElement("img");
+								eleImg.setAttribute("src",
+										"${ctx}/ChallengeServlet?action=showPic&achID="
+												+ achID);
+								eleImg.setAttribute("class", "pictureDisplay");
+								$("#dropZone").empty();
+								$("#dropZone").append(eleImg);
+								judge();
+							}
+						})
+					},
+					open : function() {
+						$(this).removeClass("ui-corner-all").addClass(
+								"ui-corner-top");
+					},
+					close : function() {
+						$(this).removeClass("ui-corner-top").addClass(
+								"ui-corner-all");
+					}
+				});
+
+		//*************資料完成後可送進資料庫的功能************** 
+		//callback handler for form submit
+		$("#myForm").submit(function(e) {
+			var postData = new FormData(this);
+			postData.append("action", "insert");
+			postData.append("achID", achID);
+			var formURL = $(this).attr("action");
+			//  	        alert(JSON.stringify(postData));
+
+			$.ajax({
 				url : formURL,
-				type: "POST",
+				type : "POST",
 				data : postData,
-           		processData: false,
-				contentType: false,
-	            success:function(data) 
-	            {
-				//data: return data from server
-				window.location.href = "${ctx}/manager/achievement.jsp"
-				    alert("資料寫入成功");
-					
+				processData : false,
+				contentType : false,
+				success : function(data) {
+					//data: return data from server
+					window.location.href = "${ctx}/manager/achievement.jsp"
+					alert("資料寫入成功");
+				},
+			// 	            error: function(jqXHR, textStatus, errorThrown) 
+			// 	            {
+			// 	                //if fails      
+			// 	            }
+			});
+			e.preventDefault(); //STOP default action
+			//e.unbind(); //unbind. to stop multiple form submit.
+		});
+
+		//*************更新先前已經輸入過的資料**************
+		function updateForm() {
+			var myForm = document.querySelector("#myForm");
+			var postData = new FormData(myForm);
+			postData.append("action", "update");
+			postData.append("targetID", trgID);
+			postData.append("achID", achID);
+			var formURL = $(myForm).attr("action");
+			$.ajax({
+				url : formURL,
+				type : "POST",
+				data : postData,
+				processData : false,
+				contentType : false,
+				success : function(data) {
+					//data: return data from server
+					window.location.href = "${ctx}/manager/achievement.jsp"
+					alert("資料寫入成功");
+
 				},
 			});
 		}
-	  //*************驗證不過，把按鈕藏起來**************
+		//*************驗證不過，把按鈕藏起來**************
 		$(document).ready(function() {
 			$('#selType').change(function() {
 				judge();
 			});
-// 			$("input").blur(function() {
-// 				judge();
-// 			});
-			$("input").change(function(){
+			// 			$("input").blur(function() {
+			// 				judge();
+			// 			});
+			$("input").change(function() {
 				judge();
 			});
 		});
@@ -462,8 +515,9 @@ $(function(){
 			var from3 = $('#to').val();
 			var from4 = $('#selType').val();
 			var from5 = $('#tag2').val();
-			if (from1.length == 0 || from2.length == 0 || from3.length == 0 || from4.length == 0  || from5.length == 0) {
-				
+			if (from1.length == 0 || from2.length == 0 || from3.length == 0
+					|| from4.length == 0 || from5.length == 0) {
+
 				$("#butt_insert").hide();
 				$("#butt_update").hide();
 			} else {
@@ -471,7 +525,7 @@ $(function(){
 				$("#butt_update").show();
 			}
 		}
-		
+
 	});
 </script>
 </body>

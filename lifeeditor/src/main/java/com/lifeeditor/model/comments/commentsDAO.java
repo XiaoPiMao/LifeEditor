@@ -27,6 +27,11 @@ public class commentsDAO implements commentsDAO_interface{
 																" c.targetID = ut.targetID"+
 																" ORDER BY c.commentID DESC) v" +
 															" ON u.userID = v.userID";
+	
+	private static final String GET_COMMENT_BY_TARGET = 
+			 "SELECT u.userID,u.firstName,u.lastName,s.comment FROM user_spec u JOIN "+
+			 "(SELECT userID,comment,commentID FROM comments WHERE targetID = ? ) s "+
+			 "ON u.userID = s.userID ORDER BY s.commentID";
 	private static DataSource ds = null;
 	static {
 		try {
@@ -84,6 +89,41 @@ public class commentsDAO implements commentsDAO_interface{
 				comment = new commentsVO();
 				comment.setComment(rs.getString("comment"));
 				comment.setTargetID(rs.getInt("targetID"));
+				user_specVO user = new user_specVO();
+				user.setFirstName(rs.getString("firstName"));
+				user.setLastName(rs.getString("lastName"));
+				user.setUserID(rs.getInt("userID"));
+				comment.setUser_specVO(user);
+				list.add(comment);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+		}
+		return list;
+	}
+	
+	
+	
+	@Override
+	public List<commentsVO> getCommentByTarget(Integer targetID) {
+		Connection conn = null;
+		List<commentsVO> list = new ArrayList<>();
+		commentsVO comment = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt= conn.prepareStatement(GET_COMMENT_BY_TARGET);
+			pstmt.setInt(1, targetID);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				comment = new commentsVO();
+				comment.setComment(rs.getString("comment"));
 				user_specVO user = new user_specVO();
 				user.setFirstName(rs.getString("firstName"));
 				user.setLastName(rs.getString("lastName"));

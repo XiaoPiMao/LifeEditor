@@ -42,8 +42,8 @@ public class AchievementDAO_JNDI implements AchievementDAO_interface{
 	
 	private static final String DELETE_ACH = "delete from achievement where achID = ?";
 	
-	private static final String GET_ALL_STMT = " select * from achievement order by achID";
-	
+	private static final String GET_ALL_STMT = " select achID, achName, achDesc from achievement order by achID";
+
 	public  static final String GET_ONE_STMT = 
 			"SELECT achID,achName,achDesc,rewardPic FROM achievement where achID = ?";
 
@@ -267,7 +267,7 @@ public class AchievementDAO_JNDI implements AchievementDAO_interface{
 				achVO.setAchID(rs.getInt("achID"));
 				achVO.setAchName(rs.getString("achName"));
 				achVO.setAchDesc(rs.getString("achDesc"));
-				achVO.setRewardPic(rs.getBlob("rewardPic"));
+//				achVO.setRewardPic(rs.getBlob("rewardPic"));
 	
 				list.add(achVO);
 				

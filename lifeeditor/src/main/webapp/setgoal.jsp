@@ -378,7 +378,7 @@ display: inline-block;
 			<div class="col-md-5">
 			 <div id="circle1" ><img class="goal" src="images/sec_list/goal.png"></div>
 			 <div id="circle2" style="display:none;"><img class="goal" src="images/sec_list/sec.png"></div>
-			 <div id="circle3" style="display:none;"><div id="button"><span>GO</span></div></div>
+			 <div id="circle3" style="display:none;"><div id="button"><span style="cursor:pointer">GO</span></div></div>
 			</div>
 			
 <!------------form ----------------->

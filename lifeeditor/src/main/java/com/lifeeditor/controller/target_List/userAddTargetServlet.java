@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.target.TargetVO;
 import com.lifeeditor.model.user_spec.user_specVO;
+import com.lifeeditor.service.AchievementService;
 import com.lifeeditor.service.TargetService;
 import com.lifeeditor.utility.MyGson;
 
@@ -164,6 +166,23 @@ public class userAddTargetServlet extends HttpServlet {
 		
 			return;
 		}
+		
+		
+		 /*********************取得一筆target****************************/
+		
+			if("getTarget".equals(action)) { // 來自achievement.jsp的請求
+				res.setCharacterEncoding("UTF-8");
+				res.setContentType("application/json");
+				
+				trgSrvc = new TargetService();
+				TargetVO vo =  trgSrvc.getOneTrg(new Integer(req.getParameter("targetID")));
+						
+				jsonStr = MyGson.GSON.toJson(vo);
+				os = res.getWriter();
+				os.print(jsonStr);
+				
+				return;
+			}
 		
 			 
 	}

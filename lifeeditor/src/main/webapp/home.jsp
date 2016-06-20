@@ -21,15 +21,13 @@
     width:60px;
     height:60px;
     border-radius: 50%;
-    margin:0px 5px 50px 5px;
-    left:0px;
+    margin:0px 0px 50px 5px;
+    posttion:right;
 }
 
 #hotmanPic{
-    width:320px;
-    height:200px;
-    margin:20px 5px 0px 5px;
-    padding:2px 10px 2px 10px;
+    width:310px;
+    height:210px;
     border-radius:5%;
 }
 
@@ -43,24 +41,26 @@
 
 <!-- Main -->
 <!-- 					<div id="main"> -->
-<section id="blog" class="padding-top">
-<div class="container">
+<section id="blog" class="padding-top" style="width:1400px;">
+<!-- <div class="container"> -->
 <div class="row">
-<div class="col-md-3 col-sm-5" >  
-   <div class="mini-posts" style="width:400px;">
-     <h2>熱門人物</h2>
+<div class="col-md-3 col-sm-5" style="width:300px;margin-top:30px;">  
+   <div class="mini-posts" style="">
+     <h2 style="margin-left:20px;">熱門人物</h2>
 		<!-- Mini Post -->
 		<article class="mini-post">
-		  <div id="hotmans">
+		  <div id="hotmans" style="border-bottom-style:ridge;border-color: red;">
 		  <c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
 		    <div style="text-align:center;"><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a> <br></div>
-		    <header style="margin-bottom:40px;padding:2px;">
-			   <a href="#" class="author" ><span style="font-size:16px;">${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
-			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
-			   <h4 style=""><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
-			   <h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
+		    <div style="margin-bottom:40px;padding:2px;">
+			   <h4 style="font-size:17px;margin-left:5px;"><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
+			   <h5 style="margin:0 0 0 0;"><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
 			   <div class="fb-share-button" data-href="http://lifeeditor.cloudapp.net/lifeeditor/home.jsp" data-layout="button" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank"">分享</a></div> 
-			</header>
+			   <div style="width:250px;margin-left:180px;margin-top:-50px;">
+			   <a href="#" class="author" style="width:150px;margin:0 0 0 0;"><span style="font-size:16px;">${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
+			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
+			   </div>
+			</div>
 			
 		  </c:forEach>
 		  </div>
@@ -68,7 +68,7 @@
 	</div>
 </div>  <!-- col-md-3 col-sm-5 END -->
 
-<div class="col-md-9 col-sm-7">
+<div class="col-md-9 col-sm-7" style="width:960px;margin-left:30px;">
 <article class="post">
 <header>
 <%-- 							     	測試: ${LoginOK.pswd}_${LoginOK.gender}_${ LoginOK.email} _${LoginOK.picture } --%>
@@ -80,10 +80,10 @@
 	</div>
 	<div class="meta">
 		<time class="published" datetime="2016-06-06">June 6, 2016</time>
-		<a href="#" class="author"><span class="name">Shin Da Tsai</span><img src="images/3.jpg" alt="" /></a>
+		<a href="#" class="author"><span class="name">Shin Da Tsai</span><img src="images/3.jpg" /></a>
 	</div>
 </header>
-	<a href="#" class="image featured"><img src="images/band.jpg" alt="band" style="width:920px;height:470px;"/></a>
+	<a href="#" class="image featured"><img src="images/band.jpg" style="width:950px;height:470px;"/></a>
 	<p>雖然我們只有成軍短短半年，但大家都非常的努力！半年的密集訓練，每天從早上9點練到晚上8點，有時甚至到10點！每次看到我的隊員們累到直接躺在地上睡著了，我就一直告訴自己:我一定要給大家一個非常難忘的比賽經驗！從未想過我們會得冠軍...</p>
 <footer>
 	<ul class="stats">
@@ -95,7 +95,7 @@
 </div>    <!--col-md-9 col-sm-7 END -->
 
 </div>            <!-- row -->
-</div>            <!--container-->
+<!-- </div>            container -->
  </section>       <!--padding-top-->
 
 			</div>
