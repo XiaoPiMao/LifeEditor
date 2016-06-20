@@ -12,7 +12,7 @@ import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.commentsService;
 
 
-@WebServlet("/InsertComment")
+@WebServlet("/insertComment")
 public class InsertComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
      
