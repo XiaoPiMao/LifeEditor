@@ -32,11 +32,9 @@ public class getTargetLists extends HttpServlet {
     }
 
 	
+	@SuppressWarnings("null")
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		Map<String, String> targetLists = new HashMap<String, String>();			
-		req.setAttribute("trgName", targetLists);
-		req.setAttribute("timeStart", targetLists);
-		req.setAttribute("timeFinish", targetLists);
+		
 		
 		String account = req.getParameter("account");
 		String pswd = req.getParameter("pswd");
@@ -47,23 +45,27 @@ public class getTargetLists extends HttpServlet {
 		Target_List_Service targetListSvc = new Target_List_Service();
 		
 		List<Target_ListVO> targetList = targetListSvc.findByUserID(user_specVO.getUserID());
-		
-	
+			
+		JsonArray jsonArray = new JsonArray();
+		JsonObject jsonObj ;
 		for(Target_ListVO vo : targetList ){
+			jsonObj = new JsonObject();
+			jsonObj.addProperty("targetID", vo.getTrgVO().getTargetID());
+			jsonObj.addProperty("trgName",vo.getTrgVO().getTrgName());
+			jsonObj.addProperty("timeStart", vo.getTrgVO().getTimeStart().toString());
+			jsonObj.addProperty("timeFinish",vo.getTrgVO().getTimeFinish().toString());
+			jsonArray.add(jsonObj);
 			
-			targetLists.put("trgName", vo.getTrgVO().getTrgName());
-			targetLists.put("timeStart", vo.getTrgVO().getTimeStart().toString());
-			targetLists.put("timeFinish", vo.getTrgVO().getTimeFinish().toString());
-			
-		
+		}
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("application/json");
 		
 		PrintWriter os = resp.getWriter();
-		Gson gson = new Gson();		
-		System.out.println(gson.toJson(targetLists));
-		os.write(gson.toJson(targetLists));
-		}
+		Gson gson = new Gson();	
+//		System.out.println(gson.toJson(targetLists));
+//		os.write(gson.toJson(targetLists));
+		os.println(jsonArray.toString());
+		
 	}
 
 	

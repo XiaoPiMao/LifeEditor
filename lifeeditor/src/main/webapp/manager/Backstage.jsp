@@ -104,11 +104,11 @@ $(document).ready(function () {
     <div class="col-md-4">
       <div class="login-form">
         <form method="post" action="${ctx }/backstageLogin/loginService" role="login">
-          <h3>Login</h3>
+          <h3>登入</h3>
           <input type="text" name="account"  required class="form-control input-lg" placeholder="user" value="${requestScrope.account}" />      
           <input type="password" name="pswd" required class="form-control input-lg" id="password" placeholder="Password" value="${requestScrope.pswd}" />                  
           <div class="pwstrength_viewport_progress"></div>               
-          <button type="submit" class="btn btn-lg btn-primary btn-block">Sign in</button>
+          <button type="submit" class="btn btn-lg btn-primary btn-block">登入</button>
           <div>
             <a href="#">Create account</a> or <a href="#">reset password</a>
           </div>

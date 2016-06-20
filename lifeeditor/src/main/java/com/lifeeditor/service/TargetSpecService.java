@@ -32,19 +32,15 @@ public class TargetSpecService {
 	
 //	public void insert(Target_specVO target_specVO);
 //	public void update(Target_specVO target_specVO);
-	public Target_specVO addTargetSpec(Integer userID, Integer targetID, String userTarget_desc, String trgPicPath ) {
-
-
+	public int addTargetSpec(Integer userID, Integer targetID, String userTarget_desc, String trgPicPath ) {
 		Target_specVO Target_specVO= new Target_specVO();
-		Target_specVO.getTargetVO().setTargetID(targetID);
-		Target_specVO.getUserVO().setUserID(userID);
-		Target_specVO.setTrgPicPath(userTarget_desc);
+		Target_specVO.setTargetID(targetID);
+		Target_specVO.setUserID(userID);
+		Target_specVO.setTrgNote(userTarget_desc);
 		Target_specVO.setTrgPicPath(trgPicPath);
-
-		Target_specVO.getTargetVO().setTargetID(dao.insert_will_change_status(Target_specVO));
+		
+		return dao.addSpec(Target_specVO);
 				
-        
-		return Target_specVO;
 	}
 
 	public Target_specVO updateTargetSpecTrgAll(Integer Target_specID,String userTarget_desc, String trgPicPath) {
@@ -98,6 +94,10 @@ public class TargetSpecService {
 	public List<Target_specVO> getAll1() {
 		
 		return dao.getAllTrgSpec();
+	}
+	
+	public List<Target_specVO> getByUser(Integer userID) {
+		return dao.getByUser(userID);
 	}
 	
 }

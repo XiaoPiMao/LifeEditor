@@ -6,39 +6,68 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title></title>
   
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-
+	
     <script>
-        var haveFaces = false;
-        var chatNum = 0;
+    var ws;
+    var jUser = JSON.parse('${jUser}');
+    connect();
 
+    function connect() {
+        ws = new WebSocket("ws://" + document.location.host + "/lifeeditor/chat/" + jUser.userID);
+
+        ws.onmessage = function(event) {
+            console.log(event.data);
+            var message = JSON.parse(event.data);
+           	if(message.msgSender == jUser.userID) {
+           		
+           	}else {
+           		
+           	}
+            console.log(message.msgSender + " : " + message.msgReceiver + "content:" + message.content);
+        };
+    }
+    
+     function send(json) {
+        var content = document.getElementById("msg").value;
+        var to = document.getElementById("to").value;
+        var json = JSON.stringify({
+            "to":to,
+            "content":content
+        });
+
+        ws.send(json);
+        
+    }
+     
         $(function () {
+        	
+        	haveFaces = false;
+            chatNum = 0;
         	jFriends = '${jFriends}';
         	var friendsHtml = "";
         	if(jFriends.length != 0) {
         		jFriends = JSON.parse(jFriends);
         		$.each(jFriends,function(id,friend) {
-        			if(friend.firstName.charAt(0).match('[A-z]') ) {
-        				friendsHtml += 
-        					'<div id="'+ id + '" class="friend">' +
-        	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
-        	            		'<label>' + friend.firstName + '&nbsp;' + friend.lastName + '</label>' + 
-        	            		'<div class="online"></div>' +
-        	        		'</div>';
-        			}else {
-        				friendsHtml +=
-        					'<div id="' + id + '" class="friend">' +
-	    	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
-	    	            		'<label>' + friend.lastName + friend.firstName + '</label>' + 
-	    	            		'<div class="online"></div>' +
-	    	        		'</div>';
-        			}
-        			
+        			friendsHtml += 
+	        			'<div id="'+ id + '" class="friend">' +
+	            			'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
+	            			'<label>' + getName(id) + '</label>' + 
+	            			'<div class="online"></div>' +
+	        			'</div>';
         		})//end each
         		$('#friends').html(friendsHtml);
         	}
             $('body').on("keyup", ".textInput",function (e) {
                 if (e.which == 13) {
+                	var msgReceiver = $(this).parents('.chat').attr("id").substring(4); 
+                	var json = JSON.stringify ({
+                		type : "txt",
+                		msgSender : jUser.userID,
+                		msgReceiver : msgReceiver,
+                		content : $(this).val()
+                	})
+                	$(this).val("");
+                	ws.send(json);
                 }
                    
             });
@@ -47,19 +76,18 @@
                 $('#friends').toggleClass('on');
             })
             
-        });//end onReady
-        window.onload = function () {
             var friends = document.querySelectorAll("div.friend");
             for (var i = 0; i < friends.length; i++)
-                friends[i].onclick = newChat;
-        }
-        function newChat() {
+                friends[i].onclick = function(){newChat(this.id)};
+        });//end onReady
+      
+        function newChat(id) {
             //var chats = document.getElementById("chats");
-            if (!document.getElementById("chat" + this.id)) {
-                chats.innerHTML += "<div id='chat" + this.id + "' class='chat' style='right:" + (276 + chatNum * 270) + "px'>" +
-                                      "<div class='chatTittle'>" + "<label>" + $(this).find('label').text() + "</label>" +
+            if (!document.getElementById("chat" + id)) {
+                chats.innerHTML += "<div id='chat" + id + "' class='chat' style='right:" + (276 + chatNum * 270) + "px'>" +
+                                      "<div class='chatTittle'>" + "<label>" + getName(id) + "</label>" +
                                       "<div class='online'></div>" +
-                                      "<img id='exit" + this.id + "' class='chatIcon' src='${ctx}/images/chatroom/X.png' /></div> " +
+                                      "<img id='exit" + id + "' class='chatIcon' src='${ctx}/images/chatroom/X.png' /></div> " +
                                       "<div class='chatContent'></div>" +
                                       "<div class='chatInput'>" +
                                       "<input class='textInput' placeholder='輸入訊息......'></div>" +
@@ -101,6 +129,17 @@
             imgChatMenu.className = "chatMenu"
         }
 
+        function getName(id) {
+        	firstName = jFriends[id].firstName;
+        	lastName = jFriends[id].lastName;
+        	if(firstName.charAt(0).match('[A-z]')) {
+        		return firstName + '&nbsp;' + lastName;
+        	}else {
+        		return lastName + firstName;
+        	}
+        }
+        
+        
         document.onclick = function (nsevent) {
             var e = nsevent ? nsevent : event;
             if (e.target.className == "chatMenu") {
@@ -131,43 +170,7 @@
 <body id="body">
     <div id="chatroom" class="chatroomOff"><label>聊天室</label></div>
    
-     <div id="friends" class="off">
-<!--         <div id="1" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>小明</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="2" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>阿華</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="3" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>胖虎</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="4" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>哆啦A夢</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="5" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>Stephen Curry</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-
-<!--         <div id="6" class="friend"> -->
-<!--             <img src="#"/> -->
-<!--             <label>泰山</label> -->
-<!--             <div class="online"></div> -->
-<!--         </div> -->
-    </div>
+     <div id="friends" class="off"></div>
 
     <div id="chats"></div>
 

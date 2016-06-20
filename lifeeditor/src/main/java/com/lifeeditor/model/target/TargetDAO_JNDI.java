@@ -16,9 +16,12 @@ import org.springframework.orm.hibernate3.HibernateTemplate;
 
 import com.lifeeditor.model.achievement.AchievementVO;
 import com.lifeeditor.model.sec_list.SecListVO;
+import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.type_list.TypeListVO;
+import com.lifeeditor.model.user_spec.user_specVO;
 import com.lifeeditor.service.AchievementService;
 import com.lifeeditor.service.SecListService;
+import com.lifeeditor.service.Target_List_Service;
 import com.lifeeditor.service.TypeListService;
 
 
@@ -79,6 +82,31 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	public  static final String SHOW_ALL_CHALLENGE_NAME_FROM_USER = "SELECT trgName FROM target INNER JOIN target_list "+
 	"ON target.targetID = target_list.targetID where userID = ? and trgType = 2 and timeFinish >= GETDATE()";
 
+	private static final String GET_RANDOM_TARGET = "select top 1 * from (SELECT targetID, trgName, typeName, secName, " +
+			 "intention, timeStart FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN type_list ON" +
+             " sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID where trgType =3 and timeFinish >= GETDATE()) t ORDER BY NEWID() ";
+		
+	private static final String GET_RANDOM_TARGET_ADVANCE = "select top 1 * from ( SELECT user_spec.lastName, user_spec.firstName, user_spec.userID, target.targetID, target.trgName, "+
+			 " target.intention, sec_list.secName, type_list.typeName, target.timeStart FROM sec_list INNER JOIN target " +
+			 " ON sec_list.secID = target.sectionID INNER JOIN target_list ON target.targetID = target_list.targetID INNER JOIN " +
+			 " type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID INNER JOIN " +
+			 " user_spec ON target_list.userID = user_spec.userID  where trgType =3 )  t ORDER BY NEWID() " ;
+	
+	private static final String SEARCH_TARGET = "SELECT targetID, trgName, typeName, secName, intention, "
+			+ "timeStart FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN "
+			+ "type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID where trgType =3 and trgName like ?";
+	
+	private static final String SEARCH_TARGET_ADVANCE = "SELECT user_spec.lastName, user_spec.firstName, user_spec.userID, target.targetID , target.trgName, target.intention, sec_list.secName, type_list.typeName, target.timeStart"+
+	" FROM sec_list INNER JOIN target ON sec_list.secID = target.sectionID INNER JOIN "+
+	" target_list ON target.targetID = target_list.targetID INNER JOIN "+
+	" type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID INNER JOIN "+
+	"user_spec ON target_list.userID = user_spec.userID  where trgType =3 and trgName like ?";
+	
+	private static final String CHECK = "UPDATE target SET status = 2 WHERE targetID = ?";
+	private static final String COMPLETE = "UPDATE target SET status = 3,doneTime = GetDate() WHERE targetID = ?";
+	
+	
+	
 	@SuppressWarnings("resource")
 	@Override
 	public int insert(TargetVO TrgVO) {
@@ -329,15 +357,15 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			AchievementService achSvc = new AchievementService();
 		
 			if(rs.next()) {
-				TypeListVO typeListVO= new TypeListVO();
-				SecListVO secListVO= new SecListVO();
+				
+				
+				TypeListService typeSvc = new TypeListService();
+				SecListService secSvc = new SecListService();
 				
 				TrgVO.setTargetID(rs.getInt("targetID"));
 				TrgVO.setTrgName(rs.getString("trgName"));
-				typeListVO.setTypeID(rs.getInt("typeID"));
-				TrgVO.setTypeVO(typeListVO);
-				secListVO.setSecID(rs.getInt("sectionID"));
-				TrgVO.setSectionVO(secListVO);
+				TrgVO.setTypeVO(typeSvc.getOneUser(rs.getInt("typeID")));
+				TrgVO.setSectionVO(secSvc.getOneUser(rs.getInt("sectionID")));
 				TrgVO.setDifficulty(rs.getInt("difficulty"));
 				TrgVO.setIntention(rs.getString("intention"));
 				TrgVO.setPrivacy(rs.getInt("privacy"));
@@ -709,7 +737,173 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	}
 
 	
+	@Override
+	public List<Target_ListVO> getFromKeyWordSearch(String keyword) {
+		
+		List<Target_ListVO> list = new ArrayList<Target_ListVO>();
+
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(SEARCH_TARGET_ADVANCE);
+			pstmt.setString(1, "%" + keyword + "%");
+			rs = pstmt.executeQuery();
+			TargetVO Trg = null;
+			TypeListVO type = null;
+			SecListVO sec = null;
+			user_specVO user = null;
+			Target_ListVO trgList = null;
+			
+			while(rs.next()) {
+				Trg = new TargetVO();
+				type = new TypeListVO();
+				sec = new SecListVO();
+				user = new user_specVO();
+				trgList = new Target_ListVO();
+				user.setLastName(rs.getString("lastName"));
+				user.setFirstName(rs.getString("firstName"));
+			
+				Trg.setTargetID(rs.getInt("targetID"));  
+				Trg.setTrgName(rs.getString("trgName")); 
+				
+				type.setTypeName(rs.getString("typeName"));
+				Trg.setTypeVO(type);
+				sec.setSecName(rs.getString("secName"));
+				Trg.setSectionVO(sec); 
+				
+				Trg.setIntention(rs.getString("intention"));
+				Trg.setTimeFinish(rs.getDate("timeStart"));
+				
+				trgList.setUserVO(user);
+				trgList.setTrgVO(Trg);			
+				list.add(trgList);					
+			}	
+		
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("發生錯誤" + e.getMessage());
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+
 	
+	
+	@Override
+	public Target_ListVO getRandomTarget() {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		TargetVO Trg = null;
+		TypeListVO type = null;
+		Target_ListVO trgList = null;
+		SecListVO sec = null;
+		user_specVO user = null;
+		
+try {
+			
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_RANDOM_TARGET_ADVANCE);
+			rs = pstmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				
+//				Trg = new TargetVO();
+//				type = new TypeListVO();
+//				sec = new SecListVO();
+//				Trg.setTargetID(rs.getInt("targetID"));
+//				Trg.setTrgName(rs.getString("trgName"));
+//				type.setTypeName(rs.getString("typeName"));
+//				Trg.setTypeVO(type);
+//				sec.setSecName(rs.getString("secName"));
+//				Trg.setSectionVO(sec);  
+//				Trg.setIntention(rs.getString("intention"));
+//				Trg.setTimeFinish(rs.getDate("timeStart"));
+				
+				
+				Trg = new TargetVO();
+				type = new TypeListVO();
+				sec = new SecListVO();
+				user = new user_specVO();
+				trgList = new Target_ListVO();
+				user.setLastName(rs.getString("lastName"));
+				user.setFirstName(rs.getString("firstName"));
+			
+				Trg.setTargetID(rs.getInt("targetID"));  
+				Trg.setTrgName(rs.getString("trgName")); 
+				
+				type.setTypeName(rs.getString("typeName"));
+				Trg.setTypeVO(type);
+				sec.setSecName(rs.getString("secName"));
+				Trg.setSectionVO(sec); 
+				
+				Trg.setIntention(rs.getString("intention"));
+				Trg.setTimeFinish(rs.getDate("timeStart"));
+				
+				trgList.setUserVO(user);
+				trgList.setTrgVO(Trg);			
+					
+			
+			}	
+			
+		} catch (SQLException e) {
+			throw new RuntimeException("發生錯誤" + e.getMessage());
+		}finally{
+			if(rs != null){
+				try {
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(pstmt != null){
+				try {
+					pstmt.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+			if(con != null){
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return trgList;
+	}
+
+	
+	
+
 	
 	@Override
 	public List<TargetVO> getAllChallengeNameFromUser(Integer userID) {
@@ -763,6 +957,51 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	
 		return list;
 	}
+
+	@Override
+	public void check(Integer targetID) {
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(CHECK);
+			pstmt.setInt(1, targetID);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void complete(Integer targetID) {
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(COMPLETE);
+			pstmt.setInt(1, targetID);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+
 
 
 

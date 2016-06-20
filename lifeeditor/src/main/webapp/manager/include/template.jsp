@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <script type="text/javascript">
 		$(function(){
 			var pic = "${backPhoto}";
@@ -87,7 +88,7 @@
 
       <!-- Sidebar Menu -->
       <c:set var="path" value="${pageContext.request.servletPath }" />
-      <ul class="sidebar-menu" style="margin-top:20px">
+      <ul class="sidebar-menu" style="margin-top:20px;font-size:16.5pt;font-family:微軟正黑體">
         <!-- Optionally, you can add icons to the links -->
         <li <c:if test="${path == '/manager/report.jsp' }">class="active"</c:if>>
         	<a href="${ctx }/manager/report.jsp"><i class="fa fa-link"></i> 

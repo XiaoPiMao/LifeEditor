@@ -8,7 +8,7 @@
 <%@ page import="com.lifeeditor.model.event.*"%>
 <%@ page import="com.lifeeditor.service.*"%>
 <%
-       int a=19;
+      int a=19;
 
     eventService eventSvc = new eventService();
     
@@ -36,7 +36,13 @@
 
 <script src="js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-latest.min.js"></script>
-
+<link rel="stylesheet" href="${ctx }/css/addFriend/bootstrap.min.css">
+<link rel="stylesheet" href="${ctx }/js/bootstrap.js">
+<link rel="stylesheet" href="${ctx }/js/bootstrap.min.js">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">		
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">	
+<link rel="stylesheet" href="${ctx }/css/addFriend/AdminLTE.min.css">
+<link rel="stylesheet" href="${ctx }/css/addFriend/skin-blue.min.css">
 <script type="text/javascript">
 
 
@@ -139,8 +145,8 @@ $(function(){
 
 <style>
 #abgneBlock {
-	width: 940px;
-	height: 600px;
+	width: 800px;
+	height: 400px;
 	position: relative;
 	overflow: hidden;
 	border: 1px solid #ccc;
@@ -155,13 +161,13 @@ $(function(){
 }
 #abgneBlock ul.list li {
 	float: left;
-	width: 940px;
+	width: 800px;
 	height: 100%;
 	text-align: center;
 }
 #abgneBlock .list img{
-	width: 65%;
-	height: 85%;
+	width: 35%;
+	height: 75%;
 	border: 0;
 	margin:0px auto;
 }
@@ -198,6 +204,7 @@ c ul.playerControl li.current {
 #abgneBlock ul.playerControl li.current { 
 	background-position: 0 0;
 }
+p { font-size:100% }
 </style>
 <script type="text/javascript">
 
@@ -206,16 +213,35 @@ c ul.playerControl li.current {
 
 function showimage(num){
 	document.picture.src="/lifeeditor/eventPicServlet?id="+num;
-document.location.href='eventShowServlet.do';
-
+	$.ajax({
+	 	type:"POST",
+	 	dataType:"json",
+	 	url: '/lifeeditor/eventShowServlet.do',
+	 	data: {'id':num},	
+		success: function (data){
+			
+			if(data != "") {
+				
+    			
+    			console.log(data);
+	            
+    			
+    				document.getElementById("eventname").innerHTML =data.eventName;
+    				document.getElementById("eventdesc").innerHTML =data.eventDesc;
+    				document.getElementById("eventorgaddr").innerHTML ="主辦單位："+data.orgAddr;
+    				document.getElementById("eventorgname").innerHTML ="活動地點："+data.orgName;
+    				document.getElementById("eventdate").innerHTML ="活動時間："+data.eventTime;
+			
+			}}
+ });
 
 }
 
 </script>
 
-<body>
+<body style="background-color:#FAD6B1;">
 
-
+<jsp:include page="..//header.jsp"></jsp:include>
 
 
 <!-- 將servlet取到的所有值傳到這個網頁，用foreach讀出來之後，將值放入排版的欄位，顯示出來 -->
@@ -236,28 +262,24 @@ document.location.href='eventShowServlet.do';
         <div class="row">
 
             <div class="col-md-8">
-                <img name="picture" value="" width="750" height="500"class="img-responsive"src="/lifeeditor/eventPicServlet?id=19"  alt="">
+                <img name="picture" value="" width="500" height="350"class="img-responsive"src="/lifeeditor/eventPicServlet?id=19"  alt="">
             </div>
 
             <div class="col-md-4" >
-                <h2>${eventVO.eventName}</h2>
-                <p>${eventVO.eventDesc}</p>
-                <h3>主辦單位：${eventVO.orgAddr}</h3>
-                 <h3>活動地點：${eventVO.orgName}</h3>
-                 <h3>活動時間：${date}</h3>
+                <h3 id="eventname">${eventVO.eventName}</h3>
+                <p id="eventdesc">${eventVO.eventDesc}</p>
+                <h4 id="eventorgaddr">主辦單位：${eventVO.orgAddr}</h4>
+                 <h4 id="eventorgname">活動地點：${eventVO.orgName}</h4>
+                 <h4 id="eventdate">活動時間：${date}</h4>
                  
                  
             </div>
 
         </div>
-        <!-- /.row -->
-
-        <!-- Related Projects Row -->
+     
         <div class="row">
 
-            <div class="col-lg-12">
-                <h3 class="page-header">Related Projects</h3>
-            </div>
+                <h3 class="page-header">點圖片看細節</h3>
         
         <div  id="abgneBlock">
         
@@ -265,9 +287,9 @@ document.location.href='eventShowServlet.do';
         <c:forEach var="event" items="${event}" >
             <li>
                 <a onclick="showimage(${event.eventID})">
-                    <img class="img-responsive portfolio-item"  width="750" height="500"src="/lifeeditor/eventPicServlet?id=${event.eventID}" alt="${event.eventName}">
+                    <img class="img-responsive portfolio-item"  width="550" height="400"src="/lifeeditor/eventPicServlet?id=${event.eventID}" alt="${event.eventName}">
                 </a>
-                <h2>${event.eventName}</h2>
+                <h4>${event.eventName}</h4>
              </li>
              
            </c:forEach>

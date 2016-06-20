@@ -269,8 +269,6 @@ $(function(){
 		updateForm();
 	});
 	
-	
-	
 	$('#achName').change(function(){
 		//*************成就選項選過以後，即消除第一行空白列的選項**************
 		if(firstChg == true) {

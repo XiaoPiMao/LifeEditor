@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 
+
 import com.lifeeditor.model.genkiBar_list.genkiBar_listDAO_interface;
 import com.lifeeditor.model.genkiBar_list.genkiBar_listVO;
 import com.lifeeditor.model.user_spec.user_specVO;
@@ -42,8 +43,21 @@ public class genkiBar_listService {
 		
 		dao.delete(genkiBarID);
 	}
+	
+	
+	public void degenki(Integer targetID,Integer userID) {
+		dao.delete(targetID, userID);
+	}
 
 	public List<genkiBar_listVO> getGenkiName(Integer targetID) {
 		return dao.getGenkiName(targetID);
+	}
+	
+	public List<genkiBar_listVO> haveGenki(Integer localID,Integer trgID) {
+		return dao.haveGenki(localID, trgID);
+	}
+	
+	public List<user_specVO> whoGenki(Integer targetID) {
+		return dao.whoGenki(targetID);
 	}
 }

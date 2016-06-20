@@ -1,10 +1,12 @@
 package com.lifeeditor.service;
 
 import java.sql.Date;
+import java.util.Calendar;
 import java.util.List;
 
 import com.lifeeditor.model.sec_list.SecListVO;
 import com.lifeeditor.model.target.*;
+import com.lifeeditor.model.target_list.Target_ListVO;
 import com.lifeeditor.model.type_list.TypeListVO;
 
 
@@ -127,6 +129,31 @@ public class TargetService {
 		return;
 	}
 	
+	public void takeTrg(Integer targetID,Integer userID){
+		
+		TargetVO TrgVO = dao.findByPrimaryKey(targetID);
+		TrgVO.setTrgType(3);
+		targetID= dao.insert(TrgVO);
+		new Target_List_Service().addTrgList(userID, targetID);
+        
+		return;
+	}
+	public void takeTrg2(Integer targetID,String trgName,String intention,Integer userID){
+		
+		TargetVO TrgVO = dao.findByPrimaryKey(targetID);
+		TrgVO.setTrgType(3);
+		TrgVO.setTrgName(trgName);
+		TrgVO.setIntention(intention);
+		java.sql.Date ourJavaDateObject = new java.sql.Date(Calendar.getInstance().getTime().getTime());
+		TrgVO.setTimeStart(ourJavaDateObject);
+		TrgVO.setTrgType(3);
+		targetID= dao.insert(TrgVO);
+		new Target_List_Service().addTrgList(userID, targetID);
+        
+		return;
+	}
+	
+	
 	public int countNumsOfTargetName(String keyword){
 		return dao.countNumsOfTargetName(keyword);	
 	}
@@ -135,9 +162,25 @@ public class TargetService {
 		return dao.countRateOfTargetName(keyword);
 	}
 	
+	public List<Target_ListVO> getFromKeyWordSearch(String keyword){
+		return dao.getFromKeyWordSearch(keyword);
+	}
+	
+	public Target_ListVO getRandomTarget(){
+		return dao.getRandomTarget();
+	}
+	
 	
 	public List<TargetVO> getAllChallengeNameFromUser(Integer userID){
 		return dao.getAllChallengeNameFromUser(userID);
+	}
+	
+	public void check(Integer targetID) {
+		dao.check(targetID);
+	}
+	
+	public void complete(Integer targetID) {
+		dao.complete(targetID);
 	}
 	
 	

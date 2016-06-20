@@ -42,7 +42,7 @@ $(document).ready(function(){
                 <th>熱門人物</th>
             </tr>
         </thead>
-         <c:forEach var="user_specVO" varStatus="var" items="${userSvc.all}">
+         <c:forEach var="user_specVO" varStatus="var" items="${userSvc.top30}">
 <%--          <c:if test="${var.count <= 10}"> --%>
 	         <tr align='center' valign='middle'>
 				<td>${user_specVO.account}</td>
