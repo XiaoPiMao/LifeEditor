@@ -214,6 +214,7 @@ console.log(jSpecs);
 
 
 
+
 $(function(){
 	
 	//Enter送出留言
