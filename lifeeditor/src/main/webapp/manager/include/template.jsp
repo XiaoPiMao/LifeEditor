@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <script type="text/javascript">
 		$(function(){
 			var pic = "${backPhoto}";
@@ -52,10 +53,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="#" class="btn btn-default btn-flat">個人資訊</a>
                 </div>
                 <div class="pull-right">
-                  <a href="${ctx }/manager/Backstage.jsp" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="${ctx }/logoutServiceDB" class="btn btn-default btn-flat">登出</a>
                 </div>
               </li>
             </ul>
@@ -87,7 +88,7 @@
 
       <!-- Sidebar Menu -->
       <c:set var="path" value="${pageContext.request.servletPath }" />
-      <ul class="sidebar-menu" style="margin-top:20px">
+      <ul class="sidebar-menu" style="margin-top:20px;font-size:16.5pt;font-family:微軟正黑體">
         <!-- Optionally, you can add icons to the links -->
         <li <c:if test="${path == '/manager/report.jsp' }">class="active"</c:if>>
         	<a href="${ctx }/manager/report.jsp"><i class="fa fa-link"></i> 

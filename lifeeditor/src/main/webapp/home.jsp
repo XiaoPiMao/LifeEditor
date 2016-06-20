@@ -33,7 +33,6 @@
 </style>
 	</head>
 	<body>
-	
 <!-- Wrapper -->
 <div id="wrapper">
 
@@ -52,42 +51,6 @@
 								</form>
 							</section>
 
-						<!-- Links -->
-							<section>
-								<ul class="links">
-									<li>
-										<a href="#">
-											<h3>Lorem ipsum</h3>
-											<p>Feugiat tempus veroeros dolor</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Dolor sit amet</h3>
-											<p>Sed vitae justo condimentum</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Feugiat veroeros</h3>
-											<p>Phasellus sed ultricies mi congue</p>
-										</a>
-									</li>
-									<li>
-										<a href="#">
-											<h3>Etiam sed consequat</h3>
-											<p>Porta lectus amet ultricies</p>
-										</a>
-									</li>
-								</ul>
-							</section>
-
-						<!-- Actions -->
-							<section>
-								<ul class="actions vertical">
-									<li><a href="#" class="button big fit">登出</a></li>
-								</ul>
-							</section>
 
 					</section>
 
@@ -109,14 +72,10 @@
 										<a href="#" class="author"><span class="name">Shin Da Tsai</span><img src="images/3.jpg" alt="" /></a>
 									</div>
 								</header>
-								<a href="#" class="image featured"><img src="images/band.jpg" alt="band" /></a>
+								<a href="#" class="image featured"><img src="images/band.jpg" alt="band" style="width:920px;height:470px;"/></a>
 								<p>雖然我們只有成軍短短半年，但大家都非常的努力！半年的密集訓練，每天從早上9點練到晚上8點，有時甚至到10點！每次看到我的隊員們累到直接躺在地上睡著了，我就一直告訴自己:我一定要給大家一個非常難忘的比賽經驗！從未想過我們會得冠軍...</p>
 								<footer>
-									<ul class="actions">
-										<li><a href="#" class="button big">繼續閱讀</a></li>
-									</ul>
 									<ul class="stats">
-										<li><a href="#">General</a></li>
 										<li><a href="#" class="icon fa-heart">428</a></li>
 										<li><a href="#" class="icon fa-comment">128</a></li>
 									</ul>
@@ -124,56 +83,48 @@
 							</article>
 
 						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="#">出版人生第一本圖畫書</a></h2>
-										<p>別放棄你的夢想，否則你的夢想也會放棄你。</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2016-05-24">May 24, 2016</time>
-										<a href="#" class="author"><span class="name">景竣</span><img src="images/2.jpg" alt="" /></a>
-									</div>
-								</header>
-								<a href="#" class="image featured"><img src="images/book.jpg" alt="" /></a>
-								<p>小時候的夢想就是當一個漫畫家！從父母反對，師長朋友們的唾棄，到如今終於出版了人生的第一本圖畫書！這只是我的一小小步，但卻是我人生的一大大步！不管別人怎麼說怎麼看，我就是要一直一直畫下去！有一天我也要開漫畫展...</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="#" class="button big">繼續閱讀</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon fa-heart">228</a></li>
-										<li><a href="#" class="icon fa-comment">198</a></li>
-									</ul>
-								</footer>
-							</article>
+<!-- 							<article class="post"> -->
+<!-- 								<header> -->
+<!-- 									<div class="title"> -->
+<!-- 										<h2><a href="#">出版人生第一本圖畫書</a></h2> -->
+<!-- 										<p>別放棄你的夢想，否則你的夢想也會放棄你。</p> -->
+<!-- 									</div> -->
+<!-- 									<div class="meta"> -->
+<!-- 										<time class="published" datetime="2016-05-24">May 24, 2016</time> -->
+<!-- 										<a href="#" class="author"><span class="name">景竣</span><img src="images/2.jpg" alt="" /></a> -->
+<!-- 									</div> -->
+<!-- 								</header> -->
+<!-- 								<a href="#" class="image featured"><img src="images/book.jpg" alt="" /></a> -->
+<!-- 								<p>小時候的夢想就是當一個漫畫家！從父母反對，師長朋友們的唾棄，到如今終於出版了人生的第一本圖畫書！這只是我的一小小步，但卻是我人生的一大大步！不管別人怎麼說怎麼看，我就是要一直一直畫下去！有一天我也要開漫畫展...</p> -->
+<!-- 								<footer> -->
+<!-- 									<ul class="stats"> -->
+<!-- 										<li><a href="#" class="icon fa-heart">228</a></li> -->
+<!-- 										<li><a href="#" class="icon fa-comment">198</a></li> -->
+<!-- 									</ul> -->
+<!-- 								</footer> -->
+<!-- 							</article> -->
 
 						<!-- Post -->
-							<article class="post">
-								<header>
-									<div class="title">
-										<h2><a href="#">我們的第100個旅行</a></h2>
-										<p>幸福不在於我們擁有多少，而是在於我們享受多少。</p>
-									</div>
-									<div class="meta">
-										<time class="published" datetime="2016-01-01">Jan 1, 2016</time>
-										<a href="#" class="author"><span class="name">Fled Tee</span><img src="images/4.jpg" alt="" /></a>
-									</div>
-								</header>
-								<a href="#" class="image featured"><img src="images/travel.jpg" alt="" /></a>
-								<p>第100次的旅行，只是開始，我們還有數不完的旅行；數字，只不過是個符號，我們還要一起躺著看星星，數著那也數不完的星星。「現在就是幸福的時刻；這裡就是幸福的地方；而幸福的方法，就是讓身邊的人感到幸福。」...</p>
-								<footer>
-									<ul class="actions">
-										<li><a href="#" class="button big">繼續閱讀</a></li>
-									</ul>
-									<ul class="stats">
-										<li><a href="#">General</a></li>
-										<li><a href="#" class="icon fa-heart">28</a></li>
-										<li><a href="#" class="icon fa-comment">128</a></li>
-									</ul>
-								</footer>
-							</article>
+<!-- 							<article class="post"> -->
+<!-- 								<header> -->
+<!-- 									<div class="title"> -->
+<!-- 										<h2><a href="#">我們的第100個旅行</a></h2> -->
+<!-- 										<p>幸福不在於我們擁有多少，而是在於我們享受多少。</p> -->
+<!-- 									</div> -->
+<!-- 									<div class="meta"> -->
+<!-- 										<time class="published" datetime="2016-01-01">Jan 1, 2016</time> -->
+<!-- 										<a href="#" class="author"><span class="name">Fled Tee</span><img src="images/4.jpg" alt="" /></a> -->
+<!-- 									</div> -->
+<!-- 								</header> -->
+<!-- 								<a href="#" class="image featured"><img src="images/travel.jpg" alt="" /></a> -->
+<!-- 								<p>第100次的旅行，只是開始，我們還有數不完的旅行；數字，只不過是個符號，我們還要一起躺著看星星，數著那也數不完的星星。「現在就是幸福的時刻；這裡就是幸福的地方；而幸福的方法，就是讓身邊的人感到幸福。」...</p> -->
+<!-- 								<footer> -->
+<!-- 									<ul class="stats"> -->
+<!-- 										<li><a href="#" class="icon fa-heart">28</a></li> -->
+<!-- 										<li><a href="#" class="icon fa-comment">128</a></li> -->
+<!-- 									</ul> -->
+<!-- 								</footer> -->
+<!-- 							</article> -->
 
 
 						<!-- Pagination -->
@@ -206,9 +157,9 @@
 		  <c:forEach var="Target_specVO" items="${trgSvc.allByHotMan}">
 		    <div><a href="#" ><img id="hotmanPic" src='${Target_specVO.trgPicPath}'/></a> <br></div>
 		    <header style="margin-bottom:40px;padding:2px;">
-			   <a href="#" class="author" ><span>${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
+			   <a href="#" class="author" ><span style="font-size:16px;">${Target_specVO.userVO.lastName} ${Target_specVO.userVO.firstName}</span>
 			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
-			   <h4><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
+			   <h4 style=""><a href="#">${Target_specVO.targetVO.trgName}</a></h4>
 			   <h5><time class="published" datetime="${Target_specVO.targetVO.doneTime}">${Target_specVO.targetVO.doneTime}</time></h5>
 			   <div class="fb-share-button" data-href="http://lifeeditor.cloudapp.net/lifeeditor/home.jsp" data-layout="button" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank"">分享</a></div> 
 			</header>
@@ -241,33 +192,7 @@
 <!-- 											<a href="#" class="image"><img src="images/pic09.jpg" alt="" /></a> -->
 <!-- 										</article> -->
 <!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<article> -->
-<!-- 											<header> -->
-<!-- 												<h3><a href="#">Euismod amet placerat vivamus porttitor</a></h3> -->
-<!-- 												<time class="published" datetime="2015-10-10">October 10, 2015</time> -->
-<!-- 											</header> -->
-<!-- 											<a href="#" class="image"><img src="images/pic10.jpg" alt="" /></a> -->
-<!-- 										</article> -->
-<!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<article> -->
-<!-- 											<header> -->
-<!-- 												<h3><a href="#">Magna enim accumsan tortor cursus ultricies</a></h3> -->
-<!-- 												<time class="published" datetime="2015-10-08">October 8, 2015</time> -->
-<!-- 											</header> -->
-<!-- 											<a href="#" class="image"><img src="images/pic11.jpg" alt="" /></a> -->
-<!-- 										</article> -->
-<!-- 									</li> -->
-<!-- 									<li> -->
-<!-- 										<article> -->
-<!-- 											<header> -->
-<!-- 												<h3><a href="#">Congue ullam corper lorem ipsum dolor</a></h3> -->
-<!-- 												<time class="published" datetime="2015-10-06">October 7, 2015</time> -->
-<!-- 											</header> -->
-<!-- 											<a href="#" class="image"><img src="images/pic12.jpg" alt="" /></a> -->
-<!-- 										</article> -->
-<!-- 									</li> -->
+<!-- 								
 <!-- 								</ul> -->
 <!-- </section> -->
 

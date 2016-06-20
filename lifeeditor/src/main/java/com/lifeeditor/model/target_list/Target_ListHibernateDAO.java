@@ -39,7 +39,7 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 					"FROM target t JOIN (SELECT targetID FROM target_list WHERE userID = ?)tl ON t.targetID = tl.targetID)tt "+
 			"JOIN (SELECT s.secID,s.secName,ty.typeName FROM sec_list s JOIN type_list ty ON s.typeID = ty.typeID)s ON tt.sectionID = s.secID "+
 			"ORDER BY tt.targetID DESC";
-		
+			
 	private HibernateTemplate hibernateTemplate;    
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
         this.hibernateTemplate = hibernateTemplate;
@@ -132,6 +132,8 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 		list = hibernateTemplate.find(GET_ALL_BY_ID);
 		return list;
 	}
+	
+
 	
 	@Override
 	public List<TargetVO> pageFindByUserID(Integer userID) {
@@ -258,6 +260,7 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 //		}	
 //		
 	}
+
 
 
 	

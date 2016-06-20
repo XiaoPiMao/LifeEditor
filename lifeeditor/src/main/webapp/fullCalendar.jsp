@@ -28,6 +28,12 @@
 			max-width: 900px;
 			margin: 0 auto;
 			color:#220088;
+			cursor: pointer; 
+		}
+		#myModal {
+   			 position: fixed;
+   			 top: 30%;
+
 		}
 	</style>
 	<script>
@@ -57,6 +63,7 @@ $(document).ready(function() {
 			events:'/lifeeditor/com.lifeeditor.schedule/ChkScheduleServlet'			
 		});		
 		var modal = $('#myModal');
+		
 		function getTotal(data){		
 			$.ajax({
 			type:"POST",
@@ -64,7 +71,7 @@ $(document).ready(function() {
 			data:{"id":data},
 			url: '/lifeeditor/com.lifeeditor.schedule/ShowDetailServlet',
 			success:function getJson(result){
-				console.log(result);
+	
 				var br = document.createElement("br");
 				var br1 = document.createElement("br");
 				var br2 = document.createElement("br");

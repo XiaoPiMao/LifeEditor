@@ -10,6 +10,7 @@ public interface user_specDAO_interface {
     public List<user_specVO> getAll();
     public List<user_specVO> getAllByHotMan();   
     public user_specVO findUserByNameAndEmail(String account, String Email);
+    public List<user_specVO> getTop30();
 
 
 }

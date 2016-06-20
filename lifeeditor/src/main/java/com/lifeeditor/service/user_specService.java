@@ -86,6 +86,10 @@ public class user_specService {
 		return dao.getAll();
 	}
 	
+	public List<user_specVO> getTop30() {
+		return dao.getTop30();
+	}
+	
 	public List<user_specVO> getAllByHotMan() {
 		return dao.getAllByHotMan();
 	}

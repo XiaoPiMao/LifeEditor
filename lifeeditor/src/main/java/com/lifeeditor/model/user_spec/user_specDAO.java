@@ -2,14 +2,25 @@ package com.lifeeditor.model.user_spec;
 
 import java.io.Serializable;
 import java.sql.Connection;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.orm.hibernate3.HibernateTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import com.lifeeditor.utility.GlobalValues;
 
 
 
@@ -19,10 +30,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional(readOnly = true)
 public class user_specDAO implements user_specDAO_interface{
-	
+	private static DataSource ds = null;
 	private static final String GET_ALL_USER = "from user_specVO order by userID";
 	private static final String GET_ALL_HOTMAN = "from user_specVO order by hotMan";
+	private static final String GET_TOP30 = "SELECT TOP 30 * FROM user_spec order by genkibartol desc";
 	
+
 	   private static user_specDAO instance = new user_specDAO();  
 	      
 	    private user_specDAO() {}  
@@ -30,6 +43,16 @@ public class user_specDAO implements user_specDAO_interface{
 	    public static user_specDAO getInstance() {  
 	        return instance;  
 	    }  
+
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup(GlobalValues.DS_LOOKUP);
+		} catch (NamingException ne) {
+			ne.printStackTrace();
+		}
+	}
+
 	
 	private HibernateTemplate hibernateTemplate;    
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
@@ -107,6 +130,45 @@ public class user_specDAO implements user_specDAO_interface{
 	public List<user_specVO> getAllByHotMan() {
 		List<user_specVO> list = null;
 		list = hibernateTemplate.find(GET_ALL_HOTMAN);
+		return list;
+	}
+	
+	@Override
+	public List<user_specVO> getTop30() {
+		List<user_specVO> list = new ArrayList<>();
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+			user_specVO user = null;
+			PreparedStatement pstmt = conn.prepareStatement(GET_TOP30);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				user = new user_specVO();
+				user.setAccount(rs.getString("account"));
+				user.setAddress(rs.getString("address"));
+				user.setBirthdate(rs.getDate("birthdate"));
+				user.setEmail(rs.getString("email"));
+				user.setFirstName(rs.getString("firstName"));
+				user.setGender(rs.getString("gender"));
+				user.setGenkiBarTol(rs.getInt("genkiBarTol"));
+				user.setHotMan(rs.getInt("hotMan"));
+				user.setLastName(rs.getString("lastName"));
+				user.setLevel(rs.getInt("level"));
+				user.setPhone(rs.getString("phone"));
+				user.setUserID(rs.getInt("userID"));
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			System.out.println("SQL錯誤");
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out.println("SQL錯誤");
+				}
+			}
+		}
 		return list;
 	}
 	
@@ -190,4 +252,6 @@ public class user_specDAO implements user_specDAO_interface{
 		}
 
 }
+
+	
 }

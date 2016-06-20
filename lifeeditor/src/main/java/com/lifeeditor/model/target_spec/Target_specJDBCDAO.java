@@ -48,6 +48,7 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 
 	private static final String DELETE =
 		      "DELETE FROM target_spec where userID = ?";
+	private static final String GET_BY_USER = "SELECT targetID,trgNote,trgPicPath FROM target_spec where userID = ? ORDER BY targetID,trgspecID DESC";
 
 
 
@@ -501,6 +502,39 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 		}
 		return target_specVO;
 	}
+	
+	@Override
+	public int addSpec(Target_specVO target_specVO) {
+		Connection conn = null;
+		int trgSpecID = 0;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(INSERT_STMT);
+			pstmt.setInt(1, target_specVO.getUserID());
+			pstmt.setInt(2, target_specVO.getTargetID());
+			pstmt.setString(3, target_specVO.getTrgNote());
+			pstmt.setString(4, target_specVO.getTrgPicPath());
+			pstmt.executeUpdate();
+			
+			
+			PreparedStatement pstmt2 = conn.prepareStatement(GET_ID_STMT);
+			ResultSet rs = pstmt2.executeQuery();
+			if(rs.next())
+				trgSpecID = rs.getInt(1);
+			
+		}catch(Exception e) {
+			System.out.println("SQL錯誤");
+		}finally {
+			if(conn != null)
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					System.out.println("SQL錯誤");
+				}
+		}
+		return trgSpecID;
+	}
+	
 
 	@Override
 	public int insert_will_change_status(Target_specVO target_specVO) {
@@ -690,6 +724,31 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 				}
 			}
 		}
+		return list;
+	}
+	
+	@Override
+	public List<Target_specVO> getByUser(Integer userID) {
+		List<Target_specVO> list = new ArrayList<>();
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(GET_BY_USER);
+			pstmt.setInt(1, userID);
+			ResultSet rs = pstmt.executeQuery();
+			Target_specVO trgSpec = null;
+			while(rs.next()) {
+				trgSpec = new Target_specVO();
+				trgSpec.setTargetID(rs.getInt("targetID"));
+				trgSpec.setTrgNote(rs.getNString("trgNote"));
+				trgSpec.setTrgPicPath(rs.getString("trgPicPath"));
+				list.add(trgSpec);
+			}
+			
+		} catch(SQLException e) {
+			System.out.println("SQLException");
+		}
+		
 		return list;
 	}
 

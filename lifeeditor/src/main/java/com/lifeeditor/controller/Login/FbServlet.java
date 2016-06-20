@@ -26,7 +26,6 @@ public class FbServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
-		
 		String account =request.getParameter("account");
 		String password = request.getParameter("pswd");
 		// 讀取使用者所輸入，由瀏覽器送來的 EMAIL 欄位內的資料
