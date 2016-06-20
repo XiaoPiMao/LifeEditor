@@ -122,7 +122,11 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 			
 			pstmt.setString(1, TrgVO.getTrgName());
 			pstmt.setInt(2, TrgVO.getTypeVO().getTypeID());
-			pstmt.setInt(3, TrgVO.getSectionVO().getSecID());
+			if(TrgVO.getSectionVO() == null) {
+				pstmt.setInt(3,java.sql.Types.INTEGER);
+			}
+			else
+				pstmt.setInt(3, TrgVO.getSectionVO().getSecID());
 			if(TrgVO.getDifficulty() != null)
 				pstmt.setInt(4, TrgVO.getDifficulty());
 			else
