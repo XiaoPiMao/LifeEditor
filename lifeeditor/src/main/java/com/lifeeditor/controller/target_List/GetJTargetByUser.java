@@ -61,6 +61,7 @@ public class GetJTargetByUser extends HttpServlet {
 			jsonArray.add(jsonObj);
 		}
 		request.setAttribute("targets", jsonArray.toString());
+		System.out.println("targets");
 		
 		jsonArray = new JsonArray();
 		commentsService cmtSvc = new commentsService();
@@ -77,6 +78,7 @@ public class GetJTargetByUser extends HttpServlet {
 			
 		}
 		request.setAttribute("liveComments", jsonArray.toString());
+		System.out.println("liveComments");
 		
 		ach_listService ach_listSvc = new ach_listService();
 		List<ach_listVO> achLists = ach_listSvc.getAchName(userID);
@@ -90,6 +92,7 @@ public class GetJTargetByUser extends HttpServlet {
 			jsonArray.add(jsonObj);
 		}
 		request.setAttribute("jAchs", jsonArray.toString());
+		System.out.println("jAchs");
 		
 		TargetSpecService trgSpecSvc = new TargetSpecService();
 		List<Target_specVO> trgSpecs = trgSpecSvc.getByUser(userID);
@@ -128,6 +131,7 @@ public class GetJTargetByUser extends HttpServlet {
 			}
 		}
 		request.setAttribute("jSpecs", jsonObj.toString());
+		System.out.println("jSpecs");
 		
 		
 		genkiBar_listService gblSvc = new genkiBar_listService();
@@ -138,6 +142,7 @@ public class GetJTargetByUser extends HttpServlet {
 			jsonObj.addProperty(genki.getTargetID().toString(), true);
 		}
 		request.setAttribute("jHaveGenki", jsonObj.toString());
+		System.out.println("jHaveGenki");
 		
 		
 		request.getRequestDispatcher("/test.jsp").forward(request, response);

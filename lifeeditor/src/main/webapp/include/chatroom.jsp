@@ -41,6 +41,7 @@
      
         $(function () {
         	
+        	
         	haveFaces = false;
             chatNum = 0;
         	jFriends = '${jFriends}';
