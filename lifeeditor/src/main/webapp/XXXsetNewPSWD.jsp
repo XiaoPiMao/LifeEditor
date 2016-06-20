@@ -91,11 +91,10 @@
 		</div><! --/container -->
 	</div><! --/headerwrap -->
 
-	
-	<div id="div1" class="container-fluid" >
-	<div class="row">
-	    <form action="ResetPswd.do" method="post"    name="form3"  class="row3">  
-				 <div class="col-md-6">
+	<br/><div id="div1" class="container-fluid" style="text-align:center;width:800px">
+	<div class="row" >
+	    <form action="ResetPswd.do" method="post"    name="form3"  class="row3" >  
+				 <div  >
 			    <span style="color: red">${requestScope.sendMailMsg}</span>  
 		<div>
 			 <label>您的帳號:</label>
@@ -107,13 +106,11 @@
 			<div>
 			<label >再輸入新密碼:</label>
 			<input type="password" name="newPassword2"  class="form-control" size="22" /><span class="error">${errors.newPassword2 }</span><br/> 
-					    <input type="submit" value="送出資料" /><a href=""></a>  
-					    
+					    <input type="submit" value="送出資料" /><a href=""></a>   
 			</div>		    
 					</form> 
 	</div>
 	  </div>
-
 				</div><!-- col-lg-4 -->
 			</div><!-- /row -->
 		</div><! --/container -->
