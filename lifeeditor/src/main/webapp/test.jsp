@@ -29,9 +29,9 @@
     
     <style>
     .close {
-background: none repeat scroll 0 0 #606061;
+
 border-radius: 15px;
-color: #FFFFFF;
+
 font-weight: bold;
 position: relative;
 height:30px;
@@ -582,7 +582,7 @@ $(document).ready(function(){
 <jsp:include page="header.jsp"></jsp:include>
 
 <div id="inputSpec" style="position:fixed;z-index:1000000001;left:calc(50vw - 300px);top:50px;display:none;width:auto;height:auto;background-color:white;border-radius:2%;">
-    <div id="closeBtn" class="close">X</div>
+    <div id="closeBtn" class="close" style="background-colorr:red;">X</div>
     <form style="padding:20px 20px 20px 20px;" ENCTYPE="multipart/form-data" method="POST" action="Target_specServlet.do" role="form">
 		 <input type="hidden" name="input_trgetID" value="" />
 		 <div >
@@ -594,7 +594,7 @@ $(document).ready(function(){
 		    <div class="camera"><input type="file" name="insert_targetPic" /></div>
 		<br /> 
 		 <div>
-         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:150px;height:90px;float:right;">
+         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:80px;height:50px;float:right;margin-button:5px;">
 	     </div>
 	</form>
 	
