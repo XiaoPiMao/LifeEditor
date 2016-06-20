@@ -34,7 +34,9 @@
     
   </head>
   <style>
-
+.div1 {
+   margin: 0 auto;
+}
   
   .errorspan{
 	font-size:10pt;
