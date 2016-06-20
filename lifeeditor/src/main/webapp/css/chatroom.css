@@ -1,0 +1,191 @@
+@CHARSET "UTF-8";
+
+        * {
+            margin:0;
+        }
+        .chatroomOff {
+            position : fixed;
+            bottom : 0px;
+            right: 8px;
+            height: 27px;
+            width: 250px;
+            background-color : #F1F2F3;
+            border : 1px solid #CCCCCC;
+            cursor : pointer;
+            z-index:100000;
+        }
+        
+        .chatroomOff label {
+            color:black;
+            font-family : 新細明體;
+            font-size : 10.5pt;
+            font-weight : 700;
+            position : relative;
+            left : 20px;
+            top : 2px;
+            cursor : pointer;
+        }
+        .chatroomON {
+           background-color : #425F9C;
+           bottom : 75vh;
+        }
+        .chatroomON label {
+            color:white;
+        }
+        
+
+        #friends {
+            position:fixed;
+            bottom:0px;
+            right:8px;
+            height:75vh;
+            width:250px;
+            background-color:#F1F2F3;
+            border : 1px solid #CCCCCC;
+            z-index:100000;
+        }
+        
+        div.friend {
+            height:46px;
+            padding-left : 8px;
+            cursor : pointer;
+            position:relative;
+        }
+
+        .friend:hover {
+            background-color : #DDDDDD;
+        }
+        
+        .friend label {
+            position:absolute;
+            line-height:46px;
+            padding-left:12px;
+            font-size:10pt;
+            cursor : pointer;
+            color : black;
+            display: inline;
+    		font-weight: normal;
+    		margin: 0;
+        }
+        .friend img {
+            width:32px;
+            height:32px;
+            margin-top:7px;
+        }
+        .online {
+            width:8px;
+            height:8px;
+            border-radius:99em;
+            background-color:#009E1D
+        }
+        .friend .online {
+            position:absolute;
+            right:20px;
+            top:19px;
+        }
+        .chat .online {
+            float:left;
+            position:relative;
+            top:8.5px;
+            margin-right:8px
+        }
+        div.chat {
+            position : fixed;
+            bottom : 0;
+            width : 250px;
+            height: 330px;
+            border-left : 1px solid #CCCCCC;
+            border-right : 1px solid #CCCCCC;
+            z-index : 100000;
+            background-color : white;
+        }
+        div.chatTittle {
+            
+            background-color : #4267B2;
+            font-size : 10.5pt;
+            color : white;
+            height : 25px;
+            padding-left : 10px;
+            border : 1px solid #CCCCCC;
+            
+        }
+        .chatTittle label {
+             line-height : 25px;
+             color : white;
+             font-size : 10pt;
+             display: inline;
+    		 font-weight : bolder;
+    		 margin: 0;
+    		 font-family: helvetica, arial, sans-serif;
+        }
+        
+        div.chatContent {
+           
+            height : 245px;
+            background-color : #E9EAED;
+            border-bottom : 1px solid #CCCCCC;
+        }
+        div.chatInput {
+            
+            height : 33px;
+        }
+        .div_chatMenu {
+            
+            padding-left : 10px;
+            padding-bottom : 5px;
+            height : 20px;
+        }
+
+        div#faces {
+            display : table-cell;
+            vertical-align : middle;
+            position : relative;
+            top : -110px;
+            left : -100px;
+            border: 2px solid #CCCCCC;
+            height : 80px;
+            width : 200px;
+            text-align : center;
+            background-color : white;
+            
+        }
+
+        
+  
+        img.chatIcon {
+            position:relative;
+            float : right;
+            top : calc(50% - 6px);
+            right : 10px;
+            height : 12px;
+            width : 12px;
+            cursor : pointer;
+        }
+        img.chatMenu {
+            height : 12px;
+            -webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+            filter: grayscale(100%);
+            cursor: pointer;
+        }
+        img.chatMenuON {
+            height : 12px;
+            cursor: pointer;
+        }
+        img.face {
+            margin : 5px;
+        }
+        .textInput {
+            display : block;
+            padding : 10px;
+            width : calc(100% - 20px);
+            outline : none;
+            border : none;
+            font-size : 10pt;
+            line-height:1;
+        }
+        .off {
+            display:none;
+        }
+        .on {
+            display : block;
+        }

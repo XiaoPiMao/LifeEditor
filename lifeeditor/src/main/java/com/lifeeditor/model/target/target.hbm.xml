@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="com.lifeeditor.model.target.TargetVO" table="target" >
+        
+        <id name="targetID" column="targetID">
+            <generator class="identity"/>
+        </id>
+  
+        <property name="trgName" column="trgName" />
+        
+        <many-to-one name="typeVO" class="com.lifeeditor.model.type_list.TypeListVO" lazy="false">
+            <column name="typeID" />
+        </many-to-one>
+        
+        <many-to-one name="sectionVO" class="com.lifeeditor.model.sec_list.SecListVO" lazy="false">
+            <column name="sectionID" />
+        </many-to-one>
+        
+        <property name="difficulty" column="difficulty" />
+        <property name="intention" column="intention" />
+        <property name="privacy" column="privacy" />
+        <property name="genkiBar" column="genkiBar" />
+        
+        <many-to-one name="achVO" class="com.lifeeditor.model.achievement.AchievementVO" lazy="false">
+            <column name="achID" />
+        </many-to-one>
+                
+        <property name="priority" column="priority" />
+        <property name="remindTimes" column="remindTimes" />
+        <property name="trgType" column="trgType" />
+        <property name="punishment" column="punishment" />
+        <property name="status" column="status" /> 
+        <property name="timeStart" column="timeStart" />
+        <property name="timeFinish" column="timeFinish" />
+        <property name="doneTime" column="doneTime" />
+
+        
+    </class>
+</hibernate-mapping>
+
