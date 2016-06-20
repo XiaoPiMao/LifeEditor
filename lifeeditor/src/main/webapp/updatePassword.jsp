@@ -41,8 +41,8 @@ float: right;;
 <form action="forgotPswd.do" method="post">  
     <span style="color: red">${requestScope.sendMailMsg}</span>  
     帳號：<input type="text" name="userAccount" /><span style="color: red">${requestScope.errorMsg}</span><br/>
-     Email：<input type="text" name="userEmail" /><span style="color: red">${requestScope.errorMsg}</span><br/>  
-    <input type="submit" value="提交" /><a href=""></a>  
+      Email：<input type="text" name="userEmail" /><span style="color: red">${requestScope.errorMsg}</span><br/>  
+                    <input type="submit" value="送出資料" /><a href=""></a>  
 </form> 
 
 

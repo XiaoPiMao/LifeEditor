@@ -35,7 +35,7 @@ public class EmailUtils {
         Session session = getSession();  
         MimeMessage message = new MimeMessage(session);  
         try {  
-            message.setSubject("Email認證信件");  
+            message.setSubject("LifeEditor-Email認證信件");  
             message.setSentDate(new Date());  
             message.setFrom(new InternetAddress(FROM));  
             message.setRecipient(RecipientType.TO, new InternetAddress(user_specVO.getEmail()));  
@@ -57,7 +57,7 @@ public class EmailUtils {
         Session session = getSession();
         MimeMessage message = new MimeMessage(session);  
         try {  
-            message.setSubject("找回您的密碼");  
+            message.setSubject("LifeEditor-找回您的密碼");  
             message.setSentDate(new Date());  
             message.setFrom(new InternetAddress(FROM));  
             message.setRecipient(RecipientType.TO, new InternetAddress(user_specVO.getEmail()));  
