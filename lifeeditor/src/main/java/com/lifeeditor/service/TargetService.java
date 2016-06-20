@@ -175,5 +175,13 @@ public class TargetService {
 		return dao.getAllChallengeNameFromUser(userID);
 	}
 	
+	public void check(Integer targetID) {
+		dao.check(targetID);
+	}
+	
+	public void complete(Integer targetID) {
+		dao.complete(targetID);
+	}
+	
 	
 }

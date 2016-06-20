@@ -217,7 +217,7 @@ $(function(){
 		$(this).parents('#photoHeader').find('table').slideToggle('fast');
 	});
 	
-	$('.col-md-9.col-sm-7').on("click",".Editor",function(){
+	$('.col-md-9.col-sm-7').on("click","#Editor1",function(){
 		$('input[type="hidden"]').val($(this).parents('#photoItem').attr("name"));
     	$('.background').show();
     	$("#inputSpec").fadeIn("slow");
@@ -267,6 +267,15 @@ $(function(){
 			label.text(num-1);
 		}
 	});
+	
+	$('.col-md-9.col-sm-7').on("click",".compltTr",function(){
+		$.post("editTarget",{action:"complete",targetID:$(this).parents('#photoItem').attr("name")});
+	});
+	
+	$('.col-md-9.col-sm-7').on("click",".checkTr",function(){
+		$.post("editTarget",{action:"check",targetID:$(this).parents('#photoItem').attr("name")});
+	});
+	
 	
 
 	$('#closeBtn').click(function(){
@@ -452,20 +461,26 @@ $(document).ready(function(){
 		            '<div id="photoItem" class="single-blog two-column" name="' + this.targetID + '">' +   //photoItem
 		            
 		            '<div id="photoHeader"  style="position:relative;">' +  //photoHeader-Start
-		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">' +
+		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">';
 		           
-		            '<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>';
+		            if(this.status == 1) {
+		            	 str+='<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>';
+		            }
+		           
  					
-		            if(this.trgType == 3) {
- 						str += '<tr id="compltTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>完成目標</a></td></tr>';
-		            }else {
-		            	str += '<tr id="checkTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>送出審核</a></td></tr>';
+		            if(this.trgType == 3 && this.status==1) {
+ 						str += '<tr class="compltTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>完成目標</a></td></tr>';
+		            }else if(this.status==1){
+		            	str += '<tr class="checkTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>送出審核</a></td></tr>';
 		            }
 		            
 		            str +=
 		            '</table>'+
-		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
-		            '<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
+		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+		            
+		            if(this.status == 1) {
+		            	str+='<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
+		            }
 		            
 		            if(this.status == 1){
 		            	str += '<h4 class="post-author">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '結束 : ' + this.timeFinish + '</h4>';

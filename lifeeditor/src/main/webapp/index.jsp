@@ -69,8 +69,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3">
-					<div><h1>Life Editor</h1>		
-					<a id="modal_trigger" href="#modal" class="btn">註冊 /登入</a>		
+					<div><h1>Life Editor</h1>
+					<div><h2 style="font-size: 55px;width:900px;position:absolute;left:50%;top:50%;margin-left:-450px;margin-top:220px;">Archive your goals and expand your horizon</h2></div>	
+					<div style="width:180px;position:absolute;left:50%;top:50%;margin-left:-90px;margin-top:320px;text-align:center;">
+					<a id="modal_trigger" href="#modal" class="btn" style="font-size:20px;width:150px;">註冊 / 登入</a>
+					</div>
+					<div><a href="#aboutwrap"><img class="img_scroll" src="images/circle.png" style="position:absolute;left:50%;top:50%;margin-left:-30px;margin-top:480px;"></a></div>		
 <!----------------------------------------------------- 	Login start --------------------------------------------------->
 <!--     <div class="container"> -->
 	<div id="modal" class="popupContainer" style="display:none;">
@@ -245,7 +249,6 @@
 					<img class="img-responsive" src="images/quote.jpg">
 				</div><! --/col-lg-4-->
 				<div class="col-lg-8 name-desc" >
-					<h2>Archive your goals and expand your horizon</h2>
 					<div class="col-md-6">
 					<br>
 						<p style="Font-family:Microsoft JhengHei;font-size: 20px;">今年，你完成了哪些目標?<br>下一個十年，你會在哪裡?<br>一個又一個的目標計畫...<br>一本又一本的行事曆...<br>如今都到哪裡去了?<br>完成了哪些目標呢?</p>

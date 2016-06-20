@@ -102,6 +102,9 @@ public class TargetDAO_JNDI implements TargetDAO_interface {
 	" type_list ON sec_list.typeID = type_list.typeID AND target.typeID = type_list.typeID INNER JOIN "+
 	"user_spec ON target_list.userID = user_spec.userID  where trgType =3 and trgName like ?";
 	
+	private static final String CHECK = "UPDATE target SET status = 2 WHERE targetID = ?";
+	private static final String COMPLETE = "UPDATE target SET status = 3,doneTime = GetDate() WHERE targetID = ?";
+	
 	
 	
 	@SuppressWarnings("resource")
@@ -953,6 +956,50 @@ try {
 		}
 	
 		return list;
+	}
+
+	@Override
+	public void check(Integer targetID) {
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(CHECK);
+			pstmt.setInt(1, targetID);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+	}
+
+	@Override
+	public void complete(Integer targetID) {
+		Connection conn = null;
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(COMPLETE);
+			pstmt.setInt(1, targetID);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
 	}
 
 
