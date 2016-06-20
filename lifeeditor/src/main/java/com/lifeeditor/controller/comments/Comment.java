@@ -27,7 +27,6 @@ public class Comment extends HttpServlet {
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		System.out.println(request.getParameter("targetID"));
 		Integer targetID = Integer.parseInt(request.getParameter("targetID"));
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("application/json");
