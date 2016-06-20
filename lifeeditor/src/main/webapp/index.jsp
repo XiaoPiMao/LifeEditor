@@ -74,7 +74,7 @@
 					<div style="width:180px;position:absolute;left:50%;top:50%;margin-left:-90px;margin-top:320px;text-align:center;">
 					<a id="modal_trigger" href="#modal" class="btn" style="font-size:20px;width:150px;">註冊 / 登入</a>
 					</div>
-					<div><img class="img_scroll" src="images/circle.png" style="position:absolute;left:50%;top:50%;margin-left:-30px;margin-top:480px;"></div>		
+					<div><a href="#aboutwrap"><img class="img_scroll" src="images/circle.png" style="position:absolute;left:50%;top:50%;margin-left:-30px;margin-top:480px;"></a></div>		
 <!----------------------------------------------------- 	Login start --------------------------------------------------->
 <!--     <div class="container"> -->
 	<div id="modal" class="popupContainer" style="display:none;">

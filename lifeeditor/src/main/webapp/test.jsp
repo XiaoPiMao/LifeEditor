@@ -205,26 +205,27 @@ overflow:hidden;
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="js/main.js"></script>
 <script>
+var uploadFile;
 var jTypes = JSON.parse('${jTypes}');
 var jUser = JSON.parse('${jUser}');
 var jAchs = JSON.parse('${jAchs}');
 var data = JSON.parse('${targets}');
 var jHaveGenki = JSON.parse('${jHaveGenki}');
 var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
+console.log(jSpecs);
 $(function(){
 	//post
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
 		$(this).parents('#photoHeader').find('table').slideToggle('fast');
 	});
 	
-	$('.col-md-9.col-sm-7').on("click",".Editor",function(){
+	$('.col-md-9.col-sm-7').on("click","#Editor1",function(){
 		$('input[type="hidden"]').val($(this).parents('#photoItem').attr("name"));
     	$('.background').show();
     	$("#inputSpec").fadeIn("slow");
     	$('.Editor').hide();
-    	
-    	
 	});
+	
 	$('.col-md-9.col-sm-7').on("mouseover",".eye",function(){
 		var str = "";
 		var photoitem =  $(this).parents('#photoItem');
@@ -268,11 +269,29 @@ $(function(){
 		}
 	});
 	
+	$('.col-md-9.col-sm-7').on("click",".compltTr",function(){
+		var photoItem = $(this).parents('#photoItem');
+		$.post("editTarget",{action:"complete",targetID:photoItem.attr("name")});
+		var today = new Date();
+		photoItem.find('.post-author').html('完 成 : ' + today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate());
+		photoItem.find('.Editor').hide();
+	});
+	
+	//審核
+	$('.col-md-9.col-sm-7').on("click",".checkTr",function(){
+		var photoItem = $(this).parents('#photoItem');
+		$.post("editTarget",{action:"check",targetID:$(this).parents('#photoItem').attr("name")});
+		photoItem.find('.post-author').html('審 核 中').css('color','red');
+		photoItem.find('.Editor').hide();
+	});
+	
+	
 
 	$('#closeBtn').click(function(){
 		$('.background').hide();
 		$('#inputSpec').hide();
 	})
+	
 	
     $('#postBtn').click(function(){
     	$('#inputSpec').hide();
@@ -288,6 +307,7 @@ $(function(){
 		        
 		        reader.onload = function (e) {
 		            $('.preview').attr('src', e.target.result);
+		            uploadFile = e.target.result;
 		        }
 
 		        reader.readAsDataURL(input.files[0]);
@@ -303,17 +323,21 @@ $(function(){
 			var myForm = document.querySelector("#inputSpec>form");
 			var postData = new FormData(myForm);
 			postData.append("action","Target_Spec_insert");
-			 $.ajax(
-			{
-				url : "target_Spec/Target_specServlet.do",
-				type: "POST",
-				data : postData,
-	       		processData: false,
-				contentType: false,
-	            success:function(data) 
-	            {
-				},
-			});
+			alert($('input[type="hidden"]').val());
+			alert($('textarea[name="input_target_Note"]').val());
+			myForm.reset();
+			$('.preview').attr("src","");
+// 			 $.ajax(
+// 			{
+// 				url : "target_Spec/Target_specServlet.do",
+// 				type: "POST",
+// 				data : postData,
+// 	       		processData: false,
+// 				contentType: false,
+// 	            success:function(data) 
+// 	            {
+// 				},
+// 			});
 			
 		})// postBtn
 	
@@ -452,20 +476,26 @@ $(document).ready(function(){
 		            '<div id="photoItem" class="single-blog two-column" name="' + this.targetID + '">' +   //photoItem
 		            
 		            '<div id="photoHeader"  style="position:relative;">' +  //photoHeader-Start
-		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">' +
+		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">';
 		           
-		            '<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>';
+		            if(this.status == 1) {
+		            	 str+='<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>';
+		            }
+		           
  					
-		            if(this.trgType == 3) {
- 						str += '<tr id="compltTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>完成目標</a></td></tr>';
-		            }else {
-		            	str += '<tr id="checkTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>送出審核</a></td></tr>';
+		            if(this.trgType == 3 && this.status==1) {
+ 						str += '<tr class="compltTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>完成目標</a></td></tr>';
+		            }else if(this.status==1 && jSpecs[this.targetID]){
+		            	str += '<tr class="checkTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>送出審核</a></td></tr>';
 		            }
 		            
 		            str +=
 		            '</table>'+
-		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>' +
-		            '<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
+		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+		            
+		            if(this.status == 1) {
+		            	str+='<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
+		            }
 		            
 		            if(this.status == 1){
 		            	str += '<h4 class="post-author">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '結束 : ' + this.timeFinish + '</h4>';

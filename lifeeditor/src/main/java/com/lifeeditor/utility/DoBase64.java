@@ -20,13 +20,10 @@ public class DoBase64 {
 		return encoder.encodeToString(txtBytes);
 	}
 	
-	public static String decode(String encodeTxt) {
-		try {
-			return new String(decoder.decode(encodeTxt),"UTF-8");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-			return null;
-		}
+	public static byte[] decode(String encodeTxt) {
+		
+			return decoder.decode(encodeTxt);
+	
 	}
 	
 	public static String encode(byte[] bytes) {
