@@ -54,7 +54,7 @@ public class LoginServlet extends HttpServlet {
 				System.out.println("已取得帳號密碼");// 如果變數vo的值不等於 null,表示帳密吻合，資料庫含有account搭配password的紀錄
 
 				if (vo != null) {
-					System.out.println("帳號密碼吻合");				
+					System.out.println("帳號密碼吻合");	
 					session.setAttribute("LoginOK", vo); 																// OK, 將mb物件放入Session範圍內，識別字串為"LoginOK"，表示此使用者已經登入
 					Integer userID = vo.getUserID();
 					

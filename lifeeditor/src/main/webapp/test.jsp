@@ -25,7 +25,7 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="singlecolor/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="singlecolor/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="singlecolor/images/ico/apple-touch-icon-57-precomposed.png">
-    <link rel="stylesheet" href="css/popup.css" type="text/css"/>
+    
     
     <style>
     .close {
@@ -179,15 +179,38 @@ width:60px;
 height:60px;
 overflow:hidden;
 }
+
+.gray {
+	-webkit-filter: grayscale(100%); /* Chrome, Safari, Opera */
+    filter: grayscale(100%);
+}
+
+.eyeContent {
+	background-color:black;
+	color:white;
+	line-height:1.7;
+	font-size:10pt;
+	padding-left:12px;
+	height:auto;
+	width:130px;
+	position:absolute;
+	bottom:70px;
+	left:240px;
+	z-index:1;
+}
 </style>
 <script src="js/jquery.min.js"></script>
 <script src="js/skel.min.js"></script>
 <script src="js/util.js"></script>
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="js/main.js"></script>
-<script type="text/javascript" src="js/popup.js"></script>      
 <script>
-
+var jTypes = JSON.parse('${jTypes}');
+var jUser = JSON.parse('${jUser}');
+var jAchs = JSON.parse('${jAchs}');
+var data = JSON.parse('${targets}');
+var jHaveGenki = JSON.parse('${jHaveGenki}');
+var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
 $(function(){
 	//post
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
@@ -195,12 +218,54 @@ $(function(){
 	});
 	
 	$('.col-md-9.col-sm-7').on("click",".Editor",function(){
-		$('input[type="hidden"]').val($(this).parents('#photoHeader').attr("name"));
+		$('input[type="hidden"]').val($(this).parents('#photoItem').attr("name"));
     	$('.background').show();
     	$("#inputSpec").fadeIn("slow");
     	$('.Editor').hide();
     	
     	
+	});
+	$('.col-md-9.col-sm-7').on("mouseover",".eye",function(){
+		var str = "";
+		var photoitem =  $(this).parents('#photoItem');
+		$.getJSON("genkiBar",{action : "whoGenki",targetID :photoitem.attr("name")},
+			function(users){
+				$.each(users, function() {
+					str+=getComName(this.firstName,this.lastName) + '<br />';
+				})
+				if(str.length !=0)
+					str += ">>>>>>給予集氣";
+				photoitem.find('.eyeContent').html(str);
+				
+			}
+			
+		);
+		
+	});
+	
+	$('.col-md-9.col-sm-7').on("mouseout",".eye",function(){
+		 $(this).parents('#photoItem').find('.eyeContent').empty();
+		
+	});
+	
+	
+	$('.col-md-9.col-sm-7').on("click",".fa.fa-heart",function(){
+		var genki = $(this);
+		if(genki.hasClass('gray')) {
+			genki.removeClass('gray');
+			$.post("genkiBar",{action:"insert",targetID:$(this).parents('#photoItem').attr("name")});
+			
+			var label = genki.next('label');
+			var num = Number(label.text());
+			label.text(num+1);
+		}else {
+			genki.addClass('gray');
+			$.post("genkiBar",{action:"delete",targetID:$(this).parents('#photoItem').attr("name")});
+			
+			var label = genki.next('label');
+			var num = Number(label.text());
+			label.text(num-1);
+		}
 	});
 	
 
@@ -322,17 +387,21 @@ $(function(){
 	 
 });
 
+function getComName(firstName,lastName) {
+	if(firstName.charAt(0).match('[A-z]')) {
+		return firstName + '&nbsp;' + lastName;
+	}else {
+		return lastName + firstName;
+	}
+}
+
 </script>
 <script src="${ctx}/js/chatroom.js"></script>
 <script>
-    var jTypes = JSON.parse('${jTypes}');
-    var jUser = JSON.parse('${jUser}');
-    var jAchs = JSON.parse('${jAchs}');
-    var data = JSON.parse('${targets}');
-    var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
+    
     //console.log(jSpecs);
-    //console.log(data );
-    console.log(data);
+    console.log(data );
+    console.log(jHaveGenki);
    
     var catogoryNum = new Object();
     $.each(jTypes,function() {
@@ -380,9 +449,9 @@ $(document).ready(function(){
 			catogoryNum[this.typeName]++;
 			str += '<div id="photoBook" class="col-md-12 col-sm-12" >' +
 			
-		            '<div id="photoItem" class="single-blog two-column">' +   //photoItem
+		            '<div id="photoItem" class="single-blog two-column" name="' + this.targetID + '">' +   //photoItem
 		            
-		            '<div id="photoHeader" name="' + this.targetID + '" style="position:relative;">' +  //photoHeader-Start
+		            '<div id="photoHeader"  style="position:relative;">' +  //photoHeader-Start
 		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">' +
 		           
 		            '<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>';
@@ -399,7 +468,7 @@ $(document).ready(function(){
 		            '<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
 		            
 		            if(this.status == 1){
-		            	str += '<h4 class="post-author">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '完 成 : ' + this.timeFinish + '</h4>';
+		            	str += '<h4 class="post-author">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '結束 : ' + this.timeFinish + '</h4>';
 		            }else if(this.status ==2){
 		            	str += '<h4 class="post-author" style="color:red;">審 核 中</h4>';
 		            }else {
@@ -424,7 +493,7 @@ $(document).ready(function(){
 		    	            if(i == 0) {str += ' active">';}
 		    	            else { str += '">'}
 		    	            str +=  '<div class="post-thumb">' +   //photo-Start
-			    		                '<img style="width:920px;height:470px;" src="${ctx}' + this.picPath + '">'+
+			    		                '<img style="width:920px;height:470px;" src="' + this.picPath + '">'+
 			    		            '</div>' +   //photo-End
 			                    	'<div class="span8"><p>' + this.trgNote +'</p></div>' +
 			                        '</div>' +   //item active-End
@@ -436,14 +505,19 @@ $(document).ready(function(){
 		                		'</div>' ;    //#myCarousel-End
 	                	})
 	                }
-	                
+	        str += '<div class="eyeContent"></div>';
 //--------------------------------------------------------------------------------------------------------//            		
             str  +='<div class="post-content overflow">' +      //Icon
 	                '<div class="post-bottom overflow">'+   
 	                    '<ul class="nav navbar-nav post-nav">'+
-	                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>'+
-	                        '<li><a href="#"><i class="fa fa-heart"></i>'+ this.genkiBar + '</a></li>'+
-	                        '<li class="comments"><a><i class="fa fa-comments"></i>3 Comments</a></li>'+
+	                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>';
+	                        if(jHaveGenki[this.targetID]) {
+	                        	str+='<li style="cursor:pointer"><a><i class="fa fa-heart"></i><label style="font-weight:300;font-size:18px;">'+ this.genkiBar + '</label></a></li>';
+	                        }else {
+	                        	str+='<li style="cursor:pointer"><a><i class="fa fa-heart gray"></i><label style="font-weight:300;font-size:18px;">'+ this.genkiBar + '</label></a></li>';
+	                        }
+		               str+='<li class="eye"><a><i class="fa fa-eye fa-lg" style="position:relative;top:3px"></i></a></i>'+
+		            	   '<li class="comments"><a><i class="fa fa-comments"></i> Comments</a></li>'+
 	                    '</ul>'+
 	                '</div>'+
 	            '</div>'+ 
@@ -483,7 +557,6 @@ $(document).ready(function(){
 		})
 		$(".col-md-9.col-sm-7").append( $("<div></div>").addClass("row").html(str) );
 		
-		$("#Editor1").click(popup);
 	})
     
     </script>
