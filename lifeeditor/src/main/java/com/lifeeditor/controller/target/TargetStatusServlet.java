@@ -43,10 +43,9 @@ public class TargetStatusServlet extends HttpServlet {
 		
 		Integer status = Integer.parseInt(request.getParameter("status"));
 		Integer targetID = Integer.parseInt(request.getParameter("targetID"));
-	
+		java.sql.Date doneTime  = new java.sql.Date(new java.util.Date().getTime()) ;
 		
-		TargetService targetSvc = new TargetService();
-		
+		TargetService targetSvc = new TargetService();		
 		Target_List_Service targetListSvc = new Target_List_Service();
 		
 		Target_ListVO target_listVO = targetListSvc.findByTargetID(targetID);
@@ -55,12 +54,13 @@ public class TargetStatusServlet extends HttpServlet {
 		
 		TargetVO targetVO = targetSvc.getOneTrg(targetID);
 		
+		
 		Integer achID = new Integer(targetVO.getAchVO().getAchID());
 		
 		ach_listService ach_listSvc = new ach_listService();
 		
 		
-		targetSvc.updateTargetStatus(status,targetID);
+		targetSvc.updateTargetStatus(status,targetID,doneTime);
 		if(status == 3){
 			ach_listSvc.addAchList(userID, achID);
 		}

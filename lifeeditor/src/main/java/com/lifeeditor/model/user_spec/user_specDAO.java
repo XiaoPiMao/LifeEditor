@@ -2,6 +2,7 @@ package com.lifeeditor.model.user_spec;
 
 import java.io.Serializable;
 import java.sql.Connection;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,6 +35,15 @@ public class user_specDAO implements user_specDAO_interface{
 	private static final String GET_ALL_HOTMAN = "from user_specVO order by hotMan";
 	private static final String GET_TOP30 = "SELECT TOP 30 * FROM user_spec order by genkibartol desc";
 	
+
+	   private static user_specDAO instance = new user_specDAO();  
+	      
+	    private user_specDAO() {}  
+	      
+	    public static user_specDAO getInstance() {  
+	        return instance;  
+	    }  
+
 	static {
 		try {
 			Context ctx = new InitialContext();
@@ -42,6 +52,7 @@ public class user_specDAO implements user_specDAO_interface{
 			ne.printStackTrace();
 		}
 	}
+
 	
 	private HibernateTemplate hibernateTemplate;    
     public void setHibernateTemplate(HibernateTemplate hibernateTemplate) { 
@@ -61,7 +72,29 @@ public class user_specDAO implements user_specDAO_interface{
 		hibernateTemplate.saveOrUpdate(user_specVO);
 		
 	}
-
+    
+	@Override 
+	 public user_specVO  findUserByNameAndEmail(String account,String email){
+		try {
+		
+		System.out.println("findUserByAccountAndEmail()");
+			List<user_specVO>  list = hibernateTemplate.find("FROM user_specVO u WHERE u.account=?  AND u.email= ? ", account ,email);
+			System.out.println(list.get(0));
+			if (list.size()>=0){
+				System.out.println("ininin");
+				user_specVO user_specVO = list.get(0);
+				return user_specVO;
+				}	
+			}catch (Exception e) {
+				System.out.println(account);
+				System.out.println(email);
+				e.printStackTrace();
+			}
+			return null;
+		}
+	
+	
+	
 	@Override
 	public user_specVO findByPrimaryKey(Integer user_specID) {
 		
@@ -74,6 +107,8 @@ public class user_specDAO implements user_specDAO_interface{
 		try {
 		System.out.println("findByAccount()");
 		List<user_specVO>  list = hibernateTemplate.find("FROM user_specVO u WHERE u.account = ?", account);
+		System.out.println("aaaaaaaaa");
+		System.out.println(account);
 		if (list.size()>=1){
 			user_specVO user_specVO = list.get(0);
 			return user_specVO;
@@ -136,6 +171,8 @@ public class user_specDAO implements user_specDAO_interface{
 		}
 		return list;
 	}
+	
+	
 	public static void main(String[] args) {
 
 		

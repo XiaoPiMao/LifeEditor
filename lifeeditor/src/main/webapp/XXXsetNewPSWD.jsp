@@ -34,7 +34,9 @@
     
   </head>
   <style>
-   div{margin:0px auto;}
+.div1 {
+   margin: 0 auto;
+}
   
   .errorspan{
 	font-size:10pt;
@@ -76,7 +78,7 @@
 					<div><h1>Life Editor</h1>
 					<div><h2 style="font-size: 55px;width:900px;position:absolute;left:50%;top:50%;margin-left:-450px;margin-top:220px;">Archive your goals and expand your horizon</h2></div>	
 					<div style="width:180px;position:absolute;left:50%;top:50%;margin-left:-90px;margin-top:320px;text-align:center;">
-			
+				
 					</div>
 					<div><img class="img_scroll" src="images/circle.png" style="position:absolute;left:50%;top:50%;margin-left:-30px;margin-top:480px;"></div>		
 <!----------------------------------------------------- 	Login start --------------------------------------------------->
@@ -90,7 +92,27 @@
 	</div><! --/headerwrap -->
 
 	
-	<div  style="font-size:35px;"> 系統正在寄信給您，請至您的信箱收信</div>
+	<div id="div1" class="container-fluid" >
+	<div class="row">
+	    <form action="ResetPswd.do" method="post"    name="form3"  class="row3">  
+				 <div class="col-md-6">
+			    <span style="color: red">${requestScope.sendMailMsg}</span>  
+		<div>
+			 <label>您的帳號:</label>
+			<input type="text" name="userAccount" value="${param.userAccount}" readonly="readonly" class="form-control"  size="22"/><br/>
+			 
+			<label >設定新密碼:</label>
+			<input type="password" name="newPassword"  class="form-control"  size="22"/><span class="error">${errors.newPassword }</span><br/>  
+			</div>
+			<div>
+			<label >再輸入新密碼:</label>
+			<input type="password" name="newPassword2"  class="form-control" size="22" /><span class="error">${errors.newPassword2 }</span><br/> 
+					    <input type="submit" value="送出資料" /><a href=""></a>  
+					    
+			</div>		    
+					</form> 
+	</div>
+	  </div>
 
 				</div><!-- col-lg-4 -->
 			</div><!-- /row -->
@@ -99,7 +121,7 @@
 				
 			</div><! --/row -->
 		</div><! --/container -->
-	</div ><! --/Portfoliowrap -->
+	</div><! --/Portfoliowrap -->
 	
 	<div id="testimonials">
 		<div class="container">
@@ -189,7 +211,7 @@
 	   </script>
 <!------------------------------------------------------------------------------------ login----start------------------------------------------------------------------------------->
 
- 	<!------------------------------------------- login----end------------------------------------------------>
+	<!------------------------------------------- login----end------------------------------------------------>
   </body>
 </html>
 

@@ -90,7 +90,25 @@
 	</div><! --/headerwrap -->
 
 	
-	<div  style="font-size:35px;"> 系統正在寄信給您，請至您的信箱收信</div>
+	<div id="div1" class="container-fluid" >
+	<div class="row">
+	    <form action="forgotPswd.do" method="post"    >  
+				 <div class="col-md-6">
+			    <span style="color: red">${requestScope.sendMailMsg}</span>  
+		<div>
+			 
+			<label  >帳號:</label>
+			<input type="text"  class="form-control" name="userAccount"  size="22"/><span style="color: red">${requestScope.errorMsg}</span><br/>
+			</div>
+			<div>
+			<label >Email:</label>
+			<input type="text" class="form-control" name="userEmail" size="22"/><span style="color: red">${requestScope.errorMsg}</span><br/>  
+					    <input type="submit" value="送出資料" /><a href=""></a>  
+					    
+			</div>		    
+		  </form> 
+	  </div>
+   </div>
 
 				</div><!-- col-lg-4 -->
 			</div><!-- /row -->
@@ -99,7 +117,7 @@
 				
 			</div><! --/row -->
 		</div><! --/container -->
-	</div ><! --/Portfoliowrap -->
+	</div><! --/Portfoliowrap -->
 	
 	<div id="testimonials">
 		<div class="container">
