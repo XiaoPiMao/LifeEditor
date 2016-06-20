@@ -11,6 +11,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 
+
 import com.lifeeditor.model.comments.commentsDAO_interface;
 import com.lifeeditor.model.comments.commentsVO;
 import com.lifeeditor.model.genkiBar_list.genkiBar_listDAO_interface;
@@ -70,5 +71,9 @@ public class commentsService {
 	
 	public List<commentsVO> getCommentByUser(Integer userID) {
 		return dao.getCommentByUser(userID);
+	}
+	
+	public List<commentsVO> getCommentByTarget(Integer targetID) {
+		return dao.getCommentByTarget(targetID);
 	}
 }

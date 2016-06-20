@@ -205,12 +205,14 @@ overflow:hidden;
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="js/main.js"></script>
 <script>
+var uploadFile;
 var jTypes = JSON.parse('${jTypes}');
 var jUser = JSON.parse('${jUser}');
 var jAchs = JSON.parse('${jAchs}');
 var data = JSON.parse('${targets}');
 var jHaveGenki = JSON.parse('${jHaveGenki}');
 var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
+console.log(jSpecs);
 $(function(){
 	//post
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
@@ -222,9 +224,8 @@ $(function(){
     	$('.background').show();
     	$("#inputSpec").fadeIn("slow");
     	$('.Editor').hide();
-    	
-    	
 	});
+	
 	$('.col-md-9.col-sm-7').on("mouseover",".eye",function(){
 		var str = "";
 		var photoitem =  $(this).parents('#photoItem');
@@ -269,11 +270,19 @@ $(function(){
 	});
 	
 	$('.col-md-9.col-sm-7').on("click",".compltTr",function(){
-		$.post("editTarget",{action:"complete",targetID:$(this).parents('#photoItem').attr("name")});
+		var photoItem = $(this).parents('#photoItem');
+		$.post("editTarget",{action:"complete",targetID:photoItem.attr("name")});
+		var today = new Date();
+		photoItem.find('.post-author').html('完 成 : ' + today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate());
+		photoItem.find('.Editor').hide();
 	});
 	
+	//審核
 	$('.col-md-9.col-sm-7').on("click",".checkTr",function(){
+		var photoItem = $(this).parents('#photoItem');
 		$.post("editTarget",{action:"check",targetID:$(this).parents('#photoItem').attr("name")});
+		photoItem.find('.post-author').html('審 核 中').css('color','red');
+		photoItem.find('.Editor').hide();
 	});
 	
 	
@@ -282,6 +291,7 @@ $(function(){
 		$('.background').hide();
 		$('#inputSpec').hide();
 	})
+	
 	
     $('#postBtn').click(function(){
     	$('#inputSpec').hide();
@@ -297,6 +307,7 @@ $(function(){
 		        
 		        reader.onload = function (e) {
 		            $('.preview').attr('src', e.target.result);
+		            uploadFile = e.target.result;
 		        }
 
 		        reader.readAsDataURL(input.files[0]);
@@ -312,17 +323,21 @@ $(function(){
 			var myForm = document.querySelector("#inputSpec>form");
 			var postData = new FormData(myForm);
 			postData.append("action","Target_Spec_insert");
-			 $.ajax(
-			{
-				url : "target_Spec/Target_specServlet.do",
-				type: "POST",
-				data : postData,
-	       		processData: false,
-				contentType: false,
-	            success:function(data) 
-	            {
-				},
-			});
+			alert($('input[type="hidden"]').val());
+			alert($('textarea[name="input_target_Note"]').val());
+			myForm.reset();
+			$('.preview').attr("src","");
+// 			 $.ajax(
+// 			{
+// 				url : "target_Spec/Target_specServlet.do",
+// 				type: "POST",
+// 				data : postData,
+// 	       		processData: false,
+// 				contentType: false,
+// 	            success:function(data) 
+// 	            {
+// 				},
+// 			});
 			
 		})// postBtn
 	
@@ -470,7 +485,7 @@ $(document).ready(function(){
  					
 		            if(this.trgType == 3 && this.status==1) {
  						str += '<tr class="compltTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>完成目標</a></td></tr>';
-		            }else if(this.status==1){
+		            }else if(this.status==1 && jSpecs[this.targetID]){
 		            	str += '<tr class="checkTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>送出審核</a></td></tr>';
 		            }
 		            
