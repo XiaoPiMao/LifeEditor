@@ -25,8 +25,7 @@
 					<form  ENCTYPE="multipart/form-data"method="POST"action="eventServlet.do" role="form">
 					<label > 選擇活動類別 </label>
 					
-					<select id="selType" name="typeID" 
-									class="opt">
+					<select id="selType" name="typeID" class="opt">
 										<option value=""></option>
 										<c:forEach var="type" items="${types }">
 											<c:if test="${type.typeName != '自訂' }">
@@ -35,8 +34,7 @@
 										</c:forEach>
 								</select> <br/>
 								<label >選擇活動細項 </label>
-								 <select id="selSec" name="secID"
-									 class="opt"></select><br/>
+								 <select id="selSec" name="secID" class="opt"></select><br/>
 	
 				
 

@@ -46,7 +46,7 @@
 <div class="row">
 <div class="col-md-3 col-sm-5" style="width:300px;margin-top:30px;">  
    <div class="mini-posts" style="">
-     <h2>熱門人物</h2>
+     <h2 style="margin-left:20px;">熱門人物</h2>
 		<!-- Mini Post -->
 		<article class="mini-post">
 		  <div id="hotmans" style="border-bottom-style:ridge;border-color: red;">

@@ -28,10 +28,11 @@
     
     
     <style>
-    .close {
-background: none repeat scroll 0 0 #606061;
+.close {
 border-radius: 15px;
-color: #FFFFFF;
+border-style: ridge;
+border-color: #00D9FF;
+border-width: 5px;
 font-weight: bold;
 position: relative;
 height:30px;
@@ -40,10 +41,7 @@ float:right;
 margin:3px 6px 0px 0px;
 text-align: center;
 }
-.close:hover {
-background: none repeat scroll 0 0 #00D9FF;
-}
-    
+ 
 	.user-icon{
 	border-radius:50%;
 	}
@@ -213,7 +211,47 @@ var data = JSON.parse('${targets}');
 var jHaveGenki = JSON.parse('${jHaveGenki}');
 var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
 console.log(jSpecs);
+
+
+
+
 $(function(){
+	
+	//Enter送出留言
+	$('.col-md-9.col-sm-7').on("keyup", "input[name='inputComment']",function (e) {
+		if (e.which == 13) {
+	    	//alert($(this).val());
+	    	var input = $(this);
+	    	var photoItem = $(this).parents('#photoItem');
+	    	$.post("insertComment",{targetID:photoItem.attr('name'),comment:$(this).val()},function(){
+	    		//alert(input.val());
+	    		var str = "";
+	    		str +=
+			    	'<div class="oneComment" style="margin-left:30px;">' +
+					'<div class="row"><div class="col-md-1 col-sm-2 hidden-xs" style="margin-right:-20px;">' +   //comment-left-Start
+						'<figure class="thumbnail" style="width:50px;height:50px;padding:0px;">' +    
+						'<img class="img-responsive" style="width:50px;height:50px;" src="${ctx}/GetUserPicture?id='+ jUser.userID+'">' +
+						'</figure>' +   
+					'</div>' +   //comment-left-End
+					'<div class="col-md-10 col-sm-10">' +   //comment-right
+						'<div class="panel panel-default arrow left">' +
+			    			'<div class="panel-body">' +
+			        			'<header class="text-left" style="margin-top:-15px;">' +
+			        				'<div class="comment-user"><a href="">'+ getComName(jUser.firstName,jUser.lastName)+'</a></div>' +
+			        			'</header>' +
+			        			'<div class="comment-post" style="margin-top:5px;">' +
+			        				'<p>'+ input.val() +'</p>' +
+			        			'</div>' +
+			    			'</div>' +   
+						'</div>' +
+					'</div></div>' +   //comment-right-End
+				'</div>' //oneComment-End
+	    		input.val(""); 
+	    		photoItem.find('.pastComments').append(str);
+	    	})
+	    }
+	});
+	
 	//post
 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
 		$(this).parents('#photoHeader').find('table').slideToggle('fast');
@@ -226,6 +264,7 @@ $(function(){
     	$('.Editor').hide();
 	});
 	
+	//顯示誰按讚
 	$('.col-md-9.col-sm-7').on("mouseover",".eye",function(){
 		var str = "";
 		var photoitem =  $(this).parents('#photoItem');
@@ -244,12 +283,13 @@ $(function(){
 		
 	});
 	
+	//關掉誰按讚
 	$('.col-md-9.col-sm-7').on("mouseout",".eye",function(){
 		 $(this).parents('#photoItem').find('.eyeContent').empty();
 		
 	});
 	
-	
+	//按讚
 	$('.col-md-9.col-sm-7').on("click",".fa.fa-heart",function(){
 		var genki = $(this);
 		if(genki.hasClass('gray')) {
@@ -269,6 +309,7 @@ $(function(){
 		}
 	});
 	
+	//完成目標
 	$('.col-md-9.col-sm-7').on("click",".compltTr",function(){
 		var photoItem = $(this).parents('#photoItem');
 		$.post("editTarget",{action:"complete",targetID:photoItem.attr("name")});
@@ -286,20 +327,20 @@ $(function(){
 	});
 	
 	
-
+	//上傳照片的叉叉
 	$('#closeBtn').click(function(){
 		$('.background').hide();
 		$('#inputSpec').hide();
 	})
 	
-	
+	//上傳完心得後恢復
     $('#postBtn').click(function(){
     	$('#inputSpec').hide();
     	$('.background').hide();
     });
 	
 		
-		
+		//瀏覽照片
 	    function preview(input) {
 			 
 		    if (input.files && input.files[0]) {
@@ -318,6 +359,7 @@ $(function(){
 		    preview(this);
 		})
 		
+		//上傳心得
 		$("#postBtn").click(function(){
 			
 			var myForm = document.querySelector("#inputSpec>form");
@@ -344,7 +386,38 @@ $(function(){
 
 	//Comments
 	$('.col-md-9.col-sm-7').on("click",".comments",function(){
-		$(this).parents('.single-blog.two-column').find('.allComments').slideToggle('fast');		
+		var photoItem = $(this).parents('#photoItem');
+		var str = "";
+		$.getJSON("comment",{targetID:photoItem.attr("name")},function(comments) {
+			console.log("留言:" + comments);
+			$.each(comments,function(){
+				str +=
+			    	'<div class="oneComment" style="margin-left:30px;">' +
+					'<div class="row"><div class="col-md-1 col-sm-2 hidden-xs" style="margin-right:-20px;">' +   //comment-left-Start
+						'<figure class="thumbnail" style="width:50px;height:50px;padding:0px;">' +    
+						'<img class="img-responsive" style="width:50px;height:50px;" src="${ctx}/GetUserPicture?id='+ this.userID+'">' +
+						'</figure>' +   
+					'</div>' +   //comment-left-End
+					'<div class="col-md-10 col-sm-10">' +   //comment-right
+						'<div class="panel panel-default arrow left">' +
+			    			'<div class="panel-body">' +
+			        			'<header class="text-left" style="margin-top:-15px;">' +
+			        				'<div class="comment-user"><a href="">'+ getComName(this.firstName,this.lastName)+'</a></div>' +
+			        			'</header>' +
+			        			'<div class="comment-post" style="margin-top:5px;">' +
+			        				'<p>'+ this.comment +'</p>' +
+			        			'</div>' +
+			    			'</div>' +   
+						'</div>' +
+					'</div></div>' +   //comment-right-End
+				'</div>' //oneComment-End
+			});  //each END
+			photoItem.find('.pastComments').html(str);
+			photoItem.find('.allComments').slideToggle('fast');
+		})
+		
+	
+				
 	});
 	
 	//photoBook
@@ -410,7 +483,7 @@ $(function(){
 	}
 	 
 });
-
+//拿到名字
 function getComName(firstName,lastName) {
 	if(firstName.charAt(0).match('[A-z]')) {
 		return firstName + '&nbsp;' + lastName;
@@ -459,7 +532,7 @@ $(document).ready(function(){
                '</div>' +
              '<div class="media-body">' +
                   '<h4><a href="#">' +  this.comment + '</a></h4>' +
-                   '<p>'+ this.lastName + ' ' + this.firstName + '</p>' +
+                   '<p>'+ getComName(this.firstName,this.lastName) + '</p>' +
               '</div>' +
             '</div>' 
     	})
@@ -546,34 +619,35 @@ $(document).ready(function(){
 	                        }else {
 	                        	str+='<li style="cursor:pointer"><a><i class="fa fa-heart gray"></i><label style="font-weight:300;font-size:18px;">'+ this.genkiBar + '</label></a></li>';
 	                        }
-		               str+='<li class="eye"><a><i class="fa fa-eye fa-lg" style="position:relative;top:3px"></i></a></i>'+
-		            	   '<li class="comments"><a><i class="fa fa-comments"></i> Comments</a></li>'+
+		               str+='<li class="eye"><a><i class="fa fa-eye fa-lg" style="position:relative;top:3px;"></i></a></i>'+
+		            	   '<li class="comments" style="cursor:pointer"><a><i class="fa fa-comments"></i> Comments</a></li>'+
 	                    '</ul>'+
 	                '</div>'+
 	            '</div>'+ 
 	            
-	            '<div class="row allComments" style="display:none;">' +    //comments-Start
-	            '<div class="col-md-2 col-sm-2 hidden-xs">' +   //comment-left-Start
-	            '<figure class="thumbnail">' +    
-	            '<img class="img-responsive" src="http://www.keita-gaming.com/assets/profile/default-avatar-c5d8ec086224cb6fc4e395f4ba3018c2.jpg">' +
-	            '<figcaption class="text-center">username</figcaption>' +
-	            '</figure>' +   
-	            '</div>' +   //comment-left-End
-	            '<div class="col-md-10 col-sm-10">' +   //comment-right
-	            '<div class="panel panel-default arrow left">' +
-	            '<div class="panel-body">' +
-	            '<header class="text-left">' +
-	            '<div class="comment-user"><i class="fa fa-user"></i> username</div>' +
-	            '<time class="comment-date" datetime="16-12-2014 01:05"><i class="fa fa-clock-o"></i> Dec 16, 2014</time>' +
-	            '</header>' +
-	            '<div class="comment-post">' +
-	            '<p>Lrcitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>' +
-                '</div>' +
-                '<p class="text-right"><a href="#" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>reply</a></p>' +
-                '</div>' +   
-                '</div>' +
-                '</div>' +   //comment-right-End
+	            '<div class="row allComments" style="display:none">' +    //comments-Start
+	            '<div class="pastComments"></div>'+  //pastComments
+                
+                '<div class="myComment" style="margin-left:30px;">' +
+	            	'<div class="row"><div class="col-md-1 col-sm-2 hidden-xs" style="margin-right:-20px;">' +   //comment-left-Start
+	            		'<figure class="thumbnail" style="width:50px;height:50px;padding:0px;">' +    
+	            			'<img class="img-responsive" style="width:50px;height:50px;style="margin-right:-20px;" src="${ctx}/GetUserPicture?id=' + jUser.userID + '">' +
+	            		'</figure>' +   
+	            	'</div>' +   //comment-left-End
+	            	'<div class="col-md-10 col-sm-10">' +   //comment-right
+	            		'<div class="panel panel-default arrow left">' +
+		            		'<div class="panel-body">' +
+			            		'<header class="text-left">' +
+			            			'<div class="comment-user" style="margin-top:-15px;"><a href="">'+ getComName(jUser.firstName,jUser.lastName) +'</a></div>' +
+			            		'</header>' +
+		            			'<div class="comment-post" style="margin-top:5px;">' +
+		            			'<input name="inputComment" placeholder="留言......" style="width:100%"/>' +
+                			'</div>' +
+                		'</div>' +   
+                	'</div></div>' +//comment-right-End
+                '</div>' +//myComment
                 '</div>' +   //comments-End
+                
                 '</div>' +   //carousel-inner-End
             '</div>' +    //photoItem-End  
 		    '</div>' // The End
@@ -597,7 +671,7 @@ $(document).ready(function(){
 <jsp:include page="header.jsp"></jsp:include>
 
 <div id="inputSpec" style="position:fixed;z-index:1000000001;left:calc(50vw - 300px);top:50px;display:none;width:auto;height:auto;background-color:white;border-radius:2%;">
-    <div id="closeBtn" class="close">X</div>
+    <div id="closeBtn" class="close" style="background-colorr:red;">X</div>
     <form style="padding:20px 20px 20px 20px;" ENCTYPE="multipart/form-data" method="POST" action="Target_specServlet.do" role="form">
 		 <input type="hidden" name="input_trgetID" value="" />
 		 <div >
@@ -609,7 +683,7 @@ $(document).ready(function(){
 		    <div class="camera"><input type="file" name="insert_targetPic" /></div>
 		<br /> 
 		 <div>
-         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:150px;height:90px;float:right;">
+         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:80px;height:50px;float:right;margin-button:5px;">
 	     </div>
 	</form>
 	

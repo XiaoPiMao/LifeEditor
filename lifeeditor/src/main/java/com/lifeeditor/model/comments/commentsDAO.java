@@ -31,7 +31,7 @@ public class commentsDAO implements commentsDAO_interface{
 	private static final String GET_COMMENT_BY_TARGET = 
 			 "SELECT u.userID,u.firstName,u.lastName,s.comment FROM user_spec u JOIN "+
 			 "(SELECT userID,comment,commentID FROM comments WHERE targetID = ? ) s "+
-			 "ON u.userID = s.userID ORDER BY s.commentID DESC";
+			 "ON u.userID = s.userID ORDER BY s.commentID";
 	private static DataSource ds = null;
 	static {
 		try {

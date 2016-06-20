@@ -15,6 +15,11 @@ import javax.sql.rowset.serial.SerialBlob;
 
 
 
+
+
+
+import com.google.gson.Gson;
+import com.lifeeditor.backstage.report.*;
 import com.lifeeditor.model.event.eventVO;
 import com.lifeeditor.service.eventService;
 
@@ -310,10 +315,28 @@ public class eventServlet extends HttpServlet {
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/manager/event/error.jsp");
 				failureView.forward(req, res);
-			}
+			}}
 		}
-	}
-
+	
+/***************************************************************************************************************
+ 以下將event的所有值取出，放入jsp頁面，以輪播的方式呈現
+ * */
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+/***************************************************************************************************************
+ 以下是將InputStream轉成byte陣列的方法
+ * */
 	private byte[] readFully(InputStream in) {
 		
 		byte[] buffer = new byte[8192];
