@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -13,7 +14,8 @@
 	name="viewport">
 	<link href="${ctx }/css/bootstrap.css" rel="stylesheet">
 	<link rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css
+		/font-awesome.min.css">
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 	<link rel="stylesheet" href="${ctx }/manager/dist/css/AdminLTE.min.css">

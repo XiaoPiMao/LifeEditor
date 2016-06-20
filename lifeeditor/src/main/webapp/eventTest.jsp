@@ -7,7 +7,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-            жие\ <img height='100' width='80' src='eventPicServlet?id=35'>
-
+<form ENCTYPE="multipart/form-data" method="POST"action="eventServlet.do" role="form">
+<input type="hidden" name="action"	value="show_event_on_client">
+		<input type="submit"class="btn btn-success btn-lg">
+		
+	
+	</form>
 </body>
 </html>

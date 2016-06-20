@@ -1,6 +1,7 @@
 package com.lifeeditor.utility;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Base64;

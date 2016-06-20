@@ -62,8 +62,8 @@
 			</tr>
 			<tr>
 				<td>描述:</td>
-				<td><input type="TEXT" name="updateEventDesc" size="45"
-					value="<%=eventVO.getEventDesc()%>" /></td>
+				<td><textarea style="width: 600px; resize: none;" cols="80" rows="10"name="updateEventDesc"  ><%=eventVO.getEventDesc()%></textarea><br/>
+                 </td>
 			</tr>
 
 
