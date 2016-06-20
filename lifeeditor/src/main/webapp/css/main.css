@@ -2473,7 +2473,8 @@
 		flex-direction: column-reverse;
 		background: #ffffff;
 		border: solid 1px rgba(160, 160, 160, 0.3);
-		margin: 0 0 2em 0;
+		margin: 0 0 5em 0;
+		width:25%;
 	}
 
 		.mini-post .image {
@@ -2612,7 +2613,7 @@
 				}
 
 			.post > header .meta {
-				padding: 3.75em 3em 1.75em 3em ;
+				padding: 2.55em 3em 1.75em 3em ;
 				border-left: solid 1px rgba(160, 160, 160, 0.3);
 				min-width: 17em;
 				text-align: right;
