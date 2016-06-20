@@ -12,5 +12,7 @@ public interface commentsDAO_interface {
     public void delete(commentsVO commentsVO);
     public List<commentsVO> getCommentName(Integer targetID);
     public List<commentsVO> getCommentByUser(Integer userID);
+    
+    public List<commentsVO> getCommentByTarget(Integer targetID);
 
 }
