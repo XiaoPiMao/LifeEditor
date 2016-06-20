@@ -234,7 +234,7 @@ public class Target_specServlet extends HttpServlet {
 	 				Blob Pic = new SerialBlob(b);
 	 				Pic.getBytes(1, (int) Pic.length());
 	 				fos1.write(Pic.getBytes(1, (int) Pic.length()),0,(int) Pic.length());
-	 		
+	 		trgPicPath = "/lifeeditor" + trgPicPath;
 	 		Target_specSvc.addTargetSpec(UserID,TargetID,UserTarget_desc,trgPicPath);
 			//targettype為1官方方便管理.2玩官方3.為自定
 			//ststus1不需審核.2未審核.3已審核
