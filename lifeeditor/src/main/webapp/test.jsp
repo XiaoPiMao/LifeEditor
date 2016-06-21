@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>使用者小天地</title>
+    <title>Life Editor</title>
     <link href="singlecolor/css/bootstrap.min.css" rel="stylesheet">
     <link href="singlecolor/css/lightbox.css" rel="stylesheet"> 
     <link href="singlecolor/css/animate.min.css" rel="stylesheet"> 
@@ -237,7 +237,7 @@ $(function(){
 						'<div class="panel panel-default arrow left">' +
 			    			'<div class="panel-body">' +
 			        			'<header class="text-left" style="margin-top:-15px;">' +
-			        				'<div class="comment-user"><a href="">'+ getComName(jUser.firstName,jUser.lastName)+'</a></div>' +
+			        				'<div class="comment-user"><a href="getFriendPage?id='+ jUser.userID + '">'+ getComName(jUser.firstName,jUser.lastName)+'</a></div>' +
 			        			'</header>' +
 			        			'<div class="comment-post" style="margin-top:5px;">' +
 			        				'<p>'+ input.val() +'</p>' +
@@ -402,7 +402,7 @@ $(function(){
 						'<div class="panel panel-default arrow left">' +
 			    			'<div class="panel-body">' +
 			        			'<header class="text-left" style="margin-top:-15px;">' +
-			        				'<div class="comment-user"><a href="">'+ getComName(this.firstName,this.lastName)+'</a></div>' +
+			        				'<div class="comment-user"><a href="getFriendPage?id='+ this.userID + '">'+ getComName(this.firstName,this.lastName)+'</a></div>' +
 			        			'</header>' +
 			        			'<div class="comment-post" style="margin-top:5px;">' +
 			        				'<p>'+ this.comment +'</p>' +
