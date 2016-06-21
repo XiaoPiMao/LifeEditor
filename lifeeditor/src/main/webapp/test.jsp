@@ -685,7 +685,7 @@ $(document).ready(function(){
 		    <div class="camera"><input type="file" name="insert_targetPic" /></div>
 		<br /> 
 		 <div>
-         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:80px;height:50px;float:right;margin-button:5px;">
+         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:80px;height:50px;float:right;margin-bottom:25px;">
 	     </div>
 	</form>
 	
