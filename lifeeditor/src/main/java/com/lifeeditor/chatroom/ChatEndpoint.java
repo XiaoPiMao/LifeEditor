@@ -28,7 +28,6 @@ public class ChatEndpoint {
 
     @OnOpen
     public void onOpen(Session session, @PathParam("userID") Integer userID) throws IOException, EncodeException {
-    	System.out.println(1232);
         log.info(userID + " connected!");
         this.userID = userID;
         onlinePool.get(userID).add(session);
