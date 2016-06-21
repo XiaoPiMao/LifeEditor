@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>使用者小天地</title>
+    <title>Life Editor</title>
     <link href="singlecolor/css/bootstrap.min.css" rel="stylesheet">
     <link href="singlecolor/css/lightbox.css" rel="stylesheet"> 
     <link href="singlecolor/css/animate.min.css" rel="stylesheet"> 
@@ -207,15 +207,17 @@ var uploadFile;
 var jTypes = JSON.parse('${jTypes}');
 var jUser = JSON.parse('${jUser}');
 var jAchs = JSON.parse('${jAchs}');
-var data = JSON.parse('${targets}');
+var data = JSON.parse('${targets}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
 var jHaveGenki = JSON.parse('${jHaveGenki}');
 var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
-console.log(jSpecs);
 
 
 
 
 $(function(){
+	//長出大頭照和名字
+	$('.pull-left a').html('<img style="width:160px;height:160px" src="${ctx}/GetUserPicture?id='+ jUser.userID +'" /><div>' + getComName(jUser.firstName,jUser.lastName) +'</div>');
+	
 	
 	//Enter送出留言
 	$('.col-md-9.col-sm-7').on("keyup", "input[name='inputComment']",function (e) {
@@ -237,7 +239,7 @@ $(function(){
 						'<div class="panel panel-default arrow left">' +
 			    			'<div class="panel-body">' +
 			        			'<header class="text-left" style="margin-top:-15px;">' +
-			        				'<div class="comment-user"><a href="">'+ getComName(jUser.firstName,jUser.lastName)+'</a></div>' +
+			        				'<div class="comment-user"><a href="getFriendPage?id='+ jUser.userID + '">'+ getComName(jUser.firstName,jUser.lastName)+'</a></div>' +
 			        			'</header>' +
 			        			'<div class="comment-post" style="margin-top:5px;">' +
 			        				'<p>'+ input.val() +'</p>' +
@@ -402,7 +404,7 @@ $(function(){
 						'<div class="panel panel-default arrow left">' +
 			    			'<div class="panel-body">' +
 			        			'<header class="text-left" style="margin-top:-15px;">' +
-			        				'<div class="comment-user"><a href="">'+ getComName(this.firstName,this.lastName)+'</a></div>' +
+			        				'<div class="comment-user"><a href="getFriendPage?id='+ this.userID + '">'+ getComName(this.firstName,this.lastName)+'</a></div>' +
 			        			'</header>' +
 			        			'<div class="comment-post" style="margin-top:5px;">' +
 			        				'<p>'+ this.comment +'</p>' +
@@ -536,7 +538,7 @@ $(document).ready(function(){
               '</div>' +
             '</div>' 
     	})
-    	$('.sidebar-item.recent').html(lastComment);
+    	$('.sidebar-item.recent').append(lastComment);
     	
     	var str = "";
     	
@@ -571,15 +573,15 @@ $(document).ready(function(){
 		            }
 		            
 		            if(this.status == 1){
-		            	str += '<h4 class="post-author">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '結束 : ' + this.timeFinish + '</h4>';
+		            	str += '<h4 class="post-author" style="cursor:default">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '結束 : ' + this.timeFinish + '</h4>';
 		            }else if(this.status ==2){
-		            	str += '<h4 class="post-author" style="color:red;">審 核 中</h4>';
+		            	str += '<h4 class="post-author" style="color:red;cursor:default">審 核 中</h4>';
 		            }else {
-		            	str += '<h4 class="post-author">' + '完 成 : ' + this.doneTime +'</h4>';
+		            	str += '<h4 class="post-author" style="cursor:default">' + '完 成 : ' + this.doneTime +'</h4>';
 		            }
 		            
 		            str +=
-	                '<p> 初 衷 : '+ this.intention + '</p>'+
+	                '<p style="cursor:default"> 初 衷 : '+ this.intention + '</p>'+
 	                '</div>';  //photoHeader-End
 //--------------------------------------------------------------------------------------------------------//	                
 	                if(!jSpecs[this.targetID]) {
@@ -695,11 +697,11 @@ $(document).ready(function(){
         <div class="col-md-3 col-sm-5" >
             <div class="sidebar blog-sidebar" style="margin:30px 50px 0 0;">
                 <div class="sidebar-item  recent">
-<!--                       <div class="media"> -->
-<!--                          <div class="pull-left"> -->
-<!--                              <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" title="123"></a> -->
-<!--                          </div> -->
-<!--                       </div> -->
+                      <div class="media">
+                         <div class="pull-left">
+                             <a href="#"></a>
+                         </div>
+                      </div>
                  </div>
                         <div class="sidebar-item categories">
                             <h3 style='font-weight: bold;'>目 標 類 別</h3>
