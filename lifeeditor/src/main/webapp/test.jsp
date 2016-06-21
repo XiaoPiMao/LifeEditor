@@ -680,7 +680,7 @@ $(document).ready(function(){
          <img class="preview" style="width: 580px; height: 380px;">
          <div class="size"></div>
          </div>	
-		<textarea cols="60" rows="5" name="input_target_Note"></textarea>
+		<textarea cols="60" rows="5" name="input_target_Note" ></textarea>
 		<br /> 
 		    <div class="camera"><input type="file" name="insert_targetPic" /></div>
 		<br /> 
