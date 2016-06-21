@@ -400,17 +400,17 @@ $(function(){
 			alert($('textarea[name="input_target_Note"]').val());
 			myForm.reset();
 			$('.preview').attr("src","");
-// 			 $.ajax(
-// 			{
-// 				url : "target_Spec/Target_specServlet.do",
-// 				type: "POST",
-// 				data : postData,
-// 	       		processData: false,
-// 				contentType: false,
-// 	            success:function(data) 
-// 	            {
-// 				},
-// 			});
+			 $.ajax(
+			{
+				url : "target_Spec/Target_specServlet.do",
+				type: "POST",
+				data : postData,
+	       		processData: false,
+				contentType: false,
+	            success:function(data) 
+	            {
+				},
+			});
 			
 		})// postBtn
 	
