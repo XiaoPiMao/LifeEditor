@@ -60,7 +60,7 @@ $(function(){
 					  '<img src="GetUserPicture?id=' + this.userID + '" /></a>' +
 					'</div>' +
 				'</header>' +
-					'<a href="#" class="image featured"><img src="' + this.trgPicPath + '" style="width:950px;height:470px;"/></a>' +
+					'<a href="#" class="image featured"><img src="' + this.trgPicPath + '"/></a>' +
 					'<p style="cursor:default;font-size:18px;letter-spacing:0.05em;font-weight:500;">' + this.trgNote + '</p>' +
 				'<footer>' +
 					'<ul class="stats">' +
