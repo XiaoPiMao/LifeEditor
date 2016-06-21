@@ -83,17 +83,28 @@ $(document).ready(function(){
 				 			var td2 = document.createElement('td');
 				 			
 				 			var span = document.createElement('span');
-//				 			var picture = 'data:image/jpeg;base64,'+ result[j].Picture; //Base64轉img
-							var txtBtn = document.createTextNode(result[j].Name); 
+				 			
+				 			var LastName = result[j].Lastname;
+							var FirstName = result[j].Firstname;
+							var firstChar = LastName.charAt(0);
+							var re = new RegExp("[a-zA-Z]");
+							if(re.test(firstChar)){
+								var Name = document.createTextNode(FirstName + " " + LastName);
+							}else{
+								var Name = document.createTextNode(LastName+FirstName);
+								
+							}
+//							var txtBtn = document.createTextNode(Name); 
 							var eleImg = document.createElement("img");
 							var eleBtn = document.createElement("button"); 
 							var addFriendbtn = document.createElement("button");
 							var t = document.createTextNode("加為好友");
+							
 							var user = result[j].Userid;
 												
 							addFriendbtn.appendChild(t); 
 							span.style.fontSize = "20px";
-							span.appendChild(txtBtn);
+							span.appendChild(Name);
 							
 							
 							eleImg.setAttribute("src",'/lifeeditor/GetUserPicture?id='+result[j].Userid);
@@ -282,9 +293,16 @@ $(document).ready(function(){
 				var userIDA = document.createElement("a");
 				var userIDAspan = document.createElement("span");
 				
-				var Name = document.createTextNode(data[i].Name); //姓名
-				
-				
+				var LastName = data[i].Lastname;
+				var FirstName = data[i].Firstname;
+				var firstChar = LastName.charAt(0);
+				var re = new RegExp("[a-zA-Z]");
+				if(re.test(firstChar)){
+					var Name = document.createTextNode(FirstName + " " + LastName);			
+				}else{
+					var Name = document.createTextNode(LastName+FirstName);
+				}
+											
 				userTitleA.setAttribute("class","twPc-bg twPc-block");
 				userTitleDiv.setAttribute("class","twPc-div");
 				
@@ -311,7 +329,7 @@ $(document).ready(function(){
 				userTitleDiv.appendChild(unFriendBtnDiv);
 				
 				userImgA.setAttribute("class","twPc-avatarLink");
-				userImgA.setAttribute("href","*");
+				userImgA.setAttribute("href","/getFriendPage?id="+data[i].Userid);
 				userImgA.setAttribute("title",Name);
 				
 				userImage.setAttribute("alt",Name);
@@ -329,13 +347,13 @@ $(document).ready(function(){
 				
 				userBodyDiv.setAttribute("class","twPc-divUser");
 				userNameDiv.setAttribute("class","twPc-divName");
-				userNameA.setAttribute("href","*");
+				userNameA.setAttribute("href","/getFriendPage?id="+data[i].Userid);
 									
 				userNameA.appendChild(Name);
 				userNameDiv.appendChild(userNameA);
 				userBodyDiv.appendChild(userNameDiv);
 				
-				userIDA.setAttribute("href","*");				
+				userIDA.setAttribute("href","/getFriendPage?id="+data[i].Userid);				
 				var BodyAccount = document.createTextNode(data[i].Account);
 				userIDAspan.appendChild(BodyAccount);
 				userIDA.appendChild(userIDAspan); //ID標籤

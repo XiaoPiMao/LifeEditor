@@ -37,7 +37,7 @@ public class getDataFromDB extends HttpServlet {
 		
 		response.setCharacterEncoding("UTF-8");
 		String mySelectWord = request.getParameter("txt");
-		//System.out.println(mySelectWord);
+
 		
 		HttpSession session = request.getSession();
 		user_specVO user = (user_specVO) session.getAttribute("LoginOK"); //得到user
@@ -48,12 +48,12 @@ public class getDataFromDB extends HttpServlet {
 		try {
 			List<user_listVO> data = new addFriendDAO().selectFriend(userID);
 			for(int i = 0;i< data.size();i++){ //讀取可加資料
-				if(data.get(i).getName().contains(mySelectWord)){
+				if(data.get(i).getLastname().contains(mySelectWord) || data.get(i).getFirstname().contains(mySelectWord)){
 					user_listVO mySelectValue = new user_listVO();
 					mySelectValue.setUserid(data.get(i).getUserid());
 					mySelectValue.setAccount(data.get(i).getAccount());
-					mySelectValue.setName(data.get(i).getName());
-
+					mySelectValue.setLastname(data.get(i).getLastname());
+					mySelectValue.setFirstname(data.get(i).getFirstname());
 					EndData.add(mySelectValue); //裝貨櫃
 				}
 			}

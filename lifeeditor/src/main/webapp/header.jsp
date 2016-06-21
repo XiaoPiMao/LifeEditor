@@ -285,17 +285,12 @@ body {
 <script>
 
 	$(document).ready(function(){
-		
-
-		
+				
 		var lastName = '${LoginOK.lastName}';
 		var firstName = '${LoginOK.firstName}';
 		var firstChar = lastName.charAt(0)
 		var re = new RegExp("[a-zA-Z]");
 		if(re.test(firstChar)){
-// 			console.log(firstChar);
-// 			console.log("英文");
-// 			name = firstName + " " + lastName;
 			var name = document.createTextNode(firstName + " " + lastName);
 			var nameA = document.getElementById("showName");
 			nameA.appendChild(name);			
@@ -415,7 +410,8 @@ $(function(){
 		 			txth3.appendChild(txt1);
 		 			myDiv.appendChild(txth3);
 					var myTable = document.createElement("table");
-					myTable.setAttribute("id","myTable");			
+					myTable.setAttribute("id","myTable");	
+					
 					for(var i = 0;i<data.length;i++){
 						
 						var myImg = document.createElement("img");
@@ -435,10 +431,19 @@ $(function(){
 						td3.setAttribute("id","ChkFriTd");
 						var td4 = document.createElement("td");
 						td4.setAttribute("id","ChkFriTd");
-
-						var name = document.createTextNode(data[i].Name);
 						
+						var lastName = data[i].Lastname;
+						var firstName = data[i].Firstname;
+						var firstChar = lastName.charAt(0)
+						var re = new RegExp("[a-zA-Z]");
+						if(re.test(firstChar)){
+							var FriName = document.createTextNode(firstName + " " + lastName);
+						}else{
+							var FriName = document.createTextNode(lastName+firstName);
+						}
 						
+					//	var name = document.createTextNode(FriName);
+												
 						myImg.setAttribute("src",'/lifeeditor/GetUserPicture?id='+data[i].Userid);  //照片設置
 						myImg.setAttribute("width",30);
 						myImg.setAttribute("height",30);
@@ -474,7 +479,7 @@ $(function(){
 						td1.appendChild(myImg);
 						tr1.appendChild(td1);
 						
-						myName.appendChild(name);
+						myName.appendChild(FriName);
 						td2.appendChild(myName);
 						tr1.appendChild(td2);
 						
