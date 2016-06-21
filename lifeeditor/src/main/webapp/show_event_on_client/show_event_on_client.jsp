@@ -204,7 +204,7 @@ c ul.playerControl li.current {
 #abgneBlock ul.playerControl li.current { 
 	background-position: 0 0;
 }
-p { font-size:100% }
+p { font-size:200% }
 </style>
 <script type="text/javascript">
 
@@ -261,23 +261,12 @@ function showimage(num){
       
         <div class="row">
 
-            <div class="col-md-8">
+            <div class="col-md-6">
                 <img name="picture" value="" width="500" height="350"class="img-responsive"src="/lifeeditor/eventPicServlet?id=19"  alt="">
             </div>
 
-            <div class="col-md-4" >
-                <h3 id="eventname">${eventVO.eventName}</h3>
-                <p id="eventdesc">${eventVO.eventDesc}</p>
-                <h4 id="eventorgaddr">主辦單位：${eventVO.orgAddr}</h4>
-                 <h4 id="eventorgname">活動地點：${eventVO.orgName}</h4>
-                 <h4 id="eventdate">活動時間：${date}</h4>
-                 
-                 
-            </div>
-
-        </div>
-     
-        <div class="row">
+            <div class="col-md-6" >
+                    <div class="row">
 
                 <h3 class="page-header">點圖片看細節</h3>
         
@@ -287,7 +276,7 @@ function showimage(num){
         <c:forEach var="event" items="${event}" >
             <li>
                 <a onclick="showimage(${event.eventID})">
-                    <img class="img-responsive portfolio-item"  width="550" height="400"src="/lifeeditor/eventPicServlet?id=${event.eventID}" alt="${event.eventName}">
+                    <img class="img-responsive portfolio-item"  width="650" height="600"src="/lifeeditor/eventPicServlet?id=${event.eventID}" alt="${event.eventName}">
                 </a>
                 <h4>${event.eventName}</h4>
              </li>
@@ -300,6 +289,17 @@ function showimage(num){
           
         </div>
         <!-- /.row -->
+                 
+            </div>
+
+        </div>
+        <h1 id="eventname">${eventVO.eventName}</h1>
+                <p id="eventdesc">${eventVO.eventDesc}</p>
+                <h2 id="eventorgaddr">主辦單位：${eventVO.orgAddr}</h2>
+                 <h2 id="eventorgname">活動地點：${eventVO.orgName}</h2>
+                 <h2 id="eventdate">活動時間：${date}</h2>
+     
+
 
         <hr>
 
