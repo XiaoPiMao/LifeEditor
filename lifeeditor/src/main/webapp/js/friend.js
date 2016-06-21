@@ -347,13 +347,13 @@ $(document).ready(function(){
 				
 				userBodyDiv.setAttribute("class","twPc-divUser");
 				userNameDiv.setAttribute("class","twPc-divName");
-				userNameA.setAttribute("href","/getFriendPage?id="+data[i].Userid);
+				userNameA.setAttribute("href","/lifeeditor/getFriendPage?id="+data[i].Userid);
 									
 				userNameA.appendChild(Name);
 				userNameDiv.appendChild(userNameA);
 				userBodyDiv.appendChild(userNameDiv);
 				
-				userIDA.setAttribute("href","/getFriendPage?id="+data[i].Userid);				
+				userIDA.setAttribute("href","/lifeeditor/getFriendPage?id="+data[i].Userid);				
 				var BodyAccount = document.createTextNode(data[i].Account);
 				userIDAspan.appendChild(BodyAccount);
 				userIDA.appendChild(userIDAspan); //ID標籤
