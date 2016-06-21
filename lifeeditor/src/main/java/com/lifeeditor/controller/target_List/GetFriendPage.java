@@ -27,8 +27,8 @@ import com.lifeeditor.service.commentsService;
 import com.lifeeditor.service.genkiBar_listService;
 
 
-@WebServlet("/UserPage")
-public class GetJTargetByUser extends HttpServlet {
+@WebServlet("/getFriendPage")
+public class GetFriendPage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 
@@ -38,9 +38,10 @@ public class GetJTargetByUser extends HttpServlet {
 
 	
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("xdd");
+		
 		Target_List_Service trgListSvc = new Target_List_Service();
-		user_specVO user = (user_specVO)request.getSession().getAttribute("LoginOK");
-		Integer userID = user.getUserID();
+		Integer userID = Integer.parseInt(request.getParameter("id"));
 		Gson gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().setDateFormat("yyyy-MM-dd").create();
 		List<TargetVO> list = trgListSvc.pageFindByUserID(userID);
 		JsonArray jsonArray = new JsonArray();
@@ -145,7 +146,7 @@ public class GetJTargetByUser extends HttpServlet {
 		System.out.println("jHaveGenki");
 		
 		
-		request.getRequestDispatcher("/test.jsp").forward(request, response);
+		request.getRequestDispatcher("/test1.jsp").forward(request, response);
 	}
 
 }

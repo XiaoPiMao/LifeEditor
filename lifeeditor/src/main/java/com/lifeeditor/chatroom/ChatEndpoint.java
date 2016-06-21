@@ -28,7 +28,6 @@ public class ChatEndpoint {
 
     @OnOpen
     public void onOpen(Session session, @PathParam("userID") Integer userID) throws IOException, EncodeException {
-    	System.out.println(1232);
         log.info(userID + " connected!");
         this.userID = userID;
         onlinePool.get(userID).add(session);
@@ -43,6 +42,10 @@ public class ChatEndpoint {
     @OnClose
     public void onClose(Session session) throws IOException, EncodeException {
         log.info(session.getId() + " disconnected!");
+       if(onlinePool.get(userID) != null) {
+    	   if(onlinePool.get(userID).contains(session))
+    		   onlinePool.get(userID).remove(session);
+       }
         onlinePool.get(userID).remove(session);
     }
 
@@ -57,6 +60,7 @@ public class ChatEndpoint {
         Integer msgSender = message.getMsgSender();
         send(onlinePool.get(msgReceiver),message);
         send(onlinePool.get(msgSender),message);
+        
     }
     
     private static void send(Set<Session> sessionSet,Message message) {
