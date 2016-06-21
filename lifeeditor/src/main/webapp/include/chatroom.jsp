@@ -16,7 +16,7 @@
         ws = new WebSocket("ws://" + document.location.host + "/lifeeditor/chat/" + jUser.userID);
 
         ws.onmessage = function(event) {
-            console.log(event.data);
+            alert(event.data);
             var message = JSON.parse(event.data);
            	if(message.msgSender == jUser.userID) {
            		
@@ -40,6 +40,7 @@
     }
      
         $(function () {
+        	
         	
         	haveFaces = false;
             chatNum = 0;
@@ -83,23 +84,69 @@
       
         function newChat(id) {
             //var chats = document.getElementById("chats");
+            var str = "";
             if (!document.getElementById("chat" + id)) {
-                chats.innerHTML += "<div id='chat" + id + "' class='chat' style='right:" + (276 + chatNum * 270) + "px'>" +
-                                      "<div class='chatTittle'>" + "<label>" + getName(id) + "</label>" +
-                                      "<div class='online'></div>" +
-                                      "<img id='exit" + id + "' class='chatIcon' src='${ctx}/images/chatroom/X.png' /></div> " +
-                                      "<div class='chatContent'></div>" +
-                                      "<div class='chatInput'>" +
-                                      "<input class='textInput' placeholder='輸入訊息......'></div>" +
-                                      "<div class='div_chatMenu'><img class='chatMenu' src='${ctx}/images/chatroom/face.png'></div>" +
-                                      "</div>"
-                var exits = document.querySelectorAll("img.chatIcon");
-                var textInputs = document.querySelectorAll("input.textInput");
-                for (var i = 0; i < exits.length; i++) {
-                    exits[i].onclick = delChat;
-                }
+            	
+            	$.getJSON("${ctx}/message",{msgSender:jUser.userID,msgReceiver:id},function(msgs) {
+            		console.log(msgs);
+            		str += 
+                        "<div id='chat" + id + "' class='chat' style='right:" + (276 + chatNum * 270) + "px'>" +
+                         	"<div class='chatTittle'>" + "<label>" + getName(id) + "</label>" +
+                         		"<div class='online'></div>" +
+                         		"<img id='exit" + id + "' class='chatIcon' src='${ctx}/images/chatroom/X.png' /></div>"+
+                         		"<div class='chatContent'>";
+                     
+                     $.each(msgs,function(i,msg) {
+                    	if(i == 0) 
+                    		str += '<div class="minMsgID" name="' + msg.messageID + '" style="display:none;"></div>'
+                    	
+                    	if(msg.msgSender == jUser.userID) 
+                    		str += rightMsg(msg.content);
+                    	else
+                    		str += leftMsg(msg.msgSender,msg.content);
+                    	
+                    		
+                    	
+                    	
+                     })// each
+                      
+                     
+                     str += "</div>" +
+              		"<div class='chatInput'>" +
+          				"<input class='textInput' placeholder='輸入訊息......'></div>" +
+          			"<div class='div_chatMenu'><img class='chatMenu' src='${ctx}/images/chatroom/face.png'></div>" +
+          			"</div>"
+                     $('#chats').append(str);  
+                     var exits = document.querySelectorAll("img.chatIcon");
+                     var textInputs = document.querySelectorAll("input.textInput");
+                     for (var i = 0; i < exits.length; i++) {
+                         exits[i].onclick = delChat;
+                     }
 
-                chatNum++;
+                     chatNum++;
+                     
+                     
+                     
+                     function leftMsg(senderID,content) {
+                    	 var str = 
+                    	'<div class="LEmsg">' +
+             				'<img class="LEMsgPhoto" src="${ctx}/GetUserPicture?id=' + senderID + '" />' +
+             				'<div class="LEMsgSender">'+ content +'</div>'+
+             			'</div>';
+             			return str
+                     }
+                     
+                     function rightMsg(content) {
+                    	 var str =
+                    	'<div class="LEmsg">' +
+                    		'<div class="LEMsgReceiver">' + content + '</div>' +
+              				'<div style="clear:both;" ></div>'+
+              			'</div>';
+                    	 return str
+                     }
+            	})
+                
+                
             }
         }
         function delChat() {
