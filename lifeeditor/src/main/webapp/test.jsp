@@ -565,9 +565,14 @@ $(document).ready(function(){
 		            }
 		            
 		            str +=
-		            '</table>'+
-		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+		            '</table>';
 		            
+		            if(this.trgType == 2){
+		            	str +='<h2 class="post-title bold" style="width:500px;display:inline;letter-spacing:0.05em;"><a href=""> 目 標 : ' + this.trgName +'</a><span style="color:red;font-size:28px;">(挑戰任務)</span></h2>';
+		            }else {
+		            	str +='<h2 class="post-title bold" style="width:500px;display:inline;letter-spacing:0.05em;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+		            }
+		            	
 		            if(this.status == 1) {
 		            	str+='<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
 		            }
@@ -581,7 +586,7 @@ $(document).ready(function(){
 		            }
 		            
 		            str +=
-	                '<p style="cursor:default"> 初 衷 : '+ this.intention + '</p>'+
+	                '<p style="cursor:default;letter-spacing:0.05em;"> 初 衷 : '+ this.intention + '</p>'+
 	                '</div>';  //photoHeader-End
 //--------------------------------------------------------------------------------------------------------//	                
 	                if(!jSpecs[this.targetID]) {
@@ -680,12 +685,12 @@ $(document).ready(function(){
          <img class="preview" style="width: 580px; height: 380px;">
          <div class="size"></div>
          </div>	
-		<textarea cols="60" rows="5" name="input_target_Note"></textarea>
+		<textarea cols="60" rows="5" name="input_target_Note" ></textarea>
 		<br /> 
 		    <div class="camera"><input type="file" name="insert_targetPic" /></div>
 		<br /> 
 		 <div>
-         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:80px;height:50px;float:right;margin-button:5px;">
+         <input value="發佈" type="button" id="postBtn" style="font-size:20px;font-family:Microsoft JhengHei;border-radius:10%;width:80px;height:50px;float:right;margin-bottom:25px;">
 	     </div>
 	</form>
 	
