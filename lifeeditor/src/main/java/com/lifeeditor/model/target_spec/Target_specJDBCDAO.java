@@ -747,6 +747,14 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 			
 		} catch(SQLException e) {
 			System.out.println("SQLException");
+		}finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return list;
