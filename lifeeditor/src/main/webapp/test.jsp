@@ -207,7 +207,7 @@ var uploadFile;
 var jTypes = JSON.parse('${jTypes}');
 var jUser = JSON.parse('${jUser}');
 var jAchs = JSON.parse('${jAchs}');
-var data = JSON.parse('${targets}');
+var data = JSON.parse('${targets}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
 var jHaveGenki = JSON.parse('${jHaveGenki}');
 var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
 
