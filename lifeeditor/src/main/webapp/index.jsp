@@ -680,7 +680,7 @@
 	                //表單成功送出後會執行的地方	               
 //                    alert('個資已被送出');
 		      
-	         	 window.location.href =  "${ctx}/home.jsp";
+	         	 window.location.href =  "${ctx}/home";
 			
 	            }
 	       });
