@@ -51,7 +51,7 @@ public  class eventDAO implements eventDAO_interface {
 		java.text.SimpleDateFormat simple = new java.text.SimpleDateFormat();
 		simple.applyPattern("yyyy-MM-dd");
 		int id=0;
-		try {System.out.println("insert");
+		try {
              
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
@@ -63,11 +63,11 @@ public  class eventDAO implements eventDAO_interface {
 			pstmt.setString(6, eventVO.getOrgName());
 			pstmt.setTimestamp(7, eventVO.getEventTime());
 			pstmt.setString(8, eventVO.getEventDesc());
-
+			
 			pstmt.executeUpdate();
 			idpstmt = con.prepareStatement(GET_ID_STMT);
 			rs =idpstmt.executeQuery();
-			
+			System.out.println("insert");
 			while (rs.next()) {
 				 id = rs.getInt("ID");
 				System.out.println(id);

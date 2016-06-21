@@ -89,11 +89,11 @@
 		</div><! --/container -->
 	</div><! --/headerwrap -->
 
-	
-	<div id="div1" class="container-fluid" >
+	<br/>
+	<div id="div1" class="container-fluid" style="text-align:center;width:800px">
 	<div class="row">
 	    <form action="forgotPswd.do" method="post"    >  
-				 <div class="col-md-6">
+				 <div >
 			    <span style="color: red">${requestScope.sendMailMsg}</span>  
 		<div>
 			 
