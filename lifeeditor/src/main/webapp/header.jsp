@@ -315,7 +315,8 @@ body {
 				<li><a href="${ctx}/fullCalendar.jsp">行事曆</a></li>
 				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
 				<li><a href="${ctx}/ShowChallenge">挑戰任務</a></li>	
-				<li><a href="${ctx}/search_challenge.jsp">搜尋任務</a></li>													
+				<li><a href="${ctx}/search_challenge.jsp">搜尋任務</a></li>
+				<li><a href="${ctx}/show_event_on_client/show_event_on_client.jsp">活動參考</a></li>														
 			</ul>
 				
 		
