@@ -308,7 +308,7 @@ body {
 <jsp:include page="/include/chatroom.jsp" />
 <!-- Header -->
 <header id="header">
-	<h1><a href="home.jsp">Life Editor</a></h1>
+	<h1><a href="${ctx}/home">Life Editor</a></h1>
 		<nav class="links">
 			<ul style="width:1000px;">
 				<li><a href="${ctx}/setgoal.jsp">目標</a></li>
@@ -316,7 +316,7 @@ body {
 				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
 				<li><a href="${ctx}/ShowChallenge">挑戰任務</a></li>	
 				<li><a href="${ctx}/search_challenge.jsp">搜尋任務</a></li>
-				<li><a href="${ctx}/show_event_on_client/show_event_on_client.jsp">活動參考</a></li>														
+				<li><a href="${ctx}/show_event_on_client/show_event_on_client.jsp">參考活動</a></li>														
 			</ul>
 				
 		

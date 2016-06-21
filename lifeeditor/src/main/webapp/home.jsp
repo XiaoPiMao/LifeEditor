@@ -33,8 +33,9 @@
 
 </style>
 
+
 <script>
-var 
+var jHome = JSON.parse('${jHome}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
 
 $(function(){
 	//秀出所有朋友的目標
@@ -66,6 +67,13 @@ $(function(){
 </head>
 
 <body>
+
+<script>
+	
+</script>
+	
+<!-- Wrapper -->
+
 <div id="wrapper">
 
 <jsp:include page="header.jsp"></jsp:include>
@@ -135,6 +143,8 @@ $(function(){
 			<script src="js/main.js"></script>
 <!-- 			<script> -->		
 <script>
+		
+		console.log(jHome);
         window.fbAsyncInit = function() {
                 FB.init({
                	appId : '236995580009135',

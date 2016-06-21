@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 
 
+
 import com.lifeeditor.model.genkiBar_list.genkiBar_listDAO_interface;
 import com.lifeeditor.model.genkiBar_list.genkiBar_listVO;
 import com.lifeeditor.model.user_spec.user_specVO;
@@ -54,6 +55,7 @@ public class genkiBar_listService {
 	}
 	
 	public List<genkiBar_listVO> haveGenki(Integer localID,Integer trgID) {
+		System.out.println("Service");
 		return dao.haveGenki(localID, trgID);
 	}
 	

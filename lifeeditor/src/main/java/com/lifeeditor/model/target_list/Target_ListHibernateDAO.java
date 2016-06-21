@@ -191,7 +191,7 @@ public class Target_ListHibernateDAO implements Target_ListDAO_interface{
 				try {
 					conn.close();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
+					System.out.println("error");
 				}
 		}
 	

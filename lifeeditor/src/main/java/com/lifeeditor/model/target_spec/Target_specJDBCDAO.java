@@ -68,6 +68,14 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 
 	private static final String GET_ALL_TargetID = "from Target_spec  order by Target_specID";
 
+	private static final String GET_HOME_PAGE = 
+			"SELECT u.trgSpecID,u.userID,u.firstName,u.lastName,u.targetID,u.trgNote,u.trgPicPath,t.trgName,t.intention FROM target t JOIN "+
+			"(SELECT TOP 10 ts.trgSpecID,u.userID,u.firstName,u.lastName,ts.targetID,ts.trgNote,ts.trgPicPath FROM target_spec ts JOIN " +
+				"(SELECT u.userID,u.firstName,u.lastName FROM user_spec u JOIN" +
+					"(SELECT friendID FROM friend WHERE userID = ? UNION (SELECT ? as friendID)) f ON u.userID = f.friendID) u "+
+			"ON ts.userID = u.userID ORDER BY ts.trgSpecID DESC)u "+
+			"ON u.targetID = t.targetID";
+	
 	private HibernateTemplate hibernateTemplate;
 
 	public void setHibernateTemplate(HibernateTemplate hibernateTemplate) {
@@ -747,6 +755,58 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 			
 		} catch(SQLException e) {
 			System.out.println("SQLException");
+		}finally {
+			if(conn != null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		
+		return list;
+	}
+	
+	public List<Target_specVO> getHomePage(Integer userID) {
+		List<Target_specVO> list = new ArrayList<>();
+		Connection conn = null;
+		
+		try {
+			conn = ds.getConnection();
+			PreparedStatement pstmt = conn.prepareStatement(GET_HOME_PAGE);
+			pstmt.setInt(1, userID);
+			pstmt.setInt(2, userID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			Target_specVO trgSpec = null;
+			while(rs.next()) {
+				System.out.println(rs.getInt("userID"));
+				trgSpec = new Target_specVO();
+				trgSpec.setTargetID(rs.getInt("targetID"));
+				trgSpec.setUserVO(new user_specVO());
+				trgSpec.getUserVO().setUserID(rs.getInt("userID"));
+				trgSpec.getUserVO().setFirstName(rs.getString("firstName"));
+				trgSpec.getUserVO().setLastName(rs.getString("lastName"));
+				trgSpec.setTrgNote(rs.getString("trgNote"));
+				trgSpec.setTrgPicPath(rs.getString("trgPicPath"));
+				trgSpec.setTargetVO(new TargetVO());
+				trgSpec.getTargetVO().setTargetID(rs.getInt("targetID"));
+				trgSpec.getTargetVO().setTrgName(rs.getString("trgName"));
+				trgSpec.getTargetVO().setIntention(rs.getString("intention"));
+				list.add(trgSpec);
+			}
+		}catch(SQLException s) {
+			System.out.println("SQL");
+		}finally {
+			if(conn!=null) {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
 		}
 		
 		return list;

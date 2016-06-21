@@ -251,7 +251,7 @@ public class user_specServlet extends HttpServlet {
 					
 					Integer userID = user_specVO.getUserID();
 					String account = user_specVO.getAccount();
-					String pswd = req.getParameter("Pswd");
+					String pswd = user_specVO.getPswd();
 					Integer genkiBarTol = user_specVO.getGenkiBarTol();
 					Integer level = user_specVO.getLevel();
 					Blob picture = user_specVO.getPicture();
@@ -332,7 +332,7 @@ public class user_specServlet extends HttpServlet {
 					user_specVO.setAddress(address);
 					user_specVO.setPhone(phone);
 					user_specVO.setPicture(pictureUpdate);		
-					user_specVO.setPswd(pswd);					
+										
 						
 					
 					
