@@ -39,7 +39,7 @@
 				
 
 			   <label > 輸入事件名稱 </label> 
-							<input type="text" name="inputEventName" value="1" class="form-control"id="inputEventName" /><br/>
+							<input type="text" name="inputEventName" value="" class="form-control"id="inputEventName" /><br/>
 		
 				<label >輸入主辦單位 </label> 
 							<input name="inputOrgName" type="text" class="form-control" /><br/>
