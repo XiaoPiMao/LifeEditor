@@ -31,7 +31,7 @@ import com.lifeeditor.service.user_specService;
 @WebServlet("/ResetPswd.do")
   
 /** 
- * 重新设置密码 
+ * 重新設密碼
  */  
 public class ResetPasswordServlet extends HttpServlet {  
     private static final long serialVersionUID = 1L;  
@@ -57,7 +57,7 @@ public class ResetPasswordServlet extends HttpServlet {
           
         if (!errors.isEmpty()) {  
             request.setAttribute("errors", errors);  
-            request.getRequestDispatcher("/setNewPSWD.jsp?userName=" + userAccount).forward(request, response);  
+            request.getRequestDispatcher("/XXXsetNewPSWD.jsp?userName=" + userAccount).forward(request, response);  
             return;  
         }  
          System.out.println("hello");

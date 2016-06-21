@@ -80,7 +80,7 @@
 					<div style="width:180px;position:absolute;left:50%;top:50%;margin-left:-90px;margin-top:320px;text-align:center;">
 				
 					</div>
-					<div><img class="img_scroll" src="images/circle.png" style="position:absolute;left:50%;top:50%;margin-left:-30px;margin-top:480px;"></div>		
+					<div></div>		
 <!----------------------------------------------------- 	Login start --------------------------------------------------->
 
 <!-------------------------------------------------- Login end ----------------------------------------------------------->			

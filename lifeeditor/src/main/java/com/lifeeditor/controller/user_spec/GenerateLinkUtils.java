@@ -28,7 +28,7 @@ public class GenerateLinkUtils {
      * 生成重设密码的链接 
      */  
     public static String generateResetPwdLink(user_specVO user_specVO) {  
-        return "http://lifeeditor.cloudapp.net/lifeeditor/XXXupdatePassword.jsp?userAccount="   
+        return "http://lifeeditor.cloudapp.net/lifeeditor/XXXsetNewPSWD.jsp?userAccount="   
                 + user_specVO.getAccount() + "&" + CHECK_CODE + "=" + generateCheckcode(user_specVO);    
         }  
       
