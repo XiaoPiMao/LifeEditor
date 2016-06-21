@@ -22,18 +22,61 @@
             
             
            	if(message.msgSender == jUser.userID) {
-           		var str = rightMsg(message.content);
+           		var str = "";
+           		if (message.type == 'img') {
+           			str += '<div class="LEmsg">' +
+           	   		'<div class="LEMsgReceiver"><img src="' + message.content + '" /></div>' +
+    				'<div style="clear:both;" ></div>'+
+    			'</div>';
+           			
+           			
+           		}else {
+           			str += rightMsg(message.content);
+           		}
+           		
+           	
            		
            		$('#chat' + message.msgReceiver + ' .chatContent').append(str);
            		$('div.chatContent').scrollTop('100000');
            	}else {
            		if(document.getElementById("chat" + message.msgSender)) {
-           			var str = leftMsg(message.msgSender,message.content);
+           			var str = "";
+           			
+           			if (message.type == 'img') {
+               			str += '<div class="LEmsg">' +
+               			'<img class="LEMsgPhoto" src="${ctx}/GetUserPicture?id=' + message.msgSender + '" />' +
+               	   		'<div class="LEMsgSender"><img src="' + message.content + '" /></div>' +
+        			'</div>';
+               			
+               			
+               		}else {
+           			
+           			   str += leftMsg(message.msgSender,message.content);
+               		}
+           			
+           			
+           			
+           			
            			$('#chat' + message.msgSender + ' .chatContent').append(str);
            			$('div.chatContent').scrollTop('100000');
+           		
+           		
+           		
            		}else {
+					var str = "";
            			
-           			var str = leftMsg(message.msgSender,message.content);
+           			if (message.type == 'img') {
+               			str += '<div class="LEmsg">' +
+               			'<img class="LEMsgPhoto" src="${ctx}/GetUserPicture?id=' + message.msgSender + '" />' +
+               	   		'<div class="LEMsgSender"><img src="' + message.content + '" /></div>' +
+        			'</div>';
+               			
+               			
+               		}else {
+           			
+           			   str += leftMsg(message.msgSender,message.content);
+               		}
+           			
            			newChat(message.msgSender,str);
            			$('div.chatContent').scrollTop('100000');
            		}
@@ -62,6 +105,17 @@
   
      
         $(function () {
+        	
+        	$('body').on("click",".face",function() {
+        		var msgReceiver = $(this).parents('.chat').attr("id").substring(4); 
+            	var json = JSON.stringify ({
+            		type : "img",
+            		msgSender : jUser.userID,
+            		msgReceiver : msgReceiver,
+            		content : $(this).attr("src")
+            	});
+            	ws.send(json);
+        	});
         	
         	 $('body').on("click","img.chatIcon",delChat);
         	
