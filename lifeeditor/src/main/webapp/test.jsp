@@ -566,7 +566,7 @@ $(document).ready(function(){
 		            
 		            str +=
 		            '</table>'+
-		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+		            '<h2 class="post-title bold" style="width:500px;display:inline;letter-spacing:0.05em;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
 		            
 		            if(this.status == 1) {
 		            	str+='<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
@@ -581,7 +581,7 @@ $(document).ready(function(){
 		            }
 		            
 		            str +=
-	                '<p style="cursor:default"> 初 衷 : '+ this.intention + '</p>'+
+	                '<p style="cursor:default;letter-spacing:0.05em;"> 初 衷 : '+ this.intention + '</p>'+
 	                '</div>';  //photoHeader-End
 //--------------------------------------------------------------------------------------------------------//	                
 	                if(!jSpecs[this.targetID]) {

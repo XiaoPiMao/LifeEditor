@@ -36,32 +36,35 @@
 
 <script>
 var jHome = JSON.parse('${jHome}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
-
+console.log(jHome);
 $(function(){
 	//秀出所有朋友的目標
 	var str = "";
-	str += 
-	'<article class="post">' +
-		'<header>' +
-	    	'<div class="title">' +
-			  '<h2><a href="#">' + 目標名稱 + '</a></h2>' +
-			  '<h3>' + 初衷 + '</h3>' +
-			'</div>' +
-		    '<div class="meta">' +
-			  '<a href="#" class="author"><span class="name">' + userName + '</span>' + 
-			  '<img src="' + userIcon + '" /></a>' +
-			'</div>' +
-		'</header>' +
-			'<a href="#" class="image featured"><img src="' + 心得照片 + '" style="width:950px;height:470px;"/></a>' +
-			'<p>' + 心得文 + '</p>' +
-		'<footer>' +
-			'<ul class="stats">' +
-			  '<li><a href="#" class="icon fa-heart">428</a></li>' +
-			  '<li><a href="#" class="icon fa-comment">128</a></li>' +
-			'</ul>' +
-		'</footer>' +
-	'</article>'
+	$.each(jHome,function(){
+		str += 
+			'<article class="post">' +
+				'<header>' +
+			    	'<div class="title">' +
+					  '<h2 style="font-size:28px;color:#686868;font-family:Microsoft JhengHei;font-weight:600;letter-spacing:0.05em;margin-bottom:20px;"><a href="#"> 目 標 : ' + this.trgName + '</a></h2>' +
+					  '<h3 style="font-size:18px;font-weight:500;letter-spacing:0.05em;"> 初 衷 : ' + this.intention + '</h3>' +
+					'</div>' +
+				    '<div class="meta">' +
+					  '<a href="#" class="author"><span class="name">' + this.lastName + this.firstName + '</span>' + 
+					  '<img src="GetUserPicture?id=' + this.userID + '" /></a>' +
+					'</div>' +
+				'</header>' +
+					'<a href="#" class="image featured"><img src="' + this.trgPicPath + '" style="width:950px;height:470px;"/></a>' +
+					'<p style="cursor:default;font-size:18px;letter-spacing:0.05em;font-weight:500;">' + this.trgNote + '</p>' +
+				'<footer>' +
+					'<ul class="stats">' +
+					  '<li><a href="#" class="icon fa-heart">428</a></li>' +
+					  '<li><a href="#" class="icon fa-comment">128</a></li>' +
+					'</ul>' +
+				'</footer>' +
+			'</article>'
+	});
 	
+	$('.col-md-9.col-sm-7').append(str);
 });
 </script>
 </head>
@@ -98,7 +101,6 @@ $(function(){
 			   <img id="hotmanicon" src="GetUserPicture?id=${Target_specVO.userVO.userID}" title="${Target_specVO.userVO.lastName}${Target_specVO.userVO.firstName}" alt="userName" /></a>
 			   </div>
 			</div>
-			
 		  </c:forEach>
 		  </div>
 		</article>
@@ -144,7 +146,7 @@ $(function(){
 <!-- 			<script> -->		
 <script>
 		
-		console.log(jHome);
+		
         window.fbAsyncInit = function() {
                 FB.init({
                	appId : '236995580009135',
