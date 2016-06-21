@@ -565,9 +565,14 @@ $(document).ready(function(){
 		            }
 		            
 		            str +=
-		            '</table>'+
-		            '<h2 class="post-title bold" style="width:500px;display:inline;letter-spacing:0.05em;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+		            '</table>';
 		            
+		            if(this.trgType == 2){
+		            	str +='<h2 class="post-title bold" style="width:500px;display:inline;letter-spacing:0.05em;"><a href=""> 目 標 : ' + this.trgName +'</a><span style="color:red;font-size:28px;">(挑戰任務)</span></h2>';
+		            }else {
+		            	str +='<h2 class="post-title bold" style="width:500px;display:inline;letter-spacing:0.05em;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+		            }
+		            	
 		            if(this.status == 1) {
 		            	str+='<div style="float:right;"><i id="faangledown" class="fa fa-angle-down" style="z-index:9999;top:150px;right:270px;"></i></div>';
 		            }

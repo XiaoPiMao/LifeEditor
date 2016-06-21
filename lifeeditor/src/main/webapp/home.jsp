@@ -44,8 +44,15 @@ $(function(){
 		str += 
 			'<article class="post">' +
 				'<header>' +
-			    	'<div class="title">' +
-					  '<h2 style="font-size:28px;color:#686868;font-family:Microsoft JhengHei;font-weight:600;letter-spacing:0.05em;margin-bottom:20px;"><a href="#"> 目 標 : ' + this.trgName + '</a></h2>' +
+			    	'<div class="title">';
+	
+			if(this.trgType == 2){
+            	str +='<h2 class="post-title bold" style="width:500px;letter-spacing:0.05em;margin-bottom:20px;"><a href=""> 目 標 : ' + this.trgName +'</a><span style="color:red;font-size:28px;">(挑戰任務)</span></h2>';
+            }else {
+            	str +='<h2 class="post-title bold" style="width:500px;display:inline;letter-spacing:0.05em;"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+            }
+		
+		str +=
 					  '<h3 style="font-size:18px;font-weight:500;letter-spacing:0.05em;"> 初 衷 : ' + this.intention + '</h3>' +
 					'</div>' +
 				    '<div class="meta">' +
