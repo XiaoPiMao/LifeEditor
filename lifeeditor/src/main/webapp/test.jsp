@@ -210,12 +210,14 @@ var jAchs = JSON.parse('${jAchs}');
 var data = JSON.parse('${targets}');
 var jHaveGenki = JSON.parse('${jHaveGenki}');
 var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
-console.log(jSpecs);
 
 
 
 
 $(function(){
+	//長出大頭照和名字
+	$('.pull-left a').html('<img style="width:160px;height:160px" src="${ctx}/GetUserPicture?id='+ jUser.userID +'" /><div>' + getComName(jUser.firstName,jUser.lastName) +'</div>');
+	
 	
 	//Enter送出留言
 	$('.col-md-9.col-sm-7').on("keyup", "input[name='inputComment']",function (e) {
@@ -536,7 +538,7 @@ $(document).ready(function(){
               '</div>' +
             '</div>' 
     	})
-    	$('.sidebar-item.recent').html(lastComment);
+    	$('.sidebar-item.recent').append(lastComment);
     	
     	var str = "";
     	
@@ -571,15 +573,15 @@ $(document).ready(function(){
 		            }
 		            
 		            if(this.status == 1){
-		            	str += '<h4 class="post-author">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '結束 : ' + this.timeFinish + '</h4>';
+		            	str += '<h4 class="post-author" style="cursor:default">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '結束 : ' + this.timeFinish + '</h4>';
 		            }else if(this.status ==2){
-		            	str += '<h4 class="post-author" style="color:red;">審 核 中</h4>';
+		            	str += '<h4 class="post-author" style="color:red;cursor:default">審 核 中</h4>';
 		            }else {
-		            	str += '<h4 class="post-author">' + '完 成 : ' + this.doneTime +'</h4>';
+		            	str += '<h4 class="post-author" style="cursor:default">' + '完 成 : ' + this.doneTime +'</h4>';
 		            }
 		            
 		            str +=
-	                '<p> 初 衷 : '+ this.intention + '</p>'+
+	                '<p style="cursor:default"> 初 衷 : '+ this.intention + '</p>'+
 	                '</div>';  //photoHeader-End
 //--------------------------------------------------------------------------------------------------------//	                
 	                if(!jSpecs[this.targetID]) {
@@ -695,11 +697,11 @@ $(document).ready(function(){
         <div class="col-md-3 col-sm-5" >
             <div class="sidebar blog-sidebar" style="margin:30px 50px 0 0;">
                 <div class="sidebar-item  recent">
-<!--                       <div class="media"> -->
-<!--                          <div class="pull-left"> -->
-<!--                              <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" title="123"></a> -->
-<!--                          </div> -->
-<!--                       </div> -->
+                      <div class="media">
+                         <div class="pull-left">
+                             <a href="#"></a>
+                         </div>
+                      </div>
                  </div>
                         <div class="sidebar-item categories">
                             <h3 style='font-weight: bold;'>目 標 類 別</h3>

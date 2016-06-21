@@ -210,12 +210,43 @@ var jAchs = JSON.parse('${jAchs}');
 var data = JSON.parse('${targets}');
 var jHaveGenki = JSON.parse('${jHaveGenki}');
 var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
-console.log(jSpecs);
+
+
+
+haveFaces = false;
+chatNum = 0;
+jFriends = '${jFriends}';
+var friendsHtml = "";
+if(jFriends.length != 0) {
+	jFriends = JSON.parse(jFriends);
+	$.each(jFriends,function(id,friend) {
+		if(friend.firstName.charAt(0).match('[A-z]') ) {
+			friendsHtml += 
+				'<div id="'+ id + '" class="friend">' +
+            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
+            		'<label>' + friend.firstName + '&nbsp;' + friend.lastName + '</label>' + 
+            		'<div class="online"></div>' +
+        		'</div>';
+		}else {
+			friendsHtml +=
+				'<div id="' + id + '" class="friend">' +
+            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
+            		'<label>' + friend.lastName + friend.firstName + '</label>' + 
+            		'<div class="online"></div>' +
+        		'</div>';
+		}
+		
+	})//end each
+	$('#friends').html(friendsHtml);
+}
 
 
 
 
 $(function(){
+	//加上姓名
+	$('.pull-left a').append('<div>' + getName('${param.id}') + '</div>');
+	
 	
 	//Enter送出留言
 	$('.col-md-9.col-sm-7').on("keyup", "input[name='inputComment']",function (e) {
@@ -237,7 +268,7 @@ $(function(){
 						'<div class="panel panel-default arrow left">' +
 			    			'<div class="panel-body">' +
 			        			'<header class="text-left" style="margin-top:-15px;">' +
-			        				'<div class="comment-user"><a href="">'+ getComName(jUser.firstName,jUser.lastName)+'</a></div>' +
+			        				'<div class="comment-user"><a href="getFriendPage?id='+ jUser.userID + '">'+ getComName(jUser.firstName,jUser.lastName)+'</a></div>' +
 			        			'</header>' +
 			        			'<div class="comment-post" style="margin-top:5px;">' +
 			        				'<p>'+ input.val() +'</p>' +
@@ -253,16 +284,16 @@ $(function(){
 	});
 	
 	//post
-	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
-		$(this).parents('#photoHeader').find('table').slideToggle('fast');
-	});
+// 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
+// 		$(this).parents('#photoHeader').find('table').slideToggle('fast');
+// 	});
 	
-	$('.col-md-9.col-sm-7').on("click","#Editor1",function(){
-		$('input[type="hidden"]').val($(this).parents('#photoItem').attr("name"));
-    	$('.background').show();
-    	$("#inputSpec").fadeIn("slow");
-    	$('.Editor').hide();
-	});
+// 	$('.col-md-9.col-sm-7').on("click","#Editor1",function(){
+// 		$('input[type="hidden"]').val($(this).parents('#photoItem').attr("name"));
+//     	$('.background').show();
+//     	$("#inputSpec").fadeIn("slow");
+//     	$('.Editor').hide();
+// 	});
 	
 	//顯示誰按讚
 	$('.col-md-9.col-sm-7').on("mouseover",".eye",function(){
@@ -359,7 +390,29 @@ $(function(){
 		    preview(this);
 		})
 		
-		
+		//上傳心得
+		$("#postBtn").click(function(){
+			
+			var myForm = document.querySelector("#inputSpec>form");
+			var postData = new FormData(myForm);
+			postData.append("action","Target_Spec_insert");
+			alert($('input[type="hidden"]').val());
+			alert($('textarea[name="input_target_Note"]').val());
+			myForm.reset();
+			$('.preview').attr("src","");
+// 			 $.ajax(
+// 			{
+// 				url : "target_Spec/Target_specServlet.do",
+// 				type: "POST",
+// 				data : postData,
+// 	       		processData: false,
+// 				contentType: false,
+// 	            success:function(data) 
+// 	            {
+// 				},
+// 			});
+			
+		})// postBtn
 	
 
 	//Comments
@@ -380,7 +433,7 @@ $(function(){
 						'<div class="panel panel-default arrow left">' +
 			    			'<div class="panel-body">' +
 			        			'<header class="text-left" style="margin-top:-15px;">' +
-			        				'<div class="comment-user"><a href="">'+ getComName(this.firstName,this.lastName)+'</a></div>' +
+			        				'<div class="comment-user"><a href="getFriendPage?id='+ this.userID + '">'+ getComName(this.firstName,this.lastName)+'</a></div>' +
 			        			'</header>' +
 			        			'<div class="comment-post" style="margin-top:5px;">' +
 			        				'<p>'+ this.comment +'</p>' +
@@ -433,33 +486,10 @@ $(function(){
 		}
 	});
 	
-	haveFaces = false;
-    chatNum = 0;
-	jFriends = '${jFriends}';
-	var friendsHtml = "";
-	if(jFriends.length != 0) {
-		jFriends = JSON.parse(jFriends);
-		$.each(jFriends,function(id,friend) {
-			if(friend.firstName.charAt(0).match('[A-z]') ) {
-				friendsHtml += 
-					'<div id="'+ id + '" class="friend">' +
-	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
-	            		'<label>' + friend.firstName + '&nbsp;' + friend.lastName + '</label>' + 
-	            		'<div class="online"></div>' +
-	        		'</div>';
-			}else {
-				friendsHtml +=
-					'<div id="' + id + '" class="friend">' +
-	            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
-	            		'<label>' + friend.lastName + friend.firstName + '</label>' + 
-	            		'<div class="online"></div>' +
-	        		'</div>';
-			}
-			
-		})//end each
-		$('#friends').html(friendsHtml);
-	}
+	
 	 
+	
+	
 });
 //拿到名字
 function getComName(firstName,lastName) {
@@ -514,7 +544,7 @@ $(document).ready(function(){
               '</div>' +
             '</div>' 
     	})
-    	$('.sidebar-item.recent').html(lastComment);
+    	$('.sidebar-item.recent').append(lastComment);
     	
     	var str = "";
     	
@@ -529,8 +559,35 @@ $(document).ready(function(){
 		            '<div id="photoHeader"  style="position:relative;">' +  //photoHeader-Start
 		            '<table class="Editor" style="background-color:white;display:none;width:300px;position:absolute;z-index:1;right:20px;">';
 		           
+		            if(this.status == 1) {
+		            	 str+='<tr id="Editor1" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td><a>上傳心得</a></td></tr>';
+		            }
+		           
+ 					
+		            if(this.trgType == 3 && this.status==1) {
+ 						str += '<tr class="compltTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>完成目標</a></td></tr>';
+		            }else if(this.status==1 && jSpecs[this.targetID]){
+		            	str += '<tr class="checkTr" style="border:1px solid #cccccc;line-height:50px;width:200px;height:70px;text-align:center;cursor:pointer;"><td ><a>送出審核</a></td></tr>';
+		            }
+		            
 		            str +=
-	                '<p> 初 衷 : '+ this.intention + '</p>'+
+		            '</table>'+
+		            '<h2 class="post-title bold" style="width:500px;display:inline"><a href=""> 目 標 : ' + this.trgName +'</a></h2>';
+		            
+		            if(this.status == 1) {
+		            	str+='<div style="float:right;"></div>';
+		            }
+		            
+		            if(this.status == 1){
+		            	str += '<h4 class="post-author" style="cursor:default">開 始  : '+ this.timeStart + '&nbsp;&nbsp;&nbsp;' + '結束 : ' + this.timeFinish + '</h4>';
+		            }else if(this.status ==2){
+		            	str += '<h4 class="post-author" style="color:red;cursor:default">審 核 中</h4>';
+		            }else {
+		            	str += '<h4 class="post-author" style="cursor:default">' + '完 成 : ' + this.doneTime +'</h4>';
+		            }
+		            
+		            str +=
+	                '<p style="cursor:default"> 初 衷 : '+ this.intention + '</p>'+
 	                '</div>';  //photoHeader-End
 //--------------------------------------------------------------------------------------------------------//	                
 	                if(!jSpecs[this.targetID]) {
@@ -646,11 +703,11 @@ $(document).ready(function(){
         <div class="col-md-3 col-sm-5" >
             <div class="sidebar blog-sidebar" style="margin:30px 50px 0 0;">
                 <div class="sidebar-item  recent">
-<!--                       <div class="media"> -->
-<!--                          <div class="pull-left"> -->
-<!--                              <a href="#"><img src="singlecolor/images/portfolio/project1.jpg" title="123"></a> -->
-<!--                          </div> -->
-<!--                       </div> -->
+                      <div class="media">
+                         <div class="pull-left">
+                             <a href="#"><img style="width:160px;height:160px" src="${ctx}/GetUserPicture?id=${param.id}" title=""></a>
+                         </div>
+                      </div>
                  </div>
                         <div class="sidebar-item categories">
                             <h3 style='font-weight: bold;'>目 標 類 別</h3>

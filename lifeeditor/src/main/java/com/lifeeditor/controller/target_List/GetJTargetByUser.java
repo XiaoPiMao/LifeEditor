@@ -136,13 +136,13 @@ public class GetJTargetByUser extends HttpServlet {
 		
 		genkiBar_listService gblSvc = new genkiBar_listService();
 		List<genkiBar_listVO> genkis = gblSvc.haveGenki(userID, userID);
-		
+		System.out.println("jHaveGenki");
 		jsonObj = new JsonObject();
 		for(genkiBar_listVO genki : genkis) {
 			jsonObj.addProperty(genki.getTargetID().toString(), true);
 		}
 		request.setAttribute("jHaveGenki", jsonObj.toString());
-		System.out.println("jHaveGenki");
+		
 		
 		
 		request.getRequestDispatcher("/test.jsp").forward(request, response);
