@@ -16,7 +16,7 @@
         ws = new WebSocket("ws://" + document.location.host + "/lifeeditor/chat/" + jUser.userID);
 
         ws.onmessage = function(event) {
-            console.log(event.data);
+            alert(event.data);
             var message = JSON.parse(event.data);
            	if(message.msgSender == jUser.userID) {
            		
