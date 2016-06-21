@@ -37,7 +37,7 @@ $(document).ready(function(){
             <tr>
                 <th>會員帳號</th>
                 <th>會員姓名</th>
-                <th>目標名稱</th>
+                <th>使用者頁面</th>
                 <th>GenkiBarTol</th>
                 <th>熱門人物</th>
             </tr>
@@ -47,7 +47,7 @@ $(document).ready(function(){
 	         <tr align='center' valign='middle'>
 				<td>${user_specVO.account}</td>
 				<td>${user_specVO.lastName} ${user_specVO.firstName}</td>
-				<td></td>
+				<td><a href="${ctx}/viewUser?id=${user_specVO.userID}">查看</a></td>
 				<td>${user_specVO.genkiBarTol}</td>
 				<td>
 				<select size="1" class="selHotMan" id="${user_specVO.userID}">

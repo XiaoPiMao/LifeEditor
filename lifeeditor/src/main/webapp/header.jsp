@@ -316,7 +316,7 @@ body {
 				<li><a href="${ctx}/addfriend.jsp">朋友</a></li>
 				<li><a href="${ctx}/ShowChallenge">挑戰任務</a></li>	
 				<li><a href="${ctx}/search_challenge.jsp">搜尋任務</a></li>
-				<li><a href="${ctx}/show_event_on_client/show_event_on_client.jsp">參考活動</a></li>														
+				<li><a href="${ctx}/show_event_on_client.jsp">參考活動</a></li>														
 			</ul>
 				
 		
