@@ -32,6 +32,10 @@
 }
 
 </style>
+<script>
+	var jHome = JSON.parse('${jHome}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
+</script>
+	
 	</head>
 	<body>
 <!-- Wrapper -->
@@ -108,6 +112,8 @@
 			<script src="js/main.js"></script>
 <!-- 			<script> -->		
 <script>
+		
+		console.log(jHome);
         window.fbAsyncInit = function() {
                 FB.init({
                	appId : '236995580009135',

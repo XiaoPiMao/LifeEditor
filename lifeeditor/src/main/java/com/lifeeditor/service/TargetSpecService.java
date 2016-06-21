@@ -100,4 +100,8 @@ public class TargetSpecService {
 		return dao.getByUser(userID);
 	}
 	
+	public List<Target_specVO> getHomePage(Integer userID) {
+		return dao.getHomePage(userID);
+	}
+	
 }
