@@ -576,7 +576,7 @@
 				        			var errMsg = JSON.parse(data);	
 					        	    document.getElementById("ErrorMsg").innerHTML =errMsg.LoginError;       
 				        		}else {
-				        			window.location.href = "home.jsp"
+				        			window.location.href = "${ctx}/home"
 				        		}
 				    		
 				        }
