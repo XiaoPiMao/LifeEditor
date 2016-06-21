@@ -15,7 +15,7 @@ import com.lifeeditor.service.user_specService;
 
 @WebServlet("/forgotPswd.do")
 /** 
- * 发送重设密码申请的链接 
+ *發送重設密碼連結
  */  
 public class ForgotPwdServlet extends HttpServlet {  
       
@@ -35,7 +35,7 @@ public class ForgotPwdServlet extends HttpServlet {
             return;  
         }  
         System.out.println("ccc");
-        // 发送重新设置密码的链接  
+        // 發送重設密碼連結 
         EmailUtils.sendResetPasswordEmail(vo);  
           
       
