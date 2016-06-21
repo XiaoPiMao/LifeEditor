@@ -64,23 +64,6 @@ public class ViewUser extends HttpServlet {
 		request.setAttribute("targets", jsonArray.toString());
 		System.out.println("targets");
 		
-		jsonArray = new JsonArray();
-		commentsService cmtSvc = new commentsService();
-		List<commentsVO> comments = cmtSvc.getCommentByUser(userID);
-		for(commentsVO comment : comments) {
-			jsonObj = new JsonObject();
-			jsonObj.addProperty("targetID", comment.getTargetID());
-			user_specVO gUser = comment.getUser_specVO();
-			jsonObj.addProperty("userID", gUser.getUserID());
-			jsonObj.addProperty("firstName", gUser.getFirstName());
-			jsonObj.addProperty("lastName", gUser.getLastName());
-			jsonObj.addProperty("comment", comment.getComment());
-			jsonArray.add(jsonObj);
-			
-		}
-		request.setAttribute("liveComments", jsonArray.toString());
-		System.out.println("liveComments");
-		
 		ach_listService ach_listSvc = new ach_listService();
 		List<ach_listVO> achLists = ach_listSvc.getAchName(userID);
 		jsonArray = new JsonArray();
@@ -135,15 +118,7 @@ public class ViewUser extends HttpServlet {
 		System.out.println("jSpecs");
 		
 		
-		genkiBar_listService gblSvc = new genkiBar_listService();
-		List<genkiBar_listVO> genkis = gblSvc.haveGenki(userID, userID);
 		
-		jsonObj = new JsonObject();
-		for(genkiBar_listVO genki : genkis) {
-			jsonObj.addProperty(genki.getTargetID().toString(), true);
-		}
-		request.setAttribute("jHaveGenki", jsonObj.toString());
-		System.out.println("jHaveGenki");
 		
 		
 		request.getRequestDispatcher("/test2.jsp").forward(request, response);

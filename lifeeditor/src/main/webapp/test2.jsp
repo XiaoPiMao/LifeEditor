@@ -203,85 +203,22 @@ overflow:hidden;
 <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 <script src="js/main.js"></script>
 <script>
-var uploadFile;
 var jTypes = JSON.parse('${jTypes}');
-var jUser = JSON.parse('${jUser}');
 var jAchs = JSON.parse('${jAchs}');
 var data = JSON.parse('${targets}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));;
-var jHaveGenki = JSON.parse('${jHaveGenki}');
 var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
 
 
 
-haveFaces = false;
-chatNum = 0;
-jFriends = '${jFriends}';
-var friendsHtml = "";
-if(jFriends.length != 0) {
-	jFriends = JSON.parse(jFriends);
-	$.each(jFriends,function(id,friend) {
-		if(friend.firstName.charAt(0).match('[A-z]') ) {
-			friendsHtml += 
-				'<div id="'+ id + '" class="friend">' +
-            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
-            		'<label>' + friend.firstName + '&nbsp;' + friend.lastName + '</label>' + 
-            		'<div class="online"></div>' +
-        		'</div>';
-		}else {
-			friendsHtml +=
-				'<div id="' + id + '" class="friend">' +
-            		'<img src="${ctx}/GetUserPicture?id=' + id + '" />' + 
-            		'<label>' + friend.lastName + friend.firstName + '</label>' + 
-            		'<div class="online"></div>' +
-        		'</div>';
-		}
-		
-	})//end each
-	$('#friends').html(friendsHtml);
-}
+
 
 
 
 
 $(function(){
-	//加上姓名
-	$('.pull-left a').append('<div>' + getName('${param.id}') + '</div>');
 	
 	
-	//Enter送出留言
-	$('.col-md-9.col-sm-7').on("keyup", "input[name='inputComment']",function (e) {
-		if (e.which == 13) {
-	    	//alert($(this).val());
-	    	var input = $(this);
-	    	var photoItem = $(this).parents('#photoItem');
-	    	$.post("insertComment",{targetID:photoItem.attr('name'),comment:$(this).val()},function(){
-	    		//alert(input.val());
-	    		var str = "";
-	    		str +=
-			    	'<div class="oneComment" style="margin-left:30px;">' +
-					'<div class="row"><div class="col-md-1 col-sm-2 hidden-xs" style="margin-right:-20px;">' +   //comment-left-Start
-						'<figure class="thumbnail" style="width:50px;height:50px;padding:0px;">' +    
-						'<img class="img-responsive" style="width:50px;height:50px;" src="${ctx}/GetUserPicture?id='+ jUser.userID+'">' +
-						'</figure>' +   
-					'</div>' +   //comment-left-End
-					'<div class="col-md-10 col-sm-10">' +   //comment-right
-						'<div class="panel panel-default arrow left">' +
-			    			'<div class="panel-body">' +
-			        			'<header class="text-left" style="margin-top:-15px;">' +
-			        				'<div class="comment-user"><a href="getFriendPage?id='+ jUser.userID + '">'+ getComName(jUser.firstName,jUser.lastName)+'</a></div>' +
-			        			'</header>' +
-			        			'<div class="comment-post" style="margin-top:5px;">' +
-			        				'<p>'+ input.val() +'</p>' +
-			        			'</div>' +
-			    			'</div>' +   
-						'</div>' +
-					'</div></div>' +   //comment-right-End
-				'</div>' //oneComment-End
-	    		input.val(""); 
-	    		photoItem.find('.pastComments').append(str);
-	    	})
-	    }
-	});
+	
 	
 	//post
 // 	$('.col-md-9.col-sm-7').on("click","#faangledown",function(){
@@ -295,161 +232,8 @@ $(function(){
 //     	$('.Editor').hide();
 // 	});
 	
-	//顯示誰按讚
-	$('.col-md-9.col-sm-7').on("mouseover",".eye",function(){
-		var str = "";
-		var photoitem =  $(this).parents('#photoItem');
-		$.getJSON("genkiBar",{action : "whoGenki",targetID :photoitem.attr("name")},
-			function(users){
-				$.each(users, function() {
-					str+=getComName(this.firstName,this.lastName) + '<br />';
-				})
-				if(str.length !=0)
-					str += ">>>>>>給予集氣";
-				photoitem.find('.eyeContent').html(str);
 				
-			}
-			
-		);
-		
-	});
-	
-	//關掉誰按讚
-	$('.col-md-9.col-sm-7').on("mouseout",".eye",function(){
-		 $(this).parents('#photoItem').find('.eyeContent').empty();
-		
-	});
-	
-	//按讚
-	$('.col-md-9.col-sm-7').on("click",".fa.fa-heart",function(){
-		var genki = $(this);
-		if(genki.hasClass('gray')) {
-			genki.removeClass('gray');
-			$.post("genkiBar",{action:"insert",targetID:$(this).parents('#photoItem').attr("name")});
-			
-			var label = genki.next('label');
-			var num = Number(label.text());
-			label.text(num+1);
-		}else {
-			genki.addClass('gray');
-			$.post("genkiBar",{action:"delete",targetID:$(this).parents('#photoItem').attr("name")});
-			
-			var label = genki.next('label');
-			var num = Number(label.text());
-			label.text(num-1);
-		}
-	});
-	
-	//完成目標
-	$('.col-md-9.col-sm-7').on("click",".compltTr",function(){
-		var photoItem = $(this).parents('#photoItem');
-		$.post("editTarget",{action:"complete",targetID:photoItem.attr("name")});
-		var today = new Date();
-		photoItem.find('.post-author').html('完 成 : ' + today.getFullYear() + '-' + (today.getMonth()+1) + '-' + today.getDate());
-		photoItem.find('.Editor').hide();
-	});
-	
-	//審核
-	$('.col-md-9.col-sm-7').on("click",".checkTr",function(){
-		var photoItem = $(this).parents('#photoItem');
-		$.post("editTarget",{action:"check",targetID:$(this).parents('#photoItem').attr("name")});
-		photoItem.find('.post-author').html('審 核 中').css('color','red');
-		photoItem.find('.Editor').hide();
-	});
-	
-	
-	//上傳照片的叉叉
-	$('#closeBtn').click(function(){
-		$('.background').hide();
-		$('#inputSpec').hide();
-	})
-	
-	//上傳完心得後恢復
-    $('#postBtn').click(function(){
-    	$('#inputSpec').hide();
-    	$('.background').hide();
-    });
-	
-		
-		//瀏覽照片
-	    function preview(input) {
-			 
-		    if (input.files && input.files[0]) {
-		        var reader = new FileReader();
-		        
-		        reader.onload = function (e) {
-		            $('.preview').attr('src', e.target.result);
-		            uploadFile = e.target.result;
-		        }
 
-		        reader.readAsDataURL(input.files[0]);
-		    }
-		}
-		
-		$("body").on("change", "input[name='insert_targetPic']", function (){
-		    preview(this);
-		})
-		
-		//上傳心得
-		$("#postBtn").click(function(){
-			
-			var myForm = document.querySelector("#inputSpec>form");
-			var postData = new FormData(myForm);
-			postData.append("action","Target_Spec_insert");
-			alert($('input[type="hidden"]').val());
-			alert($('textarea[name="input_target_Note"]').val());
-			myForm.reset();
-			$('.preview').attr("src","");
-			 $.ajax(
-			{
-				url : "target_Spec/Target_specServlet.do",
-				type: "POST",
-				data : postData,
-	       		processData: false,
-				contentType: false,
-	            success:function(data) 
-	            {
-				},
-			});
-			
-		})// postBtn
-	
-
-	//Comments
-	$('.col-md-9.col-sm-7').on("click",".comments",function(){
-		var photoItem = $(this).parents('#photoItem');
-		var str = "";
-		$.getJSON("comment",{targetID:photoItem.attr("name")},function(comments) {
-			console.log("留言:" + comments);
-			$.each(comments,function(){
-				str +=
-			    	'<div class="oneComment" style="margin-left:30px;">' +
-					'<div class="row"><div class="col-md-1 col-sm-2 hidden-xs" style="margin-right:-20px;">' +   //comment-left-Start
-						'<figure class="thumbnail" style="width:50px;height:50px;padding:0px;">' +    
-						'<img class="img-responsive" style="width:50px;height:50px;" src="${ctx}/GetUserPicture?id='+ this.userID+'">' +
-						'</figure>' +   
-					'</div>' +   //comment-left-End
-					'<div class="col-md-10 col-sm-10">' +   //comment-right
-						'<div class="panel panel-default arrow left">' +
-			    			'<div class="panel-body">' +
-			        			'<header class="text-left" style="margin-top:-15px;">' +
-			        				'<div class="comment-user"><a href="getFriendPage?id='+ this.userID + '">'+ getComName(this.firstName,this.lastName)+'</a></div>' +
-			        			'</header>' +
-			        			'<div class="comment-post" style="margin-top:5px;">' +
-			        				'<p>'+ this.comment +'</p>' +
-			        			'</div>' +
-			    			'</div>' +   
-						'</div>' +
-					'</div></div>' +   //comment-right-End
-				'</div>' //oneComment-End
-			});  //each END
-			photoItem.find('.pastComments').html(str);
-			photoItem.find('.allComments').slideToggle('fast');
-		})
-		
-	
-				
-	});
 	
 	//photoBook
 	$('.col-md-9.col-sm-7').on("click",'.carousel-control.left',function(){
@@ -501,12 +285,10 @@ function getComName(firstName,lastName) {
 }
 
 </script>
-<script src="${ctx}/js/chatroom.js"></script>
+
 <script>
     
-    //console.log(jSpecs);
-    console.log(data );
-    console.log(jHaveGenki);
+
    
     var catogoryNum = new Object();
     $.each(jTypes,function() {
@@ -529,22 +311,7 @@ $(document).ready(function(){
 	    });
 	    $('.sidebar-item.popular').html(AchList);
 	
-    	liveComments = JSON.parse('${liveComments}');
-    	//console.log(liveComments);
-    	var lastComment ="<h3 style='font-weight: bold;'>最 新 留 言</h3>";
-    	$.each(liveComments,function(){
-    		lastComment += 
-            '<div class="media">' +
-               '<div class="pull-left">' +
-                   '<a href="#"><img style="border-radius:50%;height:55px;width:55px;" src="${ctx}/GetUserPicture?id=' + this.userID +'"></a>' +
-               '</div>' +
-             '<div class="media-body">' +
-                  '<h4><a href="#">' +  this.comment + '</a></h4>' +
-                   '<p>'+ getComName(this.firstName,this.lastName) + '</p>' +
-              '</div>' +
-            '</div>' 
-    	})
-    	$('.sidebar-item.recent').append(lastComment);
+    	
     	
     	var str = "";
     	
@@ -616,47 +383,10 @@ $(document).ready(function(){
 		                		'</div>' ;    //#myCarousel-End
 	                	})
 	                }
-	        str += '<div class="eyeContent"></div>';
 //--------------------------------------------------------------------------------------------------------//            		
-            str  +='<div class="post-content overflow">' +      //Icon
-	                '<div class="post-bottom overflow">'+   
-	                    '<ul class="nav navbar-nav post-nav">'+
-	                        '<li><a href="#"><i class="fa fa-tag"></i>'+ this.typeName + '</a></li>';
-	                        if(jHaveGenki[this.targetID]) {
-	                        	str+='<li style="cursor:pointer"><a><i class="fa fa-heart"></i><label style="font-weight:300;font-size:18px;">'+ this.genkiBar + '</label></a></li>';
-	                        }else {
-	                        	str+='<li style="cursor:pointer"><a><i class="fa fa-heart gray"></i><label style="font-weight:300;font-size:18px;">'+ this.genkiBar + '</label></a></li>';
-	                        }
-		               str+='<li class="eye"><a><i class="fa fa-eye fa-lg" style="position:relative;top:3px;"></i></a></i>'+
-		            	   '<li class="comments" style="cursor:pointer"><a><i class="fa fa-comments"></i> Comments</a></li>'+
-	                    '</ul>'+
-	                '</div>'+
-	            '</div>'+ 
-	            
-	            '<div class="row allComments" style="display:none">' +    //comments-Start
-	            '<div class="pastComments"></div>'+  //pastComments
+            
                 
-                '<div class="myComment" style="margin-left:30px;">' +
-	            	'<div class="row"><div class="col-md-1 col-sm-2 hidden-xs" style="margin-right:-20px;">' +   //comment-left-Start
-	            		'<figure class="thumbnail" style="width:50px;height:50px;padding:0px;">' +    
-	            			'<img class="img-responsive" style="width:50px;height:50px;style="margin-right:-20px;" src="${ctx}/GetUserPicture?id=' + jUser.userID + '">' +
-	            		'</figure>' +   
-	            	'</div>' +   //comment-left-End
-	            	'<div class="col-md-10 col-sm-10">' +   //comment-right
-	            		'<div class="panel panel-default arrow left">' +
-		            		'<div class="panel-body">' +
-			            		'<header class="text-left">' +
-			            			'<div class="comment-user" style="margin-top:-15px;"><a href="">'+ getComName(jUser.firstName,jUser.lastName) +'</a></div>' +
-			            		'</header>' +
-		            			'<div class="comment-post" style="margin-top:5px;">' +
-		            			'<input name="inputComment" placeholder="留言......" style="width:100%"/>' +
-                			'</div>' +
-                		'</div>' +   
-                	'</div></div>' +//comment-right-End
-                '</div>' +//myComment
-                '</div>' +   //comments-End
-                
-                '</div>' +   //carousel-inner-End
+                str+='</div>' +   //carousel-inner-End
             '</div>' +    //photoItem-End  
 		    '</div>' // The End
   
