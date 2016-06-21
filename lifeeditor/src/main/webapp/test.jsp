@@ -210,11 +210,12 @@ var jAchs = JSON.parse('${jAchs}');
 var data = JSON.parse('${targets}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
 var jHaveGenki = JSON.parse('${jHaveGenki}');
 var jSpecs = JSON.parse('${jSpecs}'.replace(/\n/g,'\\n').replace(/\r/g,'\\r'));
-
+console.log(jSpecs);
 
 
 
 $(function(){
+	
 	//長出大頭照和名字
 	$('.pull-left a').html('<img style="width:160px;height:160px" src="${ctx}/GetUserPicture?id='+ jUser.userID +'" /><div>' + getComName(jUser.firstName,jUser.lastName) +'</div>');
 	
@@ -367,11 +368,8 @@ $(function(){
 			var myForm = document.querySelector("#inputSpec>form");
 			var postData = new FormData(myForm);
 			postData.append("action","Target_Spec_insert");
-			alert($('input[type="hidden"]').val());
-			alert($('textarea[name="input_target_Note"]').val());
-			myForm.reset();
-			$('.preview').attr("src","");
-			 $.ajax(
+			
+			$.ajax(
 			{
 				url : "target_Spec/Target_specServlet.do",
 				type: "POST",
@@ -380,11 +378,63 @@ $(function(){
 				contentType: false,
 	            success:function(data) 
 	            {
+	            	var targetID = $('input[type="hidden"]').val();
+	    			var pic =  $('.preview').attr("src")  
+	    			var trgNote = $('textarea[name="input_target_Note"]').val();
+	    			
+	    			var photoItem = $('div[name=' + targetID +']');
+	    			
+	    			if(!jSpecs[targetID]) {
+	    				photoItem.find('.post-thumb').remove();
+	    				photoItem.find('#photoHeader').after(newCarousel(pic,trgNote));
+	    			}else {
+	    				var carousels = photoItem.find('.carousel.slide');
+	    				//移除Active
+	    				$.each(carousels,function(){
+	    					var item = $(this).find('.item');
+	    					if(item.hasClass('active')) {
+	    						item.removeClass('active');
+	    						return false;
+	    					}
+	    				})
+	    				
+	    				photoItem.find('#photoHeader').after(newCarousel(pic,trgNote));
+	    			}
+	    			
+	    			//清除上傳心得資料
+	    			myForm.reset();
+	    			$('.preview').attr("src","");
+	            	
 				},
 			});
 			
 		})// postBtn
 	
+		
+	function newCarousel(pic,trgNote) {
+		var str = "";
+	
+		str += 
+			'<div class="carousel slide" id="myCarousel">' +    //Carousel-Start
+			'<div class="carousel-inner">' +  
+	  		'<div class="item active">' +
+			'<div class="post-thumb">' +   //photo-Start
+	        	 '<img style="width:920px;height:470px;" src=' + pic +'>'+
+	    	 '</div>' +   //photo-End
+	 		'<div class="span8"><p>' + trgNote +'</p></div>' +
+	    	 '</div>' +   //item active-End
+		    '<div class="control-box">' +                            
+						'<a data-slide="prev"  class="carousel-control left">‹</a>' +
+				'<a data-slide="next"  class="carousel-control right">›</a>' +
+				'</div>' +     //control-box-End  
+				'</div>' +  //carousel-innerEnd
+			'</div>' ;    //#myCarousel-End
+			
+			return str;
+	}
+	 
+		
+ 	    
 
 	//Comments
 	$('.col-md-9.col-sm-7').on("click",".comments",function(){
@@ -417,9 +467,6 @@ $(function(){
 			photoItem.find('.pastComments').html(str);
 			photoItem.find('.allComments').slideToggle('fast');
 		})
-		
-	
-				
 	});
 	
 	//photoBook
