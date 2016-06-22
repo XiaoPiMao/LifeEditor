@@ -241,7 +241,7 @@ function showimage(num){
 
 <body style="background-color:#FAD6B1;">
 
-<jsp:include page="..//header.jsp"></jsp:include>
+<jsp:include page="/header.jsp"></jsp:include>
 <br>
 
 <!-- 將servlet取到的所有值傳到這個網頁，用foreach讀出來之後，將值放入排版的欄位，顯示出來 -->
