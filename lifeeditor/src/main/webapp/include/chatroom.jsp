@@ -78,8 +78,9 @@
                		}
            			
            			newChat(message.msgSender,str);
-           			$('div.chatContent').scrollTop('100000');
+           			
            		}
+           		
            	}
         };
     }
@@ -180,9 +181,28 @@
                     		str += '<div class="minMsgID" name="' + msg.messageID + '" style="display:none;"></div>'
                     	
                     	if(msg.msgSender == jUser.userID) 
-                    		str += rightMsg(msg.content);
-                    	else
-                    		str += leftMsg(msg.msgSender,msg.content);
+                    		if(msg.content.substr(-4) == '.png') {
+                    			str += '<div class="LEmsg">' +
+                       	   		'<div class="LEMsgReceiver"><img src="' + msg.content + '" /></div>' +
+                				'<div style="clear:both;" ></div>'+
+                				'</div>';
+                    		}
+                    		else {
+                    			str += rightMsg(msg.content);
+                    		}
+                    		
+                    	else {
+                    		if(msg.content.substr(-4) == '.png') {
+                    			str += '<div class="LEmsg">' +
+                       			'<img class="LEMsgPhoto" src="${ctx}/GetUserPicture?id=' + msg.msgSender + '" />' +
+                       	   		'<div class="LEMsgSender"><img src="' + msg.content + '" /></div>' +
+                				'</div>';
+                    		}
+                    		else {
+                    			str += leftMsg(msg.msgSender,msg.content);
+                    		}
+                    	}
+                    		
                     	
                     		
                     	
@@ -198,7 +218,7 @@
           			"</div>"
           			chatNum++;
                      $('#chats').append(str);
-          			 $('div.chatContent').scrollTop('500');
+          			 $('div.chatContent').scrollTop('10000000');
                      
             	})
                 

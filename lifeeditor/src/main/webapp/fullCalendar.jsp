@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<title>行事曆</title>
 
 <link href='css/fullCalendar/fullcalendar.css' rel='stylesheet' />
 <link href='css/fullCalendar/fullcalendar.print.css' rel='stylesheet' media='print' />

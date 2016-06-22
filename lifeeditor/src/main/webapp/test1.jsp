@@ -501,7 +501,6 @@ function getComName(firstName,lastName) {
 }
 
 </script>
-<script src="${ctx}/js/chatroom.js"></script>
 <script>
     
     //console.log(jSpecs);
@@ -878,7 +877,6 @@ $(document).ready(function(){
 
     <div class="background"></div>
     <script>
-    <script>
     var ws;
     var jUser = JSON.parse('${jUser}');
     connect();
@@ -893,21 +891,65 @@ $(document).ready(function(){
             
             
            	if(message.msgSender == jUser.userID) {
-           		var str = rightMsg(message.content);
+           		var str = "";
+           		if (message.type == 'img') {
+           			str += '<div class="LEmsg">' +
+           	   		'<div class="LEMsgReceiver"><img src="' + message.content + '" /></div>' +
+    				'<div style="clear:both;" ></div>'+
+    			'</div>';
+           			
+           			
+           		}else {
+           			str += rightMsg(message.content);
+           		}
+           		
+           	
            		
            		$('#chat' + message.msgReceiver + ' .chatContent').append(str);
            		$('div.chatContent').scrollTop('100000');
            	}else {
            		if(document.getElementById("chat" + message.msgSender)) {
-           			var str = leftMsg(message.msgSender,message.content);
+           			var str = "";
+           			
+           			if (message.type == 'img') {
+               			str += '<div class="LEmsg">' +
+               			'<img class="LEMsgPhoto" src="${ctx}/GetUserPicture?id=' + message.msgSender + '" />' +
+               	   		'<div class="LEMsgSender"><img src="' + message.content + '" /></div>' +
+        			'</div>';
+               			
+               			
+               		}else {
+           			
+           			   str += leftMsg(message.msgSender,message.content);
+               		}
+           			
+           			
+           			
+           			
            			$('#chat' + message.msgSender + ' .chatContent').append(str);
            			$('div.chatContent').scrollTop('100000');
+           		
+           		
+           		
            		}else {
+					var str = "";
            			
-           			var str = leftMsg(message.msgSender,message.content);
+           			if (message.type == 'img') {
+               			str += '<div class="LEmsg">' +
+               			'<img class="LEMsgPhoto" src="${ctx}/GetUserPicture?id=' + message.msgSender + '" />' +
+               	   		'<div class="LEMsgSender"><img src="' + message.content + '" /></div>' +
+        			'</div>';
+               			
+               			
+               		}else {
+           			
+           			   str += leftMsg(message.msgSender,message.content);
+               		}
+           			
            			newChat(message.msgSender,str);
-           			$('div.chatContent').scrollTop('100000');
+           			
            		}
+           		
            	}
         };
     }
@@ -933,6 +975,17 @@ $(document).ready(function(){
   
      
         $(function () {
+        	
+        	$('body').on("click",".face",function() {
+        		var msgReceiver = $(this).parents('.chat').attr("id").substring(4); 
+            	var json = JSON.stringify ({
+            		type : "img",
+            		msgSender : jUser.userID,
+            		msgReceiver : msgReceiver,
+            		content : $(this).attr("src")
+            	});
+            	ws.send(json);
+        	});
         	
         	 $('body').on("click","img.chatIcon",delChat);
         	
@@ -968,7 +1021,7 @@ $(document).ready(function(){
                 }
                    
             });
-            $('#chatroom').click(function () {
+            $('document').on("click","#chatroom",function () {
                 $('.chatroomOff').toggleClass('chatroomON');
                 $('#friends').toggleClass('on');
             })
@@ -997,13 +1050,28 @@ $(document).ready(function(){
                     		str += '<div class="minMsgID" name="' + msg.messageID + '" style="display:none;"></div>'
                     	
                     	if(msg.msgSender == jUser.userID) 
-                    		str += rightMsg(msg.content);
-                    	else
-                    		str += leftMsg(msg.msgSender,msg.content);
-                    	
+                    		if(msg.content.substr(-4) == '.png') {
+                    			str += '<div class="LEmsg">' +
+                       	   		'<div class="LEMsgReceiver"><img src="' + msg.content + '" /></div>' +
+                				'<div style="clear:both;" ></div>'+
+                				'</div>';
+                    		}
+                    		else {
+                    			str += rightMsg(msg.content);
+                    		}
                     		
-                    	
-                    	
+                    	else {
+                    		if(msg.content.substr(-4) == '.png') {
+                    			str += '<div class="LEmsg">' +
+                       			'<img class="LEMsgPhoto" src="${ctx}/GetUserPicture?id=' + msg.msgSender + '" />' +
+                       	   		'<div class="LEMsgSender"><img src="' + msg.content + '" /></div>' +
+                				'</div>';
+                    		}
+                    		else {
+                    			str += leftMsg(msg.msgSender,msg.content);
+                    		}
+                    	}
+                    		
                      })// each
                       if(appendMsg) {
                      	str += appendMsg;
@@ -1015,7 +1083,7 @@ $(document).ready(function(){
           			"</div>"
           			chatNum++;
                      $('#chats').append(str);
-          			 $('div.chatContent').scrollTop('500');
+          			 $('div.chatContent').scrollTop('10000000');
                      
             	})
                 
