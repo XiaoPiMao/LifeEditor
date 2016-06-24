@@ -27,7 +27,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=BIG5">
-<title>Insert title here</title>
+<title>參考活動</title>
 </head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 <!-- Optional theme -->
@@ -241,7 +241,7 @@ function showimage(num){
 
 <body style="background-color:#FAD6B1;">
 
-<jsp:include page="..//header.jsp"></jsp:include>
+<jsp:include page="/header.jsp"></jsp:include>
 <br>
 
 <!-- 將servlet取到的所有值傳到這個網頁，用foreach讀出來之後，將值放入排版的欄位，顯示出來 -->
