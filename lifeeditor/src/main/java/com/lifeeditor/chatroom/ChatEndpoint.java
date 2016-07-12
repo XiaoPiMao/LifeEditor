@@ -13,6 +13,8 @@ import javax.websocket.*;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
+import com.lifeeditor.service.MessageService;
+
 
 @ServerEndpoint(
         value="/chat/{userID}",
@@ -37,6 +39,8 @@ public class ChatEndpoint {
     public void onMessage(Session session, Message message) throws IOException, EncodeException {
         log.info(message.toString());
         sendMessage(message);
+        MessageService msgSvc = new MessageService();
+		msgSvc.insertMessage(message.getMsgSender(), message.getMsgReceiver(), message.getContent());
     }
 
     @OnClose
@@ -70,11 +74,13 @@ public class ChatEndpoint {
 				try {
 					System.out.println("send");
 					s.getBasicRemote().sendObject(message);
+					
 				}catch(Exception e) {
 	    			System.out.println("傳訊息錯誤");
 	    		}
 			}
-    		
+
+			
     	}
     }
 

@@ -90,7 +90,7 @@
 	</div><! --/headerwrap -->
 
 	
-	<div  style="font-size:35px;"> 系統正在寄信給您，請至您的信箱收信</div>
+	<center><div  style="font-size:35px;"> 系統正在寄信給您，請至您的信箱收信</div></center>
 
 				</div><!-- col-lg-4 -->
 			</div><!-- /row -->

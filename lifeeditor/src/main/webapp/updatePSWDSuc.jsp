@@ -246,7 +246,7 @@
 	</div><! --/headerwrap -->
 
 	
-	<div  style="font-size:35px;"> 修改密碼成功，請使用新密碼登入</div>
+	<center><div  style="font-size:35px; "> 修改密碼成功，請使用新密碼登入</div></center>
 
 				</div><!-- col-lg-4 -->
 			</div><!-- /row -->

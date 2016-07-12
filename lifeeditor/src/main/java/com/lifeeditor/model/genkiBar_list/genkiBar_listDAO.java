@@ -164,9 +164,12 @@ public class genkiBar_listDAO implements genkiBar_listDAO_interface{
 	@Override
 	public List<genkiBar_listVO> haveGenki(Integer localID, Integer trgID) {
 		Connection conn = null;
+		System.out.println("DAOSayHello");
 		List<genkiBar_listVO> list = new ArrayList<>();
 		try {
+			System.out.println("DAOStart");
 			conn = ds.getConnection();
+			System.out.println("DAOConn");
 			PreparedStatement pstmt = conn.prepareStatement(HAVE_GENKI);
 			pstmt.setInt(1, trgID);
 			pstmt.setInt(2, localID);
@@ -178,14 +181,15 @@ public class genkiBar_listDAO implements genkiBar_listDAO_interface{
 				gbList.setTargetID(rs.getInt("targetID"));
 				list.add(gbList);
 			}
-			
-		} catch (SQLException e) {
+			System.out.println("DAOEnd");
+		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if(conn != null) {
 				try {
+					System.out.println("close");
 					conn.close();
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}

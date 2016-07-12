@@ -127,8 +127,11 @@
             border-bottom : 1px solid #CCCCCC;
             overflow-y:auto;
             overflow-x:hidden;
-            transform: rotate(-180deg);
+            padding-top : 10px;
+            padding-bottom : 10px;
         }
+       
+        
         div.chatInput {
             width:248px;
             height : 33px;
@@ -219,7 +222,7 @@
         	background-color:white;
         	width:auto;
         	padding:6px;
-        	border:1px solid #DDDDDD;
+        	border:1px solid #CCCCCC;
         	border-radius:12px;
         	font-size : 10pt;
         	

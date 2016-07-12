@@ -5,8 +5,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <%
-  user_specVO user = (user_specVO)session.getAttribute("LoginOK");
-  ChatEndpoint.onlinePool.remove(user.getUserID());
+  if(session.getAttribute("LoginOK") != null) {
+  	user_specVO user = (user_specVO)session.getAttribute("LoginOK");
+  	if(ChatEndpoint.onlinePool.containsKey(user.getUserID()))    
+  	  ChatEndpoint.onlinePool.remove(user.getUserID());
+  }
   session.invalidate();
 %>
 <head>

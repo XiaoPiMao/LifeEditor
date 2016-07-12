@@ -50,7 +50,7 @@ public class EmailUtils {
     }
     
     /** 
-     * 发送重设密码链接的邮件 
+     * 發送重設密碼的EMAIL
      */  
     public static void sendResetPasswordEmail(user_specVO user_specVO) {  
     	System.out.println(user_specVO.getEmail());
@@ -62,7 +62,7 @@ public class EmailUtils {
             message.setFrom(new InternetAddress(FROM));  
             message.setRecipient(RecipientType.TO, new InternetAddress(user_specVO.getEmail()));  
             message.setContent("請點選連結設定新密碼:<br/><a href='" + GenerateLinkUtils.generateResetPwdLink(user_specVO) +"'>點擊重設新密碼</a>","text/html;charset=utf-8");  
-            // 发送邮件  
+            // 發送EMAIL  
             Transport.send(message);  
         } catch (Exception e) {  
             e.printStackTrace();  
