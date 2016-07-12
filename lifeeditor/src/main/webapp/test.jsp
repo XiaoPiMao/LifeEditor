@@ -250,7 +250,7 @@ $(function(){
 				'</div>' //oneComment-End
 	    		input.val(""); 
 	    		photoItem.find('.pastComments').append(str);
-	    	})
+	    	})	
 	    }
 	});
 	
