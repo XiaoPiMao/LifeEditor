@@ -72,7 +72,7 @@ public class Target_specJDBCDAO implements Target_specDAO_interface {
 			"SELECT u.trgSpecID,u.userID,u.firstName,u.lastName,u.targetID,u.trgNote,u.trgPicPath,t.trgName,t.intention FROM target t JOIN "+
 			"(SELECT TOP 10 ts.trgSpecID,u.userID,u.firstName,u.lastName,ts.targetID,ts.trgNote,ts.trgPicPath FROM target_spec ts JOIN " +
 				"(SELECT u.userID,u.firstName,u.lastName FROM user_spec u JOIN" +
-					"(SELECT friendID FROM friend WHERE userID = ? UNION (SELECT ? as friendID)) f ON u.userID = f.friendID) u "+
+					"(SELECT friendID FROM friend WHERE userID = ? UNION (SELECT ? as friendID) UNION (SELECT userid FROM user_spec WHERE hotman = 'true')) f ON u.userID = f.friendID) u "+
 			"ON ts.userID = u.userID ORDER BY ts.trgSpecID DESC)u "+
 			"ON u.targetID = t.targetID";
 	
